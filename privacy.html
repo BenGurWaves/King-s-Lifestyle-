@@ -1,0 +1,78 @@
+<!-- privacy.html – v0.0.3 -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Privacy Policy — A King's Lifestyle</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>tailwind.config={darkMode:'class',theme:{extend:{colors:{royal:{green:'#052B20',cream:'#FFF6E6',gold:'#A38255',plum:'#571641',sapphire:'#08052D'}},fontFamily:{cinzel:['Cinzel','serif'],inter:['Inter','sans-serif'],playfair:['Playfair Display','serif']},animation:{fadeIn:'fadeIn 0.8s ease-out forwards',fadeInUp:'fadeInUp 0.8s ease-out forwards'},keyframes:{fadeIn:{'0%':{opacity:'0'},'100%':{opacity:'1'}},fadeInUp:{'0%':{opacity:'0',transform:'translateY(24px)'},'100%':{opacity:'1',transform:'translateY(0)'}}}}}};</script>
+  <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600;700&family=Inter:wght@300;400;500;600&family=Playfair+Display:ital,wght@0,400;0,600;1,400&display=swap" rel="stylesheet">
+  <script src="https://unpkg.com/@supabase/supabase-js@2" defer></script>
+  <style>.bg-parchment{background-image:url("data:image/svg+xml,%3Csvg width='100' height='100' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.8' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100' height='100' filter='url(%23n)' opacity='0.03'/%3E%3C/svg%3E");}.gold-glow:hover{box-shadow:0 0 30px rgba(163,130,85,0.25);}.dark .bg-parchment{background-color:#0a0a0a;}.dark body{background-color:#0a0a0a;color:#e0d5c4;}</style>
+</head>
+<body class="bg-royal-cream bg-parchment font-inter text-royal-sapphire min-h-screen">
+
+  <!-- Header -->
+  <header class="pt-16 pb-8 text-center animate-fadeIn">
+    <a href="index.html" class="inline-block group">
+      <svg class="w-12 h-12 mx-auto text-royal-gold group-hover:scale-105 transition-transform duration-300" viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <path d="M50 8L62 28L78 16L72 38L94 38L76 52L86 74L62 62L50 82L38 62L14 74L24 52L6 38L28 38L22 16L38 28L50 8Z" fill="currentColor"/>
+        <circle cx="50" cy="45" r="8" fill="#FFF6E6"/>
+      </svg>
+    </a>
+  </header>
+
+  <!-- Content -->
+  <main class="max-w-2xl mx-auto px-6 pb-24 animate-fadeInUp">
+
+    <h1 class="font-cinzel text-3xl md:text-4xl font-semibold text-royal-green text-center mb-4 tracking-wide">Privacy Policy</h1>
+    <p class="text-center text-royal-gold text-sm mb-16 tracking-wider uppercase">Last updated: March 2026</p>
+
+    <div class="space-y-12 text-royal-sapphire/80 leading-relaxed text-[15px]">
+
+      <section>
+        <h2 class="font-cinzel text-lg font-semibold text-royal-green mb-3">Information We Collect</h2>
+        <p>A King's Lifestyle collects only the information you voluntarily provide. This includes profile details such as your name, preferences for daily routines, and any personal goals or habits you choose to track within the application. We do not collect data passively or without your knowledge.</p>
+      </section>
+
+      <section>
+        <h2 class="font-cinzel text-lg font-semibold text-royal-green mb-3">Data Storage</h2>
+        <p>Your data is stored locally on your device using your browser's localStorage. This means your information remains on your machine by default and is not transmitted elsewhere. If you choose to create an account and enable cloud sync, your data will be stored securely in our Supabase-hosted database. You may use the application entirely offline with local storage alone.</p>
+      </section>
+
+      <section>
+        <h2 class="font-cinzel text-lg font-semibold text-royal-green mb-3">Cookies &amp; Local Data</h2>
+        <p>We use localStorage to persist your preferences, progress, and application state between sessions. We do not use tracking cookies, advertising cookies, or any third-party cookie-based analytics. The only data stored in your browser is what you directly create through using the application.</p>
+      </section>
+
+      <section>
+        <h2 class="font-cinzel text-lg font-semibold text-royal-green mb-3">Third-Party Services</h2>
+        <p>When cloud sync is enabled, we use Supabase for secure data storage and authentication. Supabase processes data in accordance with their own privacy policy. We use Google Fonts for typography rendering. No other third-party services receive your personal data. We do not sell, trade, or share your information with advertisers or data brokers.</p>
+      </section>
+
+      <section>
+        <h2 class="font-cinzel text-lg font-semibold text-royal-green mb-3">Your Data Rights</h2>
+        <p>You retain full ownership of your data at all times. You may export, modify, or delete your locally stored data by clearing your browser's localStorage. If you have enabled cloud sync, you may request complete deletion of your cloud-stored data by contacting us. We will process all deletion requests promptly and confirm completion.</p>
+      </section>
+
+      <section>
+        <h2 class="font-cinzel text-lg font-semibold text-royal-green mb-3">Data Security</h2>
+        <p>We take reasonable measures to protect your information. Local data is secured by your device and browser protections. Cloud-synced data is transmitted over encrypted connections and stored in secure, access-controlled databases. No method of electronic storage is completely secure, but we strive to use commercially acceptable means to protect your data.</p>
+      </section>
+
+      <section>
+        <h2 class="font-cinzel text-lg font-semibold text-royal-green mb-3">Contact</h2>
+        <p>For questions about this privacy policy, data requests, or any concerns regarding your information, please reach out through <a href="https://calyvent.com" target="_blank" rel="noopener noreferrer" class="text-royal-gold hover:underline underline-offset-4 transition-colors">calyvent.com</a>.</p>
+      </section>
+
+    </div>
+  </main>
+
+  <!-- Footer -->
+  <div id="publicFooter"></div>
+
+  <script src="shared.js"></script>
+  <script>document.addEventListener('DOMContentLoaded', function() { initPublic(); });</script>
+</body>
+</html>

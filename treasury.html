@@ -1,4 +1,4 @@
-<!-- treasury.html -->
+<!-- treasury.html – v0.0.3 -->
 <!DOCTYPE html>
 <html lang="en" class="scroll-smooth">
 <head>
@@ -7,7 +7,7 @@
   <title>Treasury — A King's Lifestyle</title>
   <link rel="manifest" href="manifest.json">
   <script src="https://cdn.tailwindcss.com"></script>
-  <script>tailwind.config={darkMode:'class',theme:{extend:{colors:{royal:{green:'#052B20',cream:'#FFF6E6',gold:'#A38255',plum:'#571641',sapphire:'#08052D'}},fontFamily:{cinzel:['Cinzel','serif'],inter:['Inter','sans-serif'],playfair:['Playfair Display','serif']},animation:{fadeIn:'fadeIn 0.8s ease-out forwards',fadeInUp:'fadeInUp 0.8s ease-out forwards'},keyframes:{fadeIn:{'0%':{opacity:'0'},'100%':{opacity:'1'}},fadeInUp:{'0%':{opacity:'0',transform:'translateY(24px)'},'100%':{opacity:'1',transform:'translateY(0)'}}}}}}</script>
+  <script>tailwind.config={darkMode:'class',theme:{extend:{colors:{royal:{green:'#052B20',cream:'#FFF6E6',gold:'#A38255',plum:'#571641',sapphire:'#08052D'}},fontFamily:{cinzel:['Cinzel','serif'],inter:['Inter','sans-serif'],playfair:['Playfair Display','serif']},animation:{fadeIn:'fadeIn 0.8s ease-out forwards',fadeInUp:'fadeInUp 0.8s ease-out forwards'},keyframes:{fadeIn:{'0%':{opacity:'0'},'100%':{opacity:'1'}},fadeInUp:{'0%':{opacity:'0',transform:'translateY(24px)'},'100%':{opacity:'1',transform:'translateY(0)'}}}}}};</script>
   <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600;700&family=Inter:wght@300;400;500;600&family=Playfair+Display:ital,wght@0,400;0,600;1,400&display=swap" rel="stylesheet">
   <script src="https://unpkg.com/@supabase/supabase-js@2" defer></script>
   <style>.bg-parchment{background-image:url("data:image/svg+xml,%3Csvg width='100' height='100' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.8' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100' height='100' filter='url(%23n)' opacity='0.03'/%3E%3C/svg%3E");}.gold-glow:hover{box-shadow:0 0 30px rgba(163,130,85,0.25);}.dark .bg-parchment{background-color:#0a0a0a;}.dark body{background-color:#0a0a0a;color:#e0d5c4;}</style>
@@ -15,147 +15,234 @@
 <body class="bg-royal-cream bg-parchment font-inter text-royal-sapphire min-h-screen">
   <div id="mainNav"></div>
 
+  <!-- ===== STORYTELLING INTRO ===== -->
   <section class="max-w-4xl mx-auto px-6 pt-20 pb-12 animate-fadeInUp">
     <div class="text-center mb-16">
-      <div class="text-4xl mb-6">💰</div>
-      <h1 class="font-cinzel text-3xl md:text-5xl text-royal-plum mb-6">Treasury</h1>
-      <p class="font-playfair italic text-royal-gold text-lg max-w-2xl mx-auto leading-relaxed">
-        "In every great kingdom, the treasury was not merely a vault of gold — it was the lifeblood of provision, protection, and legacy. A king who could not manage his wealth could not protect his people. The wise ruler stored in abundance, spent with purpose, and invested for generations yet unborn..."
-      </p>
+      <h1 class="font-cinzel text-3xl md:text-5xl text-royal-plum mb-8 tracking-wide">Treasury</h1>
+      <div class="max-w-2xl mx-auto space-y-5">
+        <p class="font-playfair italic text-royal-gold text-lg leading-relaxed">
+          Solomon's treasury was not built in a day. It was assembled across years of deliberate decisions, compound patience, and the quiet discipline of a ruler who understood that every coin either serves the kingdom or escapes it. The gold did not arrive through luck or inheritance alone. It arrived because wisdom preceded wealth.
+        </p>
+        <p class="font-inter text-sm text-royal-sapphire/70 dark:text-white/50 leading-relaxed">
+          There is a reason the ancients placed the treasury at the center of the kingdom, not at its edge. Financial mastery is not a peripheral skill. It is foundational. A king who cannot govern his resources will eventually lose the authority to govern anything else. The treasury is not about accumulation for its own sake. It is about provision, protection, and the power to build something that outlasts a single lifetime.
+        </p>
+        <p class="font-inter text-sm text-royal-sapphire/70 dark:text-white/50 leading-relaxed">
+          What follows is not a get-rich scheme or a collection of clever tricks. It is the slow, proven architecture of financial sovereignty. Every principle here has been tested across centuries and civilizations. The question is not whether they work. The question is whether you have the patience to let them.
+        </p>
+      </div>
     </div>
+
+    <!-- Bible Quote -->
     <div data-bible class="bg-royal-sapphire/5 dark:bg-white/5 border border-royal-gold/10 rounded-xl p-6 mb-6 text-center">
-      <p class="font-playfair italic text-royal-plum dark:text-royal-gold">"The plans of the diligent lead to profit as surely as haste leads to poverty."</p>
+      <p class="font-playfair italic text-royal-plum dark:text-royal-gold">"The plans of the diligent lead surely to abundance, but everyone who is hasty comes only to poverty."</p>
       <p class="text-xs text-royal-sapphire/40 mt-2">— Proverbs 21:5</p>
     </div>
+
+    <!-- Secular Quote -->
     <div data-secular style="display:none" class="bg-royal-sapphire/5 dark:bg-white/5 border border-royal-gold/10 rounded-xl p-6 mb-6 text-center">
-      <p class="font-playfair italic text-royal-plum dark:text-royal-gold">"Wealth is not built in moments of impulse but in seasons of disciplined intention."</p>
-      <p class="text-xs text-royal-sapphire/40 mt-2">— The King's Treasury</p>
+      <p class="font-playfair italic text-royal-plum dark:text-royal-gold">"Wealth whispers. Only poverty and pretence feel the need to shout."</p>
+      <p class="text-xs text-royal-sapphire/40 mt-2">— Royal Maxim</p>
     </div>
   </section>
 
+  <!-- ===== PRACTICAL STEPS ===== -->
   <section class="max-w-4xl mx-auto px-6 space-y-16 mb-20">
 
+    <!-- Step 1: The Royal Budget -->
     <div class="animate-fadeIn">
-      <h2 class="font-cinzel text-2xl text-royal-plum dark:text-royal-gold mb-4">The King's Budget Framework</h2>
+      <h2 class="font-cinzel text-2xl text-royal-plum dark:text-royal-gold mb-4">I. The Royal Budget</h2>
       <div class="font-inter text-sm leading-relaxed text-royal-sapphire/80 dark:text-white/60 space-y-4">
-        <p>A king does not count pennies — he allocates resources with strategic precision. The Royal Budget divides every coin with purpose:</p>
-        <div class="grid md:grid-cols-2 gap-4 mt-6">
-          <div class="bg-white dark:bg-royal-sapphire/20 border-l-4 border-royal-gold rounded-r-xl p-5">
-            <h4 class="font-cinzel text-sm text-royal-gold mb-1">50% — The Kingdom's Needs</h4>
-            <p class="text-xs">Housing, food, transport, insurance. Non-negotiable. These keep the kingdom running.</p>
+        <p>A king does not count pennies. He allocates resources with strategic precision. Forget the standard 50/30/20 rule. A king adapts it: 50% needs, 30% growth (savings, investments, debt elimination), 20% crown expenses (lifestyle, giving, measured enjoyment). The ratio shifts as your kingdom grows, but the discipline never wavers.</p>
+        <div class="grid md:grid-cols-3 gap-4 mt-6">
+          <div class="bg-white dark:bg-royal-sapphire/20 border-l-4 border-royal-gold rounded-r-xl p-5 gold-glow transition-all">
+            <h4 class="font-cinzel text-sm text-royal-gold mb-2">50% — The Kingdom's Needs</h4>
+            <p class="text-xs">Housing, food, transport, insurance, utilities. Non-negotiable. These keep the kingdom running. If your needs exceed 50%, your first task is reducing them, not earning more.</p>
           </div>
-          <div class="bg-white dark:bg-royal-sapphire/20 border-l-4 border-royal-gold rounded-r-xl p-5">
-            <h4 class="font-cinzel text-sm text-royal-gold mb-1">20% — The War Chest</h4>
-            <p class="text-xs">Savings, emergency fund (6 months minimum), debt elimination. This is your financial armor.</p>
+          <div class="bg-white dark:bg-royal-sapphire/20 border-l-4 border-royal-gold rounded-r-xl p-5 gold-glow transition-all">
+            <h4 class="font-cinzel text-sm text-royal-gold mb-2">30% — Growth Engine</h4>
+            <p class="text-xs">Emergency fund, debt payments, index funds, retirement accounts, education. This is your war chest and investment vault combined. Money that works while you sleep builds dynasties.</p>
           </div>
-          <div class="bg-white dark:bg-royal-sapphire/20 border-l-4 border-royal-gold rounded-r-xl p-5">
-            <h4 class="font-cinzel text-sm text-royal-gold mb-1">20% — The Investment Vault</h4>
-            <p class="text-xs">Index funds, retirement accounts, real estate, education. Money that works while you sleep builds dynasties.</p>
-          </div>
-          <div class="bg-white dark:bg-royal-sapphire/20 border-l-4 border-royal-gold rounded-r-xl p-5">
-            <h4 class="font-cinzel text-sm text-royal-gold mb-1">10% — The King's Pleasure & Giving</h4>
-            <p class="text-xs">Generosity first. Then measured enjoyment. A king who gives freely is trusted; one who hoards is feared.</p>
+          <div class="bg-white dark:bg-royal-sapphire/20 border-l-4 border-royal-gold rounded-r-xl p-5 gold-glow transition-all">
+            <h4 class="font-cinzel text-sm text-royal-gold mb-2">20% — Crown Expenses</h4>
+            <p class="text-xs">Generosity first, then measured enjoyment. Dining, clothing, experiences, giving. A king who gives freely is trusted. One who hoards is feared and eventually overthrown.</p>
           </div>
         </div>
+        <p class="mt-4 text-xs text-royal-sapphire/50 dark:text-white/30">Track every coin for 30 days before making this budget. You cannot govern what you do not measure.</p>
       </div>
     </div>
 
-    <!-- Wealth Building -->
+    <!-- Step 2: Emergency Treasury -->
     <div class="animate-fadeIn">
-      <h2 class="font-cinzel text-2xl text-royal-plum dark:text-royal-gold mb-4">The Seven Laws of Wealth Building</h2>
-      <div class="space-y-3">
-        <div class="bg-white dark:bg-royal-sapphire/20 border border-royal-gold/10 rounded-xl p-5">
-          <p class="text-sm"><strong class="text-royal-gold font-cinzel">I.</strong> Pay yourself first. Before any bill, before any want — the treasury gets filled.</p>
+      <h2 class="font-cinzel text-2xl text-royal-plum dark:text-royal-gold mb-4">II. The Emergency Treasury</h2>
+      <div class="font-inter text-sm leading-relaxed text-royal-sapphire/80 dark:text-white/60 space-y-4">
+        <p>Before you invest a single coin, build your fortress fund. Six months of living expenses in a high-yield savings account you do not touch. This is not optional. This is the wall between your kingdom and chaos.</p>
+        <div class="bg-white dark:bg-royal-sapphire/20 border border-royal-gold/10 rounded-xl p-6">
+          <h4 class="font-cinzel text-sm text-royal-gold mb-3">Why Six Months?</h4>
+          <ul class="text-xs space-y-2 list-disc pl-4">
+            <li>Job loss takes an average of 3-6 months to recover from. Your emergency fund buys you time to find the right opportunity, not the desperate one.</li>
+            <li>Medical emergencies, car failures, home repairs. A king without reserves is a king who borrows, and borrowing under duress is borrowing at a loss.</li>
+            <li>Psychological freedom. When you know you can survive six months without income, you negotiate differently, decide differently, walk differently.</li>
+          </ul>
         </div>
-        <div class="bg-white dark:bg-royal-sapphire/20 border border-royal-gold/10 rounded-xl p-5">
-          <p class="text-sm"><strong class="text-royal-gold font-cinzel">II.</strong> Eliminate consumer debt with the ferocity of a king defending his borders.</p>
-        </div>
-        <div class="bg-white dark:bg-royal-sapphire/20 border border-royal-gold/10 rounded-xl p-5">
-          <p class="text-sm"><strong class="text-royal-gold font-cinzel">III.</strong> Invest consistently, not cleverly. Time in the market defeats timing the market.</p>
-        </div>
-        <div class="bg-white dark:bg-royal-sapphire/20 border border-royal-gold/10 rounded-xl p-5">
-          <p class="text-sm"><strong class="text-royal-gold font-cinzel">IV.</strong> Build multiple income streams. A kingdom with one road is easily sieged.</p>
-        </div>
-        <div class="bg-white dark:bg-royal-sapphire/20 border border-royal-gold/10 rounded-xl p-5">
-          <p class="text-sm"><strong class="text-royal-gold font-cinzel">V.</strong> Protect your assets. Insurance, estate planning, emergency funds — the wall before the storm.</p>
-        </div>
-        <div class="bg-white dark:bg-royal-sapphire/20 border border-royal-gold/10 rounded-xl p-5">
-          <p class="text-sm"><strong class="text-royal-gold font-cinzel">VI.</strong> Teach your children. Generational wealth is not inherited — it is educated into existence.</p>
-        </div>
-        <div class="bg-white dark:bg-royal-sapphire/20 border border-royal-gold/10 rounded-xl p-5">
-          <p class="text-sm"><strong class="text-royal-gold font-cinzel">VII.</strong> Give generously. Wealth hoarded rots; wealth shared multiplies and builds your name.</p>
+        <div class="bg-royal-sapphire/5 dark:bg-white/5 border border-royal-gold/10 rounded-xl p-5 mt-4">
+          <h4 class="font-cinzel text-sm text-royal-gold mb-2">The Build Protocol</h4>
+          <p class="text-xs">Start with $1,000 as a starter emergency fund. Then attack debt. Then build to three months. Then six. Automate the transfer on payday. If it never hits your spending account, you never miss it.</p>
         </div>
       </div>
     </div>
 
-    <!-- Budget Calculator -->
-    <div class="bg-royal-sapphire/5 dark:bg-white/5 border border-royal-gold/10 rounded-2xl p-8">
-      <h2 class="font-cinzel text-xl text-royal-plum dark:text-royal-gold mb-4">💰 Royal Budget Calculator</h2>
-      <p class="text-sm text-royal-sapphire/60 dark:text-white/40 mb-6">Enter your monthly income and see your royal allocation.</p>
-      <div class="max-w-md mx-auto">
-        <input type="number" id="budgetIncome" placeholder="Monthly income" class="w-full px-4 py-3 rounded-lg border border-royal-gold/20 bg-white/50 dark:bg-white/5 font-inter text-sm focus:outline-none focus:border-royal-gold mb-4">
-        <button onclick="calculateBudget()" class="w-full py-3 bg-royal-gold text-white font-cinzel rounded-lg hover:bg-royal-plum transition">Calculate Allocation</button>
-        <div id="budgetResult" class="mt-6 space-y-3 hidden"></div>
+    <!-- Step 3: Debt Abolition -->
+    <div class="animate-fadeIn">
+      <h2 class="font-cinzel text-2xl text-royal-plum dark:text-royal-gold mb-4">III. Debt Abolition</h2>
+      <div class="font-inter text-sm leading-relaxed text-royal-sapphire/80 dark:text-white/60 space-y-4">
+        <p>Consumer debt is a disgrace for a king. Not because it makes you weak, but because it makes you owned. Every dollar of debt is a dollar of your future labor sold to someone else. A king who is indebted serves two thrones.</p>
+        <div class="grid md:grid-cols-2 gap-4 mt-4">
+          <div class="bg-white dark:bg-royal-sapphire/20 border border-royal-gold/10 rounded-xl p-5 gold-glow transition-all">
+            <h4 class="font-cinzel text-sm text-royal-gold mb-2">The Snowball Method</h4>
+            <p class="text-xs">Pay minimum on everything. Throw every extra dollar at the smallest balance first. When it is gone, roll that payment into the next smallest. The psychological momentum of eliminating debts one by one is powerful. Best for those who need visible progress to stay motivated.</p>
+          </div>
+          <div class="bg-white dark:bg-royal-sapphire/20 border border-royal-gold/10 rounded-xl p-5 gold-glow transition-all">
+            <h4 class="font-cinzel text-sm text-royal-gold mb-2">The Avalanche Method</h4>
+            <p class="text-xs">Pay minimum on everything. Throw every extra dollar at the highest interest rate first. Mathematically optimal. Saves more money over time. Best for those who trust the numbers and have the discipline to wait.</p>
+          </div>
+        </div>
+        <p class="mt-4">Acceptable debt: a mortgage (at a rate you can handle), student loans that directly increased your earning power, business debt with a clear return. Everything else must be eliminated. Credit card balances, car loans on depreciating vehicles, personal loans for lifestyle purchases. Abolish them.</p>
       </div>
     </div>
 
-    <!-- YouTube -->
+    <!-- Step 4: The Compounding Crown -->
+    <div class="animate-fadeIn">
+      <h2 class="font-cinzel text-2xl text-royal-plum dark:text-royal-gold mb-4">IV. The Compounding Crown</h2>
+      <div class="font-inter text-sm leading-relaxed text-royal-sapphire/80 dark:text-white/60 space-y-4">
+        <p>Compound interest is the most powerful force available to a patient king. It is not fast. It is not exciting. It is relentless, and it rewards those who start early and never stop.</p>
+        <div class="bg-white dark:bg-royal-sapphire/20 border border-royal-gold/10 rounded-xl p-6">
+          <h4 class="font-cinzel text-sm text-royal-gold mb-3">Starting with $100 per Month</h4>
+          <div class="grid grid-cols-3 gap-3 text-center mt-4">
+            <div class="bg-royal-sapphire/5 dark:bg-white/5 rounded-lg p-4">
+              <p class="font-cinzel text-royal-gold text-lg">10 Years</p>
+              <p class="text-xs mt-1">~$18,000 invested</p>
+              <p class="font-cinzel text-sm text-royal-plum dark:text-royal-gold mt-1">~$23,000</p>
+            </div>
+            <div class="bg-royal-sapphire/5 dark:bg-white/5 rounded-lg p-4">
+              <p class="font-cinzel text-royal-gold text-lg">20 Years</p>
+              <p class="text-xs mt-1">~$36,000 invested</p>
+              <p class="font-cinzel text-sm text-royal-plum dark:text-royal-gold mt-1">~$72,000</p>
+            </div>
+            <div class="bg-royal-sapphire/5 dark:bg-white/5 rounded-lg p-4">
+              <p class="font-cinzel text-royal-gold text-lg">30 Years</p>
+              <p class="text-xs mt-1">~$54,000 invested</p>
+              <p class="font-cinzel text-sm text-royal-plum dark:text-royal-gold mt-1">~$175,000</p>
+            </div>
+          </div>
+          <p class="text-xs text-royal-sapphire/40 mt-4 text-center">Based on ~10% average annual return (S&P 500 historical average). Not a guarantee. A probability.</p>
+        </div>
+        <p class="mt-4">Start with a broad-market index fund (total stock market or S&P 500). Set up automatic monthly contributions. Do not check the balance daily. Do not sell during downturns. Time in the market beats timing the market every time. A king who panics at market noise was never a king at all.</p>
+      </div>
+    </div>
+
+    <!-- Step 5: Multiple Revenue Streams -->
+    <div class="animate-fadeIn">
+      <h2 class="font-cinzel text-2xl text-royal-plum dark:text-royal-gold mb-4">V. Multiple Revenue Streams</h2>
+      <div class="font-inter text-sm leading-relaxed text-royal-sapphire/80 dark:text-white/60 space-y-4">
+        <p>Your salary is one pillar. A kingdom built on a single pillar falls when that pillar cracks. The average millionaire has seven income streams. Not because they are greedy, but because they are strategic.</p>
+        <div class="space-y-3 mt-4">
+          <div class="bg-white dark:bg-royal-sapphire/20 border border-royal-gold/10 rounded-xl p-5">
+            <p class="text-sm"><strong class="text-royal-gold font-cinzel">Active Income:</strong> Your primary salary or business revenue. Maximize this first. Negotiate, upskill, deliver exceptional results. This is the engine that funds everything else.</p>
+          </div>
+          <div class="bg-white dark:bg-royal-sapphire/20 border border-royal-gold/10 rounded-xl p-5">
+            <p class="text-sm"><strong class="text-royal-gold font-cinzel">Side Income:</strong> A skill-based side venture. Consulting, freelancing, teaching. Something that leverages what you already know. Start with 5 hours per week. Scale only after it proves itself.</p>
+          </div>
+          <div class="bg-white dark:bg-royal-sapphire/20 border border-royal-gold/10 rounded-xl p-5">
+            <p class="text-sm"><strong class="text-royal-gold font-cinzel">Portfolio Income:</strong> Dividends, interest, capital gains. This grows slowly at first. After years of consistent investing, it becomes a river that feeds itself.</p>
+          </div>
+          <div class="bg-white dark:bg-royal-sapphire/20 border border-royal-gold/10 rounded-xl p-5">
+            <p class="text-sm"><strong class="text-royal-gold font-cinzel">Passive Income:</strong> Digital products, rental income, royalties, automated businesses. The most difficult to build. The most rewarding once built. This is how kings retire with their kingdom intact.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Step 6: The Art of Generosity -->
+    <div class="animate-fadeIn">
+      <h2 class="font-cinzel text-2xl text-royal-plum dark:text-royal-gold mb-4">VI. The Art of Generosity</h2>
+      <div class="font-inter text-sm leading-relaxed text-royal-sapphire/80 dark:text-white/60 space-y-4">
+        <p>The final and most counterintuitive law of the treasury: give generously. A king who hoards his gold lives in a vault. A king who distributes it wisely builds a kingdom.</p>
+        <div class="bg-white dark:bg-royal-sapphire/20 border-l-4 border-royal-gold rounded-r-xl p-6">
+          <p class="text-sm">Whether you tithe 10% to your faith community, donate to causes that matter to you, or simply become the man who picks up the check for a friend in need, generosity is not a drain on the treasury. It is an investment in reputation, relationships, and the kind of man you are becoming.</p>
+          <p class="text-sm mt-3">The principle is simple: give from a position of strength, not guilt. Build your emergency fund and eliminate your debt first. Then give from abundance. A king who gives what he cannot afford is not generous. He is irresponsible.</p>
+          <p class="text-sm mt-3">The practical standard: set a giving percentage that you automate alongside your savings. Start at 5% if 10% feels impossible. The number matters less than the consistency.</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- ===== YOUTUBE VIDEO EMBEDS ===== -->
     <div>
       <h2 class="font-cinzel text-2xl text-royal-plum dark:text-royal-gold mb-6">Lessons from the Masters</h2>
       <div class="grid md:grid-cols-2 gap-6">
         <div class="rounded-xl overflow-hidden border border-royal-gold/10">
-          <div class="aspect-video bg-royal-sapphire/10">
-            <iframe class="w-full h-full" src="https://www.youtube.com/embed/HQzoZfc3GwQ" title="Personal Finance Basics" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+          <div class="aspect-video bg-royal-sapphire/10 flex items-center justify-center">
+            <iframe class="w-full h-full hidden" src="about:blank" data-src="https://www.youtube.com/embed/HQzoZfc3GwQ" title="Foundations of Personal Finance" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+            <button onclick="loadVideo(this)" class="px-6 py-3 bg-royal-gold text-white font-cinzel text-sm rounded-lg hover:bg-royal-plum transition">Load Video</button>
           </div>
-          <div class="p-4 bg-white dark:bg-royal-sapphire/20"><h4 class="font-cinzel text-sm text-royal-plum dark:text-royal-gold">Foundations of Personal Finance</h4></div>
+          <div class="p-4 bg-white dark:bg-royal-sapphire/20">
+            <h4 class="font-cinzel text-sm text-royal-plum dark:text-royal-gold">Foundations of Personal Finance</h4>
+          </div>
         </div>
         <div class="rounded-xl overflow-hidden border border-royal-gold/10">
-          <div class="aspect-video bg-royal-sapphire/10">
-            <iframe class="w-full h-full" src="https://www.youtube.com/embed/p7HKvqRI_Bo" title="Wealth Building Strategies" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+          <div class="aspect-video bg-royal-sapphire/10 flex items-center justify-center">
+            <iframe class="w-full h-full hidden" src="about:blank" data-src="https://www.youtube.com/embed/p7HKvqRI_Bo" title="Long-Term Wealth Building" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+            <button onclick="loadVideo(this)" class="px-6 py-3 bg-royal-gold text-white font-cinzel text-sm rounded-lg hover:bg-royal-plum transition">Load Video</button>
           </div>
-          <div class="p-4 bg-white dark:bg-royal-sapphire/20"><h4 class="font-cinzel text-sm text-royal-plum dark:text-royal-gold">Long-Term Wealth Building</h4></div>
+          <div class="p-4 bg-white dark:bg-royal-sapphire/20">
+            <h4 class="font-cinzel text-sm text-royal-plum dark:text-royal-gold">Long-Term Wealth Building Strategies</h4>
+          </div>
         </div>
       </div>
     </div>
 
-    <!-- Wisdom Reflections -->
+    <!-- ===== WISDOM REFLECTIONS ===== -->
     <div>
       <h2 class="font-cinzel text-2xl text-royal-plum dark:text-royal-gold mb-6">Wisdom Reflections</h2>
       <div class="space-y-6">
         <div class="bg-white dark:bg-royal-sapphire/20 border border-royal-gold/10 rounded-xl p-6">
-          <p class="font-playfair italic text-royal-plum dark:text-royal-gold text-sm mb-4">"If your finances were a kingdom, would you say it is thriving, surviving, or under siege?"</p>
+          <p class="font-playfair italic text-royal-plum dark:text-royal-gold text-sm mb-4">"If your finances were a kingdom, would you say it is thriving, surviving, or under siege? What is the single largest threat to your treasury right now?"</p>
           <textarea rows="3" placeholder="Write your reflection..." class="w-full px-4 py-3 rounded-lg border border-royal-gold/20 bg-royal-cream/50 dark:bg-white/5 font-inter text-sm focus:outline-none focus:border-royal-gold resize-none"></textarea>
           <button data-prompt="If your finances were a kingdom, would you say it is thriving, surviving, or under siege?" class="journal-save-btn mt-2 px-4 py-2 bg-royal-gold text-white text-xs font-cinzel rounded-lg hover:bg-royal-plum transition">Save to Journal</button>
+        </div>
+        <div class="bg-white dark:bg-royal-sapphire/20 border border-royal-gold/10 rounded-xl p-6">
+          <p class="font-playfair italic text-royal-plum dark:text-royal-gold text-sm mb-4">"What is one financial habit you know you should adopt but have been avoiding? What fear or excuse holds you back?"</p>
+          <textarea rows="3" placeholder="Write your reflection..." class="w-full px-4 py-3 rounded-lg border border-royal-gold/20 bg-royal-cream/50 dark:bg-white/5 font-inter text-sm focus:outline-none focus:border-royal-gold resize-none"></textarea>
+          <button data-prompt="What is one financial habit you know you should adopt but have been avoiding?" class="journal-save-btn mt-2 px-4 py-2 bg-royal-gold text-white text-xs font-cinzel rounded-lg hover:bg-royal-plum transition">Save to Journal</button>
         </div>
       </div>
     </div>
 
-    <!-- Quiz -->
+    <!-- ===== COUNSEL FROM THE THRONE QUIZ ===== -->
     <div>
       <h2 class="font-cinzel text-2xl text-royal-plum dark:text-royal-gold mb-6">Counsel from the Throne</h2>
       <div class="quiz-block bg-white dark:bg-royal-sapphire/20 border border-royal-gold/10 rounded-xl p-8">
-        <p class="font-playfair italic text-royal-plum dark:text-royal-gold mb-6">"You receive an unexpected bonus. The king's protocol is..."</p>
+        <p class="font-playfair italic text-royal-plum dark:text-royal-gold mb-6">"A friend asks to borrow $2,000 but has a history of not repaying. What does the king do?"</p>
         <div class="space-y-3">
-          <button data-correct="false" class="quiz-option w-full text-left px-5 py-3 rounded-lg border border-royal-gold/15 hover:border-royal-gold/40 transition text-sm font-inter">Celebrate with a purchase you've been eyeing</button>
-          <button data-correct="true" class="quiz-option w-full text-left px-5 py-3 rounded-lg border border-royal-gold/15 hover:border-royal-gold/40 transition text-sm font-inter">50% to war chest, 30% to investments, 20% to giving or measured enjoyment</button>
-          <button data-correct="false" class="quiz-option w-full text-left px-5 py-3 rounded-lg border border-royal-gold/15 hover:border-royal-gold/40 transition text-sm font-inter">Put it all in savings — deny yourself everything</button>
+          <button data-correct="false" class="quiz-option w-full text-left px-5 py-3 rounded-lg border border-royal-gold/15 hover:border-royal-gold/40 transition text-sm font-inter">Lend the money to preserve the friendship, even if you suspect it won't be returned</button>
+          <button data-correct="true" class="quiz-option w-full text-left px-5 py-3 rounded-lg border border-royal-gold/15 hover:border-royal-gold/40 transition text-sm font-inter">Decline the loan with honesty and respect, and offer to help them find other solutions or build better financial habits</button>
+          <button data-correct="false" class="quiz-option w-full text-left px-5 py-3 rounded-lg border border-royal-gold/15 hover:border-royal-gold/40 transition text-sm font-inter">Ignore the request entirely and avoid the conversation</button>
         </div>
         <div class="quiz-feedback hidden"></div>
       </div>
     </div>
 
-    <!-- Scenario Solver -->
+    <!-- ===== WEIRD-SCENARIO SOLVER ===== -->
     <div class="bg-royal-sapphire dark:bg-royal-sapphire/80 rounded-2xl p-8 text-white">
-      <h2 class="font-cinzel text-xl text-royal-gold mb-4">Royal Protocol Solver</h2>
-      <p class="text-sm text-white/50 mb-6">Describe any financial dilemma and receive the king's counsel.</p>
+      <h2 class="font-cinzel text-xl text-royal-gold mb-2">Royal Protocol Solver</h2>
+      <p class="text-sm text-white/50 mb-6">Describe any financial dilemma and receive the king's counsel. Try: splitting bills on dates, negotiating salary, lending money to family, handling friends with vastly different incomes.</p>
       <form id="scenarioForm" class="flex gap-3">
-        <input type="text" id="scenarioInput" placeholder="e.g., 'Friend asked to borrow a large sum...'" class="flex-1 px-4 py-3 rounded-lg bg-white/10 border border-royal-gold/20 text-white font-inter text-sm focus:outline-none focus:border-royal-gold placeholder-white/30">
+        <input type="text" id="scenarioInput" placeholder="e.g., 'My friend earns 3x more but always wants to split evenly...'" class="flex-1 px-4 py-3 rounded-lg bg-white/10 border border-royal-gold/20 text-white font-inter text-sm focus:outline-none focus:border-royal-gold placeholder-white/30">
         <button type="submit" class="px-6 py-3 bg-royal-gold text-royal-sapphire font-cinzel text-sm rounded-lg hover:bg-white transition">Counsel</button>
       </form>
       <div id="scenarioResponse" class="mt-4"></div>
     </div>
 
-    <!-- Checklist -->
+    <!-- ===== CHECKLIST BUILDER ===== -->
     <div>
       <h2 class="font-cinzel text-2xl text-royal-plum dark:text-royal-gold mb-6">Your Royal Treasury Checklist</h2>
       <div class="bg-white dark:bg-royal-sapphire/20 border border-royal-gold/10 rounded-xl p-6">
@@ -166,37 +253,27 @@
         <div id="checklistItems" class="space-y-2"></div>
       </div>
     </div>
+
   </section>
 
   <div id="mainFooter"></div>
   <script src="shared.js"></script>
   <script src="pillar-template.js"></script>
   <script>
-    document.addEventListener('DOMContentLoaded',()=>{initPillar('treasury');setMode(getMode());});
-    function calculateBudget() {
-      const income = parseFloat(document.getElementById('budgetIncome').value);
-      if (!income || income <= 0) return;
-      const result = document.getElementById('budgetResult');
-      result.classList.remove('hidden');
-      result.innerHTML = `
-        <div class="bg-white dark:bg-royal-sapphire/20 border border-royal-gold/10 rounded-xl p-4 flex justify-between items-center">
-          <span class="text-sm font-cinzel text-royal-gold">Kingdom's Needs (50%)</span>
-          <span class="font-inter font-semibold">$${(income*0.5).toFixed(2)}</span>
-        </div>
-        <div class="bg-white dark:bg-royal-sapphire/20 border border-royal-gold/10 rounded-xl p-4 flex justify-between items-center">
-          <span class="text-sm font-cinzel text-royal-gold">War Chest (20%)</span>
-          <span class="font-inter font-semibold">$${(income*0.2).toFixed(2)}</span>
-        </div>
-        <div class="bg-white dark:bg-royal-sapphire/20 border border-royal-gold/10 rounded-xl p-4 flex justify-between items-center">
-          <span class="text-sm font-cinzel text-royal-gold">Investment Vault (20%)</span>
-          <span class="font-inter font-semibold">$${(income*0.2).toFixed(2)}</span>
-        </div>
-        <div class="bg-white dark:bg-royal-sapphire/20 border border-royal-gold/10 rounded-xl p-4 flex justify-between items-center">
-          <span class="text-sm font-cinzel text-royal-gold">Pleasure & Giving (10%)</span>
-          <span class="font-inter font-semibold">$${(income*0.1).toFixed(2)}</span>
-        </div>
-      `;
+    function loadVideo(btn) {
+      var container = btn.parentElement;
+      var iframe = container.querySelector('iframe');
+      if (iframe && iframe.dataset.src) {
+        iframe.src = iframe.dataset.src;
+        iframe.classList.remove('hidden');
+        btn.remove();
+      }
     }
+
+    document.addEventListener('DOMContentLoaded', function() {
+      if (!requireAuth()) return;
+      initPillar('treasury');
+    });
   </script>
 </body>
 </html>

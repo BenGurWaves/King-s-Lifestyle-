@@ -1,4 +1,4 @@
-<!-- mentality.html -->
+<!-- mentality.html – v0.0.3 -->
 <!DOCTYPE html>
 <html lang="en" class="scroll-smooth">
 <head>
@@ -7,7 +7,7 @@
   <title>Mentality — A King's Lifestyle</title>
   <link rel="manifest" href="manifest.json">
   <script src="https://cdn.tailwindcss.com"></script>
-  <script>tailwind.config={darkMode:'class',theme:{extend:{colors:{royal:{green:'#052B20',cream:'#FFF6E6',gold:'#A38255',plum:'#571641',sapphire:'#08052D'}},fontFamily:{cinzel:['Cinzel','serif'],inter:['Inter','sans-serif'],playfair:['Playfair Display','serif']},animation:{fadeIn:'fadeIn 0.8s ease-out forwards',fadeInUp:'fadeInUp 0.8s ease-out forwards'},keyframes:{fadeIn:{'0%':{opacity:'0'},'100%':{opacity:'1'}},fadeInUp:{'0%':{opacity:'0',transform:'translateY(24px)'},'100%':{opacity:'1',transform:'translateY(0)'}}}}}}</script>
+  <script>tailwind.config={darkMode:'class',theme:{extend:{colors:{royal:{green:'#052B20',cream:'#FFF6E6',gold:'#A38255',plum:'#571641',sapphire:'#08052D'}},fontFamily:{cinzel:['Cinzel','serif'],inter:['Inter','sans-serif'],playfair:['Playfair Display','serif']},animation:{fadeIn:'fadeIn 0.8s ease-out forwards',fadeInUp:'fadeInUp 0.8s ease-out forwards'},keyframes:{fadeIn:{'0%':{opacity:'0'},'100%':{opacity:'1'}},fadeInUp:{'0%':{opacity:'0',transform:'translateY(24px)'},'100%':{opacity:'1',transform:'translateY(0)'}}}}}};</script>
   <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600;700&family=Inter:wght@300;400;500;600&family=Playfair+Display:ital,wght@0,400;0,600;1,400&display=swap" rel="stylesheet">
   <script src="https://unpkg.com/@supabase/supabase-js@2" defer></script>
   <style>.bg-parchment{background-image:url("data:image/svg+xml,%3Csvg width='100' height='100' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.8' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100' height='100' filter='url(%23n)' opacity='0.03'/%3E%3C/svg%3E");}.gold-glow:hover{box-shadow:0 0 30px rgba(163,130,85,0.25);}.dark .bg-parchment{background-color:#0a0a0a;}.dark body{background-color:#0a0a0a;color:#e0d5c4;}</style>
@@ -15,140 +15,274 @@
 <body class="bg-royal-cream bg-parchment font-inter text-royal-sapphire min-h-screen">
   <div id="mainNav"></div>
 
+  <!-- ============================================================
+       STORYTELLING INTRO
+       ============================================================ -->
   <section class="max-w-4xl mx-auto px-6 pt-20 pb-12 animate-fadeInUp">
     <div class="text-center mb-16">
-      <div class="text-4xl mb-6">🧠</div>
-      <h1 class="font-cinzel text-3xl md:text-5xl text-royal-plum mb-6">Mentality</h1>
-      <p class="font-playfair italic text-royal-gold text-lg max-w-2xl mx-auto leading-relaxed">
-        "The ancient path of a king was first forged in his mind. Before he conquered lands, he conquered his own thoughts. Before he led armies, he commanded his own habits. The undisciplined mind is a kingdom without walls — vulnerable to every siege..."
-      </p>
+      <h1 class="font-cinzel text-3xl md:text-5xl text-royal-plum mb-8 tracking-wide">Mentality</h1>
+      <div class="max-w-2xl mx-auto space-y-5">
+        <p class="font-playfair italic text-royal-gold text-lg leading-relaxed">
+          Every king faced an enemy inside before he conquered the world outside. The battlefield within — the space between your ears — is the territory upon which every other victory is either built or lost. A man who cannot govern his own mind will never govern anything else of consequence.
+        </p>
+        <p class="font-inter text-sm text-royal-sapphire/70 dark:text-white/50 leading-relaxed">
+          The ancient rulers understood this. Before they studied warfare, they studied themselves. Before they commanded armies, they commanded their impulses, their fears, their tempers. Marcus Aurelius wrote his Meditations not for publication but as a daily exercise in mental sovereignty. David poured his inner turmoil into psalms not for performance but for survival. The greatest leaders in history were first and foremost masters of their own inner world.
+        </p>
+        <p class="font-inter text-sm text-royal-sapphire/70 dark:text-white/50 leading-relaxed">
+          Mental discipline is the foundation every other pillar rests upon. Your nourishment, your attire, your speech, your body, your legacy — all of these begin or collapse in the mind. This pillar is not about positive thinking or hollow affirmations. It is about building the mental architecture of a man who cannot be easily shaken, who meets difficulty with composure, and who builds his life with the patience and precision of a cathedral architect.
+        </p>
+      </div>
     </div>
+
     <div data-bible class="bg-royal-sapphire/5 dark:bg-white/5 border border-royal-gold/10 rounded-xl p-6 mb-6 text-center">
-      <p class="font-playfair italic text-royal-plum dark:text-royal-gold">"For as he thinks in his heart, so is he."</p>
+      <p class="font-playfair italic text-royal-plum dark:text-royal-gold text-lg">"As a man thinks in his heart, so is he."</p>
       <p class="text-xs text-royal-sapphire/40 mt-2">— Proverbs 23:7</p>
     </div>
     <div data-secular style="display:none" class="bg-royal-sapphire/5 dark:bg-white/5 border border-royal-gold/10 rounded-xl p-6 mb-6 text-center">
-      <p class="font-playfair italic text-royal-plum dark:text-royal-gold">"A man becomes what he thinks about most. Guard your mind as you would guard your throne."</p>
+      <p class="font-playfair italic text-royal-plum dark:text-royal-gold text-lg">"The mind is a kingdom. Govern it with the same vigilance you would any empire."</p>
       <p class="text-xs text-royal-sapphire/40 mt-2">— Stoic Principle</p>
     </div>
   </section>
 
+  <!-- ============================================================
+       PRACTICAL STEPS
+       ============================================================ -->
   <section class="max-w-4xl mx-auto px-6 space-y-16 mb-20">
 
-    <!-- Habits & Discipline -->
+    <!-- Step 1: The Morning Reign -->
     <div class="animate-fadeIn">
-      <h2 class="font-cinzel text-2xl text-royal-plum dark:text-royal-gold mb-4">The Architecture of Discipline</h2>
+      <h2 class="font-cinzel text-2xl text-royal-plum dark:text-royal-gold mb-4">I. The Morning Reign</h2>
       <div class="font-inter text-sm leading-relaxed text-royal-sapphire/80 dark:text-white/60 space-y-4">
-        <p>Motivation is the servant; discipline is the king. Motivation comes and goes like courtiers seeking favor. Discipline remains when the palace is empty and the battles are long. Here is how a king builds his mental fortress:</p>
-        <h3 class="font-cinzel text-lg text-royal-plum dark:text-royal-gold mt-8">The Five Pillars of the Disciplined Mind</h3>
-        <div class="space-y-4 mt-4">
-          <div class="bg-white dark:bg-royal-sapphire/20 border-l-4 border-royal-gold rounded-r-xl p-5">
-            <h4 class="font-cinzel text-sm text-royal-gold mb-1">1. The Morning Sovereignty</h4>
-            <p class="text-xs">Rise before the world demands your attention. The first hour belongs to you: prayer or meditation, physical movement, and intentional thought. A king who surrenders his morning surrenders his day.</p>
+        <p>A king who surrenders his morning surrenders his day. The first hour belongs to you — not to your inbox, not to social media, not to the demands of others. Rise before the world demands your attention and invest in yourself before you invest in anything else.</p>
+        <div class="bg-white dark:bg-royal-sapphire/20 border-l-4 border-royal-gold rounded-r-xl p-6 mt-4 space-y-3">
+          <div class="flex items-start gap-3">
+            <span class="text-royal-gold font-cinzel text-sm mt-0.5">5:30</span>
+            <p class="text-xs"><strong>Wake.</strong> No snooze button. The snooze button is the first negotiation you lose every day. Place your alarm across the room if necessary. Feet on the floor within 10 seconds of the alarm.</p>
           </div>
-          <div class="bg-white dark:bg-royal-sapphire/20 border-l-4 border-royal-gold rounded-r-xl p-5">
-            <h4 class="font-cinzel text-sm text-royal-gold mb-1">2. Decision Fatigue Prevention</h4>
-            <p class="text-xs">Automate small decisions. The same breakfast, pre-planned wardrobe, fixed workout schedule. Preserve your mental energy for decisions that shape kingdoms.</p>
+          <div class="flex items-start gap-3">
+            <span class="text-royal-gold font-cinzel text-sm mt-0.5">5:35</span>
+            <p class="text-xs"><strong>Hydrate.</strong> 500ml of water. Your body has been fasting for 7-8 hours. Rehydrate before caffeine. This single habit will sharpen your morning clarity more than any supplement.</p>
           </div>
-          <div class="bg-white dark:bg-royal-sapphire/20 border-l-4 border-royal-gold rounded-r-xl p-5">
-            <h4 class="font-cinzel text-sm text-royal-gold mb-1">3. The Hard Thing Practice</h4>
-            <p class="text-xs">Do one difficult thing daily that your weaker self resists. Cold water. Difficult conversation. Extra set at the gym. This builds the neural pathways of a man who does not yield.</p>
+          <div class="flex items-start gap-3">
+            <span class="text-royal-gold font-cinzel text-sm mt-0.5">5:45</span>
+            <p class="text-xs"><strong>Move.</strong> 15-20 minutes of physical movement. Stretch, walk, bodyweight exercises, or a full workout. Move blood, move oxygen, wake the body that carries your ambition.</p>
           </div>
-          <div class="bg-white dark:bg-royal-sapphire/20 border-l-4 border-royal-gold rounded-r-xl p-5">
-            <h4 class="font-cinzel text-sm text-royal-gold mb-1">4. Controlled Environment</h4>
-            <p class="text-xs">You are the average of the five voices you hear most. Curate your inputs: what you read, watch, listen to, and whom you spend time with. Ruthlessly eliminate mental pollution.</p>
+          <div class="flex items-start gap-3">
+            <span class="text-royal-gold font-cinzel text-sm mt-0.5">6:05</span>
+            <p class="text-xs"><strong>Still.</strong> 10 minutes of prayer, meditation, or silent reflection. This is where you center your mind before the world pulls it in a hundred directions. Non-negotiable.</p>
           </div>
-          <div class="bg-white dark:bg-royal-sapphire/20 border-l-4 border-royal-gold rounded-r-xl p-5">
-            <h4 class="font-cinzel text-sm text-royal-gold mb-1">5. Evening Review</h4>
-            <p class="text-xs">Before sleep, review the day. What went well? Where did discipline falter? What will tomorrow's king do differently? This nightly audit compounds into transformation.</p>
+          <div class="flex items-start gap-3">
+            <span class="text-royal-gold font-cinzel text-sm mt-0.5">6:15</span>
+            <p class="text-xs"><strong>Plan.</strong> Write three priorities for the day. Not ten. Three. The king who chases ten rabbits catches none. Identify the three outcomes that would make this day a victory, and pursue them with singular focus.</p>
+          </div>
+          <div class="flex items-start gap-3">
+            <span class="text-royal-gold font-cinzel text-sm mt-0.5">6:30</span>
+            <p class="text-xs"><strong>No Phone.</strong> The first hour is sacred. No email, no social media, no news. These are other people's agendas. Your morning belongs to your agenda, your growth, your kingdom.</p>
           </div>
         </div>
       </div>
     </div>
 
-    <!-- Love & Relationships -->
+    <!-- Step 2: Emotional Mastery -->
     <div class="animate-fadeIn">
-      <h2 class="font-cinzel text-2xl text-royal-plum dark:text-royal-gold mb-4">Love, Relationships & The King's Heart</h2>
+      <h2 class="font-cinzel text-2xl text-royal-plum dark:text-royal-gold mb-4">II. Emotional Mastery</h2>
       <div class="font-inter text-sm leading-relaxed text-royal-sapphire/80 dark:text-white/60 space-y-4">
-        <p>A king's greatest test is not in battle but in love. How he treats the woman beside him, the children under his roof, and the friends in his inner circle reveals his true character. Power without tenderness is tyranny. Tenderness without strength is passivity.</p>
+        <p>Emotional mastery is not the suppression of feeling — it is the governance of response. A king feels anger, frustration, grief, and joy as deeply as any man. The difference is in the gap between the feeling and the action. That gap is where kings are made.</p>
         <div class="grid md:grid-cols-2 gap-4 mt-6">
           <div class="bg-white dark:bg-royal-sapphire/20 border border-royal-gold/10 rounded-xl p-5">
-            <h4 class="font-cinzel text-sm text-royal-gold mb-2">In Romance</h4>
-            <p class="text-xs">Lead with consistency, not grand gestures. Be present. Listen without fixing. Protect her peace. A king's love is steady, not performative.</p>
+            <h4 class="font-cinzel text-sm text-royal-gold mb-2">Identify Your Triggers</h4>
+            <p class="text-xs">Write down the five situations that most consistently provoke a strong emotional response in you. Disrespect? Financial pressure? Comparison? Naming them strips their power. You cannot govern what you cannot see.</p>
           </div>
           <div class="bg-white dark:bg-royal-sapphire/20 border border-royal-gold/10 rounded-xl p-5">
-            <h4 class="font-cinzel text-sm text-royal-gold mb-2">In Friendship</h4>
-            <p class="text-xs">Keep your circle tight and your loyalty deep. A king does not gossip, does not betray confidence, and does not compete with those he calls brother.</p>
+            <h4 class="font-cinzel text-sm text-royal-gold mb-2">The 10-Second Rule</h4>
+            <p class="text-xs">When triggered, count to ten before responding. Not silently — deliberately. Feel the emotion rise, acknowledge it, then choose your response rather than being chosen by your reaction. This practice alone will prevent most regrettable words and actions.</p>
+          </div>
+          <div class="bg-white dark:bg-royal-sapphire/20 border border-royal-gold/10 rounded-xl p-5">
+            <h4 class="font-cinzel text-sm text-royal-gold mb-2">The Reframe</h4>
+            <p class="text-xs">Ask: "Will this matter in five years?" If yes, respond with gravity. If not, respond with grace. Most of the things that consume our emotional energy are five-minute problems wearing five-year masks.</p>
+          </div>
+          <div class="bg-white dark:bg-royal-sapphire/20 border border-royal-gold/10 rounded-xl p-5">
+            <h4 class="font-cinzel text-sm text-royal-gold mb-2">Controlled Expression</h4>
+            <p class="text-xs">A king expresses displeasure with calm authority, not with volume. He expresses joy without losing composure. He grieves fully but recovers with purpose. Emotion is human; emotional chaos is not kingly.</p>
           </div>
         </div>
       </div>
     </div>
 
-    <!-- Spiritual Warfare / Inner Battle -->
+    <!-- Step 3: The Daily Journal -->
     <div class="animate-fadeIn">
-      <h2 class="font-cinzel text-2xl text-royal-plum dark:text-royal-gold mb-4">The Inner Warfare</h2>
-      <div data-bible class="font-inter text-sm leading-relaxed text-royal-sapphire/80 dark:text-white/60 space-y-4">
-        <p>Every king faces spiritual warfare — the battle between who God designed you to be and the voices that tell you to settle. Pornography, laziness, anger, pride — these are the enemies within the gates. Put on the full armor: truth, righteousness, faith, salvation, the Word, and prayer.</p>
-      </div>
-      <div data-secular style="display:none" class="font-inter text-sm leading-relaxed text-royal-sapphire/80 dark:text-white/60 space-y-4">
-        <p>Every king faces an inner battle — the war between your highest potential and the voices of comfort, distraction, and mediocrity. Addiction, laziness, anger, ego — these are the enemies within your walls. Arm yourself with self-awareness, discipline, accountability, purpose, knowledge, and daily practice.</p>
+      <h2 class="font-cinzel text-2xl text-royal-plum dark:text-royal-gold mb-4">III. The Daily Journal</h2>
+      <div class="font-inter text-sm leading-relaxed text-royal-sapphire/80 dark:text-white/60 space-y-4">
+        <p>The unexamined life is a kingdom without a map. Every evening, before sleep, sit with a journal and answer three questions. This practice takes five minutes and compounds into a document of your transformation — a record of the man you were and the man you are becoming.</p>
+        <div class="bg-white dark:bg-royal-sapphire/20 border-l-4 border-royal-gold rounded-r-xl p-6 mt-4 space-y-4">
+          <div>
+            <h4 class="font-cinzel text-sm text-royal-gold mb-1">1. What am I grateful for today?</h4>
+            <p class="text-xs">Gratitude rewires the brain toward abundance. Even on the worst days, there is always something — health, a roof, a meal, a person who cares. Write three specific things. Not generic. Specific.</p>
+          </div>
+          <div>
+            <h4 class="font-cinzel text-sm text-royal-gold mb-1">2. Where did I fall short, and what will I do differently?</h4>
+            <p class="text-xs">Honest self-assessment without self-destruction. Not "I am a failure" but "I did not follow through on X, and tomorrow I will do Y differently." The king audits his reign nightly and adjusts with precision.</p>
+          </div>
+          <div>
+            <h4 class="font-cinzel text-sm text-royal-gold mb-1">3. What are my three priorities for tomorrow?</h4>
+            <p class="text-xs">Go to sleep with a plan. Wake with a purpose. The mind processes and prepares while you rest. A man who sleeps without tomorrow's plan wakes already behind.</p>
+          </div>
+        </div>
       </div>
     </div>
 
-    <!-- YouTube -->
+    <!-- Step 4: Relationships as Kingdom Alliances -->
+    <div class="animate-fadeIn">
+      <h2 class="font-cinzel text-2xl text-royal-plum dark:text-royal-gold mb-4">IV. Relationships as Kingdom Alliances</h2>
+      <div class="font-inter text-sm leading-relaxed text-royal-sapphire/80 dark:text-white/60 space-y-4">
+        <p>A king's greatest test is not in battle but in love, in friendship, and in the alliances he forges. The people you allow into your inner circle will either build you or dismantle you. Choose with the same care you would choose advisors to a throne.</p>
+        <div class="grid md:grid-cols-2 gap-4 mt-6">
+          <div class="bg-white dark:bg-royal-sapphire/20 border border-royal-gold/10 rounded-xl p-5">
+            <h4 class="font-cinzel text-sm text-royal-gold mb-2">Choosing Your Circle</h4>
+            <p class="text-xs">Surround yourself with men and women who challenge you, who tell you the truth when it is uncomfortable, and who are building something of their own. Avoid those who only appear when they need something and vanish when you do.</p>
+          </div>
+          <div class="bg-white dark:bg-royal-sapphire/20 border border-royal-gold/10 rounded-xl p-5">
+            <h4 class="font-cinzel text-sm text-royal-gold mb-2">Boundaries Are Not Walls</h4>
+            <p class="text-xs">A boundary says "I value this relationship enough to protect it." Learn to say no without guilt, to decline invitations without excuses, and to remove yourself from relationships that consistently drain more than they deposit.</p>
+          </div>
+          <div class="bg-white dark:bg-royal-sapphire/20 border border-royal-gold/10 rounded-xl p-5">
+            <h4 class="font-cinzel text-sm text-royal-gold mb-2">Loyalty</h4>
+            <p class="text-xs">A king does not gossip, does not betray confidence, and does not compete with those he calls brother. Speak of people the same way whether they are present or absent. This single discipline will earn you trust that money cannot buy.</p>
+          </div>
+          <div class="bg-white dark:bg-royal-sapphire/20 border border-royal-gold/10 rounded-xl p-5">
+            <h4 class="font-cinzel text-sm text-royal-gold mb-2">In Romance</h4>
+            <p class="text-xs">Lead with consistency, not grand gestures. Be present. Listen without fixing. Protect her peace. A king's love is steady, not performative. Power without tenderness is tyranny. Tenderness without strength is passivity. Hold both.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Step 5: Discipline Over Motivation -->
+    <div class="animate-fadeIn">
+      <h2 class="font-cinzel text-2xl text-royal-plum dark:text-royal-gold mb-4">V. Discipline Over Motivation</h2>
+      <div class="font-inter text-sm leading-relaxed text-royal-sapphire/80 dark:text-white/60 space-y-4">
+        <p>Motivation is a visitor. Discipline is a resident. Motivation comes and goes like courtiers seeking favor — present on sunny days, absent when the work is hard. Discipline remains when the palace is empty and the battles are long. Build systems, not dreams.</p>
+        <div class="bg-white dark:bg-royal-sapphire/20 border-l-4 border-royal-gold rounded-r-xl p-6 mt-4 space-y-3">
+          <div class="flex items-start gap-3">
+            <span class="text-royal-gold font-cinzel text-sm mt-0.5">1.</span>
+            <p class="text-xs"><strong>Systems Over Goals.</strong> A goal says "I want to lose 20 pounds." A system says "I train at 6am every day and eat by the Royal Plate Method." Goals are destinations. Systems are the roads that get you there. Build the road.</p>
+          </div>
+          <div class="flex items-start gap-3">
+            <span class="text-royal-gold font-cinzel text-sm mt-0.5">2.</span>
+            <p class="text-xs"><strong>Habit Stacking.</strong> Attach new habits to existing ones. After I brush my teeth, I meditate. After I park the car at work, I review my priorities. After dinner, I journal. Stacking removes the decision of "when" and replaces it with automation.</p>
+          </div>
+          <div class="flex items-start gap-3">
+            <span class="text-royal-gold font-cinzel text-sm mt-0.5">3.</span>
+            <p class="text-xs"><strong>Accountability.</strong> Find one person who will ask you the hard questions weekly. Not a yes-man. A truthful ally. Share your commitments and let them hold you to them. A king is accountable to his people.</p>
+          </div>
+          <div class="flex items-start gap-3">
+            <span class="text-royal-gold font-cinzel text-sm mt-0.5">4.</span>
+            <p class="text-xs"><strong>The Two-Day Rule.</strong> Never skip a habit two days in a row. One day off is rest. Two days off is the beginning of a new pattern. If you miss Monday, you do not miss Tuesday. This rule alone has kept more habits alive than any motivational speech.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Step 6: The Inner War -->
+    <div class="animate-fadeIn">
+      <h2 class="font-cinzel text-2xl text-royal-plum dark:text-royal-gold mb-4">VI. The Inner War</h2>
+      <div class="font-inter text-sm leading-relaxed text-royal-sapphire/80 dark:text-white/60 space-y-4">
+        <p>Self-doubt, comparison, negative self-talk — these are the assassins that infiltrate the king's court when he least expects it. They do not announce themselves with drums and banners. They whisper. And if left unchecked, they will topple everything you have built.</p>
+        <div class="space-y-4 mt-6">
+          <div class="bg-white dark:bg-royal-sapphire/20 border border-royal-gold/10 rounded-xl p-5">
+            <h4 class="font-cinzel text-sm text-royal-gold mb-2">Self-Doubt</h4>
+            <p class="text-xs">Every king has heard the voice that says "you are not enough." The answer is not to silence it but to act in spite of it. Courage is not the absence of doubt — it is action in the presence of it. Move forward. The voice fades with every step taken.</p>
+          </div>
+          <div class="bg-white dark:bg-royal-sapphire/20 border border-royal-gold/10 rounded-xl p-5">
+            <h4 class="font-cinzel text-sm text-royal-gold mb-2">Comparison</h4>
+            <p class="text-xs">Comparison is the thief of peace. Another man's success is not your failure. Another man's timeline is not your deadline. The only comparison worth making is between who you were yesterday and who you are today. Run your own race with kingly patience.</p>
+          </div>
+          <div class="bg-white dark:bg-royal-sapphire/20 border border-royal-gold/10 rounded-xl p-5">
+            <h4 class="font-cinzel text-sm text-royal-gold mb-2">Negative Self-Talk</h4>
+            <p class="text-xs">Would you allow a servant to speak to the king the way you speak to yourself? "You are stupid. You will fail. You do not deserve this." Replace these with statements grounded in evidence: "I have overcome difficult things before. I am building competence. I am in process, and process takes time."</p>
+          </div>
+          <div data-bible class="bg-white dark:bg-royal-sapphire/20 border border-royal-gold/10 rounded-xl p-5">
+            <h4 class="font-cinzel text-sm text-royal-gold mb-2">The Armor</h4>
+            <p class="text-xs">Put on the full armor: truth as your belt, righteousness as your breastplate, faith as your shield, salvation as your helmet, the Word as your sword, and prayer as your constant communication with the Commander. This is not metaphor — it is survival gear.</p>
+          </div>
+          <div data-secular style="display:none" class="bg-white dark:bg-royal-sapphire/20 border border-royal-gold/10 rounded-xl p-5">
+            <h4 class="font-cinzel text-sm text-royal-gold mb-2">The Armor</h4>
+            <p class="text-xs">Arm yourself with self-awareness as your foundation, discipline as your shield, accountability as your ally, purpose as your direction, knowledge as your weapon, and daily practice as the wall that protects your kingdom from entropy.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ============================================================
+         YOUTUBE VIDEO EMBEDS
+         ============================================================ -->
     <div>
       <h2 class="font-cinzel text-2xl text-royal-plum dark:text-royal-gold mb-6">Lessons from the Masters</h2>
       <div class="grid md:grid-cols-2 gap-6">
         <div class="rounded-xl overflow-hidden border border-royal-gold/10">
-          <div class="aspect-video bg-royal-sapphire/10">
-            <iframe class="w-full h-full" src="https://www.youtube.com/embed/mgmVOuLgFB0" title="Discipline and Habits" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+          <div class="aspect-video bg-royal-sapphire/10 flex items-center justify-center" id="videoContainer1">
+            <iframe class="w-full h-full hidden" id="video1" src="about:blank" data-src="https://www.youtube.com/embed/mgmVOuLgFB0" title="The Power of Daily Discipline and Habit" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+            <button class="load-video-btn px-6 py-3 bg-royal-gold/90 text-white font-cinzel text-sm rounded-lg hover:bg-royal-gold transition" data-target="video1">Load Video</button>
           </div>
-          <div class="p-4 bg-white dark:bg-royal-sapphire/20"><h4 class="font-cinzel text-sm text-royal-plum dark:text-royal-gold">The Power of Daily Discipline</h4></div>
+          <div class="p-4 bg-white dark:bg-royal-sapphire/20">
+            <h4 class="font-cinzel text-sm text-royal-plum dark:text-royal-gold">The Power of Daily Discipline</h4>
+            <p class="text-xs text-royal-sapphire/40 mt-1">Why systems defeat motivation every time</p>
+          </div>
         </div>
         <div class="rounded-xl overflow-hidden border border-royal-gold/10">
-          <div class="aspect-video bg-royal-sapphire/10">
-            <iframe class="w-full h-full" src="https://www.youtube.com/embed/IdTMDpizis8" title="Mental Toughness" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+          <div class="aspect-video bg-royal-sapphire/10 flex items-center justify-center" id="videoContainer2">
+            <iframe class="w-full h-full hidden" id="video2" src="about:blank" data-src="https://www.youtube.com/embed/IdTMDpizis8" title="Building an Unbreakable Mind" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+            <button class="load-video-btn px-6 py-3 bg-royal-gold/90 text-white font-cinzel text-sm rounded-lg hover:bg-royal-gold transition" data-target="video2">Load Video</button>
           </div>
-          <div class="p-4 bg-white dark:bg-royal-sapphire/20"><h4 class="font-cinzel text-sm text-royal-plum dark:text-royal-gold">Building an Unbreakable Mind</h4></div>
+          <div class="p-4 bg-white dark:bg-royal-sapphire/20">
+            <h4 class="font-cinzel text-sm text-royal-plum dark:text-royal-gold">Building an Unbreakable Mind</h4>
+            <p class="text-xs text-royal-sapphire/40 mt-1">Mental toughness through stoic principles</p>
+          </div>
         </div>
       </div>
     </div>
 
-    <!-- Wisdom Reflections -->
+    <!-- ============================================================
+         WISDOM REFLECTIONS
+         ============================================================ -->
     <div>
       <h2 class="font-cinzel text-2xl text-royal-plum dark:text-royal-gold mb-6">Wisdom Reflections</h2>
       <div class="space-y-6">
         <div class="bg-white dark:bg-royal-sapphire/20 border border-royal-gold/10 rounded-xl p-6">
-          <p class="font-playfair italic text-royal-plum dark:text-royal-gold text-sm mb-4">"What thought pattern have you tolerated that a king would never allow in his court?"</p>
+          <p class="font-playfair italic text-royal-plum dark:text-royal-gold text-sm mb-4">"What thought pattern have you tolerated that a king would never allow in his court? Name it. Then decide what replaces it."</p>
           <textarea rows="3" placeholder="Write your reflection..." class="w-full px-4 py-3 rounded-lg border border-royal-gold/20 bg-royal-cream/50 dark:bg-white/5 font-inter text-sm focus:outline-none focus:border-royal-gold resize-none"></textarea>
           <button data-prompt="What thought pattern have you tolerated that a king would never allow in his court?" class="journal-save-btn mt-2 px-4 py-2 bg-royal-gold text-white text-xs font-cinzel rounded-lg hover:bg-royal-plum transition">Save to Journal</button>
         </div>
         <div class="bg-white dark:bg-royal-sapphire/20 border border-royal-gold/10 rounded-xl p-6">
-          <p class="font-playfair italic text-royal-plum dark:text-royal-gold text-sm mb-4">"If discipline were a person who watched your last 7 days, what would he say to you?"</p>
+          <p class="font-playfair italic text-royal-plum dark:text-royal-gold text-sm mb-4">"If discipline were a person who watched your last seven days, what would he say to you? Would he be proud, or would he pull you aside for a difficult conversation?"</p>
           <textarea rows="3" placeholder="Write your reflection..." class="w-full px-4 py-3 rounded-lg border border-royal-gold/20 bg-royal-cream/50 dark:bg-white/5 font-inter text-sm focus:outline-none focus:border-royal-gold resize-none"></textarea>
           <button data-prompt="If discipline were a person who watched your last 7 days, what would he say to you?" class="journal-save-btn mt-2 px-4 py-2 bg-royal-gold text-white text-xs font-cinzel rounded-lg hover:bg-royal-plum transition">Save to Journal</button>
         </div>
       </div>
     </div>
 
-    <!-- Quiz -->
+    <!-- ============================================================
+         COUNSEL FROM THE THRONE QUIZ
+         ============================================================ -->
     <div>
       <h2 class="font-cinzel text-2xl text-royal-plum dark:text-royal-gold mb-6">Counsel from the Throne</h2>
       <div class="quiz-block bg-white dark:bg-royal-sapphire/20 border border-royal-gold/10 rounded-xl p-8">
-        <p class="font-playfair italic text-royal-plum dark:text-royal-gold mb-6">"You've been insulted publicly by someone you respect. Your pulse quickens. What does the king do?"</p>
+        <p class="font-playfair italic text-royal-plum dark:text-royal-gold mb-6">"A close friend publicly disrespects you at a gathering. Others are watching. Your pulse quickens and your jaw tightens. What does the king do?"</p>
         <div class="space-y-3">
-          <button data-correct="false" class="quiz-option w-full text-left px-5 py-3 rounded-lg border border-royal-gold/15 hover:border-royal-gold/40 transition text-sm font-inter">Respond immediately with equal force to maintain respect</button>
-          <button data-correct="false" class="quiz-option w-full text-left px-5 py-3 rounded-lg border border-royal-gold/15 hover:border-royal-gold/40 transition text-sm font-inter">Walk away silently and cut them from your life</button>
-          <button data-correct="true" class="quiz-option w-full text-left px-5 py-3 rounded-lg border border-royal-gold/15 hover:border-royal-gold/40 transition text-sm font-inter">Pause, maintain composure, address it privately later with calm authority</button>
+          <button data-correct="false" class="quiz-option w-full text-left px-5 py-3 rounded-lg border border-royal-gold/15 hover:border-royal-gold/40 transition text-sm font-inter">Respond immediately with equal force to maintain respect in front of the group</button>
+          <button data-correct="false" class="quiz-option w-full text-left px-5 py-3 rounded-lg border border-royal-gold/15 hover:border-royal-gold/40 transition text-sm font-inter">Walk away silently, cut them from your life, and never address it</button>
+          <button data-correct="true" class="quiz-option w-full text-left px-5 py-3 rounded-lg border border-royal-gold/15 hover:border-royal-gold/40 transition text-sm font-inter">Pause, maintain composure with a calm expression, and address it privately later with direct but controlled authority</button>
         </div>
-        <div class="quiz-feedback hidden"></div>
+        <div class="quiz-feedback hidden mt-4 text-sm font-playfair italic"></div>
       </div>
     </div>
 
-    <!-- Scenario Solver -->
+    <!-- ============================================================
+         WEIRD-SCENARIO SOLVER
+         ============================================================ -->
     <div class="bg-royal-sapphire dark:bg-royal-sapphire/80 rounded-2xl p-8 text-white">
-      <h2 class="font-cinzel text-xl text-royal-gold mb-4">Royal Protocol Solver</h2>
-      <p class="text-sm text-white/50 mb-6">Describe any mental or relational challenge and receive the king's counsel.</p>
+      <h2 class="font-cinzel text-xl text-royal-gold mb-2">Royal Protocol Solver</h2>
+      <p class="text-sm text-white/50 mb-6">Describe any mental or relational challenge — handling jealous coworkers, maintaining composure when insulted, balancing confidence vs. arrogance, navigating cultural differences in showing respect — and receive the king's counsel.</p>
       <form id="scenarioForm" class="flex gap-3">
         <input type="text" id="scenarioInput" placeholder="e.g., 'I keep procrastinating on important decisions...'" class="flex-1 px-4 py-3 rounded-lg bg-white/10 border border-royal-gold/20 text-white font-inter text-sm focus:outline-none focus:border-royal-gold placeholder-white/30">
         <button type="submit" class="px-6 py-3 bg-royal-gold text-royal-sapphire font-cinzel text-sm rounded-lg hover:bg-white transition">Counsel</button>
@@ -156,7 +290,9 @@
       <div id="scenarioResponse" class="mt-4"></div>
     </div>
 
-    <!-- Checklist -->
+    <!-- ============================================================
+         CHECKLIST BUILDER
+         ============================================================ -->
     <div>
       <h2 class="font-cinzel text-2xl text-royal-plum dark:text-royal-gold mb-6">Your Royal Mentality Checklist</h2>
       <div class="bg-white dark:bg-royal-sapphire/20 border border-royal-gold/10 rounded-xl p-6">
@@ -167,11 +303,29 @@
         <div id="checklistItems" class="space-y-2"></div>
       </div>
     </div>
+
   </section>
 
   <div id="mainFooter"></div>
   <script src="shared.js"></script>
   <script src="pillar-template.js"></script>
-  <script>document.addEventListener('DOMContentLoaded',()=>{initPillar('mentality');setMode(getMode());});</script>
+  <script>
+    document.addEventListener('DOMContentLoaded', function() {
+      if (!requireAuth()) return;
+      initPillar('mentality');
+
+      /* ---------- Lazy-Load Videos ---------- */
+      document.querySelectorAll('.load-video-btn').forEach(function(btn) {
+        btn.addEventListener('click', function() {
+          var iframe = document.getElementById(btn.dataset.target);
+          if (iframe) {
+            iframe.src = iframe.dataset.src;
+            iframe.classList.remove('hidden');
+            btn.remove();
+          }
+        });
+      });
+    });
+  </script>
 </body>
 </html>
