@@ -1,4 +1,4 @@
-<!-- journal.html -->
+<!-- journal.html – v0.0.3 -->
 <!DOCTYPE html>
 <html lang="en" class="scroll-smooth">
 <head>
@@ -7,7 +7,7 @@
   <title>Journal — A King's Lifestyle</title>
   <link rel="manifest" href="manifest.json">
   <script src="https://cdn.tailwindcss.com"></script>
-  <script>tailwind.config={darkMode:'class',theme:{extend:{colors:{royal:{green:'#052B20',cream:'#FFF6E6',gold:'#A38255',plum:'#571641',sapphire:'#08052D'}},fontFamily:{cinzel:['Cinzel','serif'],inter:['Inter','sans-serif'],playfair:['Playfair Display','serif']},animation:{fadeIn:'fadeIn 0.8s ease-out forwards',fadeInUp:'fadeInUp 0.8s ease-out forwards'},keyframes:{fadeIn:{'0%':{opacity:'0'},'100%':{opacity:'1'}},fadeInUp:{'0%':{opacity:'0',transform:'translateY(24px)'},'100%':{opacity:'1',transform:'translateY(0)'}}}}}}</script>
+  <script>tailwind.config={darkMode:'class',theme:{extend:{colors:{royal:{green:'#052B20',cream:'#FFF6E6',gold:'#A38255',plum:'#571641',sapphire:'#08052D'}},fontFamily:{cinzel:['Cinzel','serif'],inter:['Inter','sans-serif'],playfair:['Playfair Display','serif']},animation:{fadeIn:'fadeIn 0.8s ease-out forwards',fadeInUp:'fadeInUp 0.8s ease-out forwards'},keyframes:{fadeIn:{'0%':{opacity:'0'},'100%':{opacity:'1'}},fadeInUp:{'0%':{opacity:'0',transform:'translateY(24px)'},'100%':{opacity:'1',transform:'translateY(0)'}}}}}};</script>
   <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600;700&family=Inter:wght@300;400;500;600&family=Playfair+Display:ital,wght@0,400;0,600;1,400&display=swap" rel="stylesheet">
   <script src="https://unpkg.com/@supabase/supabase-js@2" defer></script>
   <style>.bg-parchment{background-image:url("data:image/svg+xml,%3Csvg width='100' height='100' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.8' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100' height='100' filter='url(%23n)' opacity='0.03'/%3E%3C/svg%3E");}.gold-glow:hover{box-shadow:0 0 30px rgba(163,130,85,0.25);}.dark .bg-parchment{background-color:#0a0a0a;}.dark body{background-color:#0a0a0a;color:#e0d5c4;}</style>
@@ -15,124 +15,216 @@
 <body class="bg-royal-cream bg-parchment font-inter text-royal-sapphire min-h-screen">
   <div id="mainNav"></div>
 
-  <section class="max-w-4xl mx-auto px-6 pt-20 pb-12 animate-fadeInUp">
-    <div class="text-center mb-16">
-      <div class="text-4xl mb-6">📓</div>
-      <h1 class="font-cinzel text-3xl md:text-5xl text-royal-plum mb-6">The King's Journal</h1>
-      <p class="font-playfair italic text-royal-gold text-lg max-w-2xl mx-auto">
-        "A king who does not record his journey forgets the lessons that built his throne."
-      </p>
+  <section class="max-w-3xl mx-auto px-6 pt-20 pb-16">
+    <!-- Header -->
+    <div class="text-center mb-16 animate-fadeInUp">
+      <h1 class="font-cinzel text-3xl md:text-4xl text-royal-plum dark:text-royal-gold mb-4">Your Wisdom Journal</h1>
+      <p class="font-playfair italic text-royal-gold text-lg max-w-xl mx-auto">"A king who does not record his journey forgets the lessons that built his throne."</p>
     </div>
 
-    <!-- New Entry -->
-    <div class="bg-white dark:bg-royal-sapphire/20 border border-royal-gold/10 rounded-2xl p-8 mb-12">
-      <h2 class="font-cinzel text-xl text-royal-plum dark:text-royal-gold mb-4">New Journal Entry</h2>
-      <div class="space-y-4">
-        <select id="journalPillar" class="w-full px-4 py-3 rounded-lg border border-royal-gold/20 bg-royal-cream/50 dark:bg-white/5 font-inter text-sm focus:outline-none focus:border-royal-gold">
-          <option value="general">General Reflection</option>
-          <option value="nourishment">Nourishment</option>
-          <option value="attire">Attire</option>
-          <option value="mentality">Mentality</option>
-          <option value="treasury">Treasury</option>
-          <option value="body">Body</option>
-          <option value="presence">Presence</option>
-          <option value="speech">Speech</option>
-          <option value="legacy">Legacy</option>
-        </select>
-        <input type="text" id="journalPrompt" placeholder="What wisdom prompted this reflection?" class="w-full px-4 py-3 rounded-lg border border-royal-gold/20 bg-royal-cream/50 dark:bg-white/5 font-inter text-sm focus:outline-none focus:border-royal-gold">
-        <textarea id="journalEntry" rows="6" placeholder="Write your reflection here... Let the words flow as a king speaks to his own conscience." class="w-full px-4 py-3 rounded-lg border border-royal-gold/20 bg-royal-cream/50 dark:bg-white/5 font-inter text-sm focus:outline-none focus:border-royal-gold resize-none"></textarea>
-        <button onclick="addJournalEntry()" class="px-6 py-3 bg-royal-gold text-white font-cinzel rounded-lg hover:bg-royal-plum transition">Save Entry</button>
+    <!-- Entry Count -->
+    <div class="flex items-center justify-between mb-8 animate-fadeIn">
+      <span id="entryCount" class="text-xs font-cinzel text-royal-gold/60 dark:text-royal-gold/40 tracking-wider"></span>
+    </div>
+
+    <!-- Filter Bar -->
+    <div class="mb-10 animate-fadeIn">
+      <label for="filterPillar" class="block text-xs font-cinzel text-royal-gold/60 dark:text-royal-gold/40 tracking-wider mb-2">Filter by Pillar</label>
+      <select id="filterPillar" class="w-full sm:w-auto px-5 py-3 rounded-xl border border-royal-gold/20 bg-white/50 dark:bg-white/5 font-inter text-sm focus:outline-none focus:border-royal-gold transition dark:text-white/80">
+        <option value="all">All Pillars</option>
+        <option value="nourishment">Nourishment</option>
+        <option value="attire">Attire</option>
+        <option value="mentality">Mentality</option>
+        <option value="treasury">Treasury</option>
+        <option value="body">Body</option>
+        <option value="presence">Presence</option>
+        <option value="speech">Speech</option>
+        <option value="legacy">Legacy</option>
+        <option value="general">General</option>
+      </select>
+    </div>
+
+    <!-- Entries Container -->
+    <div id="journalEntries" class="space-y-5 mb-16"></div>
+
+    <!-- Empty State -->
+    <div id="emptyState" class="hidden text-center py-20 animate-fadeIn">
+      <div class="max-w-md mx-auto">
+        <h2 class="font-cinzel text-xl text-royal-plum/40 dark:text-royal-gold/30 mb-4">Your journal awaits its first entry.</h2>
+        <p class="text-sm text-royal-sapphire/30 dark:text-white/20 font-inter leading-relaxed">Visit any pillar to begin reflecting, or write freely below.</p>
       </div>
     </div>
 
-    <!-- Filter -->
-    <div class="flex flex-wrap gap-2 mb-8">
-      <button onclick="filterJournal('all')" class="journal-filter px-4 py-2 rounded-lg border border-royal-gold/20 text-sm font-inter text-royal-gold hover:bg-royal-gold/10 transition" data-filter="all">All</button>
-      <button onclick="filterJournal('nourishment')" class="journal-filter px-4 py-2 rounded-lg border border-royal-gold/20 text-sm font-inter text-royal-gold hover:bg-royal-gold/10 transition" data-filter="nourishment">Nourishment</button>
-      <button onclick="filterJournal('attire')" class="journal-filter px-4 py-2 rounded-lg border border-royal-gold/20 text-sm font-inter text-royal-gold hover:bg-royal-gold/10 transition" data-filter="attire">Attire</button>
-      <button onclick="filterJournal('mentality')" class="journal-filter px-4 py-2 rounded-lg border border-royal-gold/20 text-sm font-inter text-royal-gold hover:bg-royal-gold/10 transition" data-filter="mentality">Mentality</button>
-      <button onclick="filterJournal('treasury')" class="journal-filter px-4 py-2 rounded-lg border border-royal-gold/20 text-sm font-inter text-royal-gold hover:bg-royal-gold/10 transition" data-filter="treasury">Treasury</button>
-      <button onclick="filterJournal('body')" class="journal-filter px-4 py-2 rounded-lg border border-royal-gold/20 text-sm font-inter text-royal-gold hover:bg-royal-gold/10 transition" data-filter="body">Body</button>
-      <button onclick="filterJournal('presence')" class="journal-filter px-4 py-2 rounded-lg border border-royal-gold/20 text-sm font-inter text-royal-gold hover:bg-royal-gold/10 transition" data-filter="presence">Presence</button>
-      <button onclick="filterJournal('speech')" class="journal-filter px-4 py-2 rounded-lg border border-royal-gold/20 text-sm font-inter text-royal-gold hover:bg-royal-gold/10 transition" data-filter="speech">Speech</button>
-      <button onclick="filterJournal('legacy')" class="journal-filter px-4 py-2 rounded-lg border border-royal-gold/20 text-sm font-inter text-royal-gold hover:bg-royal-gold/10 transition" data-filter="legacy">Legacy</button>
-    </div>
-
-    <!-- Entries -->
-    <div id="journalEntries" class="space-y-4"></div>
-    <div id="emptyJournal" class="hidden text-center py-16">
-      <p class="font-playfair italic text-royal-sapphire/30 dark:text-white/20 text-lg">Your journal awaits its first entry...</p>
-      <p class="text-sm text-royal-sapphire/20 dark:text-white/10 mt-2">Visit the pillars and save your Wisdom Reflections, or write freely above.</p>
+    <!-- New Reflection Section -->
+    <div class="bg-white dark:bg-royal-sapphire/20 border border-royal-gold/10 rounded-2xl p-8 animate-fadeInUp">
+      <h2 class="font-cinzel text-xl text-royal-plum dark:text-royal-gold mb-6">New Reflection</h2>
+      <div class="space-y-4">
+        <div>
+          <label for="newPillar" class="block text-xs font-cinzel text-royal-gold/60 dark:text-royal-gold/40 tracking-wider mb-2">Pillar</label>
+          <select id="newPillar" class="w-full px-4 py-3 rounded-xl border border-royal-gold/20 bg-royal-cream/50 dark:bg-white/5 font-inter text-sm focus:outline-none focus:border-royal-gold transition dark:text-white/80">
+            <option value="general">General Reflection</option>
+            <option value="nourishment">Nourishment</option>
+            <option value="attire">Attire</option>
+            <option value="mentality">Mentality</option>
+            <option value="treasury">Treasury</option>
+            <option value="body">Body</option>
+            <option value="presence">Presence</option>
+            <option value="speech">Speech</option>
+            <option value="legacy">Legacy</option>
+          </select>
+        </div>
+        <div>
+          <label for="newPrompt" class="block text-xs font-cinzel text-royal-gold/60 dark:text-royal-gold/40 tracking-wider mb-2">Prompt</label>
+          <textarea id="newPrompt" rows="2" placeholder="What wisdom prompted this reflection?" class="w-full px-4 py-3 rounded-xl border border-royal-gold/20 bg-royal-cream/50 dark:bg-white/5 font-inter text-sm focus:outline-none focus:border-royal-gold transition resize-none dark:text-white/80"></textarea>
+        </div>
+        <div>
+          <label for="newAnswer" class="block text-xs font-cinzel text-royal-gold/60 dark:text-royal-gold/40 tracking-wider mb-2">Your Reflection</label>
+          <textarea id="newAnswer" rows="5" placeholder="Write your reflection here..." class="w-full px-4 py-3 rounded-xl border border-royal-gold/20 bg-royal-cream/50 dark:bg-white/5 font-inter text-sm focus:outline-none focus:border-royal-gold transition resize-none dark:text-white/80"></textarea>
+        </div>
+        <button id="saveEntryBtn" class="px-8 py-3 bg-royal-gold text-white font-cinzel tracking-wider rounded-lg hover:bg-royal-plum transition-all duration-500 gold-glow">Save Entry</button>
+      </div>
     </div>
   </section>
 
   <div id="mainFooter"></div>
+
   <script src="shared.js"></script>
   <script>
-    let currentFilter = 'all';
+    document.addEventListener('DOMContentLoaded', function() {
+      if (!requireAuth()) return;
+      initPrivate();
 
-    function addJournalEntry() {
-      const pillar = document.getElementById('journalPillar').value;
-      const prompt = document.getElementById('journalPrompt').value.trim();
-      const entry = document.getElementById('journalEntry').value.trim();
-      if (!entry) return;
-      saveJournalEntry(pillar, prompt || 'Free reflection', entry);
-      document.getElementById('journalPrompt').value = '';
-      document.getElementById('journalEntry').value = '';
-      renderEntries();
-    }
+      var currentFilter = 'all';
 
-    function renderEntries() {
-      const entries = JSON.parse(localStorage.getItem('kl_journal') || '[]').reverse();
-      const filtered = currentFilter === 'all' ? entries : entries.filter(e => e.pillar === currentFilter);
-      const container = document.getElementById('journalEntries');
-      const empty = document.getElementById('emptyJournal');
+      // --- Render all journal entries ---
+      function renderEntries() {
+        var entries = getJournalEntries();
+        // Sort newest first (copy to avoid mutating stored array)
+        var sorted = entries.slice().sort(function(a, b) {
+          return new Date(b.date).getTime() - new Date(a.date).getTime();
+        });
 
-      if (filtered.length === 0) {
-        container.innerHTML = '';
-        empty.classList.remove('hidden');
-        return;
+        // Apply filter
+        var filtered = currentFilter === 'all'
+          ? sorted
+          : sorted.filter(function(e) { return e.pillar === currentFilter; });
+
+        var container = document.getElementById('journalEntries');
+        var emptyState = document.getElementById('emptyState');
+        var countEl = document.getElementById('entryCount');
+
+        // Update entry count
+        countEl.textContent = entries.length + ' entr' + (entries.length === 1 ? 'y' : 'ies') + (currentFilter !== 'all' ? ' (' + filtered.length + ' shown)' : '');
+
+        // Clear container
+        container.textContent = '';
+
+        if (filtered.length === 0) {
+          emptyState.classList.remove('hidden');
+          return;
+        }
+        emptyState.classList.add('hidden');
+
+        filtered.forEach(function(entry) {
+          // Find the original index in the un-sorted entries array for deletion
+          var originalIndex = entries.indexOf(entry);
+
+          var card = document.createElement('div');
+          card.className = 'bg-white dark:bg-royal-sapphire/20 border border-royal-gold/10 rounded-2xl p-6 md:p-8 animate-fadeIn';
+
+          // Header row: pillar tag + date + delete
+          var headerRow = document.createElement('div');
+          headerRow.className = 'flex items-center justify-between mb-4';
+
+          var leftGroup = document.createElement('div');
+          leftGroup.className = 'flex items-center gap-3';
+
+          var pillarTag = document.createElement('span');
+          pillarTag.className = 'px-3 py-1 rounded-lg text-xs font-cinzel bg-royal-gold/10 text-royal-gold tracking-wider';
+          pillarTag.textContent = entry.pillar.charAt(0).toUpperCase() + entry.pillar.slice(1);
+
+          var dateSpan = document.createElement('span');
+          dateSpan.className = 'text-xs text-royal-sapphire/30 dark:text-white/20 font-inter';
+          var d = new Date(entry.date);
+          dateSpan.textContent = d.toLocaleDateString('en-US', {year:'numeric', month:'long', day:'numeric'});
+
+          leftGroup.appendChild(pillarTag);
+          leftGroup.appendChild(dateSpan);
+
+          var deleteBtn = document.createElement('button');
+          deleteBtn.className = 'text-royal-sapphire/20 dark:text-white/15 hover:text-red-400 transition text-sm font-inter px-2 py-1 rounded';
+          deleteBtn.textContent = 'Delete';
+          deleteBtn.setAttribute('data-index', originalIndex);
+          deleteBtn.addEventListener('click', function() {
+            var idx = parseInt(this.getAttribute('data-index'));
+            deleteEntry(idx);
+          });
+
+          headerRow.appendChild(leftGroup);
+          headerRow.appendChild(deleteBtn);
+          card.appendChild(headerRow);
+
+          // Prompt (italic)
+          if (entry.prompt && entry.prompt.trim()) {
+            var promptP = document.createElement('p');
+            promptP.className = 'font-playfair italic text-royal-plum dark:text-royal-gold/80 text-sm mb-3';
+            promptP.textContent = '\u201C' + entry.prompt + '\u201D';
+            card.appendChild(promptP);
+          }
+
+          // Answer
+          var answerP = document.createElement('p');
+          answerP.className = 'font-inter text-sm text-royal-sapphire/70 dark:text-white/50 leading-relaxed whitespace-pre-wrap';
+          answerP.textContent = entry.answer;
+          card.appendChild(answerP);
+
+          container.appendChild(card);
+        });
       }
-      empty.classList.add('hidden');
 
-      container.innerHTML = filtered.map((e, i) => {
-        const date = new Date(e.date);
-        const formatted = date.toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric' });
-        const pillarLabel = e.pillar.charAt(0).toUpperCase() + e.pillar.slice(1);
-        return `
-          <div class="bg-white dark:bg-royal-sapphire/20 border border-royal-gold/10 rounded-xl p-6 animate-fadeIn">
-            <div class="flex items-center justify-between mb-3">
-              <div class="flex items-center gap-3">
-                <span class="px-2 py-0.5 rounded text-xs font-cinzel bg-royal-gold/10 text-royal-gold">${pillarLabel}</span>
-                <span class="text-xs text-royal-sapphire/30 dark:text-white/20">${formatted}</span>
-              </div>
-              <button onclick="deleteEntry(${entries.indexOf(e)})" class="text-xs text-royal-sapphire/20 dark:text-white/10 hover:text-red-400 transition">&times;</button>
-            </div>
-            ${e.prompt ? `<p class="font-playfair italic text-royal-plum dark:text-royal-gold text-sm mb-3">"${e.prompt}"</p>` : ''}
-            <p class="font-inter text-sm text-royal-sapphire/70 dark:text-white/50 leading-relaxed whitespace-pre-wrap">${e.answer}</p>
-          </div>
-        `;
-      }).join('');
-    }
+      // --- Delete an entry ---
+      function deleteEntry(index) {
+        if (!confirm('Remove this journal entry? This cannot be undone.')) return;
+        var entries = getJournalEntries();
+        if (index >= 0 && index < entries.length) {
+          entries.splice(index, 1);
+          localStorage.setItem('kl_journal', JSON.stringify(entries));
+          renderEntries();
+        }
+      }
 
-    function filterJournal(filter) {
-      currentFilter = filter;
-      document.querySelectorAll('.journal-filter').forEach(btn => {
-        btn.classList.toggle('bg-royal-gold/20', btn.dataset.filter === filter);
+      // --- Save new entry ---
+      document.getElementById('saveEntryBtn').addEventListener('click', function() {
+        var pillar = document.getElementById('newPillar').value;
+        var prompt = document.getElementById('newPrompt').value.trim();
+        var answer = document.getElementById('newAnswer').value.trim();
+
+        if (!answer) {
+          document.getElementById('newAnswer').focus();
+          return;
+        }
+
+        saveJournalEntry(pillar, prompt || 'Free reflection', answer);
+        document.getElementById('newPrompt').value = '';
+        document.getElementById('newAnswer').value = '';
+        renderEntries();
+
+        // Scroll to top of entries
+        var entriesEl = document.getElementById('journalEntries');
+        if (entriesEl.firstChild) {
+          entriesEl.firstChild.scrollIntoView({behavior: 'smooth', block: 'start'});
+        }
       });
-      renderEntries();
-    }
 
-    function deleteEntry(originalIndex) {
-      if (!confirm('Remove this journal entry?')) return;
-      const entries = JSON.parse(localStorage.getItem('kl_journal') || '[]');
-      const reversedIndex = entries.length - 1 - originalIndex;
-      entries.splice(reversedIndex, 1);
-      localStorage.setItem('kl_journal', JSON.stringify(entries));
-      renderEntries();
-    }
+      // --- Filter handler ---
+      document.getElementById('filterPillar').addEventListener('change', function() {
+        currentFilter = this.value;
+        renderEntries();
+      });
 
-    document.addEventListener('DOMContentLoaded', renderEntries);
+      // Initial render
+      renderEntries();
+    });
   </script>
 </body>
 </html>

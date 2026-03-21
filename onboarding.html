@@ -1,4 +1,4 @@
-<!-- onboarding.html -->
+<!-- onboarding.html – v0.0.3 -->
 <!DOCTYPE html>
 <html lang="en" class="scroll-smooth">
 <head>
@@ -7,203 +7,371 @@
   <title>Onboarding — A King's Lifestyle</title>
   <link rel="manifest" href="manifest.json">
   <script src="https://cdn.tailwindcss.com"></script>
-  <script>
-    tailwind.config = {
-      darkMode: 'class',
-      theme: {
-        extend: {
-          colors: { royal: { green: '#052B20', cream: '#FFF6E6', gold: '#A38255', plum: '#571641', sapphire: '#08052D' } },
-          fontFamily: { cinzel: ['Cinzel','serif'], inter: ['Inter','sans-serif'], playfair: ['Playfair Display','serif'] },
-          animation: { fadeIn: 'fadeIn 0.8s ease-out forwards', fadeInUp: 'fadeInUp 0.8s ease-out forwards' },
-          keyframes: { fadeIn: { '0%':{opacity:'0'},'100%':{opacity:'1'} }, fadeInUp: { '0%':{opacity:'0',transform:'translateY(24px)'},'100%':{opacity:'1',transform:'translateY(0)'} } }
-        }
-      }
-    }
-  </script>
+  <script>tailwind.config={darkMode:'class',theme:{extend:{colors:{royal:{green:'#052B20',cream:'#FFF6E6',gold:'#A38255',plum:'#571641',sapphire:'#08052D'}},fontFamily:{cinzel:['Cinzel','serif'],inter:['Inter','sans-serif'],playfair:['Playfair Display','serif']},animation:{fadeIn:'fadeIn 0.8s ease-out forwards',fadeInUp:'fadeInUp 0.8s ease-out forwards'},keyframes:{fadeIn:{'0%':{opacity:'0'},'100%':{opacity:'1'}},fadeInUp:{'0%':{opacity:'0',transform:'translateY(24px)'},'100%':{opacity:'1',transform:'translateY(0)'}}}}}};</script>
   <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600;700&family=Inter:wght@300;400;500;600&family=Playfair+Display:ital,wght@0,400;0,600;1,400&display=swap" rel="stylesheet">
   <script src="https://unpkg.com/@supabase/supabase-js@2" defer></script>
-  <style>
-    .bg-parchment { background-image: url("data:image/svg+xml,%3Csvg width='100' height='100' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.8' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100' height='100' filter='url(%23n)' opacity='0.03'/%3E%3C/svg%3E"); }
-    .gold-glow:hover { box-shadow: 0 0 30px rgba(163,130,85,0.25); }
-    .dark .bg-parchment { background-color: #0a0a0a; }
-    .dark body { background-color: #0a0a0a; color: #e0d5c4; }
-  </style>
+  <style>.bg-parchment{background-image:url("data:image/svg+xml,%3Csvg width='100' height='100' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.8' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100' height='100' filter='url(%23n)' opacity='0.03'/%3E%3C/svg%3E");}.gold-glow:hover{box-shadow:0 0 30px rgba(163,130,85,0.25);}.dark .bg-parchment{background-color:#0a0a0a;}.dark body{background-color:#0a0a0a;color:#e0d5c4;}.step-hidden{display:none;}.step-visible{display:block;animation:fadeInUp 0.5s ease-out forwards;}.toggle-pill{transition:all 0.3s ease;}.toggle-pill.active{background-color:#A38255;color:#fff;box-shadow:0 0 20px rgba(163,130,85,0.2);}</style>
 </head>
 <body class="bg-royal-cream bg-parchment font-inter text-royal-sapphire min-h-screen">
   <div id="mainNav"></div>
 
-  <section class="max-w-3xl mx-auto px-6 py-16">
-    <div class="text-center mb-16 animate-fadeInUp">
-      <h1 class="font-cinzel text-3xl md:text-4xl text-royal-plum mb-4">The King's Inquiry</h1>
+  <section class="max-w-2xl mx-auto px-6 py-16">
+    <!-- Header -->
+    <div class="text-center mb-12 animate-fadeInUp">
+      <h1 class="font-cinzel text-3xl md:text-4xl text-royal-plum dark:text-royal-gold mb-4">The King's Inquiry</h1>
       <p class="font-playfair italic text-royal-gold text-lg">"Before a king builds his kingdom, he must first know himself."</p>
-      <p class="text-sm text-royal-sapphire/50 mt-4">Answer these ten questions. Speak or type — the choice is yours.</p>
     </div>
 
-    <!-- Progress Bar -->
-    <div class="mb-12">
-      <div class="flex justify-between text-xs font-cinzel text-royal-gold/60 mb-2">
-        <span>Question <span id="currentQ">1</span> of 10</span>
-        <span id="progressPct">0%</span>
-      </div>
-      <div class="h-1 bg-royal-gold/10 rounded-full overflow-hidden">
-        <div id="progressBar" class="h-full bg-royal-gold rounded-full transition-all duration-500" style="width: 0%"></div>
+    <!-- Already Completed State -->
+    <div id="completedState" class="hidden">
+      <div class="bg-white dark:bg-royal-sapphire/20 border border-royal-gold/10 rounded-2xl p-8 md:p-12 text-center mb-8 animate-fadeInUp">
+        <h2 class="font-cinzel text-2xl text-royal-plum dark:text-royal-gold mb-4">You Have Completed the Inquiry</h2>
+        <p class="font-inter text-sm text-royal-sapphire/50 dark:text-white/40 mb-8">Your answers shape the wisdom you receive. Review them below.</p>
+        <div id="completedSummary" class="text-left space-y-4 mb-10"></div>
+        <button id="retakeBtn" class="px-8 py-3 bg-royal-gold text-white font-cinzel tracking-wider rounded-lg hover:bg-royal-plum transition-all duration-500">Retake the Inquiry</button>
       </div>
     </div>
 
-    <!-- Question Container -->
-    <div id="questionContainer" class="animate-fadeIn">
-      <!-- Filled by JS -->
-    </div>
+    <!-- Wizard Flow -->
+    <div id="wizardFlow">
+      <!-- Progress Bar -->
+      <div class="mb-10">
+        <div class="flex justify-between text-xs font-cinzel text-royal-gold/60 dark:text-royal-gold/40 mb-2">
+          <span>Step <span id="currentStep">1</span> of 6</span>
+          <span id="progressPct">0%</span>
+        </div>
+        <div class="h-1.5 bg-royal-gold/10 dark:bg-white/5 rounded-full overflow-hidden">
+          <div id="progressBar" class="h-full bg-royal-gold rounded-full transition-all duration-700 ease-out" style="width:0%"></div>
+        </div>
+      </div>
 
-    <!-- Completion -->
-    <div id="completionScreen" class="hidden text-center py-16 animate-fadeInUp">
-      <div class="text-5xl mb-6">👑</div>
-      <h2 class="font-cinzel text-2xl text-royal-plum mb-4">The Inquiry Is Complete</h2>
-      <p class="font-playfair italic text-royal-gold mb-8">"Now the journey truly begins."</p>
-      <a href="index.html" class="inline-block px-8 py-3 bg-royal-gold text-white font-cinzel tracking-wider rounded-lg hover:bg-royal-plum transition-all duration-500">
-        Enter the Kingdom
-      </a>
+      <!-- Step 1: Name -->
+      <div id="step1" class="step-visible">
+        <div class="bg-white dark:bg-royal-sapphire/20 border border-royal-gold/10 rounded-2xl p-8 md:p-12">
+          <h2 class="font-cinzel text-xl text-royal-plum dark:text-royal-gold mb-2">What is your name, King?</h2>
+          <p class="text-sm text-royal-sapphire/40 dark:text-white/30 mb-8 font-playfair italic">The name by which your kingdom shall know you.</p>
+          <input type="text" id="inputName" placeholder="Your name" class="w-full px-5 py-4 rounded-xl border border-royal-gold/20 bg-white/50 dark:bg-white/5 font-inter focus:outline-none focus:border-royal-gold transition text-sm dark:text-white">
+          <div class="flex justify-end mt-8">
+            <button id="btn1" disabled class="px-8 py-3 rounded-lg bg-royal-gold/30 text-white/60 text-sm font-cinzel cursor-not-allowed transition-all duration-300">Continue</button>
+          </div>
+        </div>
+      </div>
+
+      <!-- Step 2: Pillars -->
+      <div id="step2" class="step-hidden">
+        <div class="bg-white dark:bg-royal-sapphire/20 border border-royal-gold/10 rounded-2xl p-8 md:p-12">
+          <h2 class="font-cinzel text-xl text-royal-plum dark:text-royal-gold mb-2">Which pillars call to you most?</h2>
+          <p class="text-sm text-royal-sapphire/40 dark:text-white/30 mb-8 font-playfair italic">Select all that resonate with your current path.</p>
+          <div id="pillarCheckboxes" class="grid grid-cols-2 gap-3"></div>
+          <div class="flex justify-between mt-8">
+            <button class="prev-btn px-6 py-2 rounded-lg border border-royal-gold/20 text-royal-gold text-sm hover:bg-royal-gold/10 transition" data-target="1">Previous</button>
+            <button id="btn2" disabled class="px-8 py-3 rounded-lg bg-royal-gold/30 text-white/60 text-sm font-cinzel cursor-not-allowed transition-all duration-300">Continue</button>
+          </div>
+        </div>
+      </div>
+
+      <!-- Step 3: Challenge -->
+      <div id="step3" class="step-hidden">
+        <div class="bg-white dark:bg-royal-sapphire/20 border border-royal-gold/10 rounded-2xl p-8 md:p-12">
+          <h2 class="font-cinzel text-xl text-royal-plum dark:text-royal-gold mb-2">What is your greatest challenge right now?</h2>
+          <p class="text-sm text-royal-sapphire/40 dark:text-white/30 mb-8 font-playfair italic">A king who names his battles is already halfway to victory.</p>
+          <textarea id="inputChallenge" rows="5" placeholder="Describe your current challenge..." class="w-full px-5 py-4 rounded-xl border border-royal-gold/20 bg-white/50 dark:bg-white/5 font-inter focus:outline-none focus:border-royal-gold transition text-sm resize-none dark:text-white"></textarea>
+          <div class="flex justify-between mt-8">
+            <button class="prev-btn px-6 py-2 rounded-lg border border-royal-gold/20 text-royal-gold text-sm hover:bg-royal-gold/10 transition" data-target="2">Previous</button>
+            <button id="btn3" disabled class="px-8 py-3 rounded-lg bg-royal-gold/30 text-white/60 text-sm font-cinzel cursor-not-allowed transition-all duration-300">Continue</button>
+          </div>
+        </div>
+      </div>
+
+      <!-- Step 4: Discipline -->
+      <div id="step4" class="step-hidden">
+        <div class="bg-white dark:bg-royal-sapphire/20 border border-royal-gold/10 rounded-2xl p-8 md:p-12">
+          <h2 class="font-cinzel text-xl text-royal-plum dark:text-royal-gold mb-2">How would you rate your current discipline?</h2>
+          <p class="text-sm text-royal-sapphire/40 dark:text-white/30 mb-8 font-playfair italic">Honest self-assessment is the first act of a disciplined man.</p>
+          <div class="text-center mb-6">
+            <span id="disciplineValue" class="font-cinzel text-5xl text-royal-gold">5</span>
+            <span class="text-sm text-royal-sapphire/40 dark:text-white/30 block mt-1 font-inter" id="disciplineLabel">Moderate</span>
+          </div>
+          <input type="range" id="inputDiscipline" min="1" max="10" value="5" class="w-full h-2 bg-royal-gold/10 rounded-full appearance-none cursor-pointer accent-royal-gold">
+          <div class="flex justify-between text-xs text-royal-sapphire/30 dark:text-white/20 mt-2 font-inter">
+            <span>1 — Struggling</span>
+            <span>10 — Iron Will</span>
+          </div>
+          <div class="flex justify-between mt-8">
+            <button class="prev-btn px-6 py-2 rounded-lg border border-royal-gold/20 text-royal-gold text-sm hover:bg-royal-gold/10 transition" data-target="3">Previous</button>
+            <button id="btn4" class="px-8 py-3 rounded-lg bg-royal-gold text-white text-sm font-cinzel hover:bg-royal-plum transition-all duration-300">Continue</button>
+          </div>
+        </div>
+      </div>
+
+      <!-- Step 5: Wisdom Preference -->
+      <div id="step5" class="step-hidden">
+        <div class="bg-white dark:bg-royal-sapphire/20 border border-royal-gold/10 rounded-2xl p-8 md:p-12">
+          <h2 class="font-cinzel text-xl text-royal-plum dark:text-royal-gold mb-2">Do you prefer Biblical wisdom or secular philosophy?</h2>
+          <p class="text-sm text-royal-sapphire/40 dark:text-white/30 mb-8 font-playfair italic">Both paths lead to wisdom. Choose the one that speaks to your soul.</p>
+          <div class="grid grid-cols-1 sm:grid-cols-2 gap-4" id="wisdomRadios"></div>
+          <div class="flex justify-between mt-8">
+            <button class="prev-btn px-6 py-2 rounded-lg border border-royal-gold/20 text-royal-gold text-sm hover:bg-royal-gold/10 transition" data-target="4">Previous</button>
+            <button id="btn5" disabled class="px-8 py-3 rounded-lg bg-royal-gold/30 text-white/60 text-sm font-cinzel cursor-not-allowed transition-all duration-300">Continue</button>
+          </div>
+        </div>
+      </div>
+
+      <!-- Step 6: Summary -->
+      <div id="step6" class="step-hidden">
+        <div class="bg-white dark:bg-royal-sapphire/20 border border-royal-gold/10 rounded-2xl p-8 md:p-12">
+          <h2 class="font-cinzel text-xl text-royal-plum dark:text-royal-gold mb-2 text-center">Your Royal Profile</h2>
+          <p class="text-sm text-royal-sapphire/40 dark:text-white/30 mb-8 font-playfair italic text-center">Review your answers before you begin.</p>
+          <div id="summaryContent" class="space-y-4 mb-10"></div>
+          <div class="flex justify-between">
+            <button class="prev-btn px-6 py-2 rounded-lg border border-royal-gold/20 text-royal-gold text-sm hover:bg-royal-gold/10 transition" data-target="5">Previous</button>
+            <button id="btnComplete" class="px-8 py-3 rounded-lg bg-royal-gold text-white font-cinzel tracking-wider hover:bg-royal-plum transition-all duration-500 gold-glow">Begin Your Transformation</button>
+          </div>
+        </div>
+      </div>
     </div>
   </section>
 
   <div id="mainFooter"></div>
+
   <script src="shared.js"></script>
   <script>
-    const QUESTIONS = [
-      { id: 'struggle', q: "What is your biggest struggle right now?", hint: "Be honest. A king faces his battles head-on.", type: 'text' },
-      { id: 'age', q: "What is your age and current life stage?", hint: "Student, early career, married, father, retired, etc.", type: 'text' },
-      { id: 'goals', q: "What are your top 3 goals for the next 90 days?", hint: "Be specific. Vague goals produce vague results.", type: 'textarea' },
-      { id: 'routine', q: "Describe your daily routine.", hint: "From waking to sleeping. You may use the voice recorder.", type: 'voice' },
-      { id: 'family', q: "Tell us about your family background.", hint: "What shaped the man you are today?", type: 'textarea' },
-      { id: 'scenarios', q: "Any specific scenarios you want to master?", hint: "Pool parties, boardroom presence, first dates, jeans-on-a-hill moments...", type: 'textarea' },
-      { id: 'depth', q: "What depth of content do you prefer?", hint: "Choose what suits your learning pace.", type: 'select', options: ['Quick & actionable', 'Moderate detail', 'Deep & comprehensive'] },
-      { id: 'dietary', q: "Do you have any dietary limits or preferences?", hint: "Allergies, religious restrictions, preferences.", type: 'text' },
-      { id: 'financial', q: "What is your current financial level?", hint: "This helps us tailor Treasury content.", type: 'select', options: ['Building from scratch', 'Stable income', 'Growing wealth', 'Established'] },
-      { id: 'learning', q: "What is your preferred learning style?", hint: "How do you absorb wisdom best?", type: 'select', options: ['Reading & reflection', 'Video & visual', 'Audio & conversation', 'Hands-on practice'] }
-    ];
+    document.addEventListener('DOMContentLoaded', function() {
+      if (!requireAuth()) return;
+      initPrivate();
 
-    let currentIndex = 0;
-    const answers = JSON.parse(localStorage.getItem('kl_onboarding') || '{}');
+      var PILLARS = ['nourishment','attire','mentality','treasury','body','presence','speech','legacy'];
+      var DISCIPLINE_LABELS = {1:'Barely holding on',2:'Struggling',3:'Inconsistent',4:'Building habits',5:'Moderate',6:'Developing',7:'Solid',8:'Strong',9:'Very disciplined',10:'Iron Will'};
+      var currentStep = 1;
+      var totalSteps = 6;
+      var data = {name:'',pillars:[],challenge:'',discipline:5,wisdomMode:'bible'};
 
-    function renderQuestion() {
-      const q = QUESTIONS[currentIndex];
-      const saved = answers[q.id] || '';
-      let inputHTML = '';
-
-      if (q.type === 'text') {
-        inputHTML = `<input type="text" id="answerInput" value="${saved}" placeholder="Type your answer..." class="w-full px-5 py-4 rounded-xl border border-royal-gold/20 bg-white/50 dark:bg-white/5 font-inter focus:outline-none focus:border-royal-gold transition text-sm">`;
-      } else if (q.type === 'textarea' || q.type === 'voice') {
-        inputHTML = `<textarea id="answerInput" rows="4" placeholder="Type your answer..." class="w-full px-5 py-4 rounded-xl border border-royal-gold/20 bg-white/50 dark:bg-white/5 font-inter focus:outline-none focus:border-royal-gold transition text-sm resize-none">${saved}</textarea>`;
-      } else if (q.type === 'select') {
-        inputHTML = `<div class="flex flex-col gap-3">${q.options.map(o => `
-          <label class="flex items-center gap-3 px-5 py-3 rounded-xl border border-royal-gold/20 bg-white/50 dark:bg-white/5 cursor-pointer hover:border-royal-gold/40 transition">
-            <input type="radio" name="answer" value="${o}" ${saved === o ? 'checked' : ''} class="accent-royal-gold">
-            <span class="font-inter text-sm">${o}</span>
-          </label>
-        `).join('')}</div>`;
-      }
-
-      const voiceBtn = (q.type === 'voice' || q.type === 'text' || q.type === 'textarea') ?
-        `<button onclick="startVoice()" id="voiceBtn" class="mt-4 flex items-center gap-2 px-4 py-2 rounded-lg border border-royal-gold/20 text-royal-gold text-sm hover:bg-royal-gold/10 transition">
-          <svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="2"><circle cx="8" cy="5" r="3"/><path d="M3 9a5 5 0 0010 0"/><line x1="8" y1="12" x2="8" y2="16"/></svg>
-          Speak Your Answer
-        </button>` : '';
-
-      document.getElementById('questionContainer').innerHTML = `
-        <div class="bg-white dark:bg-royal-sapphire/20 border border-royal-gold/10 rounded-2xl p-8 md:p-12 animate-fadeIn">
-          <h2 class="font-cinzel text-xl text-royal-plum dark:text-royal-gold mb-2">${q.q}</h2>
-          <p class="text-sm text-royal-sapphire/40 dark:text-white/30 mb-8 font-playfair italic">${q.hint}</p>
-          ${inputHTML}
-          ${voiceBtn}
-          <div class="flex justify-between mt-8">
-            <button onclick="prevQuestion()" class="px-6 py-2 rounded-lg border border-royal-gold/20 text-royal-gold text-sm hover:bg-royal-gold/10 transition ${currentIndex === 0 ? 'invisible' : ''}">Previous</button>
-            <button onclick="nextQuestion()" class="px-6 py-2 rounded-lg bg-royal-gold text-white text-sm font-cinzel hover:bg-royal-plum transition">${currentIndex === 9 ? 'Complete' : 'Continue'}</button>
-          </div>
-        </div>
-      `;
-      updateProgress();
-    }
-
-    function getAnswer() {
-      const q = QUESTIONS[currentIndex];
-      if (q.type === 'select') {
-        const checked = document.querySelector('input[name="answer"]:checked');
-        return checked ? checked.value : '';
-      }
-      return document.getElementById('answerInput')?.value || '';
-    }
-
-    function saveAnswer() {
-      const q = QUESTIONS[currentIndex];
-      answers[q.id] = getAnswer();
-      localStorage.setItem('kl_onboarding', JSON.stringify(answers));
-    }
-
-    function nextQuestion() {
-      saveAnswer();
-      if (currentIndex < 9) {
-        currentIndex++;
-        renderQuestion();
-      } else {
-        document.getElementById('questionContainer').classList.add('hidden');
-        document.getElementById('completionScreen').classList.remove('hidden');
-        localStorage.setItem('kl_onboardingComplete', 'true');
-      }
-    }
-
-    function prevQuestion() {
-      saveAnswer();
-      if (currentIndex > 0) {
-        currentIndex--;
-        renderQuestion();
-      }
-    }
-
-    function updateProgress() {
-      const pct = Math.round((currentIndex / 10) * 100);
-      document.getElementById('currentQ').textContent = currentIndex + 1;
-      document.getElementById('progressPct').textContent = pct + '%';
-      document.getElementById('progressBar').style.width = pct + '%';
-    }
-
-    // Web Speech API voice input
-    let recognition = null;
-    function startVoice() {
-      if (!('webkitSpeechRecognition' in window) && !('SpeechRecognition' in window)) {
-        alert('Voice input is not supported in this browser. Please type your answer.');
+      // Check for existing onboarding data
+      var existing = getOnboarding();
+      if (existing && existing.name) {
+        showCompletedState(existing);
         return;
       }
-      const SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition;
-      recognition = new SpeechRecognition();
-      recognition.continuous = true;
-      recognition.interimResults = true;
-      recognition.lang = 'en-US';
 
-      const btn = document.getElementById('voiceBtn');
-      btn.classList.add('bg-red-500/20', 'border-red-400');
-      btn.innerHTML = '<span class="animate-pulse">● Recording...</span> Tap to stop';
-      btn.onclick = stopVoice;
+      initWizard();
 
-      recognition.onresult = (e) => {
-        let transcript = '';
-        for (let i = 0; i < e.results.length; i++) {
-          transcript += e.results[i][0].transcript;
+      function initWizard() {
+        document.getElementById('wizardFlow').style.display = '';
+        document.getElementById('completedState').classList.add('hidden');
+        buildPillarCheckboxes();
+        buildWisdomRadios();
+        bindInputs();
+        bindNavButtons();
+        showStep(1);
+      }
+
+      function buildPillarCheckboxes() {
+        var container = document.getElementById('pillarCheckboxes');
+        container.textContent = '';
+        PILLARS.forEach(function(p) {
+          var label = document.createElement('label');
+          label.className = 'flex items-center gap-3 px-4 py-3 rounded-xl border border-royal-gold/20 bg-royal-cream/30 dark:bg-white/5 cursor-pointer hover:border-royal-gold/40 transition';
+          var cb = document.createElement('input');
+          cb.type = 'checkbox';
+          cb.value = p;
+          cb.className = 'accent-royal-gold w-4 h-4 rounded';
+          cb.name = 'pillars';
+          cb.addEventListener('change', function() { validateStep(2); });
+          var span = document.createElement('span');
+          span.className = 'font-inter text-sm capitalize dark:text-white/80';
+          span.textContent = p;
+          label.appendChild(cb);
+          label.appendChild(span);
+          container.appendChild(label);
+        });
+      }
+
+      function buildWisdomRadios() {
+        var container = document.getElementById('wisdomRadios');
+        container.textContent = '';
+        var options = [
+          {value:'bible', title:'Biblical Wisdom', desc:'Rooted in Scripture and divine principles'},
+          {value:'secular', title:'Secular Philosophy', desc:'Timeless principles from classical thought'}
+        ];
+        options.forEach(function(opt) {
+          var btn = document.createElement('button');
+          btn.type = 'button';
+          btn.className = 'toggle-pill text-left px-6 py-5 rounded-xl border border-royal-gold/20 dark:text-white/80 transition-all duration-300 hover:border-royal-gold/40';
+          btn.setAttribute('data-wisdom', opt.value);
+          var title = document.createElement('span');
+          title.className = 'block font-cinzel text-sm mb-1';
+          title.textContent = opt.title;
+          var desc = document.createElement('span');
+          desc.className = 'block text-xs opacity-60 font-inter';
+          desc.textContent = opt.desc;
+          btn.appendChild(title);
+          btn.appendChild(desc);
+          btn.addEventListener('click', function() {
+            data.wisdomMode = opt.value;
+            container.querySelectorAll('.toggle-pill').forEach(function(b) { b.classList.remove('active'); });
+            btn.classList.add('active');
+            validateStep(5);
+          });
+          container.appendChild(btn);
+        });
+      }
+
+      function bindInputs() {
+        document.getElementById('inputName').addEventListener('input', function() { validateStep(1); });
+        document.getElementById('inputChallenge').addEventListener('input', function() { validateStep(3); });
+        var slider = document.getElementById('inputDiscipline');
+        slider.addEventListener('input', function() {
+          var val = parseInt(slider.value);
+          data.discipline = val;
+          document.getElementById('disciplineValue').textContent = val;
+          document.getElementById('disciplineLabel').textContent = DISCIPLINE_LABELS[val] || '';
+        });
+      }
+
+      function bindNavButtons() {
+        document.getElementById('btn1').addEventListener('click', function() { collectStepData(1); goToStep(2); });
+        document.getElementById('btn2').addEventListener('click', function() { collectStepData(2); goToStep(3); });
+        document.getElementById('btn3').addEventListener('click', function() { collectStepData(3); goToStep(4); });
+        document.getElementById('btn4').addEventListener('click', function() { collectStepData(4); goToStep(5); });
+        document.getElementById('btn5').addEventListener('click', function() { collectStepData(5); goToStep(6); });
+        document.getElementById('btnComplete').addEventListener('click', function() { completeOnboarding(); });
+
+        document.querySelectorAll('.prev-btn').forEach(function(btn) {
+          btn.addEventListener('click', function() {
+            collectStepData(currentStep);
+            goToStep(parseInt(btn.getAttribute('data-target')));
+          });
+        });
+      }
+
+      function validateStep(step) {
+        var btn = document.getElementById('btn' + step);
+        if (!btn) return;
+        var valid = false;
+        if (step === 1) valid = document.getElementById('inputName').value.trim().length > 0;
+        else if (step === 2) valid = document.querySelectorAll('input[name="pillars"]:checked').length > 0;
+        else if (step === 3) valid = document.getElementById('inputChallenge').value.trim().length > 0;
+        else if (step === 5) valid = data.wisdomMode !== '';
+
+        if (valid) {
+          btn.disabled = false;
+          btn.className = 'px-8 py-3 rounded-lg bg-royal-gold text-white text-sm font-cinzel hover:bg-royal-plum transition-all duration-300';
+        } else {
+          btn.disabled = true;
+          btn.className = 'px-8 py-3 rounded-lg bg-royal-gold/30 text-white/60 text-sm font-cinzel cursor-not-allowed transition-all duration-300';
         }
-        const input = document.getElementById('answerInput');
-        if (input) input.value = transcript;
-      };
-      recognition.start();
-    }
+      }
 
-    function stopVoice() {
-      if (recognition) recognition.stop();
-      const btn = document.getElementById('voiceBtn');
-      btn.classList.remove('bg-red-500/20', 'border-red-400');
-      btn.innerHTML = `<svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="2"><circle cx="8" cy="5" r="3"/><path d="M3 9a5 5 0 0010 0"/><line x1="8" y1="12" x2="8" y2="16"/></svg> Speak Your Answer`;
-      btn.onclick = startVoice;
-    }
+      function collectStepData(step) {
+        if (step === 1) data.name = document.getElementById('inputName').value.trim();
+        else if (step === 2) {
+          data.pillars = [];
+          document.querySelectorAll('input[name="pillars"]:checked').forEach(function(cb) { data.pillars.push(cb.value); });
+        }
+        else if (step === 3) data.challenge = document.getElementById('inputChallenge').value.trim();
+        else if (step === 4) data.discipline = parseInt(document.getElementById('inputDiscipline').value);
+      }
 
-    renderQuestion();
+      function goToStep(step) {
+        if (step < 1 || step > totalSteps) return;
+        document.getElementById('step' + currentStep).className = 'step-hidden';
+        currentStep = step;
+        document.getElementById('step' + currentStep).className = 'step-visible';
+        updateProgress();
+        if (step === 6) buildSummary();
+      }
+
+      function showStep(step) {
+        currentStep = step;
+        for (var i = 1; i <= totalSteps; i++) {
+          document.getElementById('step' + i).className = (i === step) ? 'step-visible' : 'step-hidden';
+        }
+        updateProgress();
+      }
+
+      function updateProgress() {
+        var pct = Math.round(((currentStep - 1) / totalSteps) * 100);
+        document.getElementById('currentStep').textContent = currentStep;
+        document.getElementById('progressPct').textContent = pct + '%';
+        document.getElementById('progressBar').style.width = pct + '%';
+      }
+
+      function buildSummaryRows(target, summaryData) {
+        target.textContent = '';
+        var items = [
+          {label:'Name', value: summaryData.name || ''},
+          {label:'Chosen Pillars', value: (summaryData.pillars || []).map(function(p){ return p.charAt(0).toUpperCase() + p.slice(1); }).join(', ') || 'None selected'},
+          {label:'Greatest Challenge', value: summaryData.challenge || ''},
+          {label:'Discipline Rating', value: (summaryData.discipline || 5) + '/10 — ' + (DISCIPLINE_LABELS[summaryData.discipline] || '')},
+          {label:'Wisdom Preference', value: summaryData.wisdomMode === 'bible' ? 'Biblical Wisdom' : 'Secular Philosophy'}
+        ];
+        items.forEach(function(item) {
+          var row = document.createElement('div');
+          row.className = 'p-4 bg-royal-sapphire/5 dark:bg-white/5 rounded-xl';
+          var lbl = document.createElement('span');
+          lbl.className = 'block text-xs text-royal-gold font-cinzel tracking-wider mb-1';
+          lbl.textContent = item.label;
+          var val = document.createElement('span');
+          val.className = 'block text-sm text-royal-sapphire/70 dark:text-white/60 font-inter';
+          val.textContent = item.value;
+          row.appendChild(lbl);
+          row.appendChild(val);
+          target.appendChild(row);
+        });
+      }
+
+      function buildSummary() {
+        buildSummaryRows(document.getElementById('summaryContent'), data);
+      }
+
+      function completeOnboarding() {
+        saveOnboarding(data);
+        setMode(data.wisdomMode === 'bible');
+
+        var wizard = document.getElementById('wizardFlow');
+        wizard.style.opacity = '0';
+        wizard.style.transition = 'opacity 0.4s ease';
+        setTimeout(function() {
+          wizard.style.display = 'none';
+          var section = wizard.parentElement;
+
+          var doneDiv = document.createElement('div');
+          doneDiv.className = 'text-center py-16 animate-fadeInUp';
+
+          var h2 = document.createElement('h2');
+          h2.className = 'font-cinzel text-2xl text-royal-plum dark:text-royal-gold mb-4';
+          h2.textContent = 'The Inquiry Is Complete';
+
+          var quote = document.createElement('p');
+          quote.className = 'font-playfair italic text-royal-gold mb-10';
+          quote.textContent = '"Now the journey truly begins."';
+
+          var link = document.createElement('a');
+          link.href = 'index.html';
+          link.className = 'inline-block px-8 py-3 bg-royal-gold text-white font-cinzel tracking-wider rounded-lg hover:bg-royal-plum transition-all duration-500 gold-glow';
+          link.textContent = 'Enter the Kingdom';
+
+          doneDiv.appendChild(h2);
+          doneDiv.appendChild(quote);
+          doneDiv.appendChild(link);
+          section.appendChild(doneDiv);
+        }, 400);
+      }
+
+      function showCompletedState(savedData) {
+        document.getElementById('wizardFlow').style.display = 'none';
+        var completed = document.getElementById('completedState');
+        completed.classList.remove('hidden');
+        buildSummaryRows(document.getElementById('completedSummary'), savedData);
+
+        document.getElementById('retakeBtn').addEventListener('click', function() {
+          localStorage.removeItem('kl_onboarding');
+          data = {name:'',pillars:[],challenge:'',discipline:5,wisdomMode:'bible'};
+          completed.classList.add('hidden');
+          initWizard();
+        });
+      }
+    });
   </script>
 </body>
 </html>
