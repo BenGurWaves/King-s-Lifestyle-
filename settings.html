@@ -1,0 +1,203 @@
+<!-- settings.html -->
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Settings — A King's Lifestyle</title>
+  <link rel="manifest" href="manifest.json">
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>tailwind.config={darkMode:'class',theme:{extend:{colors:{royal:{green:'#052B20',cream:'#FFF6E6',gold:'#A38255',plum:'#571641',sapphire:'#08052D'}},fontFamily:{cinzel:['Cinzel','serif'],inter:['Inter','sans-serif'],playfair:['Playfair Display','serif']},animation:{fadeIn:'fadeIn 0.8s ease-out forwards',fadeInUp:'fadeInUp 0.8s ease-out forwards'},keyframes:{fadeIn:{'0%':{opacity:'0'},'100%':{opacity:'1'}},fadeInUp:{'0%':{opacity:'0',transform:'translateY(24px)'},'100%':{opacity:'1',transform:'translateY(0)'}}}}}}</script>
+  <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600;700&family=Inter:wght@300;400;500;600&family=Playfair+Display:ital,wght@0,400;0,600;1,400&display=swap" rel="stylesheet">
+  <script src="https://unpkg.com/@supabase/supabase-js@2" defer></script>
+  <style>.bg-parchment{background-image:url("data:image/svg+xml,%3Csvg width='100' height='100' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.8' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100' height='100' filter='url(%23n)' opacity='0.03'/%3E%3C/svg%3E");}.gold-glow:hover{box-shadow:0 0 30px rgba(163,130,85,0.25);}.dark .bg-parchment{background-color:#0a0a0a;}.dark body{background-color:#0a0a0a;color:#e0d5c4;}</style>
+</head>
+<body class="bg-royal-cream bg-parchment font-inter text-royal-sapphire min-h-screen">
+  <div id="mainNav"></div>
+
+  <section class="max-w-3xl mx-auto px-6 pt-20 pb-12 animate-fadeInUp">
+    <div class="text-center mb-16">
+      <div class="text-4xl mb-6">⚙</div>
+      <h1 class="font-cinzel text-3xl md:text-4xl text-royal-plum mb-4">Royal Settings</h1>
+      <p class="font-inter text-sm text-royal-sapphire/50">Configure your kingdom to suit your preferences.</p>
+    </div>
+
+    <div class="space-y-6">
+
+      <!-- Account Info -->
+      <div class="bg-white dark:bg-royal-sapphire/20 border border-royal-gold/10 rounded-xl p-6">
+        <h2 class="font-cinzel text-lg text-royal-plum dark:text-royal-gold mb-4">Account</h2>
+        <div class="space-y-3 text-sm">
+          <div class="flex justify-between items-center">
+            <span class="text-royal-sapphire/60 dark:text-white/40">User ID</span>
+            <span id="settingUserId" class="font-mono text-royal-gold"></span>
+          </div>
+          <div class="flex justify-between items-center">
+            <span class="text-royal-sapphire/60 dark:text-white/40">Account Type</span>
+            <span id="settingAccountType" class="text-royal-gold"></span>
+          </div>
+          <div class="flex justify-between items-center">
+            <span class="text-royal-sapphire/60 dark:text-white/40">Email</span>
+            <span id="settingEmail" class="text-royal-gold"></span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Appearance -->
+      <div class="bg-white dark:bg-royal-sapphire/20 border border-royal-gold/10 rounded-xl p-6">
+        <h2 class="font-cinzel text-lg text-royal-plum dark:text-royal-gold mb-4">Appearance</h2>
+        <div class="space-y-4">
+          <div class="flex justify-between items-center">
+            <div>
+              <p class="text-sm font-medium">Dark Mode</p>
+              <p class="text-xs text-royal-sapphire/40 dark:text-white/30">Switch between light and dark themes</p>
+            </div>
+            <button onclick="toggleDarkSetting()" id="darkSettingBtn" class="px-4 py-2 rounded-lg border border-royal-gold/20 text-sm text-royal-gold hover:bg-royal-gold/10 transition"></button>
+          </div>
+        </div>
+      </div>
+
+      <!-- Content Mode -->
+      <div class="bg-white dark:bg-royal-sapphire/20 border border-royal-gold/10 rounded-xl p-6">
+        <h2 class="font-cinzel text-lg text-royal-plum dark:text-royal-gold mb-4">Content Mode</h2>
+        <div class="space-y-4">
+          <div class="flex justify-between items-center">
+            <div>
+              <p class="text-sm font-medium">Bible / Secular</p>
+              <p class="text-xs text-royal-sapphire/40 dark:text-white/30">Choose between Biblical wisdom or timeless gentleman principles</p>
+            </div>
+            <button onclick="toggleModeSetting()" id="modeSettingBtn" class="px-4 py-2 rounded-lg border border-royal-gold/20 text-sm text-royal-gold hover:bg-royal-gold/10 transition"></button>
+          </div>
+        </div>
+      </div>
+
+      <!-- Progress -->
+      <div class="bg-white dark:bg-royal-sapphire/20 border border-royal-gold/10 rounded-xl p-6">
+        <h2 class="font-cinzel text-lg text-royal-plum dark:text-royal-gold mb-4">Progress</h2>
+        <div class="space-y-3 text-sm">
+          <div class="flex justify-between items-center">
+            <span class="text-royal-sapphire/60 dark:text-white/40">Current Streak</span>
+            <span id="settingStreak" class="text-royal-gold font-semibold"></span>
+          </div>
+          <div class="flex justify-between items-center">
+            <span class="text-royal-sapphire/60 dark:text-white/40">Journal Entries</span>
+            <span id="settingJournalCount" class="text-royal-gold font-semibold"></span>
+          </div>
+          <div class="flex justify-between items-center">
+            <span class="text-royal-sapphire/60 dark:text-white/40">Onboarding</span>
+            <span id="settingOnboarding" class="text-royal-gold font-semibold"></span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Onboarding Answers -->
+      <div class="bg-white dark:bg-royal-sapphire/20 border border-royal-gold/10 rounded-xl p-6">
+        <h2 class="font-cinzel text-lg text-royal-plum dark:text-royal-gold mb-4">Your Onboarding Answers</h2>
+        <div id="onboardingAnswers" class="space-y-3 text-sm"></div>
+        <a href="onboarding.html" class="inline-block mt-4 text-sm text-royal-gold hover:underline">Retake Onboarding →</a>
+      </div>
+
+      <!-- Data Management -->
+      <div class="bg-white dark:bg-royal-sapphire/20 border border-royal-gold/10 rounded-xl p-6">
+        <h2 class="font-cinzel text-lg text-royal-plum dark:text-royal-gold mb-4">Data Management</h2>
+        <div class="space-y-4">
+          <button onclick="exportData()" class="w-full px-4 py-3 rounded-lg border border-royal-gold/20 text-sm text-royal-gold hover:bg-royal-gold/10 transition text-left">
+            Export All Data (JSON)
+          </button>
+          <button onclick="clearAllData()" class="w-full px-4 py-3 rounded-lg border border-red-300/30 text-sm text-red-400 hover:bg-red-400/10 transition text-left">
+            Clear All Data — Start Fresh
+          </button>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <div id="mainFooter"></div>
+  <script src="shared.js"></script>
+  <script>
+    document.addEventListener('DOMContentLoaded', () => {
+      // Account
+      document.getElementById('settingUserId').textContent = localStorage.getItem('kl_userId') || 'Unknown';
+      document.getElementById('settingAccountType').textContent = localStorage.getItem('kl_isGuest') !== 'false' ? 'Guest' : 'Signed In';
+      document.getElementById('settingEmail').textContent = localStorage.getItem('kl_userEmail') || 'Not set';
+
+      // Appearance
+      updateDarkBtn();
+      updateModeBtn();
+
+      // Progress
+      document.getElementById('settingStreak').textContent = (localStorage.getItem('kl_streak') || '0') + ' days';
+      const entries = JSON.parse(localStorage.getItem('kl_journal') || '[]');
+      document.getElementById('settingJournalCount').textContent = entries.length;
+      document.getElementById('settingOnboarding').textContent = localStorage.getItem('kl_onboardingComplete') === 'true' ? 'Complete' : 'Incomplete';
+
+      // Onboarding answers
+      const answers = JSON.parse(localStorage.getItem('kl_onboarding') || '{}');
+      const labels = {
+        struggle: 'Biggest Struggle',
+        age: 'Age & Life Stage',
+        goals: 'Top 3 Goals (90 days)',
+        routine: 'Daily Routine',
+        family: 'Family Background',
+        scenarios: 'Scenarios to Master',
+        depth: 'Depth Preference',
+        dietary: 'Dietary Limits',
+        financial: 'Financial Level',
+        learning: 'Learning Style'
+      };
+      const container = document.getElementById('onboardingAnswers');
+      if (Object.keys(answers).length === 0) {
+        container.innerHTML = '<p class="text-royal-sapphire/30 dark:text-white/20 italic">No onboarding data yet.</p>';
+      } else {
+        container.innerHTML = Object.entries(answers).map(([key, val]) => `
+          <div class="flex flex-col gap-1 p-3 bg-royal-sapphire/5 dark:bg-white/5 rounded-lg">
+            <span class="text-xs text-royal-gold font-cinzel">${labels[key] || key}</span>
+            <span class="text-royal-sapphire/70 dark:text-white/50">${val || '—'}</span>
+          </div>
+        `).join('');
+      }
+    });
+
+    function updateDarkBtn() {
+      document.getElementById('darkSettingBtn').textContent = getDark() ? 'Dark Mode On' : 'Light Mode On';
+    }
+    function updateModeBtn() {
+      document.getElementById('modeSettingBtn').textContent = getMode() ? 'Bible Mode' : 'Secular Mode';
+    }
+    function toggleDarkSetting() {
+      setDark(!getDark());
+      updateDarkBtn();
+    }
+    function toggleModeSetting() {
+      setMode(!getMode());
+      updateModeBtn();
+    }
+
+    function exportData() {
+      const data = {};
+      for (let i = 0; i < localStorage.length; i++) {
+        const key = localStorage.key(i);
+        if (key.startsWith('kl_')) data[key] = localStorage.getItem(key);
+      }
+      const blob = new Blob([JSON.stringify(data, null, 2)], { type: 'application/json' });
+      const a = document.createElement('a');
+      a.href = URL.createObjectURL(blob);
+      a.download = 'kings-lifestyle-data.json';
+      a.click();
+    }
+
+    function clearAllData() {
+      if (!confirm('This will permanently erase all your progress, journal entries, and settings. Are you certain?')) return;
+      if (!confirm('Final confirmation — this cannot be undone. Proceed?')) return;
+      const keys = [];
+      for (let i = 0; i < localStorage.length; i++) {
+        const key = localStorage.key(i);
+        if (key.startsWith('kl_')) keys.push(key);
+      }
+      keys.forEach(k => localStorage.removeItem(k));
+      location.reload();
+    }
+  </script>
+</body>
+</html>

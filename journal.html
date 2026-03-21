@@ -1,0 +1,138 @@
+<!-- journal.html -->
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Journal — A King's Lifestyle</title>
+  <link rel="manifest" href="manifest.json">
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>tailwind.config={darkMode:'class',theme:{extend:{colors:{royal:{green:'#052B20',cream:'#FFF6E6',gold:'#A38255',plum:'#571641',sapphire:'#08052D'}},fontFamily:{cinzel:['Cinzel','serif'],inter:['Inter','sans-serif'],playfair:['Playfair Display','serif']},animation:{fadeIn:'fadeIn 0.8s ease-out forwards',fadeInUp:'fadeInUp 0.8s ease-out forwards'},keyframes:{fadeIn:{'0%':{opacity:'0'},'100%':{opacity:'1'}},fadeInUp:{'0%':{opacity:'0',transform:'translateY(24px)'},'100%':{opacity:'1',transform:'translateY(0)'}}}}}}</script>
+  <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600;700&family=Inter:wght@300;400;500;600&family=Playfair+Display:ital,wght@0,400;0,600;1,400&display=swap" rel="stylesheet">
+  <script src="https://unpkg.com/@supabase/supabase-js@2" defer></script>
+  <style>.bg-parchment{background-image:url("data:image/svg+xml,%3Csvg width='100' height='100' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.8' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100' height='100' filter='url(%23n)' opacity='0.03'/%3E%3C/svg%3E");}.gold-glow:hover{box-shadow:0 0 30px rgba(163,130,85,0.25);}.dark .bg-parchment{background-color:#0a0a0a;}.dark body{background-color:#0a0a0a;color:#e0d5c4;}</style>
+</head>
+<body class="bg-royal-cream bg-parchment font-inter text-royal-sapphire min-h-screen">
+  <div id="mainNav"></div>
+
+  <section class="max-w-4xl mx-auto px-6 pt-20 pb-12 animate-fadeInUp">
+    <div class="text-center mb-16">
+      <div class="text-4xl mb-6">📓</div>
+      <h1 class="font-cinzel text-3xl md:text-5xl text-royal-plum mb-6">The King's Journal</h1>
+      <p class="font-playfair italic text-royal-gold text-lg max-w-2xl mx-auto">
+        "A king who does not record his journey forgets the lessons that built his throne."
+      </p>
+    </div>
+
+    <!-- New Entry -->
+    <div class="bg-white dark:bg-royal-sapphire/20 border border-royal-gold/10 rounded-2xl p-8 mb-12">
+      <h2 class="font-cinzel text-xl text-royal-plum dark:text-royal-gold mb-4">New Journal Entry</h2>
+      <div class="space-y-4">
+        <select id="journalPillar" class="w-full px-4 py-3 rounded-lg border border-royal-gold/20 bg-royal-cream/50 dark:bg-white/5 font-inter text-sm focus:outline-none focus:border-royal-gold">
+          <option value="general">General Reflection</option>
+          <option value="nourishment">Nourishment</option>
+          <option value="attire">Attire</option>
+          <option value="mentality">Mentality</option>
+          <option value="treasury">Treasury</option>
+          <option value="body">Body</option>
+          <option value="presence">Presence</option>
+          <option value="speech">Speech</option>
+          <option value="legacy">Legacy</option>
+        </select>
+        <input type="text" id="journalPrompt" placeholder="What wisdom prompted this reflection?" class="w-full px-4 py-3 rounded-lg border border-royal-gold/20 bg-royal-cream/50 dark:bg-white/5 font-inter text-sm focus:outline-none focus:border-royal-gold">
+        <textarea id="journalEntry" rows="6" placeholder="Write your reflection here... Let the words flow as a king speaks to his own conscience." class="w-full px-4 py-3 rounded-lg border border-royal-gold/20 bg-royal-cream/50 dark:bg-white/5 font-inter text-sm focus:outline-none focus:border-royal-gold resize-none"></textarea>
+        <button onclick="addJournalEntry()" class="px-6 py-3 bg-royal-gold text-white font-cinzel rounded-lg hover:bg-royal-plum transition">Save Entry</button>
+      </div>
+    </div>
+
+    <!-- Filter -->
+    <div class="flex flex-wrap gap-2 mb-8">
+      <button onclick="filterJournal('all')" class="journal-filter px-4 py-2 rounded-lg border border-royal-gold/20 text-sm font-inter text-royal-gold hover:bg-royal-gold/10 transition" data-filter="all">All</button>
+      <button onclick="filterJournal('nourishment')" class="journal-filter px-4 py-2 rounded-lg border border-royal-gold/20 text-sm font-inter text-royal-gold hover:bg-royal-gold/10 transition" data-filter="nourishment">Nourishment</button>
+      <button onclick="filterJournal('attire')" class="journal-filter px-4 py-2 rounded-lg border border-royal-gold/20 text-sm font-inter text-royal-gold hover:bg-royal-gold/10 transition" data-filter="attire">Attire</button>
+      <button onclick="filterJournal('mentality')" class="journal-filter px-4 py-2 rounded-lg border border-royal-gold/20 text-sm font-inter text-royal-gold hover:bg-royal-gold/10 transition" data-filter="mentality">Mentality</button>
+      <button onclick="filterJournal('treasury')" class="journal-filter px-4 py-2 rounded-lg border border-royal-gold/20 text-sm font-inter text-royal-gold hover:bg-royal-gold/10 transition" data-filter="treasury">Treasury</button>
+      <button onclick="filterJournal('body')" class="journal-filter px-4 py-2 rounded-lg border border-royal-gold/20 text-sm font-inter text-royal-gold hover:bg-royal-gold/10 transition" data-filter="body">Body</button>
+      <button onclick="filterJournal('presence')" class="journal-filter px-4 py-2 rounded-lg border border-royal-gold/20 text-sm font-inter text-royal-gold hover:bg-royal-gold/10 transition" data-filter="presence">Presence</button>
+      <button onclick="filterJournal('speech')" class="journal-filter px-4 py-2 rounded-lg border border-royal-gold/20 text-sm font-inter text-royal-gold hover:bg-royal-gold/10 transition" data-filter="speech">Speech</button>
+      <button onclick="filterJournal('legacy')" class="journal-filter px-4 py-2 rounded-lg border border-royal-gold/20 text-sm font-inter text-royal-gold hover:bg-royal-gold/10 transition" data-filter="legacy">Legacy</button>
+    </div>
+
+    <!-- Entries -->
+    <div id="journalEntries" class="space-y-4"></div>
+    <div id="emptyJournal" class="hidden text-center py-16">
+      <p class="font-playfair italic text-royal-sapphire/30 dark:text-white/20 text-lg">Your journal awaits its first entry...</p>
+      <p class="text-sm text-royal-sapphire/20 dark:text-white/10 mt-2">Visit the pillars and save your Wisdom Reflections, or write freely above.</p>
+    </div>
+  </section>
+
+  <div id="mainFooter"></div>
+  <script src="shared.js"></script>
+  <script>
+    let currentFilter = 'all';
+
+    function addJournalEntry() {
+      const pillar = document.getElementById('journalPillar').value;
+      const prompt = document.getElementById('journalPrompt').value.trim();
+      const entry = document.getElementById('journalEntry').value.trim();
+      if (!entry) return;
+      saveJournalEntry(pillar, prompt || 'Free reflection', entry);
+      document.getElementById('journalPrompt').value = '';
+      document.getElementById('journalEntry').value = '';
+      renderEntries();
+    }
+
+    function renderEntries() {
+      const entries = JSON.parse(localStorage.getItem('kl_journal') || '[]').reverse();
+      const filtered = currentFilter === 'all' ? entries : entries.filter(e => e.pillar === currentFilter);
+      const container = document.getElementById('journalEntries');
+      const empty = document.getElementById('emptyJournal');
+
+      if (filtered.length === 0) {
+        container.innerHTML = '';
+        empty.classList.remove('hidden');
+        return;
+      }
+      empty.classList.add('hidden');
+
+      container.innerHTML = filtered.map((e, i) => {
+        const date = new Date(e.date);
+        const formatted = date.toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric' });
+        const pillarLabel = e.pillar.charAt(0).toUpperCase() + e.pillar.slice(1);
+        return `
+          <div class="bg-white dark:bg-royal-sapphire/20 border border-royal-gold/10 rounded-xl p-6 animate-fadeIn">
+            <div class="flex items-center justify-between mb-3">
+              <div class="flex items-center gap-3">
+                <span class="px-2 py-0.5 rounded text-xs font-cinzel bg-royal-gold/10 text-royal-gold">${pillarLabel}</span>
+                <span class="text-xs text-royal-sapphire/30 dark:text-white/20">${formatted}</span>
+              </div>
+              <button onclick="deleteEntry(${entries.indexOf(e)})" class="text-xs text-royal-sapphire/20 dark:text-white/10 hover:text-red-400 transition">&times;</button>
+            </div>
+            ${e.prompt ? `<p class="font-playfair italic text-royal-plum dark:text-royal-gold text-sm mb-3">"${e.prompt}"</p>` : ''}
+            <p class="font-inter text-sm text-royal-sapphire/70 dark:text-white/50 leading-relaxed whitespace-pre-wrap">${e.answer}</p>
+          </div>
+        `;
+      }).join('');
+    }
+
+    function filterJournal(filter) {
+      currentFilter = filter;
+      document.querySelectorAll('.journal-filter').forEach(btn => {
+        btn.classList.toggle('bg-royal-gold/20', btn.dataset.filter === filter);
+      });
+      renderEntries();
+    }
+
+    function deleteEntry(originalIndex) {
+      if (!confirm('Remove this journal entry?')) return;
+      const entries = JSON.parse(localStorage.getItem('kl_journal') || '[]');
+      const reversedIndex = entries.length - 1 - originalIndex;
+      entries.splice(reversedIndex, 1);
+      localStorage.setItem('kl_journal', JSON.stringify(entries));
+      renderEntries();
+    }
+
+    document.addEventListener('DOMContentLoaded', renderEntries);
+  </script>
+</body>
+</html>

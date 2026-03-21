@@ -1,0 +1,202 @@
+<!-- treasury.html -->
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Treasury — A King's Lifestyle</title>
+  <link rel="manifest" href="manifest.json">
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>tailwind.config={darkMode:'class',theme:{extend:{colors:{royal:{green:'#052B20',cream:'#FFF6E6',gold:'#A38255',plum:'#571641',sapphire:'#08052D'}},fontFamily:{cinzel:['Cinzel','serif'],inter:['Inter','sans-serif'],playfair:['Playfair Display','serif']},animation:{fadeIn:'fadeIn 0.8s ease-out forwards',fadeInUp:'fadeInUp 0.8s ease-out forwards'},keyframes:{fadeIn:{'0%':{opacity:'0'},'100%':{opacity:'1'}},fadeInUp:{'0%':{opacity:'0',transform:'translateY(24px)'},'100%':{opacity:'1',transform:'translateY(0)'}}}}}}</script>
+  <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600;700&family=Inter:wght@300;400;500;600&family=Playfair+Display:ital,wght@0,400;0,600;1,400&display=swap" rel="stylesheet">
+  <script src="https://unpkg.com/@supabase/supabase-js@2" defer></script>
+  <style>.bg-parchment{background-image:url("data:image/svg+xml,%3Csvg width='100' height='100' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.8' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100' height='100' filter='url(%23n)' opacity='0.03'/%3E%3C/svg%3E");}.gold-glow:hover{box-shadow:0 0 30px rgba(163,130,85,0.25);}.dark .bg-parchment{background-color:#0a0a0a;}.dark body{background-color:#0a0a0a;color:#e0d5c4;}</style>
+</head>
+<body class="bg-royal-cream bg-parchment font-inter text-royal-sapphire min-h-screen">
+  <div id="mainNav"></div>
+
+  <section class="max-w-4xl mx-auto px-6 pt-20 pb-12 animate-fadeInUp">
+    <div class="text-center mb-16">
+      <div class="text-4xl mb-6">💰</div>
+      <h1 class="font-cinzel text-3xl md:text-5xl text-royal-plum mb-6">Treasury</h1>
+      <p class="font-playfair italic text-royal-gold text-lg max-w-2xl mx-auto leading-relaxed">
+        "In every great kingdom, the treasury was not merely a vault of gold — it was the lifeblood of provision, protection, and legacy. A king who could not manage his wealth could not protect his people. The wise ruler stored in abundance, spent with purpose, and invested for generations yet unborn..."
+      </p>
+    </div>
+    <div data-bible class="bg-royal-sapphire/5 dark:bg-white/5 border border-royal-gold/10 rounded-xl p-6 mb-6 text-center">
+      <p class="font-playfair italic text-royal-plum dark:text-royal-gold">"The plans of the diligent lead to profit as surely as haste leads to poverty."</p>
+      <p class="text-xs text-royal-sapphire/40 mt-2">— Proverbs 21:5</p>
+    </div>
+    <div data-secular style="display:none" class="bg-royal-sapphire/5 dark:bg-white/5 border border-royal-gold/10 rounded-xl p-6 mb-6 text-center">
+      <p class="font-playfair italic text-royal-plum dark:text-royal-gold">"Wealth is not built in moments of impulse but in seasons of disciplined intention."</p>
+      <p class="text-xs text-royal-sapphire/40 mt-2">— The King's Treasury</p>
+    </div>
+  </section>
+
+  <section class="max-w-4xl mx-auto px-6 space-y-16 mb-20">
+
+    <div class="animate-fadeIn">
+      <h2 class="font-cinzel text-2xl text-royal-plum dark:text-royal-gold mb-4">The King's Budget Framework</h2>
+      <div class="font-inter text-sm leading-relaxed text-royal-sapphire/80 dark:text-white/60 space-y-4">
+        <p>A king does not count pennies — he allocates resources with strategic precision. The Royal Budget divides every coin with purpose:</p>
+        <div class="grid md:grid-cols-2 gap-4 mt-6">
+          <div class="bg-white dark:bg-royal-sapphire/20 border-l-4 border-royal-gold rounded-r-xl p-5">
+            <h4 class="font-cinzel text-sm text-royal-gold mb-1">50% — The Kingdom's Needs</h4>
+            <p class="text-xs">Housing, food, transport, insurance. Non-negotiable. These keep the kingdom running.</p>
+          </div>
+          <div class="bg-white dark:bg-royal-sapphire/20 border-l-4 border-royal-gold rounded-r-xl p-5">
+            <h4 class="font-cinzel text-sm text-royal-gold mb-1">20% — The War Chest</h4>
+            <p class="text-xs">Savings, emergency fund (6 months minimum), debt elimination. This is your financial armor.</p>
+          </div>
+          <div class="bg-white dark:bg-royal-sapphire/20 border-l-4 border-royal-gold rounded-r-xl p-5">
+            <h4 class="font-cinzel text-sm text-royal-gold mb-1">20% — The Investment Vault</h4>
+            <p class="text-xs">Index funds, retirement accounts, real estate, education. Money that works while you sleep builds dynasties.</p>
+          </div>
+          <div class="bg-white dark:bg-royal-sapphire/20 border-l-4 border-royal-gold rounded-r-xl p-5">
+            <h4 class="font-cinzel text-sm text-royal-gold mb-1">10% — The King's Pleasure & Giving</h4>
+            <p class="text-xs">Generosity first. Then measured enjoyment. A king who gives freely is trusted; one who hoards is feared.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Wealth Building -->
+    <div class="animate-fadeIn">
+      <h2 class="font-cinzel text-2xl text-royal-plum dark:text-royal-gold mb-4">The Seven Laws of Wealth Building</h2>
+      <div class="space-y-3">
+        <div class="bg-white dark:bg-royal-sapphire/20 border border-royal-gold/10 rounded-xl p-5">
+          <p class="text-sm"><strong class="text-royal-gold font-cinzel">I.</strong> Pay yourself first. Before any bill, before any want — the treasury gets filled.</p>
+        </div>
+        <div class="bg-white dark:bg-royal-sapphire/20 border border-royal-gold/10 rounded-xl p-5">
+          <p class="text-sm"><strong class="text-royal-gold font-cinzel">II.</strong> Eliminate consumer debt with the ferocity of a king defending his borders.</p>
+        </div>
+        <div class="bg-white dark:bg-royal-sapphire/20 border border-royal-gold/10 rounded-xl p-5">
+          <p class="text-sm"><strong class="text-royal-gold font-cinzel">III.</strong> Invest consistently, not cleverly. Time in the market defeats timing the market.</p>
+        </div>
+        <div class="bg-white dark:bg-royal-sapphire/20 border border-royal-gold/10 rounded-xl p-5">
+          <p class="text-sm"><strong class="text-royal-gold font-cinzel">IV.</strong> Build multiple income streams. A kingdom with one road is easily sieged.</p>
+        </div>
+        <div class="bg-white dark:bg-royal-sapphire/20 border border-royal-gold/10 rounded-xl p-5">
+          <p class="text-sm"><strong class="text-royal-gold font-cinzel">V.</strong> Protect your assets. Insurance, estate planning, emergency funds — the wall before the storm.</p>
+        </div>
+        <div class="bg-white dark:bg-royal-sapphire/20 border border-royal-gold/10 rounded-xl p-5">
+          <p class="text-sm"><strong class="text-royal-gold font-cinzel">VI.</strong> Teach your children. Generational wealth is not inherited — it is educated into existence.</p>
+        </div>
+        <div class="bg-white dark:bg-royal-sapphire/20 border border-royal-gold/10 rounded-xl p-5">
+          <p class="text-sm"><strong class="text-royal-gold font-cinzel">VII.</strong> Give generously. Wealth hoarded rots; wealth shared multiplies and builds your name.</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- Budget Calculator -->
+    <div class="bg-royal-sapphire/5 dark:bg-white/5 border border-royal-gold/10 rounded-2xl p-8">
+      <h2 class="font-cinzel text-xl text-royal-plum dark:text-royal-gold mb-4">💰 Royal Budget Calculator</h2>
+      <p class="text-sm text-royal-sapphire/60 dark:text-white/40 mb-6">Enter your monthly income and see your royal allocation.</p>
+      <div class="max-w-md mx-auto">
+        <input type="number" id="budgetIncome" placeholder="Monthly income" class="w-full px-4 py-3 rounded-lg border border-royal-gold/20 bg-white/50 dark:bg-white/5 font-inter text-sm focus:outline-none focus:border-royal-gold mb-4">
+        <button onclick="calculateBudget()" class="w-full py-3 bg-royal-gold text-white font-cinzel rounded-lg hover:bg-royal-plum transition">Calculate Allocation</button>
+        <div id="budgetResult" class="mt-6 space-y-3 hidden"></div>
+      </div>
+    </div>
+
+    <!-- YouTube -->
+    <div>
+      <h2 class="font-cinzel text-2xl text-royal-plum dark:text-royal-gold mb-6">Lessons from the Masters</h2>
+      <div class="grid md:grid-cols-2 gap-6">
+        <div class="rounded-xl overflow-hidden border border-royal-gold/10">
+          <div class="aspect-video bg-royal-sapphire/10">
+            <iframe class="w-full h-full" src="https://www.youtube.com/embed/HQzoZfc3GwQ" title="Personal Finance Basics" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+          </div>
+          <div class="p-4 bg-white dark:bg-royal-sapphire/20"><h4 class="font-cinzel text-sm text-royal-plum dark:text-royal-gold">Foundations of Personal Finance</h4></div>
+        </div>
+        <div class="rounded-xl overflow-hidden border border-royal-gold/10">
+          <div class="aspect-video bg-royal-sapphire/10">
+            <iframe class="w-full h-full" src="https://www.youtube.com/embed/p7HKvqRI_Bo" title="Wealth Building Strategies" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+          </div>
+          <div class="p-4 bg-white dark:bg-royal-sapphire/20"><h4 class="font-cinzel text-sm text-royal-plum dark:text-royal-gold">Long-Term Wealth Building</h4></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Wisdom Reflections -->
+    <div>
+      <h2 class="font-cinzel text-2xl text-royal-plum dark:text-royal-gold mb-6">Wisdom Reflections</h2>
+      <div class="space-y-6">
+        <div class="bg-white dark:bg-royal-sapphire/20 border border-royal-gold/10 rounded-xl p-6">
+          <p class="font-playfair italic text-royal-plum dark:text-royal-gold text-sm mb-4">"If your finances were a kingdom, would you say it is thriving, surviving, or under siege?"</p>
+          <textarea rows="3" placeholder="Write your reflection..." class="w-full px-4 py-3 rounded-lg border border-royal-gold/20 bg-royal-cream/50 dark:bg-white/5 font-inter text-sm focus:outline-none focus:border-royal-gold resize-none"></textarea>
+          <button data-prompt="If your finances were a kingdom, would you say it is thriving, surviving, or under siege?" class="journal-save-btn mt-2 px-4 py-2 bg-royal-gold text-white text-xs font-cinzel rounded-lg hover:bg-royal-plum transition">Save to Journal</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- Quiz -->
+    <div>
+      <h2 class="font-cinzel text-2xl text-royal-plum dark:text-royal-gold mb-6">Counsel from the Throne</h2>
+      <div class="quiz-block bg-white dark:bg-royal-sapphire/20 border border-royal-gold/10 rounded-xl p-8">
+        <p class="font-playfair italic text-royal-plum dark:text-royal-gold mb-6">"You receive an unexpected bonus. The king's protocol is..."</p>
+        <div class="space-y-3">
+          <button data-correct="false" class="quiz-option w-full text-left px-5 py-3 rounded-lg border border-royal-gold/15 hover:border-royal-gold/40 transition text-sm font-inter">Celebrate with a purchase you've been eyeing</button>
+          <button data-correct="true" class="quiz-option w-full text-left px-5 py-3 rounded-lg border border-royal-gold/15 hover:border-royal-gold/40 transition text-sm font-inter">50% to war chest, 30% to investments, 20% to giving or measured enjoyment</button>
+          <button data-correct="false" class="quiz-option w-full text-left px-5 py-3 rounded-lg border border-royal-gold/15 hover:border-royal-gold/40 transition text-sm font-inter">Put it all in savings — deny yourself everything</button>
+        </div>
+        <div class="quiz-feedback hidden"></div>
+      </div>
+    </div>
+
+    <!-- Scenario Solver -->
+    <div class="bg-royal-sapphire dark:bg-royal-sapphire/80 rounded-2xl p-8 text-white">
+      <h2 class="font-cinzel text-xl text-royal-gold mb-4">Royal Protocol Solver</h2>
+      <p class="text-sm text-white/50 mb-6">Describe any financial dilemma and receive the king's counsel.</p>
+      <form id="scenarioForm" class="flex gap-3">
+        <input type="text" id="scenarioInput" placeholder="e.g., 'Friend asked to borrow a large sum...'" class="flex-1 px-4 py-3 rounded-lg bg-white/10 border border-royal-gold/20 text-white font-inter text-sm focus:outline-none focus:border-royal-gold placeholder-white/30">
+        <button type="submit" class="px-6 py-3 bg-royal-gold text-royal-sapphire font-cinzel text-sm rounded-lg hover:bg-white transition">Counsel</button>
+      </form>
+      <div id="scenarioResponse" class="mt-4"></div>
+    </div>
+
+    <!-- Checklist -->
+    <div>
+      <h2 class="font-cinzel text-2xl text-royal-plum dark:text-royal-gold mb-6">Your Royal Treasury Checklist</h2>
+      <div class="bg-white dark:bg-royal-sapphire/20 border border-royal-gold/10 rounded-xl p-6">
+        <form id="checklistForm" class="flex gap-3 mb-6">
+          <input type="text" id="checklistInput" placeholder="Add a financial goal..." class="flex-1 px-4 py-3 rounded-lg border border-royal-gold/20 bg-royal-cream/50 dark:bg-white/5 font-inter text-sm focus:outline-none focus:border-royal-gold">
+          <button type="submit" class="px-4 py-3 bg-royal-gold text-white text-sm font-cinzel rounded-lg hover:bg-royal-plum transition">Add</button>
+        </form>
+        <div id="checklistItems" class="space-y-2"></div>
+      </div>
+    </div>
+  </section>
+
+  <div id="mainFooter"></div>
+  <script src="shared.js"></script>
+  <script src="pillar-template.js"></script>
+  <script>
+    document.addEventListener('DOMContentLoaded',()=>{initPillar('treasury');setMode(getMode());});
+    function calculateBudget() {
+      const income = parseFloat(document.getElementById('budgetIncome').value);
+      if (!income || income <= 0) return;
+      const result = document.getElementById('budgetResult');
+      result.classList.remove('hidden');
+      result.innerHTML = `
+        <div class="bg-white dark:bg-royal-sapphire/20 border border-royal-gold/10 rounded-xl p-4 flex justify-between items-center">
+          <span class="text-sm font-cinzel text-royal-gold">Kingdom's Needs (50%)</span>
+          <span class="font-inter font-semibold">$${(income*0.5).toFixed(2)}</span>
+        </div>
+        <div class="bg-white dark:bg-royal-sapphire/20 border border-royal-gold/10 rounded-xl p-4 flex justify-between items-center">
+          <span class="text-sm font-cinzel text-royal-gold">War Chest (20%)</span>
+          <span class="font-inter font-semibold">$${(income*0.2).toFixed(2)}</span>
+        </div>
+        <div class="bg-white dark:bg-royal-sapphire/20 border border-royal-gold/10 rounded-xl p-4 flex justify-between items-center">
+          <span class="text-sm font-cinzel text-royal-gold">Investment Vault (20%)</span>
+          <span class="font-inter font-semibold">$${(income*0.2).toFixed(2)}</span>
+        </div>
+        <div class="bg-white dark:bg-royal-sapphire/20 border border-royal-gold/10 rounded-xl p-4 flex justify-between items-center">
+          <span class="text-sm font-cinzel text-royal-gold">Pleasure & Giving (10%)</span>
+          <span class="font-inter font-semibold">$${(income*0.1).toFixed(2)}</span>
+        </div>
+      `;
+    }
+  </script>
+</body>
+</html>

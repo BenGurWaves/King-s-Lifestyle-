@@ -1,0 +1,174 @@
+<!-- presence.html -->
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Presence — A King's Lifestyle</title>
+  <link rel="manifest" href="manifest.json">
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>tailwind.config={darkMode:'class',theme:{extend:{colors:{royal:{green:'#052B20',cream:'#FFF6E6',gold:'#A38255',plum:'#571641',sapphire:'#08052D'}},fontFamily:{cinzel:['Cinzel','serif'],inter:['Inter','sans-serif'],playfair:['Playfair Display','serif']},animation:{fadeIn:'fadeIn 0.8s ease-out forwards',fadeInUp:'fadeInUp 0.8s ease-out forwards'},keyframes:{fadeIn:{'0%':{opacity:'0'},'100%':{opacity:'1'}},fadeInUp:{'0%':{opacity:'0',transform:'translateY(24px)'},'100%':{opacity:'1',transform:'translateY(0)'}}}}}}</script>
+  <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600;700&family=Inter:wght@300;400;500;600&family=Playfair+Display:ital,wght@0,400;0,600;1,400&display=swap" rel="stylesheet">
+  <script src="https://unpkg.com/@supabase/supabase-js@2" defer></script>
+  <style>.bg-parchment{background-image:url("data:image/svg+xml,%3Csvg width='100' height='100' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.8' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100' height='100' filter='url(%23n)' opacity='0.03'/%3E%3C/svg%3E");}.gold-glow:hover{box-shadow:0 0 30px rgba(163,130,85,0.25);}.dark .bg-parchment{background-color:#0a0a0a;}.dark body{background-color:#0a0a0a;color:#e0d5c4;}</style>
+</head>
+<body class="bg-royal-cream bg-parchment font-inter text-royal-sapphire min-h-screen">
+  <div id="mainNav"></div>
+
+  <section class="max-w-4xl mx-auto px-6 pt-20 pb-12 animate-fadeInUp">
+    <div class="text-center mb-16">
+      <div class="text-4xl mb-6">👑</div>
+      <h1 class="font-cinzel text-3xl md:text-5xl text-royal-plum mb-6">Presence</h1>
+      <p class="font-playfair italic text-royal-gold text-lg max-w-2xl mx-auto leading-relaxed">
+        "When a true king entered a room, no announcement was needed. His walk spoke. His stillness commanded. His gaze held weight. Presence is not taught — it is cultivated through a thousand small choices about how you carry the temple of your authority..."
+      </p>
+    </div>
+    <div data-bible class="bg-royal-sapphire/5 dark:bg-white/5 border border-royal-gold/10 rounded-xl p-6 mb-6 text-center">
+      <p class="font-playfair italic text-royal-plum dark:text-royal-gold">"The glory of young men is their strength, gray hair the splendor of the old."</p>
+      <p class="text-xs text-royal-sapphire/40 mt-2">— Proverbs 20:29</p>
+    </div>
+    <div data-secular style="display:none" class="bg-royal-sapphire/5 dark:bg-white/5 border border-royal-gold/10 rounded-xl p-6 mb-6 text-center">
+      <p class="font-playfair italic text-royal-plum dark:text-royal-gold">"A man of presence needs no introduction. The way he occupies space announces everything."</p>
+      <p class="text-xs text-royal-sapphire/40 mt-2">— The Art of Command</p>
+    </div>
+  </section>
+
+  <section class="max-w-4xl mx-auto px-6 space-y-16 mb-20">
+
+    <!-- Walking -->
+    <div class="animate-fadeIn">
+      <h2 class="font-cinzel text-2xl text-royal-plum dark:text-royal-gold mb-4">The King's Walk</h2>
+      <div class="font-inter text-sm leading-relaxed text-royal-sapphire/80 dark:text-white/60 space-y-4">
+        <p>Your walk is your opening statement. Before you speak, before you shake hands, you walk — and everyone watches.</p>
+        <div class="bg-white dark:bg-royal-sapphire/20 border-l-4 border-royal-gold rounded-r-xl p-5 mt-4">
+          <h4 class="font-cinzel text-sm text-royal-gold mb-2">The Protocol</h4>
+          <ul class="text-xs space-y-2 list-disc pl-4">
+            <li><strong>Pace:</strong> 10-15% slower than your natural speed. Urgency signals anxiety. Measured pace signals authority.</li>
+            <li><strong>Stride:</strong> Shoulder-width. Not too wide (aggressive), not too narrow (timid).</li>
+            <li><strong>Arms:</strong> Relaxed at sides with gentle natural swing. Never in pockets. Never crossed behind the back (military, not regal).</li>
+            <li><strong>Head:</strong> Level, chin parallel to the ground. Eyes forward, not at the floor. You are surveying your domain.</li>
+            <li><strong>Shoulders:</strong> Pulled back and down. Not tense, not slouched. Imagine wearing a heavy crown — it straightens everything.</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+
+    <!-- Sitting -->
+    <div class="animate-fadeIn">
+      <h2 class="font-cinzel text-2xl text-royal-plum dark:text-royal-gold mb-4">The Art of Sitting</h2>
+      <div class="font-inter text-sm leading-relaxed text-royal-sapphire/80 dark:text-white/60 space-y-4">
+        <p>How a man sits reveals his inner state. The sloucher is defeated. The fidgeter is anxious. The king sits with grounded stillness.</p>
+        <div class="grid md:grid-cols-3 gap-4 mt-4">
+          <div class="bg-white dark:bg-royal-sapphire/20 border border-royal-gold/10 rounded-xl p-5">
+            <h4 class="font-cinzel text-sm text-royal-gold mb-2">Boardroom</h4>
+            <p class="text-xs">Upright, both feet flat, hands on table or armrests. Lean slightly forward when listening — it communicates engagement and authority.</p>
+          </div>
+          <div class="bg-white dark:bg-royal-sapphire/20 border border-royal-gold/10 rounded-xl p-5">
+            <h4 class="font-cinzel text-sm text-royal-gold mb-2">Social Setting</h4>
+            <p class="text-xs">Relaxed but controlled. One ankle may rest on opposite knee. Arms open. Take up appropriate space — a king does not shrink himself.</p>
+          </div>
+          <div class="bg-white dark:bg-royal-sapphire/20 border border-royal-gold/10 rounded-xl p-5">
+            <h4 class="font-cinzel text-sm text-royal-gold mb-2">Dining</h4>
+            <p class="text-xs">Straight back, wrists resting on table edge (never elbows). Lean from the waist when eating, not from the neck. Grace in every gesture.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Body Language Mastery -->
+    <div class="animate-fadeIn">
+      <h2 class="font-cinzel text-2xl text-royal-plum dark:text-royal-gold mb-4">Body Language in Every Setting</h2>
+      <div class="space-y-4">
+        <div class="bg-white dark:bg-royal-sapphire/20 border border-royal-gold/10 rounded-xl p-6">
+          <h3 class="font-cinzel text-lg text-royal-gold mb-3">The Handshake</h3>
+          <p class="text-sm text-royal-sapphire/70 dark:text-white/50">Firm (not crushing), web-to-web contact, 2-3 pumps, direct eye contact, slight smile. This 3-second interaction forms 80% of a first impression. Practice until it's second nature.</p>
+        </div>
+        <div class="bg-white dark:bg-royal-sapphire/20 border border-royal-gold/10 rounded-xl p-6">
+          <h3 class="font-cinzel text-lg text-royal-gold mb-3">Eye Contact</h3>
+          <p class="text-sm text-royal-sapphire/70 dark:text-white/50">The triangle method: alternate gaze between left eye, right eye, and bridge of nose. Hold for 3-5 seconds, then briefly look away. Never stare. Never dart. Steady, warm, confident.</p>
+        </div>
+        <div class="bg-white dark:bg-royal-sapphire/20 border border-royal-gold/10 rounded-xl p-6">
+          <h3 class="font-cinzel text-lg text-royal-gold mb-3">Standing in a Group</h3>
+          <p class="text-sm text-royal-sapphire/70 dark:text-white/50">Weight evenly distributed, feet shoulder-width, hands visible (never hidden in pockets for long). Position yourself to include everyone. The king opens circles, never closes them.</p>
+        </div>
+        <div class="bg-white dark:bg-royal-sapphire/20 border border-royal-gold/10 rounded-xl p-6">
+          <h3 class="font-cinzel text-lg text-royal-gold mb-3">Absurd Fix: The Pool Party</h3>
+          <p class="text-sm text-royal-sapphire/70 dark:text-white/50">You're at a pool party in swim trunks — no suit to hide behind. Your presence comes from: posture (stand tall), towel draped on one shoulder (not wrapped around you), confident casual movement. Don't rush in or out of the water. Enter slowly. Own the space.</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- YouTube -->
+    <div>
+      <h2 class="font-cinzel text-2xl text-royal-plum dark:text-royal-gold mb-6">Lessons from the Masters</h2>
+      <div class="grid md:grid-cols-2 gap-6">
+        <div class="rounded-xl overflow-hidden border border-royal-gold/10">
+          <div class="aspect-video bg-royal-sapphire/10">
+            <iframe class="w-full h-full" src="https://www.youtube.com/embed/Ks-_Mh1QhMc" title="Body Language Power" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+          </div>
+          <div class="p-4 bg-white dark:bg-royal-sapphire/20"><h4 class="font-cinzel text-sm text-royal-plum dark:text-royal-gold">Your Body Language Shapes Who You Are</h4></div>
+        </div>
+        <div class="rounded-xl overflow-hidden border border-royal-gold/10">
+          <div class="aspect-video bg-royal-sapphire/10">
+            <iframe class="w-full h-full" src="https://www.youtube.com/embed/cFLjudWTuGQ" title="How to Walk with Confidence" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+          </div>
+          <div class="p-4 bg-white dark:bg-royal-sapphire/20"><h4 class="font-cinzel text-sm text-royal-plum dark:text-royal-gold">Walk with Commanding Confidence</h4></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Wisdom Reflections -->
+    <div>
+      <h2 class="font-cinzel text-2xl text-royal-plum dark:text-royal-gold mb-6">Wisdom Reflections</h2>
+      <div class="space-y-6">
+        <div class="bg-white dark:bg-royal-sapphire/20 border border-royal-gold/10 rounded-xl p-6">
+          <p class="font-playfair italic text-royal-plum dark:text-royal-gold text-sm mb-4">"When you enter a room, do people feel your arrival before they see you? If not, what must change?"</p>
+          <textarea rows="3" placeholder="Write your reflection..." class="w-full px-4 py-3 rounded-lg border border-royal-gold/20 bg-royal-cream/50 dark:bg-white/5 font-inter text-sm focus:outline-none focus:border-royal-gold resize-none"></textarea>
+          <button data-prompt="When you enter a room, do people feel your arrival before they see you?" class="journal-save-btn mt-2 px-4 py-2 bg-royal-gold text-white text-xs font-cinzel rounded-lg hover:bg-royal-plum transition">Save to Journal</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- Quiz -->
+    <div>
+      <h2 class="font-cinzel text-2xl text-royal-plum dark:text-royal-gold mb-6">Counsel from the Throne</h2>
+      <div class="quiz-block bg-white dark:bg-royal-sapphire/20 border border-royal-gold/10 rounded-xl p-8">
+        <p class="font-playfair italic text-royal-plum dark:text-royal-gold mb-6">"You arrive late to an important meeting. All eyes turn to you. The kingly response is..."</p>
+        <div class="space-y-3">
+          <button data-correct="false" class="quiz-option w-full text-left px-5 py-3 rounded-lg border border-royal-gold/15 hover:border-royal-gold/40 transition text-sm font-inter">Rush in, apologize profusely, and quickly find a seat</button>
+          <button data-correct="true" class="quiz-option w-full text-left px-5 py-3 rounded-lg border border-royal-gold/15 hover:border-royal-gold/40 transition text-sm font-inter">Enter calmly, brief sincere acknowledgment of the time, take your seat with composure</button>
+          <button data-correct="false" class="quiz-option w-full text-left px-5 py-3 rounded-lg border border-royal-gold/15 hover:border-royal-gold/40 transition text-sm font-inter">Slip in quietly hoping no one notices</button>
+        </div>
+        <div class="quiz-feedback hidden"></div>
+      </div>
+    </div>
+
+    <!-- Scenario Solver -->
+    <div class="bg-royal-sapphire dark:bg-royal-sapphire/80 rounded-2xl p-8 text-white">
+      <h2 class="font-cinzel text-xl text-royal-gold mb-4">Royal Protocol Solver</h2>
+      <form id="scenarioForm" class="flex gap-3">
+        <input type="text" id="scenarioInput" placeholder="e.g., 'How do I handle awkward silence in an elevator?'" class="flex-1 px-4 py-3 rounded-lg bg-white/10 border border-royal-gold/20 text-white font-inter text-sm focus:outline-none focus:border-royal-gold placeholder-white/30">
+        <button type="submit" class="px-6 py-3 bg-royal-gold text-royal-sapphire font-cinzel text-sm rounded-lg hover:bg-white transition">Counsel</button>
+      </form>
+      <div id="scenarioResponse" class="mt-4"></div>
+    </div>
+
+    <!-- Checklist -->
+    <div>
+      <h2 class="font-cinzel text-2xl text-royal-plum dark:text-royal-gold mb-6">Your Royal Presence Checklist</h2>
+      <div class="bg-white dark:bg-royal-sapphire/20 border border-royal-gold/10 rounded-xl p-6">
+        <form id="checklistForm" class="flex gap-3 mb-6">
+          <input type="text" id="checklistInput" placeholder="Add a presence goal..." class="flex-1 px-4 py-3 rounded-lg border border-royal-gold/20 bg-royal-cream/50 dark:bg-white/5 font-inter text-sm focus:outline-none focus:border-royal-gold">
+          <button type="submit" class="px-4 py-3 bg-royal-gold text-white text-sm font-cinzel rounded-lg hover:bg-royal-plum transition">Add</button>
+        </form>
+        <div id="checklistItems" class="space-y-2"></div>
+      </div>
+    </div>
+  </section>
+
+  <div id="mainFooter"></div>
+  <script src="shared.js"></script>
+  <script src="pillar-template.js"></script>
+  <script>document.addEventListener('DOMContentLoaded',()=>{initPillar('presence');setMode(getMode());});</script>
+</body>
+</html>

@@ -1,0 +1,185 @@
+<!-- index.html -->
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>A King's Lifestyle — Master the Ways of a King and Gentleman</title>
+  <meta name="description" content="Genuine transformation into a king and gentleman. No shortcuts.">
+  <link rel="manifest" href="manifest.json">
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      darkMode: 'class',
+      theme: {
+        extend: {
+          colors: {
+            royal: { green: '#052B20', cream: '#FFF6E6', gold: '#A38255', plum: '#571641', sapphire: '#08052D' }
+          },
+          fontFamily: {
+            cinzel: ['Cinzel', 'serif'],
+            inter: ['Inter', 'sans-serif'],
+            playfair: ['Playfair Display', 'serif']
+          },
+          animation: {
+            fadeIn: 'fadeIn 0.8s ease-out forwards',
+            fadeInUp: 'fadeInUp 0.8s ease-out forwards',
+            glowPulse: 'glowPulse 3s ease-in-out infinite',
+          },
+          keyframes: {
+            fadeIn: { '0%': { opacity: '0' }, '100%': { opacity: '1' } },
+            fadeInUp: { '0%': { opacity: '0', transform: 'translateY(24px)' }, '100%': { opacity: '1', transform: 'translateY(0)' } },
+            glowPulse: { '0%, 100%': { boxShadow: '0 0 20px rgba(163,130,85,0.1)' }, '50%': { boxShadow: '0 0 40px rgba(163,130,85,0.3)' } },
+          }
+        }
+      }
+    }
+  </script>
+  <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600;700&family=Inter:wght@300;400;500;600&family=Playfair+Display:ital,wght@0,400;0,600;1,400&display=swap" rel="stylesheet">
+  <script src="https://unpkg.com/@supabase/supabase-js@2" defer></script>
+  <style>
+    .bg-parchment { background-image: url("data:image/svg+xml,%3Csvg width='100' height='100' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.8' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100' height='100' filter='url(%23n)' opacity='0.03'/%3E%3C/svg%3E"); }
+    .gold-glow:hover { box-shadow: 0 0 30px rgba(163,130,85,0.25); }
+    .text-shadow-gold { text-shadow: 0 0 40px rgba(163,130,85,0.15); }
+    .dark .bg-parchment { background-color: #0a0a0a; }
+    .dark body { background-color: #0a0a0a; color: #e0d5c4; }
+  </style>
+</head>
+<body class="bg-royal-cream bg-parchment font-inter text-royal-sapphire min-h-screen">
+  <div id="mainNav"></div>
+
+  <!-- Hero -->
+  <section class="relative overflow-hidden">
+    <div class="max-w-7xl mx-auto px-6 pt-24 pb-32 text-center">
+      <div class="animate-fadeInUp">
+        <h1 class="font-cinzel text-4xl md:text-6xl lg:text-7xl text-royal-plum tracking-wide leading-tight text-shadow-gold">
+          A King's Lifestyle
+        </h1>
+        <p class="font-playfair italic text-lg md:text-xl text-royal-gold mt-6 max-w-2xl mx-auto">
+          "Master the Ways of a King and Gentleman — Genuine Transformation, No Shortcuts"
+        </p>
+        <div class="mt-12 flex flex-col sm:flex-row items-center justify-center gap-4">
+          <a href="onboarding.html" class="px-8 py-4 bg-royal-gold text-white font-cinzel tracking-wider rounded-lg hover:bg-royal-plum transition-all duration-500 gold-glow">
+            Begin Your Transformation
+          </a>
+          <a href="#pillars" class="px-8 py-4 border border-royal-gold/30 text-royal-gold font-cinzel tracking-wider rounded-lg hover:bg-royal-gold/10 transition-all duration-500">
+            Explore the Pillars
+          </a>
+        </div>
+      </div>
+      <!-- Decorative Line -->
+      <div class="mt-16 flex items-center justify-center gap-4 opacity-30">
+        <div class="h-px w-24 bg-royal-gold"></div>
+        <svg width="20" height="20" fill="none" stroke="#A38255" stroke-width="1.5"><path d="M10 2l2.5 6h6.5l-5 4 2 6.5L10 15l-6 3.5 2-6.5-5-4h6.5z"/></svg>
+        <div class="h-px w-24 bg-royal-gold"></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Daily Principle Feature -->
+  <section class="max-w-4xl mx-auto px-6 mb-20 animate-fadeIn" style="animation-delay: 0.3s">
+    <div class="bg-royal-sapphire/5 dark:bg-white/5 border border-royal-gold/10 rounded-2xl p-8 text-center">
+      <h2 class="font-cinzel text-xs tracking-[0.3em] text-royal-gold uppercase mb-4">Today's Royal Principle</h2>
+      <div id="heroPrinciple" class="font-playfair text-lg text-royal-plum dark:text-royal-gold italic"></div>
+    </div>
+  </section>
+
+  <!-- Pillars Grid -->
+  <section id="pillars" class="max-w-7xl mx-auto px-6 mb-24">
+    <div class="text-center mb-16 animate-fadeInUp" style="animation-delay: 0.2s">
+      <h2 class="font-cinzel text-3xl md:text-4xl text-royal-plum">The Seven Pillars</h2>
+      <p class="font-inter text-sm text-royal-sapphire/50 mt-3">Each pillar is a path toward mastery. Walk them all.</p>
+    </div>
+    <div class="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
+      <a href="nourishment.html" class="group block p-8 bg-white dark:bg-royal-sapphire/30 border border-royal-gold/10 rounded-2xl hover:border-royal-gold/40 transition-all duration-500 gold-glow animate-fadeInUp" style="animation-delay: 0.1s">
+        <div class="text-3xl mb-4">🍽</div>
+        <h3 class="font-cinzel text-royal-plum dark:text-royal-gold text-lg mb-2 group-hover:text-royal-gold transition-colors">Nourishment</h3>
+        <p class="text-sm text-royal-sapphire/60 dark:text-white/50 leading-relaxed">Clean eating, gentleman dining, and mastering your plate like a king.</p>
+      </a>
+      <a href="attire.html" class="group block p-8 bg-white dark:bg-royal-sapphire/30 border border-royal-gold/10 rounded-2xl hover:border-royal-gold/40 transition-all duration-500 gold-glow animate-fadeInUp" style="animation-delay: 0.15s">
+        <div class="text-3xl mb-4">👔</div>
+        <h3 class="font-cinzel text-royal-plum dark:text-royal-gold text-lg mb-2 group-hover:text-royal-gold transition-colors">Attire</h3>
+        <p class="text-sm text-royal-sapphire/60 dark:text-white/50 leading-relaxed">Dress with purpose. From boardroom to church to poolside — always impeccable.</p>
+      </a>
+      <a href="mentality.html" class="group block p-8 bg-white dark:bg-royal-sapphire/30 border border-royal-gold/10 rounded-2xl hover:border-royal-gold/40 transition-all duration-500 gold-glow animate-fadeInUp" style="animation-delay: 0.2s">
+        <div class="text-3xl mb-4">🧠</div>
+        <h3 class="font-cinzel text-royal-plum dark:text-royal-gold text-lg mb-2 group-hover:text-royal-gold transition-colors">Mentality</h3>
+        <p class="text-sm text-royal-sapphire/60 dark:text-white/50 leading-relaxed">Habits, discipline, love, relationships, and the inner warfare of a king.</p>
+      </a>
+      <a href="treasury.html" class="group block p-8 bg-white dark:bg-royal-sapphire/30 border border-royal-gold/10 rounded-2xl hover:border-royal-gold/40 transition-all duration-500 gold-glow animate-fadeInUp" style="animation-delay: 0.25s">
+        <div class="text-3xl mb-4">💰</div>
+        <h3 class="font-cinzel text-royal-plum dark:text-royal-gold text-lg mb-2 group-hover:text-royal-gold transition-colors">Treasury</h3>
+        <p class="text-sm text-royal-sapphire/60 dark:text-white/50 leading-relaxed">Budget wisely, build wealth, and provide like a king should.</p>
+      </a>
+      <a href="body.html" class="group block p-8 bg-white dark:bg-royal-sapphire/30 border border-royal-gold/10 rounded-2xl hover:border-royal-gold/40 transition-all duration-500 gold-glow animate-fadeInUp" style="animation-delay: 0.3s">
+        <div class="text-3xl mb-4">💪</div>
+        <h3 class="font-cinzel text-royal-plum dark:text-royal-gold text-lg mb-2 group-hover:text-royal-gold transition-colors">Body</h3>
+        <p class="text-sm text-royal-sapphire/60 dark:text-white/50 leading-relaxed">Fitness, energy, posture — your body is the temple of your kingdom.</p>
+      </a>
+      <a href="presence.html" class="group block p-8 bg-white dark:bg-royal-sapphire/30 border border-royal-gold/10 rounded-2xl hover:border-royal-gold/40 transition-all duration-500 gold-glow animate-fadeInUp" style="animation-delay: 0.35s">
+        <div class="text-3xl mb-4">👑</div>
+        <h3 class="font-cinzel text-royal-plum dark:text-royal-gold text-lg mb-2 group-hover:text-royal-gold transition-colors">Presence</h3>
+        <p class="text-sm text-royal-sapphire/60 dark:text-white/50 leading-relaxed">Walk, sit, stand, and command any room with silent authority.</p>
+      </a>
+      <a href="speech.html" class="group block p-8 bg-white dark:bg-royal-sapphire/30 border border-royal-gold/10 rounded-2xl hover:border-royal-gold/40 transition-all duration-500 gold-glow animate-fadeInUp" style="animation-delay: 0.4s">
+        <div class="text-3xl mb-4">🗣</div>
+        <h3 class="font-cinzel text-royal-plum dark:text-royal-gold text-lg mb-2 group-hover:text-royal-gold transition-colors">Speech</h3>
+        <p class="text-sm text-royal-sapphire/60 dark:text-white/50 leading-relaxed">Vocabulary, filler-word mastery, and the art of powerful conversation.</p>
+      </a>
+      <a href="legacy.html" class="group block p-8 bg-white dark:bg-royal-sapphire/30 border border-royal-gold/10 rounded-2xl hover:border-royal-gold/40 transition-all duration-500 gold-glow animate-fadeInUp" style="animation-delay: 0.45s">
+        <div class="text-3xl mb-4">🏛</div>
+        <h3 class="font-cinzel text-royal-plum dark:text-royal-gold text-lg mb-2 group-hover:text-royal-gold transition-colors">Legacy</h3>
+        <p class="text-sm text-royal-sapphire/60 dark:text-white/50 leading-relaxed">Protect, provide, and lead your family with honor that outlasts you.</p>
+      </a>
+    </div>
+  </section>
+
+  <!-- Quick Tools Teaser -->
+  <section class="max-w-5xl mx-auto px-6 mb-24">
+    <div class="text-center mb-12">
+      <h2 class="font-cinzel text-2xl text-royal-plum">Royal Tools</h2>
+      <p class="text-sm text-royal-sapphire/50 mt-2 font-inter">Instruments of refinement, at your service.</p>
+    </div>
+    <div class="grid sm:grid-cols-3 gap-6">
+      <div class="bg-white dark:bg-royal-sapphire/20 border border-royal-gold/10 rounded-xl p-6 text-center gold-glow transition-all duration-500">
+        <div class="text-2xl mb-3">📸</div>
+        <h4 class="font-cinzel text-sm text-royal-plum dark:text-royal-gold mb-1">Plate Scanner</h4>
+        <p class="text-xs text-royal-sapphire/50 dark:text-white/40">Photograph your meal and receive kingly nutrition counsel.</p>
+      </div>
+      <div class="bg-white dark:bg-royal-sapphire/20 border border-royal-gold/10 rounded-xl p-6 text-center gold-glow transition-all duration-500">
+        <div class="text-2xl mb-3">🎙</div>
+        <h4 class="font-cinzel text-sm text-royal-plum dark:text-royal-gold mb-1">Speech Analyzer</h4>
+        <p class="text-xs text-royal-sapphire/50 dark:text-white/40">Record conversations, eliminate filler words, refine your command.</p>
+      </div>
+      <div class="bg-white dark:bg-royal-sapphire/20 border border-royal-gold/10 rounded-xl p-6 text-center gold-glow transition-all duration-500">
+        <div class="text-2xl mb-3">📓</div>
+        <h4 class="font-cinzel text-sm text-royal-plum dark:text-royal-gold mb-1">Wisdom Journal</h4>
+        <p class="text-xs text-royal-sapphire/50 dark:text-white/40">Capture reflections, track growth, and build your royal archive.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- Onboarding Teaser -->
+  <section class="max-w-3xl mx-auto px-6 mb-24 text-center">
+    <div class="bg-royal-sapphire dark:bg-royal-sapphire/80 rounded-2xl p-12 text-white">
+      <h2 class="font-cinzel text-2xl text-royal-gold mb-4">Your Journey Begins With a Single Question</h2>
+      <p class="font-inter text-sm text-white/60 mb-8 max-w-lg mx-auto">The onboarding takes 5 minutes. Speak or type your answers. We'll build your personalized royal curriculum.</p>
+      <a href="onboarding.html" class="inline-block px-8 py-3 bg-royal-gold text-royal-sapphire font-cinzel tracking-wider rounded-lg hover:bg-white hover:text-royal-sapphire transition-all duration-500">
+        Begin Onboarding
+      </a>
+    </div>
+  </section>
+
+  <div id="mainFooter"></div>
+  <script src="shared.js"></script>
+  <script>
+    // Render hero principle separately
+    document.addEventListener('DOMContentLoaded', () => {
+      const el = document.getElementById('heroPrinciple');
+      const bible = getMode();
+      const p = bible ? PRINCIPLES_BIBLE[getDayIndex()] : PRINCIPLES_SECULAR[getDayIndex()];
+      el.innerHTML = `"${p.text}" <span class="block mt-2 text-sm not-italic opacity-60">— ${p.ref}</span>`;
+    });
+  </script>
+</body>
+</html>
