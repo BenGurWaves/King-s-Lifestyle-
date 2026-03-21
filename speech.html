@@ -1,0 +1,252 @@
+<!-- speech.html -->
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Speech — A King's Lifestyle</title>
+  <link rel="manifest" href="manifest.json">
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>tailwind.config={darkMode:'class',theme:{extend:{colors:{royal:{green:'#052B20',cream:'#FFF6E6',gold:'#A38255',plum:'#571641',sapphire:'#08052D'}},fontFamily:{cinzel:['Cinzel','serif'],inter:['Inter','sans-serif'],playfair:['Playfair Display','serif']},animation:{fadeIn:'fadeIn 0.8s ease-out forwards',fadeInUp:'fadeInUp 0.8s ease-out forwards'},keyframes:{fadeIn:{'0%':{opacity:'0'},'100%':{opacity:'1'}},fadeInUp:{'0%':{opacity:'0',transform:'translateY(24px)'},'100%':{opacity:'1',transform:'translateY(0)'}}}}}}</script>
+  <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600;700&family=Inter:wght@300;400;500;600&family=Playfair+Display:ital,wght@0,400;0,600;1,400&display=swap" rel="stylesheet">
+  <script src="https://unpkg.com/@supabase/supabase-js@2" defer></script>
+  <style>.bg-parchment{background-image:url("data:image/svg+xml,%3Csvg width='100' height='100' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.8' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100' height='100' filter='url(%23n)' opacity='0.03'/%3E%3C/svg%3E");}.gold-glow:hover{box-shadow:0 0 30px rgba(163,130,85,0.25);}.dark .bg-parchment{background-color:#0a0a0a;}.dark body{background-color:#0a0a0a;color:#e0d5c4;}</style>
+</head>
+<body class="bg-royal-cream bg-parchment font-inter text-royal-sapphire min-h-screen">
+  <div id="mainNav"></div>
+
+  <section class="max-w-4xl mx-auto px-6 pt-20 pb-12 animate-fadeInUp">
+    <div class="text-center mb-16">
+      <div class="text-4xl mb-6">🗣</div>
+      <h1 class="font-cinzel text-3xl md:text-5xl text-royal-plum mb-6">Speech</h1>
+      <p class="font-playfair italic text-royal-gold text-lg max-w-2xl mx-auto leading-relaxed">
+        "In the courts of kings, words were weighed like gold. A single sentence could forge an alliance or ignite a war. The art of speech was not mere eloquence — it was the craft of shaping reality with your voice. The king who mastered his tongue mastered his world..."
+      </p>
+    </div>
+    <div data-bible class="bg-royal-sapphire/5 dark:bg-white/5 border border-royal-gold/10 rounded-xl p-6 mb-6 text-center">
+      <p class="font-playfair italic text-royal-plum dark:text-royal-gold">"The tongue has the power of life and death, and those who love it will eat its fruit."</p>
+      <p class="text-xs text-royal-sapphire/40 mt-2">— Proverbs 18:21</p>
+    </div>
+    <div data-secular style="display:none" class="bg-royal-sapphire/5 dark:bg-white/5 border border-royal-gold/10 rounded-xl p-6 mb-6 text-center">
+      <p class="font-playfair italic text-royal-plum dark:text-royal-gold">"Your words build or destroy. A gentleman measures every sentence before he releases it into the world."</p>
+      <p class="text-xs text-royal-sapphire/40 mt-2">— The Orator's Code</p>
+    </div>
+  </section>
+
+  <section class="max-w-4xl mx-auto px-6 space-y-16 mb-20">
+
+    <!-- Vocabulary -->
+    <div class="animate-fadeIn">
+      <h2 class="font-cinzel text-2xl text-royal-plum dark:text-royal-gold mb-4">Building a Kingly Vocabulary</h2>
+      <div class="font-inter text-sm leading-relaxed text-royal-sapphire/80 dark:text-white/60 space-y-4">
+        <p>A king does not use ten words when five will suffice, nor five when one precise word says everything. Expand your vocabulary not to impress, but to express with surgical precision.</p>
+        <h3 class="font-cinzel text-lg text-royal-plum dark:text-royal-gold mt-8">Replace These Immediately</h3>
+        <div class="grid md:grid-cols-2 gap-3 mt-4">
+          <div class="bg-white dark:bg-royal-sapphire/20 border border-royal-gold/10 rounded-lg p-4 flex items-center gap-4">
+            <span class="text-red-400/60 line-through text-sm">Nice</span>
+            <span class="text-royal-gold">→</span>
+            <span class="text-sm font-medium">Admirable, refined, commendable</span>
+          </div>
+          <div class="bg-white dark:bg-royal-sapphire/20 border border-royal-gold/10 rounded-lg p-4 flex items-center gap-4">
+            <span class="text-red-400/60 line-through text-sm">Very good</span>
+            <span class="text-royal-gold">→</span>
+            <span class="text-sm font-medium">Exceptional, outstanding, exemplary</span>
+          </div>
+          <div class="bg-white dark:bg-royal-sapphire/20 border border-royal-gold/10 rounded-lg p-4 flex items-center gap-4">
+            <span class="text-red-400/60 line-through text-sm">Bad</span>
+            <span class="text-royal-gold">→</span>
+            <span class="text-sm font-medium">Inadequate, deplorable, substandard</span>
+          </div>
+          <div class="bg-white dark:bg-royal-sapphire/20 border border-royal-gold/10 rounded-lg p-4 flex items-center gap-4">
+            <span class="text-red-400/60 line-through text-sm">I think</span>
+            <span class="text-royal-gold">→</span>
+            <span class="text-sm font-medium">I believe, I'm convinced, in my assessment</span>
+          </div>
+          <div class="bg-white dark:bg-royal-sapphire/20 border border-royal-gold/10 rounded-lg p-4 flex items-center gap-4">
+            <span class="text-red-400/60 line-through text-sm">Stuff</span>
+            <span class="text-royal-gold">→</span>
+            <span class="text-sm font-medium">Matters, particulars, elements</span>
+          </div>
+          <div class="bg-white dark:bg-royal-sapphire/20 border border-royal-gold/10 rounded-lg p-4 flex items-center gap-4">
+            <span class="text-red-400/60 line-through text-sm">Like, um, uh</span>
+            <span class="text-royal-gold">→</span>
+            <span class="text-sm font-medium">[Silence] — the king's most powerful word</span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Filler Word Eliminator -->
+    <div class="animate-fadeIn">
+      <h2 class="font-cinzel text-2xl text-royal-plum dark:text-royal-gold mb-4">The Filler-Word Eliminator</h2>
+      <div class="font-inter text-sm leading-relaxed text-royal-sapphire/80 dark:text-white/60 space-y-4">
+        <p>"Um," "like," "you know," "basically" — these are the cracks in a king's armor. They signal uncertainty, lack of preparation, or carelessness. Replace every filler with a deliberate pause. Silence is authority.</p>
+        <div class="bg-white dark:bg-royal-sapphire/20 border-l-4 border-royal-gold rounded-r-xl p-5 mt-4">
+          <h4 class="font-cinzel text-sm text-royal-gold mb-2">The 7-Day Filler Detox</h4>
+          <p class="text-xs">Day 1-2: Record yourself speaking for 2 minutes. Count every filler. This is your baseline.</p>
+          <p class="text-xs">Day 3-4: Practice speaking in 30-second bursts with zero fillers. Pause instead.</p>
+          <p class="text-xs">Day 5-6: Have a full conversation while consciously replacing fillers with silence.</p>
+          <p class="text-xs">Day 7: Record again. Compare to Day 1. You will be astonished.</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- Speech Recorder -->
+    <div class="bg-royal-sapphire/5 dark:bg-white/5 border border-royal-gold/10 rounded-2xl p-8">
+      <h2 class="font-cinzel text-xl text-royal-plum dark:text-royal-gold mb-4">🎙 Speech Recorder & Analyzer</h2>
+      <p class="text-sm text-royal-sapphire/60 dark:text-white/40 mb-6">Record yourself speaking and receive a post-conversation analysis.</p>
+      <div class="text-center">
+        <button id="recordBtn" onclick="toggleRecording()" class="px-8 py-4 bg-royal-gold text-white font-cinzel rounded-xl hover:bg-royal-plum transition-all text-lg">
+          Start Recording
+        </button>
+        <div id="recordingStatus" class="mt-4 text-sm text-royal-sapphire/40 dark:text-white/30"></div>
+        <div id="recordingResult" class="mt-6 hidden text-left"></div>
+      </div>
+    </div>
+
+    <!-- YouTube -->
+    <div>
+      <h2 class="font-cinzel text-2xl text-royal-plum dark:text-royal-gold mb-6">Lessons from the Masters</h2>
+      <div class="grid md:grid-cols-2 gap-6">
+        <div class="rounded-xl overflow-hidden border border-royal-gold/10">
+          <div class="aspect-video bg-royal-sapphire/10">
+            <iframe class="w-full h-full" src="https://www.youtube.com/embed/eIho2S0ZahI" title="Public Speaking" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+          </div>
+          <div class="p-4 bg-white dark:bg-royal-sapphire/20"><h4 class="font-cinzel text-sm text-royal-plum dark:text-royal-gold">The Art of Powerful Speaking</h4></div>
+        </div>
+        <div class="rounded-xl overflow-hidden border border-royal-gold/10">
+          <div class="aspect-video bg-royal-sapphire/10">
+            <iframe class="w-full h-full" src="https://www.youtube.com/embed/HAnw168huqA" title="Vocal Authority" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+          </div>
+          <div class="p-4 bg-white dark:bg-royal-sapphire/20"><h4 class="font-cinzel text-sm text-royal-plum dark:text-royal-gold">How to Speak with Vocal Authority</h4></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Wisdom Reflections -->
+    <div>
+      <h2 class="font-cinzel text-2xl text-royal-plum dark:text-royal-gold mb-6">Wisdom Reflections</h2>
+      <div class="space-y-6">
+        <div class="bg-white dark:bg-royal-sapphire/20 border border-royal-gold/10 rounded-xl p-6">
+          <p class="font-playfair italic text-royal-plum dark:text-royal-gold text-sm mb-4">"Think of the last difficult conversation you had. If you could speak those words again as a king, what would change?"</p>
+          <textarea rows="3" placeholder="Write your reflection..." class="w-full px-4 py-3 rounded-lg border border-royal-gold/20 bg-royal-cream/50 dark:bg-white/5 font-inter text-sm focus:outline-none focus:border-royal-gold resize-none"></textarea>
+          <button data-prompt="Think of the last difficult conversation you had. If you could speak those words again as a king, what would change?" class="journal-save-btn mt-2 px-4 py-2 bg-royal-gold text-white text-xs font-cinzel rounded-lg hover:bg-royal-plum transition">Save to Journal</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- Quiz -->
+    <div>
+      <h2 class="font-cinzel text-2xl text-royal-plum dark:text-royal-gold mb-6">Counsel from the Throne</h2>
+      <div class="quiz-block bg-white dark:bg-royal-sapphire/20 border border-royal-gold/10 rounded-xl p-8">
+        <p class="font-playfair italic text-royal-plum dark:text-royal-gold mb-6">"Someone interrupts you mid-sentence in a meeting. The king's response is..."</p>
+        <div class="space-y-3">
+          <button data-correct="false" class="quiz-option w-full text-left px-5 py-3 rounded-lg border border-royal-gold/15 hover:border-royal-gold/40 transition text-sm font-inter">Raise your voice and talk over them</button>
+          <button data-correct="false" class="quiz-option w-full text-left px-5 py-3 rounded-lg border border-royal-gold/15 hover:border-royal-gold/40 transition text-sm font-inter">Go silent and let them take the floor</button>
+          <button data-correct="true" class="quiz-option w-full text-left px-5 py-3 rounded-lg border border-royal-gold/15 hover:border-royal-gold/40 transition text-sm font-inter">Pause, let them finish, then calmly say "As I was saying..." and continue with authority</button>
+        </div>
+        <div class="quiz-feedback hidden"></div>
+      </div>
+    </div>
+
+    <!-- Scenario Solver -->
+    <div class="bg-royal-sapphire dark:bg-royal-sapphire/80 rounded-2xl p-8 text-white">
+      <h2 class="font-cinzel text-xl text-royal-gold mb-4">Royal Protocol Solver</h2>
+      <form id="scenarioForm" class="flex gap-3">
+        <input type="text" id="scenarioInput" placeholder="e.g., 'How do I respond when someone belittles me in front of others?'" class="flex-1 px-4 py-3 rounded-lg bg-white/10 border border-royal-gold/20 text-white font-inter text-sm focus:outline-none focus:border-royal-gold placeholder-white/30">
+        <button type="submit" class="px-6 py-3 bg-royal-gold text-royal-sapphire font-cinzel text-sm rounded-lg hover:bg-white transition">Counsel</button>
+      </form>
+      <div id="scenarioResponse" class="mt-4"></div>
+    </div>
+
+    <!-- Checklist -->
+    <div>
+      <h2 class="font-cinzel text-2xl text-royal-plum dark:text-royal-gold mb-6">Your Royal Speech Checklist</h2>
+      <div class="bg-white dark:bg-royal-sapphire/20 border border-royal-gold/10 rounded-xl p-6">
+        <form id="checklistForm" class="flex gap-3 mb-6">
+          <input type="text" id="checklistInput" placeholder="Add a speech improvement goal..." class="flex-1 px-4 py-3 rounded-lg border border-royal-gold/20 bg-royal-cream/50 dark:bg-white/5 font-inter text-sm focus:outline-none focus:border-royal-gold">
+          <button type="submit" class="px-4 py-3 bg-royal-gold text-white text-sm font-cinzel rounded-lg hover:bg-royal-plum transition">Add</button>
+        </form>
+        <div id="checklistItems" class="space-y-2"></div>
+      </div>
+    </div>
+  </section>
+
+  <div id="mainFooter"></div>
+  <script src="shared.js"></script>
+  <script src="pillar-template.js"></script>
+  <script>
+    document.addEventListener('DOMContentLoaded',()=>{initPillar('speech');setMode(getMode());});
+
+    let mediaRecorder = null;
+    let audioChunks = [];
+    let isRecording = false;
+
+    function toggleRecording() {
+      if (isRecording) {
+        stopRecording();
+      } else {
+        startRecording();
+      }
+    }
+
+    async function startRecording() {
+      try {
+        const stream = await navigator.mediaDevices.getUserMedia({ audio: true });
+        mediaRecorder = new MediaRecorder(stream);
+        audioChunks = [];
+        mediaRecorder.ondataavailable = (e) => audioChunks.push(e.data);
+        mediaRecorder.onstop = analyzeRecording;
+        mediaRecorder.start();
+        isRecording = true;
+        document.getElementById('recordBtn').textContent = 'Stop Recording';
+        document.getElementById('recordBtn').classList.add('bg-red-600');
+        document.getElementById('recordBtn').classList.remove('bg-royal-gold');
+        document.getElementById('recordingStatus').innerHTML = '<span class="animate-pulse text-red-400">● Recording in progress...</span>';
+      } catch (err) {
+        alert('Microphone access required for speech recording.');
+      }
+    }
+
+    function stopRecording() {
+      if (mediaRecorder && mediaRecorder.state !== 'inactive') {
+        mediaRecorder.stop();
+        mediaRecorder.stream.getTracks().forEach(t => t.stop());
+      }
+      isRecording = false;
+      document.getElementById('recordBtn').textContent = 'Start Recording';
+      document.getElementById('recordBtn').classList.remove('bg-red-600');
+      document.getElementById('recordBtn').classList.add('bg-royal-gold');
+      document.getElementById('recordingStatus').textContent = 'Analyzing your speech...';
+    }
+
+    function analyzeRecording() {
+      const blob = new Blob(audioChunks, { type: 'audio/webm' });
+      const url = URL.createObjectURL(blob);
+      const result = document.getElementById('recordingResult');
+      result.classList.remove('hidden');
+      result.innerHTML = `
+        <div class="bg-white dark:bg-royal-sapphire/20 border border-royal-gold/10 rounded-xl p-6 space-y-4">
+          <h4 class="font-cinzel text-royal-gold">Speech Analysis Report</h4>
+          <audio controls src="${url}" class="w-full mb-4"></audio>
+          <div class="space-y-3 text-sm font-inter">
+            <div class="flex justify-between p-3 bg-royal-sapphire/5 dark:bg-white/5 rounded-lg">
+              <span>Clarity</span><span class="text-royal-gold font-semibold">Review Recording</span>
+            </div>
+            <div class="flex justify-between p-3 bg-royal-sapphire/5 dark:bg-white/5 rounded-lg">
+              <span>Filler Words</span><span class="text-royal-gold font-semibold">Listen & Count</span>
+            </div>
+            <div class="flex justify-between p-3 bg-royal-sapphire/5 dark:bg-white/5 rounded-lg">
+              <span>Pace</span><span class="text-royal-gold font-semibold">Self-Assess</span>
+            </div>
+          </div>
+          <p class="font-playfair italic text-royal-plum dark:text-royal-gold text-sm mt-4">
+            "Listen to your recording with the ear of a king. Count your fillers. Note where you rush. Mark where you shine. Mastery begins with awareness."
+          </p>
+        </div>
+      `;
+      document.getElementById('recordingStatus').textContent = 'Analysis complete. Review below.';
+    }
+  </script>
+</body>
+</html>

@@ -1,0 +1,223 @@
+<!-- nourishment.html -->
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Nourishment — A King's Lifestyle</title>
+  <link rel="manifest" href="manifest.json">
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config={darkMode:'class',theme:{extend:{colors:{royal:{green:'#052B20',cream:'#FFF6E6',gold:'#A38255',plum:'#571641',sapphire:'#08052D'}},fontFamily:{cinzel:['Cinzel','serif'],inter:['Inter','sans-serif'],playfair:['Playfair Display','serif']},animation:{fadeIn:'fadeIn 0.8s ease-out forwards',fadeInUp:'fadeInUp 0.8s ease-out forwards'},keyframes:{fadeIn:{'0%':{opacity:'0'},'100%':{opacity:'1'}},fadeInUp:{'0%':{opacity:'0',transform:'translateY(24px)'},'100%':{opacity:'1',transform:'translateY(0)'}}}}}}
+  </script>
+  <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600;700&family=Inter:wght@300;400;500;600&family=Playfair+Display:ital,wght@0,400;0,600;1,400&display=swap" rel="stylesheet">
+  <script src="https://unpkg.com/@supabase/supabase-js@2" defer></script>
+  <style>
+    .bg-parchment{background-image:url("data:image/svg+xml,%3Csvg width='100' height='100' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.8' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100' height='100' filter='url(%23n)' opacity='0.03'/%3E%3C/svg%3E");}
+    .gold-glow:hover{box-shadow:0 0 30px rgba(163,130,85,0.25);}
+    .dark .bg-parchment{background-color:#0a0a0a;}.dark body{background-color:#0a0a0a;color:#e0d5c4;}
+  </style>
+</head>
+<body class="bg-royal-cream bg-parchment font-inter text-royal-sapphire min-h-screen">
+  <div id="mainNav"></div>
+
+  <!-- Storytelling Intro -->
+  <section class="max-w-4xl mx-auto px-6 pt-20 pb-12 animate-fadeInUp">
+    <div class="text-center mb-16">
+      <div class="text-4xl mb-6">🍽</div>
+      <h1 class="font-cinzel text-3xl md:text-5xl text-royal-plum mb-6">Nourishment</h1>
+      <p class="font-playfair italic text-royal-gold text-lg max-w-2xl mx-auto leading-relaxed">
+        "In the ancient courts, a king's table was not merely a place of sustenance — it was a throne of discipline. What he consumed shaped his mind, his vigor, and his capacity to rule. The careless eater built a careless kingdom..."
+      </p>
+    </div>
+
+    <div data-bible class="bg-royal-sapphire/5 dark:bg-white/5 border border-royal-gold/10 rounded-xl p-6 mb-6 text-center">
+      <p class="font-playfair italic text-royal-plum dark:text-royal-gold">"Do you not know that your bodies are temples of the Holy Spirit?"</p>
+      <p class="text-xs text-royal-sapphire/40 mt-2">— 1 Corinthians 6:19</p>
+    </div>
+    <div data-secular style="display:none" class="bg-royal-sapphire/5 dark:bg-white/5 border border-royal-gold/10 rounded-xl p-6 mb-6 text-center">
+      <p class="font-playfair italic text-royal-plum dark:text-royal-gold">"Your body is the vessel of your ambition. Feed it with the reverence it deserves."</p>
+      <p class="text-xs text-royal-sapphire/40 mt-2">— Gentleman's Principle</p>
+    </div>
+  </section>
+
+  <!-- Sub-sections -->
+  <section class="max-w-4xl mx-auto px-6 space-y-16 mb-20">
+
+    <!-- Clean Eating -->
+    <div class="animate-fadeIn">
+      <h2 class="font-cinzel text-2xl text-royal-plum dark:text-royal-gold mb-4">The King's Table: Clean Eating</h2>
+      <div class="prose dark:prose-invert max-w-none font-inter text-sm leading-relaxed text-royal-sapphire/80 dark:text-white/60 space-y-4">
+        <p>A king does not eat to fill — he eats to fuel. Every meal is a decision: will this strengthen my reign or weaken it? Clean eating is not deprivation; it is the deliberate choice to give your body what it was designed to receive.</p>
+        <h3 class="font-cinzel text-lg text-royal-plum dark:text-royal-gold mt-8">The Royal Plate Method</h3>
+        <ul class="list-disc pl-6 space-y-2">
+          <li><strong>Half the plate:</strong> Vegetables and greens — the foundation of vitality</li>
+          <li><strong>Quarter plate:</strong> Lean protein — the builder of strength</li>
+          <li><strong>Quarter plate:</strong> Complex carbohydrates — the sustainer of energy</li>
+          <li><strong>A measure of healthy fats:</strong> Olive oil, avocado, nuts — the protector of mind</li>
+        </ul>
+        <h3 class="font-cinzel text-lg text-royal-plum dark:text-royal-gold mt-8">Foods a King Avoids</h3>
+        <p>Processed sugars, excessive alcohol, anything that clouds judgment or saps energy. A king's clarity of thought begins at his table.</p>
+      </div>
+    </div>
+
+    <!-- Gentleman Dining -->
+    <div class="animate-fadeIn">
+      <h2 class="font-cinzel text-2xl text-royal-plum dark:text-royal-gold mb-4">Gentleman Dining Etiquette</h2>
+      <div class="font-inter text-sm leading-relaxed text-royal-sapphire/80 dark:text-white/60 space-y-4">
+        <p>How you eat reveals who you are. Master these protocols and you'll command respect at any table — from a Michelin-starred restaurant to a family Sunday dinner.</p>
+        <div class="grid md:grid-cols-2 gap-4 mt-6">
+          <div class="bg-white dark:bg-royal-sapphire/20 border border-royal-gold/10 rounded-xl p-5">
+            <h4 class="font-cinzel text-sm text-royal-gold mb-2">The Napkin</h4>
+            <p class="text-xs">Unfold on your lap within 30 seconds of sitting. Never tuck it into your collar. When leaving temporarily, place it on the chair.</p>
+          </div>
+          <div class="bg-white dark:bg-royal-sapphire/20 border border-royal-gold/10 rounded-xl p-5">
+            <h4 class="font-cinzel text-sm text-royal-gold mb-2">Utensil Mastery</h4>
+            <p class="text-xs">Continental style: fork in left, knife in right. Never switch. Rest utensils at 4:20 position when pausing, parallel at 6:30 when finished.</p>
+          </div>
+          <div class="bg-white dark:bg-royal-sapphire/20 border border-royal-gold/10 rounded-xl p-5">
+            <h4 class="font-cinzel text-sm text-royal-gold mb-2">Ordering</h4>
+            <p class="text-xs">Let others order first. Never the cheapest or most expensive item. Ask the waiter for recommendations — it shows confidence, not ignorance.</p>
+          </div>
+          <div class="bg-white dark:bg-royal-sapphire/20 border border-royal-gold/10 rounded-xl p-5">
+            <h4 class="font-cinzel text-sm text-royal-gold mb-2">Conversation at Table</h4>
+            <p class="text-xs">Never speak with food in your mouth. Chew slowly. Make eye contact. The dinner table is where empires are built through relationship.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Plate Scanner -->
+    <div class="bg-royal-sapphire/5 dark:bg-white/5 border border-royal-gold/10 rounded-2xl p-8">
+      <h2 class="font-cinzel text-xl text-royal-plum dark:text-royal-gold mb-4">📸 Royal Plate Scanner</h2>
+      <p class="text-sm text-royal-sapphire/60 dark:text-white/40 mb-6">Photograph your plate and receive counsel on your nourishment choices.</p>
+      <div class="flex flex-col items-center gap-4">
+        <label class="w-full max-w-md cursor-pointer">
+          <div class="border-2 border-dashed border-royal-gold/20 rounded-xl p-8 text-center hover:border-royal-gold/40 transition">
+            <div class="text-3xl mb-2">📷</div>
+            <p class="text-sm text-royal-gold">Tap to capture or upload your plate</p>
+          </div>
+          <input type="file" accept="image/*" capture="environment" id="plateInput" class="hidden" onchange="analyzePlate(this)">
+        </label>
+        <div id="platePreview" class="hidden w-full max-w-md">
+          <img id="plateImage" class="rounded-xl w-full mb-4">
+          <div id="plateAnalysis" class="bg-white dark:bg-royal-sapphire/20 rounded-xl p-6 border border-royal-gold/10">
+            <p class="font-playfair italic text-royal-plum dark:text-royal-gold text-sm">Analyzing your plate...</p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- YouTube Videos -->
+    <div>
+      <h2 class="font-cinzel text-2xl text-royal-plum dark:text-royal-gold mb-6">Lessons from the Masters</h2>
+      <div class="grid md:grid-cols-2 gap-6">
+        <div class="rounded-xl overflow-hidden border border-royal-gold/10">
+          <div class="aspect-video bg-royal-sapphire/10">
+            <iframe class="w-full h-full" src="https://www.youtube.com/embed/nzKMBCE8wSo" title="Fine Dining Etiquette" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+          </div>
+          <div class="p-4 bg-white dark:bg-royal-sapphire/20">
+            <h4 class="font-cinzel text-sm text-royal-plum dark:text-royal-gold">Fine Dining Etiquette Guide</h4>
+            <p class="text-xs text-royal-sapphire/40 mt-1">Master the art of the formal dinner</p>
+          </div>
+        </div>
+        <div class="rounded-xl overflow-hidden border border-royal-gold/10">
+          <div class="aspect-video bg-royal-sapphire/10">
+            <iframe class="w-full h-full" src="https://www.youtube.com/embed/UKfceBq-j9Y" title="Meal Prep Like a Gentleman" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+          </div>
+          <div class="p-4 bg-white dark:bg-royal-sapphire/20">
+            <h4 class="font-cinzel text-sm text-royal-plum dark:text-royal-gold">Healthy Meal Preparation</h4>
+            <p class="text-xs text-royal-sapphire/40 mt-1">Fuel your body with purpose and discipline</p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Wisdom Reflections -->
+    <div>
+      <h2 class="font-cinzel text-2xl text-royal-plum dark:text-royal-gold mb-6">Wisdom Reflections</h2>
+      <div class="space-y-6">
+        <div class="bg-white dark:bg-royal-sapphire/20 border border-royal-gold/10 rounded-xl p-6">
+          <p class="font-playfair italic text-royal-plum dark:text-royal-gold text-sm mb-4">"What does your current relationship with food reveal about your discipline as a man?"</p>
+          <textarea rows="3" placeholder="Write your reflection..." class="w-full px-4 py-3 rounded-lg border border-royal-gold/20 bg-royal-cream/50 dark:bg-white/5 font-inter text-sm focus:outline-none focus:border-royal-gold resize-none"></textarea>
+          <button data-prompt="What does your current relationship with food reveal about your discipline as a man?" class="journal-save-btn mt-2 px-4 py-2 bg-royal-gold text-white text-xs font-cinzel rounded-lg hover:bg-royal-plum transition">Save to Journal</button>
+        </div>
+        <div class="bg-white dark:bg-royal-sapphire/20 border border-royal-gold/10 rounded-xl p-6">
+          <p class="font-playfair italic text-royal-plum dark:text-royal-gold text-sm mb-4">"If your children watched every meal you ate this week, what would they learn about self-control?"</p>
+          <textarea rows="3" placeholder="Write your reflection..." class="w-full px-4 py-3 rounded-lg border border-royal-gold/20 bg-royal-cream/50 dark:bg-white/5 font-inter text-sm focus:outline-none focus:border-royal-gold resize-none"></textarea>
+          <button data-prompt="If your children watched every meal you ate this week, what would they learn about self-control?" class="journal-save-btn mt-2 px-4 py-2 bg-royal-gold text-white text-xs font-cinzel rounded-lg hover:bg-royal-plum transition">Save to Journal</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- Counsel from the Throne Quiz -->
+    <div>
+      <h2 class="font-cinzel text-2xl text-royal-plum dark:text-royal-gold mb-6">Counsel from the Throne</h2>
+      <div class="quiz-block bg-white dark:bg-royal-sapphire/20 border border-royal-gold/10 rounded-xl p-8">
+        <p class="font-playfair italic text-royal-plum dark:text-royal-gold mb-6">"You are invited to a formal dinner at a distinguished colleague's home. The host serves a dish you find unpleasant. What does the gentleman do?"</p>
+        <div class="space-y-3">
+          <button data-correct="false" class="quiz-option w-full text-left px-5 py-3 rounded-lg border border-royal-gold/15 hover:border-royal-gold/40 transition text-sm font-inter">Politely decline and explain your preferences</button>
+          <button data-correct="true" class="quiz-option w-full text-left px-5 py-3 rounded-lg border border-royal-gold/15 hover:border-royal-gold/40 transition text-sm font-inter">Take a small portion, eat gracefully, and compliment the host's effort</button>
+          <button data-correct="false" class="quiz-option w-full text-left px-5 py-3 rounded-lg border border-royal-gold/15 hover:border-royal-gold/40 transition text-sm font-inter">Move the food around your plate to appear as though you've eaten</button>
+        </div>
+        <div class="quiz-feedback hidden mt-4 text-sm font-playfair italic"></div>
+      </div>
+    </div>
+
+    <!-- Scenario Solver -->
+    <div class="bg-royal-sapphire dark:bg-royal-sapphire/80 rounded-2xl p-8 text-white">
+      <h2 class="font-cinzel text-xl text-royal-gold mb-4">Royal Protocol Solver</h2>
+      <p class="text-sm text-white/50 mb-6">Describe any real dining or nourishment situation and receive the king's protocol.</p>
+      <form id="scenarioForm" class="flex gap-3">
+        <input type="text" id="scenarioInput" placeholder="e.g., 'My date ordered for me without asking...'" class="flex-1 px-4 py-3 rounded-lg bg-white/10 border border-royal-gold/20 text-white font-inter text-sm focus:outline-none focus:border-royal-gold placeholder-white/30">
+        <button type="submit" class="px-6 py-3 bg-royal-gold text-royal-sapphire font-cinzel text-sm rounded-lg hover:bg-white transition">Counsel</button>
+      </form>
+      <div id="scenarioResponse" class="mt-4"></div>
+    </div>
+
+    <!-- Checklist Builder -->
+    <div>
+      <h2 class="font-cinzel text-2xl text-royal-plum dark:text-royal-gold mb-6">Your Royal Nourishment Checklist</h2>
+      <div class="bg-white dark:bg-royal-sapphire/20 border border-royal-gold/10 rounded-xl p-6">
+        <form id="checklistForm" class="flex gap-3 mb-6">
+          <input type="text" id="checklistInput" placeholder="Add a nourishment goal..." class="flex-1 px-4 py-3 rounded-lg border border-royal-gold/20 bg-royal-cream/50 dark:bg-white/5 font-inter text-sm focus:outline-none focus:border-royal-gold">
+          <button type="submit" class="px-4 py-3 bg-royal-gold text-white text-sm font-cinzel rounded-lg hover:bg-royal-plum transition">Add</button>
+        </form>
+        <div id="checklistItems" class="space-y-2"></div>
+      </div>
+    </div>
+  </section>
+
+  <div id="mainFooter"></div>
+  <script src="shared.js"></script>
+  <script src="pillar-template.js"></script>
+  <script>
+    document.addEventListener('DOMContentLoaded', () => {
+      initPillar('nourishment');
+      setMode(getMode()); // Apply bible/secular toggle
+    });
+
+    function analyzePlate(input) {
+      const file = input.files[0];
+      if (!file) return;
+      const reader = new FileReader();
+      reader.onload = (e) => {
+        document.getElementById('plateImage').src = e.target.result;
+        document.getElementById('platePreview').classList.remove('hidden');
+        setTimeout(() => {
+          document.getElementById('plateAnalysis').innerHTML = `
+            <h4 class="font-cinzel text-sm text-royal-gold mb-3">Royal Plate Analysis</h4>
+            <div class="space-y-2 text-xs font-inter text-royal-sapphire/70 dark:text-white/50">
+              <p>✦ <strong>Vegetables:</strong> Consider adding more greens — a king's plate is always abundant in color.</p>
+              <p>✦ <strong>Protein:</strong> Ensure lean, high-quality protein is present for sustained strength.</p>
+              <p>✦ <strong>Hydration:</strong> Pair your meal with water. A clear mind requires a hydrated vessel.</p>
+              <p class="mt-3 font-playfair italic text-royal-plum dark:text-royal-gold">"Every meal is either building your kingdom or diminishing it. Choose wisely."</p>
+            </div>
+          `;
+        }, 1500);
+      };
+      reader.readAsDataURL(file);
+    }
+  </script>
+</body>
+</html>

@@ -1,0 +1,188 @@
+<!-- body.html -->
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Body — A King's Lifestyle</title>
+  <link rel="manifest" href="manifest.json">
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>tailwind.config={darkMode:'class',theme:{extend:{colors:{royal:{green:'#052B20',cream:'#FFF6E6',gold:'#A38255',plum:'#571641',sapphire:'#08052D'}},fontFamily:{cinzel:['Cinzel','serif'],inter:['Inter','sans-serif'],playfair:['Playfair Display','serif']},animation:{fadeIn:'fadeIn 0.8s ease-out forwards',fadeInUp:'fadeInUp 0.8s ease-out forwards'},keyframes:{fadeIn:{'0%':{opacity:'0'},'100%':{opacity:'1'}},fadeInUp:{'0%':{opacity:'0',transform:'translateY(24px)'},'100%':{opacity:'1',transform:'translateY(0)'}}}}}}</script>
+  <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600;700&family=Inter:wght@300;400;500;600&family=Playfair+Display:ital,wght@0,400;0,600;1,400&display=swap" rel="stylesheet">
+  <script src="https://unpkg.com/@supabase/supabase-js@2" defer></script>
+  <style>.bg-parchment{background-image:url("data:image/svg+xml,%3Csvg width='100' height='100' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.8' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100' height='100' filter='url(%23n)' opacity='0.03'/%3E%3C/svg%3E");}.gold-glow:hover{box-shadow:0 0 30px rgba(163,130,85,0.25);}.dark .bg-parchment{background-color:#0a0a0a;}.dark body{background-color:#0a0a0a;color:#e0d5c4;}</style>
+</head>
+<body class="bg-royal-cream bg-parchment font-inter text-royal-sapphire min-h-screen">
+  <div id="mainNav"></div>
+
+  <section class="max-w-4xl mx-auto px-6 pt-20 pb-12 animate-fadeInUp">
+    <div class="text-center mb-16">
+      <div class="text-4xl mb-6">💪</div>
+      <h1 class="font-cinzel text-3xl md:text-5xl text-royal-plum mb-6">Body</h1>
+      <p class="font-playfair italic text-royal-gold text-lg max-w-2xl mx-auto leading-relaxed">
+        "The kings of antiquity were warriors first. Their bodies were not merely vessels — they were instruments of authority. A king who could not control his own physical form could not be trusted with a kingdom. Strength was not vanity; it was duty..."
+      </p>
+    </div>
+    <div data-bible class="bg-royal-sapphire/5 dark:bg-white/5 border border-royal-gold/10 rounded-xl p-6 mb-6 text-center">
+      <p class="font-playfair italic text-royal-plum dark:text-royal-gold">"I discipline my body and keep it under control, lest after preaching to others I myself should be disqualified."</p>
+      <p class="text-xs text-royal-sapphire/40 mt-2">— 1 Corinthians 9:27</p>
+    </div>
+    <div data-secular style="display:none" class="bg-royal-sapphire/5 dark:bg-white/5 border border-royal-gold/10 rounded-xl p-6 mb-6 text-center">
+      <p class="font-playfair italic text-royal-plum dark:text-royal-gold">"The body is the first kingdom you must master. If you cannot govern your own flesh, you cannot govern anything."</p>
+      <p class="text-xs text-royal-sapphire/40 mt-2">— Warrior's Code</p>
+    </div>
+  </section>
+
+  <section class="max-w-4xl mx-auto px-6 space-y-16 mb-20">
+
+    <div class="animate-fadeIn">
+      <h2 class="font-cinzel text-2xl text-royal-plum dark:text-royal-gold mb-4">The King's Physical Foundation</h2>
+      <div class="font-inter text-sm leading-relaxed text-royal-sapphire/80 dark:text-white/60 space-y-4">
+        <p>A king's training is not about aesthetics alone — it is about functional sovereignty. The ability to protect, to endure, to carry weight (literal and figurative), and to command physical presence in any room.</p>
+        <h3 class="font-cinzel text-lg text-royal-plum dark:text-royal-gold mt-8">The Four Pillars of Royal Fitness</h3>
+        <div class="grid md:grid-cols-2 gap-4 mt-4">
+          <div class="bg-white dark:bg-royal-sapphire/20 border border-royal-gold/10 rounded-xl p-5 gold-glow transition-all">
+            <h4 class="font-cinzel text-sm text-royal-gold mb-2">Strength</h4>
+            <p class="text-xs">Compound movements: deadlift, squat, bench press, overhead press. These build the frame of a man who is taken seriously. 3-4 sessions per week.</p>
+          </div>
+          <div class="bg-white dark:bg-royal-sapphire/20 border border-royal-gold/10 rounded-xl p-5 gold-glow transition-all">
+            <h4 class="font-cinzel text-sm text-royal-gold mb-2">Endurance</h4>
+            <p class="text-xs">Cardiovascular health ensures longevity of rule. Brisk walking, swimming, cycling. 150 minutes per week minimum. A king who tires easily loses wars.</p>
+          </div>
+          <div class="bg-white dark:bg-royal-sapphire/20 border border-royal-gold/10 rounded-xl p-5 gold-glow transition-all">
+            <h4 class="font-cinzel text-sm text-royal-gold mb-2">Mobility</h4>
+            <p class="text-xs">Flexibility and joint health. Daily stretching, yoga, or mobility work. A stiff king moves like a man afraid. A limber king moves like one who owns the room.</p>
+          </div>
+          <div class="bg-white dark:bg-royal-sapphire/20 border border-royal-gold/10 rounded-xl p-5 gold-glow transition-all">
+            <h4 class="font-cinzel text-sm text-royal-gold mb-2">Recovery</h4>
+            <p class="text-xs">Sleep 7-9 hours. Cold exposure. Adequate hydration. A king who runs himself into the ground serves no one. Recovery is not weakness — it is strategy.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Posture Baseline -->
+    <div class="animate-fadeIn">
+      <h2 class="font-cinzel text-2xl text-royal-plum dark:text-royal-gold mb-4">Posture Baseline Assessment</h2>
+      <div class="bg-white dark:bg-royal-sapphire/20 border border-royal-gold/10 rounded-xl p-6 space-y-4">
+        <p class="text-sm text-royal-sapphire/70 dark:text-white/50">Stand against a wall with heels, hips, shoulders, and head touching. Answer honestly:</p>
+        <div class="space-y-3" id="postureAssessment">
+          <label class="flex items-center gap-3 px-4 py-3 rounded-lg border border-royal-gold/10 cursor-pointer hover:border-royal-gold/30 transition">
+            <input type="checkbox" class="posture-check accent-royal-gold">
+            <span class="text-sm">Head touches wall naturally without tilting</span>
+          </label>
+          <label class="flex items-center gap-3 px-4 py-3 rounded-lg border border-royal-gold/10 cursor-pointer hover:border-royal-gold/30 transition">
+            <input type="checkbox" class="posture-check accent-royal-gold">
+            <span class="text-sm">Shoulders are level and pulled back comfortably</span>
+          </label>
+          <label class="flex items-center gap-3 px-4 py-3 rounded-lg border border-royal-gold/10 cursor-pointer hover:border-royal-gold/30 transition">
+            <input type="checkbox" class="posture-check accent-royal-gold">
+            <span class="text-sm">Lower back has a natural small curve (fist-width gap)</span>
+          </label>
+          <label class="flex items-center gap-3 px-4 py-3 rounded-lg border border-royal-gold/10 cursor-pointer hover:border-royal-gold/30 transition">
+            <input type="checkbox" class="posture-check accent-royal-gold">
+            <span class="text-sm">Hips are level, not tilted forward or back</span>
+          </label>
+          <label class="flex items-center gap-3 px-4 py-3 rounded-lg border border-royal-gold/10 cursor-pointer hover:border-royal-gold/30 transition">
+            <input type="checkbox" class="posture-check accent-royal-gold">
+            <span class="text-sm">Knees are straight but not locked</span>
+          </label>
+        </div>
+        <div id="postureResult" class="mt-4 p-4 bg-royal-sapphire/5 dark:bg-white/5 rounded-lg hidden">
+          <p class="font-playfair italic text-sm text-royal-plum dark:text-royal-gold"></p>
+        </div>
+        <button onclick="assessPosture()" class="px-4 py-2 bg-royal-gold text-white text-sm font-cinzel rounded-lg hover:bg-royal-plum transition">Assess My Posture</button>
+      </div>
+    </div>
+
+    <!-- YouTube -->
+    <div>
+      <h2 class="font-cinzel text-2xl text-royal-plum dark:text-royal-gold mb-6">Lessons from the Masters</h2>
+      <div class="grid md:grid-cols-2 gap-6">
+        <div class="rounded-xl overflow-hidden border border-royal-gold/10">
+          <div class="aspect-video bg-royal-sapphire/10">
+            <iframe class="w-full h-full" src="https://www.youtube.com/embed/IODxDxX7oi4" title="Posture Correction" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+          </div>
+          <div class="p-4 bg-white dark:bg-royal-sapphire/20"><h4 class="font-cinzel text-sm text-royal-plum dark:text-royal-gold">Fix Your Posture in 10 Minutes</h4></div>
+        </div>
+        <div class="rounded-xl overflow-hidden border border-royal-gold/10">
+          <div class="aspect-video bg-royal-sapphire/10">
+            <iframe class="w-full h-full" src="https://www.youtube.com/embed/UItWltVZZmE" title="Gentleman's Workout" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+          </div>
+          <div class="p-4 bg-white dark:bg-royal-sapphire/20"><h4 class="font-cinzel text-sm text-royal-plum dark:text-royal-gold">The Gentleman's Workout Routine</h4></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Wisdom Reflections -->
+    <div>
+      <h2 class="font-cinzel text-2xl text-royal-plum dark:text-royal-gold mb-6">Wisdom Reflections</h2>
+      <div class="space-y-6">
+        <div class="bg-white dark:bg-royal-sapphire/20 border border-royal-gold/10 rounded-xl p-6">
+          <p class="font-playfair italic text-royal-plum dark:text-royal-gold text-sm mb-4">"Is your body currently an asset to your ambitions, or an obstacle to them?"</p>
+          <textarea rows="3" placeholder="Write your reflection..." class="w-full px-4 py-3 rounded-lg border border-royal-gold/20 bg-royal-cream/50 dark:bg-white/5 font-inter text-sm focus:outline-none focus:border-royal-gold resize-none"></textarea>
+          <button data-prompt="Is your body currently an asset to your ambitions, or an obstacle to them?" class="journal-save-btn mt-2 px-4 py-2 bg-royal-gold text-white text-xs font-cinzel rounded-lg hover:bg-royal-plum transition">Save to Journal</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- Quiz -->
+    <div>
+      <h2 class="font-cinzel text-2xl text-royal-plum dark:text-royal-gold mb-6">Counsel from the Throne</h2>
+      <div class="quiz-block bg-white dark:bg-royal-sapphire/20 border border-royal-gold/10 rounded-xl p-8">
+        <p class="font-playfair italic text-royal-plum dark:text-royal-gold mb-6">"You've had a long, exhausting day. You planned to train tonight. The kingly decision is..."</p>
+        <div class="space-y-3">
+          <button data-correct="false" class="quiz-option w-full text-left px-5 py-3 rounded-lg border border-royal-gold/15 hover:border-royal-gold/40 transition text-sm font-inter">Push through the full workout regardless — discipline above all</button>
+          <button data-correct="true" class="quiz-option w-full text-left px-5 py-3 rounded-lg border border-royal-gold/15 hover:border-royal-gold/40 transition text-sm font-inter">Do a lighter session — movement over perfection. The king who shows up wins.</button>
+          <button data-correct="false" class="quiz-option w-full text-left px-5 py-3 rounded-lg border border-royal-gold/15 hover:border-royal-gold/40 transition text-sm font-inter">Skip it entirely — rest is more important today</button>
+        </div>
+        <div class="quiz-feedback hidden"></div>
+      </div>
+    </div>
+
+    <!-- Scenario Solver -->
+    <div class="bg-royal-sapphire dark:bg-royal-sapphire/80 rounded-2xl p-8 text-white">
+      <h2 class="font-cinzel text-xl text-royal-gold mb-4">Royal Protocol Solver</h2>
+      <form id="scenarioForm" class="flex gap-3">
+        <input type="text" id="scenarioInput" placeholder="e.g., 'I have a desk job and my back is always sore...'" class="flex-1 px-4 py-3 rounded-lg bg-white/10 border border-royal-gold/20 text-white font-inter text-sm focus:outline-none focus:border-royal-gold placeholder-white/30">
+        <button type="submit" class="px-6 py-3 bg-royal-gold text-royal-sapphire font-cinzel text-sm rounded-lg hover:bg-white transition">Counsel</button>
+      </form>
+      <div id="scenarioResponse" class="mt-4"></div>
+    </div>
+
+    <!-- Checklist -->
+    <div>
+      <h2 class="font-cinzel text-2xl text-royal-plum dark:text-royal-gold mb-6">Your Royal Body Checklist</h2>
+      <div class="bg-white dark:bg-royal-sapphire/20 border border-royal-gold/10 rounded-xl p-6">
+        <form id="checklistForm" class="flex gap-3 mb-6">
+          <input type="text" id="checklistInput" placeholder="Add a fitness goal..." class="flex-1 px-4 py-3 rounded-lg border border-royal-gold/20 bg-royal-cream/50 dark:bg-white/5 font-inter text-sm focus:outline-none focus:border-royal-gold">
+          <button type="submit" class="px-4 py-3 bg-royal-gold text-white text-sm font-cinzel rounded-lg hover:bg-royal-plum transition">Add</button>
+        </form>
+        <div id="checklistItems" class="space-y-2"></div>
+      </div>
+    </div>
+  </section>
+
+  <div id="mainFooter"></div>
+  <script src="shared.js"></script>
+  <script src="pillar-template.js"></script>
+  <script>
+    document.addEventListener('DOMContentLoaded',()=>{initPillar('body');setMode(getMode());});
+    function assessPosture() {
+      const checks = document.querySelectorAll('.posture-check');
+      let score = 0;
+      checks.forEach(c => { if (c.checked) score++; });
+      const result = document.getElementById('postureResult');
+      result.classList.remove('hidden');
+      const msgs = [
+        'Your posture needs significant attention. Begin with daily wall-stands and chest-opening stretches. A king corrects his foundation first.',
+        'You have a decent base. Focus on shoulder mobility and hip alignment. The small corrections yield the greatest results.',
+        'You carry yourself well. Maintain with daily awareness and mobility work. A king never stops refining.',
+        'Your posture is excellent. You stand like royalty. Maintain this standard — it sets you apart in every room.',
+        'Royal posture achieved. You stand as kings once stood — with natural authority and commanding presence.'
+      ];
+      result.querySelector('p').textContent = msgs[score] || msgs[0];
+    }
+  </script>
+</body>
+</html>

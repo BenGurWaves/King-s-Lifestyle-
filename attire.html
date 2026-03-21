@@ -1,0 +1,178 @@
+<!-- attire.html -->
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Attire — A King's Lifestyle</title>
+  <link rel="manifest" href="manifest.json">
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>tailwind.config={darkMode:'class',theme:{extend:{colors:{royal:{green:'#052B20',cream:'#FFF6E6',gold:'#A38255',plum:'#571641',sapphire:'#08052D'}},fontFamily:{cinzel:['Cinzel','serif'],inter:['Inter','sans-serif'],playfair:['Playfair Display','serif']},animation:{fadeIn:'fadeIn 0.8s ease-out forwards',fadeInUp:'fadeInUp 0.8s ease-out forwards'},keyframes:{fadeIn:{'0%':{opacity:'0'},'100%':{opacity:'1'}},fadeInUp:{'0%':{opacity:'0',transform:'translateY(24px)'},'100%':{opacity:'1',transform:'translateY(0)'}}}}}}</script>
+  <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600;700&family=Inter:wght@300;400;500;600&family=Playfair+Display:ital,wght@0,400;0,600;1,400&display=swap" rel="stylesheet">
+  <script src="https://unpkg.com/@supabase/supabase-js@2" defer></script>
+  <style>.bg-parchment{background-image:url("data:image/svg+xml,%3Csvg width='100' height='100' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.8' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100' height='100' filter='url(%23n)' opacity='0.03'/%3E%3C/svg%3E");}.gold-glow:hover{box-shadow:0 0 30px rgba(163,130,85,0.25);}.dark .bg-parchment{background-color:#0a0a0a;}.dark body{background-color:#0a0a0a;color:#e0d5c4;}</style>
+</head>
+<body class="bg-royal-cream bg-parchment font-inter text-royal-sapphire min-h-screen">
+  <div id="mainNav"></div>
+
+  <section class="max-w-4xl mx-auto px-6 pt-20 pb-12 animate-fadeInUp">
+    <div class="text-center mb-16">
+      <div class="text-4xl mb-6">👔</div>
+      <h1 class="font-cinzel text-3xl md:text-5xl text-royal-plum mb-6">Attire</h1>
+      <p class="font-playfair italic text-royal-gold text-lg max-w-2xl mx-auto leading-relaxed">
+        "The kings of old understood that garments were not vanity — they were declaration. How a man dressed announced his authority before he spoke a word. The careless dresser told the world he cared nothing for his own kingdom..."
+      </p>
+    </div>
+    <div data-bible class="bg-royal-sapphire/5 dark:bg-white/5 border border-royal-gold/10 rounded-xl p-6 mb-6 text-center">
+      <p class="font-playfair italic text-royal-plum dark:text-royal-gold">"She makes coverings for her bed; she is clothed in fine linen and purple."</p>
+      <p class="text-xs text-royal-sapphire/40 mt-2">— Proverbs 31:22</p>
+    </div>
+    <div data-secular style="display:none" class="bg-royal-sapphire/5 dark:bg-white/5 border border-royal-gold/10 rounded-xl p-6 mb-6 text-center">
+      <p class="font-playfair italic text-royal-plum dark:text-royal-gold">"A man's attire speaks before he opens his mouth. Dress not for the occasion you have, but for the man you are becoming."</p>
+      <p class="text-xs text-royal-sapphire/40 mt-2">— The Gentleman's Code</p>
+    </div>
+  </section>
+
+  <section class="max-w-4xl mx-auto px-6 space-y-16 mb-20">
+
+    <div class="animate-fadeIn">
+      <h2 class="font-cinzel text-2xl text-royal-plum dark:text-royal-gold mb-4">The King's Wardrobe Foundation</h2>
+      <div class="font-inter text-sm leading-relaxed text-royal-sapphire/80 dark:text-white/60 space-y-4">
+        <p>A king does not chase trends — he sets standards. Your wardrobe should be built on timeless pieces that communicate permanence, taste, and quiet confidence.</p>
+        <h3 class="font-cinzel text-lg text-royal-plum dark:text-royal-gold mt-8">The 15 Essential Pieces</h3>
+        <div class="grid md:grid-cols-3 gap-4 mt-4">
+          <div class="bg-white dark:bg-royal-sapphire/20 border border-royal-gold/10 rounded-xl p-5 gold-glow transition-all">
+            <h4 class="font-cinzel text-sm text-royal-gold mb-2">Navy Suit</h4>
+            <p class="text-xs">The cornerstone. Fits every occasion from boardroom to evening event. Invest in tailoring — fit is king.</p>
+          </div>
+          <div class="bg-white dark:bg-royal-sapphire/20 border border-royal-gold/10 rounded-xl p-5 gold-glow transition-all">
+            <h4 class="font-cinzel text-sm text-royal-gold mb-2">White Dress Shirts (3)</h4>
+            <p class="text-xs">Crisp, well-fitted, spread collar. The canvas upon which all else is built.</p>
+          </div>
+          <div class="bg-white dark:bg-royal-sapphire/20 border border-royal-gold/10 rounded-xl p-5 gold-glow transition-all">
+            <h4 class="font-cinzel text-sm text-royal-gold mb-2">Dark Leather Shoes</h4>
+            <p class="text-xs">Oxford cap-toes in black and dark brown. Polished weekly. A man's shoes reveal his discipline.</p>
+          </div>
+          <div class="bg-white dark:bg-royal-sapphire/20 border border-royal-gold/10 rounded-xl p-5 gold-glow transition-all">
+            <h4 class="font-cinzel text-sm text-royal-gold mb-2">Quality Belt</h4>
+            <p class="text-xs">Match it to your shoes. Always. No exceptions.</p>
+          </div>
+          <div class="bg-white dark:bg-royal-sapphire/20 border border-royal-gold/10 rounded-xl p-5 gold-glow transition-all">
+            <h4 class="font-cinzel text-sm text-royal-gold mb-2">Charcoal Trousers</h4>
+            <p class="text-xs">Versatile, elegant, pairs with everything. Properly hemmed — no break or slight break.</p>
+          </div>
+          <div class="bg-white dark:bg-royal-sapphire/20 border border-royal-gold/10 rounded-xl p-5 gold-glow transition-all">
+            <h4 class="font-cinzel text-sm text-royal-gold mb-2">A Timepiece</h4>
+            <p class="text-xs">Not for the time — for the statement. A quality watch announces you understand value.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Context-Based Dressing -->
+    <div class="animate-fadeIn">
+      <h2 class="font-cinzel text-2xl text-royal-plum dark:text-royal-gold mb-6">Dress Codes Decoded</h2>
+      <div class="space-y-4">
+        <div class="bg-white dark:bg-royal-sapphire/20 border border-royal-gold/10 rounded-xl p-6">
+          <h3 class="font-cinzel text-lg text-royal-gold mb-3">The Boardroom</h3>
+          <p class="text-sm text-royal-sapphire/70 dark:text-white/50">Dark suit, white or light blue shirt, silk tie (subtle pattern), leather shoes. Your outfit should say "I'm in command" without shouting. Pocket square optional but distinguished.</p>
+        </div>
+        <div class="bg-white dark:bg-royal-sapphire/20 border border-royal-gold/10 rounded-xl p-6">
+          <h3 class="font-cinzel text-lg text-royal-gold mb-3">Church / Formal Gatherings</h3>
+          <p class="text-sm text-royal-sapphire/70 dark:text-white/50">Respectful elegance. Suit or sport coat with dress trousers. No flashy logos. Subdued colors that honor the occasion. A gentleman dresses to respect the space he enters.</p>
+        </div>
+        <div class="bg-white dark:bg-royal-sapphire/20 border border-royal-gold/10 rounded-xl p-6">
+          <h3 class="font-cinzel text-lg text-royal-gold mb-3">The Pool / Casual Outdoor</h3>
+          <p class="text-sm text-royal-sapphire/70 dark:text-white/50">This is where most men fail. Fitted swim trunks (not cargo shorts), a clean linen shirt for the walk over, leather sandals (never rubber flip-flops). A king is never "off duty."</p>
+        </div>
+        <div class="bg-white dark:bg-royal-sapphire/20 border border-royal-gold/10 rounded-xl p-6">
+          <h3 class="font-cinzel text-lg text-royal-gold mb-3">Jeans Done Right</h3>
+          <p class="text-sm text-royal-sapphire/70 dark:text-white/50">Dark wash, slim (not skinny) fit, no rips. Pair with a blazer and pocket square for instant elevation. Jeans are the test of a gentleman — anyone can look good in a suit; elegance in denim proves mastery.</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- YouTube -->
+    <div>
+      <h2 class="font-cinzel text-2xl text-royal-plum dark:text-royal-gold mb-6">Lessons from the Masters</h2>
+      <div class="grid md:grid-cols-2 gap-6">
+        <div class="rounded-xl overflow-hidden border border-royal-gold/10">
+          <div class="aspect-video bg-royal-sapphire/10">
+            <iframe class="w-full h-full" src="https://www.youtube.com/embed/hPYcUr_vPZQ" title="Men's Style Essentials" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+          </div>
+          <div class="p-4 bg-white dark:bg-royal-sapphire/20">
+            <h4 class="font-cinzel text-sm text-royal-plum dark:text-royal-gold">Style Essentials Every Man Needs</h4>
+          </div>
+        </div>
+        <div class="rounded-xl overflow-hidden border border-royal-gold/10">
+          <div class="aspect-video bg-royal-sapphire/10">
+            <iframe class="w-full h-full" src="https://www.youtube.com/embed/vbc_vi2kZdY" title="How to Dress Well" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+          </div>
+          <div class="p-4 bg-white dark:bg-royal-sapphire/20">
+            <h4 class="font-cinzel text-sm text-royal-plum dark:text-royal-gold">How a Gentleman Builds His Wardrobe</h4>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Wisdom Reflections -->
+    <div>
+      <h2 class="font-cinzel text-2xl text-royal-plum dark:text-royal-gold mb-6">Wisdom Reflections</h2>
+      <div class="space-y-6">
+        <div class="bg-white dark:bg-royal-sapphire/20 border border-royal-gold/10 rounded-xl p-6">
+          <p class="font-playfair italic text-royal-plum dark:text-royal-gold text-sm mb-4">"Does your current wardrobe reflect the man you are becoming, or the man you were?"</p>
+          <textarea rows="3" placeholder="Write your reflection..." class="w-full px-4 py-3 rounded-lg border border-royal-gold/20 bg-royal-cream/50 dark:bg-white/5 font-inter text-sm focus:outline-none focus:border-royal-gold resize-none"></textarea>
+          <button data-prompt="Does your current wardrobe reflect the man you are becoming, or the man you were?" class="journal-save-btn mt-2 px-4 py-2 bg-royal-gold text-white text-xs font-cinzel rounded-lg hover:bg-royal-plum transition">Save to Journal</button>
+        </div>
+        <div class="bg-white dark:bg-royal-sapphire/20 border border-royal-gold/10 rounded-xl p-6">
+          <p class="font-playfair italic text-royal-plum dark:text-royal-gold text-sm mb-4">"When you walk into a room, what does your appearance communicate before you speak?"</p>
+          <textarea rows="3" placeholder="Write your reflection..." class="w-full px-4 py-3 rounded-lg border border-royal-gold/20 bg-royal-cream/50 dark:bg-white/5 font-inter text-sm focus:outline-none focus:border-royal-gold resize-none"></textarea>
+          <button data-prompt="When you walk into a room, what does your appearance communicate before you speak?" class="journal-save-btn mt-2 px-4 py-2 bg-royal-gold text-white text-xs font-cinzel rounded-lg hover:bg-royal-plum transition">Save to Journal</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- Quiz -->
+    <div>
+      <h2 class="font-cinzel text-2xl text-royal-plum dark:text-royal-gold mb-6">Counsel from the Throne</h2>
+      <div class="quiz-block bg-white dark:bg-royal-sapphire/20 border border-royal-gold/10 rounded-xl p-8">
+        <p class="font-playfair italic text-royal-plum dark:text-royal-gold mb-6">"You've been invited to a business dinner that says 'smart casual.' What is the kingly approach?"</p>
+        <div class="space-y-3">
+          <button data-correct="false" class="quiz-option w-full text-left px-5 py-3 rounded-lg border border-royal-gold/15 hover:border-royal-gold/40 transition text-sm font-inter">Jeans and a polo — it's casual, after all</button>
+          <button data-correct="true" class="quiz-option w-full text-left px-5 py-3 rounded-lg border border-royal-gold/15 hover:border-royal-gold/40 transition text-sm font-inter">Dark chinos, tailored blazer, open-collar dress shirt, leather shoes</button>
+          <button data-correct="false" class="quiz-option w-full text-left px-5 py-3 rounded-lg border border-royal-gold/15 hover:border-royal-gold/40 transition text-sm font-inter">Full suit with tie — better overdressed than under</button>
+        </div>
+        <div class="quiz-feedback hidden"></div>
+      </div>
+    </div>
+
+    <!-- Scenario Solver -->
+    <div class="bg-royal-sapphire dark:bg-royal-sapphire/80 rounded-2xl p-8 text-white">
+      <h2 class="font-cinzel text-xl text-royal-gold mb-4">Royal Protocol Solver</h2>
+      <p class="text-sm text-white/50 mb-6">Describe any attire dilemma and receive the king's counsel.</p>
+      <form id="scenarioForm" class="flex gap-3">
+        <input type="text" id="scenarioInput" placeholder="e.g., 'Invited to a yacht party but only own suits...'" class="flex-1 px-4 py-3 rounded-lg bg-white/10 border border-royal-gold/20 text-white font-inter text-sm focus:outline-none focus:border-royal-gold placeholder-white/30">
+        <button type="submit" class="px-6 py-3 bg-royal-gold text-royal-sapphire font-cinzel text-sm rounded-lg hover:bg-white transition">Counsel</button>
+      </form>
+      <div id="scenarioResponse" class="mt-4"></div>
+    </div>
+
+    <!-- Checklist -->
+    <div>
+      <h2 class="font-cinzel text-2xl text-royal-plum dark:text-royal-gold mb-6">Your Royal Attire Checklist</h2>
+      <div class="bg-white dark:bg-royal-sapphire/20 border border-royal-gold/10 rounded-xl p-6">
+        <form id="checklistForm" class="flex gap-3 mb-6">
+          <input type="text" id="checklistInput" placeholder="Add a wardrobe goal..." class="flex-1 px-4 py-3 rounded-lg border border-royal-gold/20 bg-royal-cream/50 dark:bg-white/5 font-inter text-sm focus:outline-none focus:border-royal-gold">
+          <button type="submit" class="px-4 py-3 bg-royal-gold text-white text-sm font-cinzel rounded-lg hover:bg-royal-plum transition">Add</button>
+        </form>
+        <div id="checklistItems" class="space-y-2"></div>
+      </div>
+    </div>
+  </section>
+
+  <div id="mainFooter"></div>
+  <script src="shared.js"></script>
+  <script src="pillar-template.js"></script>
+  <script>document.addEventListener('DOMContentLoaded',()=>{initPillar('attire');setMode(getMode());});</script>
+</body>
+</html>
