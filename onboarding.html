@@ -1,16 +1,16 @@
-<!-- onboarding.html – v0.0.3 -->
+<!-- onboarding.html – v0.0.5 -->
 <!DOCTYPE html>
 <html lang="en" class="scroll-smooth">
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0">
   <title>Onboarding — A King's Lifestyle</title>
   <link rel="manifest" href="manifest.json">
   <script src="https://cdn.tailwindcss.com"></script>
   <script>tailwind.config={darkMode:'class',theme:{extend:{colors:{royal:{green:'#052B20',cream:'#FFF6E6',gold:'#A38255',plum:'#571641',sapphire:'#08052D'}},fontFamily:{cinzel:['Cinzel','serif'],inter:['Inter','sans-serif'],playfair:['Playfair Display','serif']},animation:{fadeIn:'fadeIn 0.8s ease-out forwards',fadeInUp:'fadeInUp 0.8s ease-out forwards'},keyframes:{fadeIn:{'0%':{opacity:'0'},'100%':{opacity:'1'}},fadeInUp:{'0%':{opacity:'0',transform:'translateY(24px)'},'100%':{opacity:'1',transform:'translateY(0)'}}}}}};</script>
   <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600;700&family=Inter:wght@300;400;500;600&family=Playfair+Display:ital,wght@0,400;0,600;1,400&display=swap" rel="stylesheet">
   <script src="https://unpkg.com/@supabase/supabase-js@2" defer></script>
-  <style>.bg-parchment{background-image:url("data:image/svg+xml,%3Csvg width='100' height='100' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.8' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100' height='100' filter='url(%23n)' opacity='0.03'/%3E%3C/svg%3E");}.gold-glow:hover{box-shadow:0 0 30px rgba(163,130,85,0.25);}.dark .bg-parchment{background-color:#0a0a0a;}.dark body{background-color:#0a0a0a;color:#e0d5c4;}.step-hidden{display:none;}.step-visible{display:block;animation:fadeInUp 0.5s ease-out forwards;}.toggle-pill{transition:all 0.3s ease;}.toggle-pill.active{background-color:#A38255;color:#fff;box-shadow:0 0 20px rgba(163,130,85,0.2);}</style>
+  <style>html,body{overflow-x:hidden;max-width:100vw;}.bg-parchment{background-image:url("data:image/svg+xml,%3Csvg width='100' height='100' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.8' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100' height='100' filter='url(%23n)' opacity='0.03'/%3E%3C/svg%3E");}.gold-glow:hover{box-shadow:0 0 30px rgba(163,130,85,0.25);}.dark .bg-parchment{background-color:#0a0a0a;}.dark body{background-color:#0a0a0a;color:#e0d5c4;}.step-hidden{display:none;}.step-visible{display:block;animation:fadeInUp 0.5s ease-out forwards;}</style>
 </head>
 <body class="bg-royal-cream bg-parchment font-inter text-royal-sapphire min-h-screen">
   <div id="mainNav"></div>
@@ -37,7 +37,7 @@
       <!-- Progress Bar -->
       <div class="mb-10">
         <div class="flex justify-between text-xs font-cinzel text-royal-gold/60 dark:text-royal-gold/40 mb-2">
-          <span>Step <span id="currentStep">1</span> of 6</span>
+          <span>Step <span id="currentStep">1</span> of 5</span>
           <span id="progressPct">0%</span>
         </div>
         <div class="h-1.5 bg-royal-gold/10 dark:bg-white/5 rounded-full overflow-hidden">
@@ -104,27 +104,14 @@
         </div>
       </div>
 
-      <!-- Step 5: Wisdom Preference -->
+      <!-- Step 5: Summary -->
       <div id="step5" class="step-hidden">
-        <div class="bg-white dark:bg-royal-sapphire/20 border border-royal-gold/10 rounded-2xl p-8 md:p-12">
-          <h2 class="font-cinzel text-xl text-royal-plum dark:text-royal-gold mb-2">Do you prefer Biblical wisdom or secular philosophy?</h2>
-          <p class="text-sm text-royal-sapphire/40 dark:text-white/30 mb-8 font-playfair italic">Both paths lead to wisdom. Choose the one that speaks to your soul.</p>
-          <div class="grid grid-cols-1 sm:grid-cols-2 gap-4" id="wisdomRadios"></div>
-          <div class="flex justify-between mt-8">
-            <button class="prev-btn px-6 py-2 rounded-lg border border-royal-gold/20 text-royal-gold text-sm hover:bg-royal-gold/10 transition" data-target="4">Previous</button>
-            <button id="btn5" disabled class="px-8 py-3 rounded-lg bg-royal-gold/30 text-white/60 text-sm font-cinzel cursor-not-allowed transition-all duration-300">Continue</button>
-          </div>
-        </div>
-      </div>
-
-      <!-- Step 6: Summary -->
-      <div id="step6" class="step-hidden">
         <div class="bg-white dark:bg-royal-sapphire/20 border border-royal-gold/10 rounded-2xl p-8 md:p-12">
           <h2 class="font-cinzel text-xl text-royal-plum dark:text-royal-gold mb-2 text-center">Your Royal Profile</h2>
           <p class="text-sm text-royal-sapphire/40 dark:text-white/30 mb-8 font-playfair italic text-center">Review your answers before you begin.</p>
           <div id="summaryContent" class="space-y-4 mb-10"></div>
           <div class="flex justify-between">
-            <button class="prev-btn px-6 py-2 rounded-lg border border-royal-gold/20 text-royal-gold text-sm hover:bg-royal-gold/10 transition" data-target="5">Previous</button>
+            <button class="prev-btn px-6 py-2 rounded-lg border border-royal-gold/20 text-royal-gold text-sm hover:bg-royal-gold/10 transition" data-target="4">Previous</button>
             <button id="btnComplete" class="px-8 py-3 rounded-lg bg-royal-gold text-white font-cinzel tracking-wider hover:bg-royal-plum transition-all duration-500 gold-glow">Begin Your Transformation</button>
           </div>
         </div>
@@ -143,8 +130,8 @@
       var PILLARS = ['nourishment','attire','mentality','treasury','body','presence','speech','legacy'];
       var DISCIPLINE_LABELS = {1:'Barely holding on',2:'Struggling',3:'Inconsistent',4:'Building habits',5:'Moderate',6:'Developing',7:'Solid',8:'Strong',9:'Very disciplined',10:'Iron Will'};
       var currentStep = 1;
-      var totalSteps = 6;
-      var data = {name:'',pillars:[],challenge:'',discipline:5,wisdomMode:'bible'};
+      var totalSteps = 5;
+      var data = {name:'',pillars:[],challenge:'',discipline:5};
 
       // Check for existing onboarding data
       var existing = getOnboarding();
@@ -159,7 +146,6 @@
         document.getElementById('wizardFlow').style.display = '';
         document.getElementById('completedState').classList.add('hidden');
         buildPillarCheckboxes();
-        buildWisdomRadios();
         bindInputs();
         bindNavButtons();
         showStep(1);
@@ -186,36 +172,6 @@
         });
       }
 
-      function buildWisdomRadios() {
-        var container = document.getElementById('wisdomRadios');
-        container.textContent = '';
-        var options = [
-          {value:'bible', title:'Biblical Wisdom', desc:'Rooted in Scripture and divine principles'},
-          {value:'secular', title:'Secular Philosophy', desc:'Timeless principles from classical thought'}
-        ];
-        options.forEach(function(opt) {
-          var btn = document.createElement('button');
-          btn.type = 'button';
-          btn.className = 'toggle-pill text-left px-6 py-5 rounded-xl border border-royal-gold/20 dark:text-white/80 transition-all duration-300 hover:border-royal-gold/40';
-          btn.setAttribute('data-wisdom', opt.value);
-          var title = document.createElement('span');
-          title.className = 'block font-cinzel text-sm mb-1';
-          title.textContent = opt.title;
-          var desc = document.createElement('span');
-          desc.className = 'block text-xs opacity-60 font-inter';
-          desc.textContent = opt.desc;
-          btn.appendChild(title);
-          btn.appendChild(desc);
-          btn.addEventListener('click', function() {
-            data.wisdomMode = opt.value;
-            container.querySelectorAll('.toggle-pill').forEach(function(b) { b.classList.remove('active'); });
-            btn.classList.add('active');
-            validateStep(5);
-          });
-          container.appendChild(btn);
-        });
-      }
-
       function bindInputs() {
         document.getElementById('inputName').addEventListener('input', function() { validateStep(1); });
         document.getElementById('inputChallenge').addEventListener('input', function() { validateStep(3); });
@@ -233,7 +189,6 @@
         document.getElementById('btn2').addEventListener('click', function() { collectStepData(2); goToStep(3); });
         document.getElementById('btn3').addEventListener('click', function() { collectStepData(3); goToStep(4); });
         document.getElementById('btn4').addEventListener('click', function() { collectStepData(4); goToStep(5); });
-        document.getElementById('btn5').addEventListener('click', function() { collectStepData(5); goToStep(6); });
         document.getElementById('btnComplete').addEventListener('click', function() { completeOnboarding(); });
 
         document.querySelectorAll('.prev-btn').forEach(function(btn) {
@@ -251,7 +206,6 @@
         if (step === 1) valid = document.getElementById('inputName').value.trim().length > 0;
         else if (step === 2) valid = document.querySelectorAll('input[name="pillars"]:checked').length > 0;
         else if (step === 3) valid = document.getElementById('inputChallenge').value.trim().length > 0;
-        else if (step === 5) valid = data.wisdomMode !== '';
 
         if (valid) {
           btn.disabled = false;
@@ -278,7 +232,7 @@
         currentStep = step;
         document.getElementById('step' + currentStep).className = 'step-visible';
         updateProgress();
-        if (step === 6) buildSummary();
+        if (step === 5) buildSummary();
       }
 
       function showStep(step) {
@@ -302,8 +256,7 @@
           {label:'Name', value: summaryData.name || ''},
           {label:'Chosen Pillars', value: (summaryData.pillars || []).map(function(p){ return p.charAt(0).toUpperCase() + p.slice(1); }).join(', ') || 'None selected'},
           {label:'Greatest Challenge', value: summaryData.challenge || ''},
-          {label:'Discipline Rating', value: (summaryData.discipline || 5) + '/10 — ' + (DISCIPLINE_LABELS[summaryData.discipline] || '')},
-          {label:'Wisdom Preference', value: summaryData.wisdomMode === 'bible' ? 'Biblical Wisdom' : 'Secular Philosophy'}
+          {label:'Discipline Rating', value: (summaryData.discipline || 5) + '/10 — ' + (DISCIPLINE_LABELS[summaryData.discipline] || '')}
         ];
         items.forEach(function(item) {
           var row = document.createElement('div');
@@ -326,7 +279,6 @@
 
       function completeOnboarding() {
         saveOnboarding(data);
-        setMode(data.wisdomMode === 'bible');
 
         var wizard = document.getElementById('wizardFlow');
         wizard.style.opacity = '0';
@@ -366,7 +318,7 @@
 
         document.getElementById('retakeBtn').addEventListener('click', function() {
           localStorage.removeItem('kl_onboarding');
-          data = {name:'',pillars:[],challenge:'',discipline:5,wisdomMode:'bible'};
+          data = {name:'',pillars:[],challenge:'',discipline:5};
           completed.classList.add('hidden');
           initWizard();
         });

@@ -1,166 +1,90 @@
-<!-- index.html – v0.0.3 -->
+<!-- index.html – v0.0.5 -->
 <!DOCTYPE html>
 <html lang="en" class="scroll-smooth">
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0">
   <title>A King's Lifestyle — Master the Ways of a King and Gentleman</title>
-  <meta name="description" content="A King's Lifestyle: genuine transformation into a king and gentleman. Master nourishment, attire, mentality, treasury, body, presence, speech, and legacy. No shortcuts.">
+  <meta name="description" content="A King's Lifestyle: genuine transformation into a king and gentleman through Scripture-grounded discipline. Seven pillars. No shortcuts.">
   <link rel="manifest" href="manifest.json">
   <script src="https://cdn.tailwindcss.com"></script>
-  <script>
-    tailwind.config={darkMode:'class',theme:{extend:{colors:{royal:{green:'#052B20',cream:'#FFF6E6',gold:'#A38255',plum:'#571641',sapphire:'#08052D'}},fontFamily:{cinzel:['Cinzel','serif'],inter:['Inter','sans-serif'],playfair:['Playfair Display','serif']},animation:{fadeIn:'fadeIn 0.8s ease-out forwards',fadeInUp:'fadeInUp 0.8s ease-out forwards'},keyframes:{fadeIn:{'0%':{opacity:'0'},'100%':{opacity:'1'}},fadeInUp:{'0%':{opacity:'0',transform:'translateY(24px)'},'100%':{opacity:'1',transform:'translateY(0)'}}}}}};
-  </script>
+  <script>tailwind.config={darkMode:'class',theme:{extend:{colors:{royal:{green:'#052B20',cream:'#FFF6E6',gold:'#A38255',plum:'#571641',sapphire:'#08052D'}},fontFamily:{cinzel:['Cinzel','serif'],inter:['Inter','sans-serif'],playfair:['Playfair Display','serif']},animation:{fadeIn:'fadeIn 0.8s ease-out forwards',fadeInUp:'fadeInUp 0.8s ease-out forwards'},keyframes:{fadeIn:{'0%':{opacity:'0'},'100%':{opacity:'1'}},fadeInUp:{'0%':{opacity:'0',transform:'translateY(24px)'},'100%':{opacity:'1',transform:'translateY(0)'}}}}}}</script>
   <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600;700&family=Inter:wght@300;400;500;600&family=Playfair+Display:ital,wght@0,400;0,600;1,400&display=swap" rel="stylesheet">
   <script src="https://unpkg.com/@supabase/supabase-js@2" defer></script>
   <style>
     .bg-parchment{background-image:url("data:image/svg+xml,%3Csvg width='100' height='100' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.8' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100' height='100' filter='url(%23n)' opacity='0.03'/%3E%3C/svg%3E");}
     .gold-glow:hover{box-shadow:0 0 30px rgba(163,130,85,0.25);}
     .text-shadow-gold{text-shadow:0 0 40px rgba(163,130,85,0.15);}
-    .dark .bg-parchment{background-color:#0a0a0a;}
-    .dark body{background-color:#0a0a0a;color:#e0d5c4;}
+    .dark .bg-parchment{background-color:#0a0a0a;}.dark body{background-color:#0a0a0a;color:#e0d5c4;}
+    html,body{overflow-x:hidden;max-width:100vw;}
   </style>
-
-  <!-- JSON-LD Schema -->
-  <script type="application/ld+json">
-  {
-    "@context": "https://schema.org",
-    "@type": "WebApplication",
-    "name": "A King's Lifestyle",
-    "description": "Genuine transformation into a king and gentleman. Master the seven pillars: nourishment, attire, mentality, treasury, body, presence, speech, and legacy.",
-    "url": "https://kingslifestyle.com",
-    "applicationCategory": "LifestyleApplication",
-    "creator": {
-      "@type": "Organization",
-      "name": "Calyvent",
-      "url": "https://calyvent.com"
-    },
-    "offers": {
-      "@type": "Offer",
-      "price": "0",
-      "priceCurrency": "USD"
-    }
-  }
-  </script>
+  <script type="application/ld+json">{"@context":"https://schema.org","@type":"WebApplication","name":"A King's Lifestyle","description":"Genuine transformation into a king and gentleman through Scripture-grounded discipline across seven pillars.","url":"https://akingslifestyle.calyvent.com","applicationCategory":"LifestyleApplication","creator":{"@type":"Organization","name":"Calyvent","url":"https://calyvent.com"},"offers":{"@type":"Offer","price":"0","priceCurrency":"USD"}}</script>
 </head>
-<body class="bg-royal-cream bg-parchment font-inter text-royal-sapphire min-h-screen">
+<body class="bg-royal-cream bg-parchment font-inter text-royal-sapphire min-h-screen overflow-x-hidden">
 
-  <!-- ============================================================
-       PUBLIC LANDING (visible when NOT logged in)
-       ============================================================ -->
+  <!-- ============ PUBLIC LANDING ============ -->
   <div id="publicLanding">
-
-    <!-- Public Hero -->
     <section class="relative overflow-hidden min-h-screen flex flex-col">
       <div class="flex-1 flex items-center justify-center px-6">
         <div class="max-w-3xl text-center animate-fadeInUp">
-          <!-- Crown -->
           <div class="flex justify-center mb-10">
-            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 80 60" width="80" height="60" fill="none" stroke="#A38255" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" class="opacity-80">
-              <path d="M10 48 L18 18 L40 30 L62 18 L70 48 Z"/>
-              <line x1="18" y1="18" x2="18" y2="13"/>
-              <circle cx="18" cy="11" r="2.5"/>
-              <line x1="40" y1="30" x2="40" y2="8"/>
-              <circle cx="40" cy="6" r="3"/>
-              <line x1="62" y1="18" x2="62" y2="13"/>
-              <circle cx="62" cy="11" r="2.5"/>
-              <line x1="8" y1="52" x2="72" y2="52"/>
-            </svg>
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 80 60" width="80" height="60" fill="none" stroke="#A38255" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" class="opacity-80"><path d="M10 48 L18 18 L40 30 L62 18 L70 48 Z"/><line x1="18" y1="18" x2="18" y2="13"/><circle cx="18" cy="11" r="2.5"/><line x1="40" y1="30" x2="40" y2="8"/><circle cx="40" cy="6" r="3"/><line x1="62" y1="18" x2="62" y2="13"/><circle cx="62" cy="11" r="2.5"/><line x1="8" y1="52" x2="72" y2="52"/></svg>
           </div>
-
-          <h1 class="font-cinzel text-4xl md:text-6xl lg:text-7xl text-royal-plum tracking-wide leading-tight text-shadow-gold">
-            A King's Lifestyle
-          </h1>
-
-          <p class="font-playfair italic text-lg md:text-xl text-royal-gold mt-8 max-w-2xl mx-auto leading-relaxed">
-            "Master the Ways of a King and Gentleman &mdash; Genuine Transformation, No Shortcuts"
-          </p>
-
-          <!-- Decorative Line -->
-          <div class="mt-10 flex items-center justify-center gap-4 opacity-30">
-            <div class="h-px w-20 bg-royal-gold"></div>
-            <svg width="16" height="16" fill="none" stroke="#A38255" stroke-width="1.5"><path d="M8 1l2 5h5l-4 3 1.5 5L8 11.5 3.5 14 5 9 1 6h5z"/></svg>
-            <div class="h-px w-20 bg-royal-gold"></div>
-          </div>
-
-          <!-- Description -->
+          <h1 class="font-cinzel text-4xl md:text-6xl lg:text-7xl text-royal-plum tracking-wide leading-tight text-shadow-gold">A King's Lifestyle</h1>
+          <p class="font-playfair italic text-lg md:text-xl text-royal-gold mt-8 max-w-2xl mx-auto leading-relaxed">"Master the Ways of a King and Gentleman &mdash; Genuine Transformation, No Shortcuts"</p>
+          <div class="mt-10 flex items-center justify-center gap-4 opacity-30"><div class="h-px w-20 bg-royal-gold"></div><svg width="16" height="16" fill="none" stroke="#A38255" stroke-width="1.5"><path d="M8 1l2 5h5l-4 3 1.5 5L8 11.5 3.5 14 5 9 1 6h5z"/></svg><div class="h-px w-20 bg-royal-gold"></div></div>
           <div class="mt-12 max-w-xl mx-auto">
-            <p class="font-inter text-sm md:text-base text-royal-sapphire/60 leading-relaxed">
-              A private academy built on seven ancient pillars &mdash; nourishment, attire, mentality, treasury, body, presence, speech, and legacy. Every lesson is designed to transform how you eat, dress, think, earn, train, carry yourself, speak, and lead your family. Built by <a href="https://calyvent.com" target="_blank" class="text-royal-gold hover:underline">Calyvent</a>.
-            </p>
+            <p class="font-inter text-sm md:text-base text-royal-sapphire/60 leading-relaxed">A private academy built on seven ancient pillars &mdash; nourishment, attire, mentality, treasury, body, presence, speech, and legacy. Every lesson grounded in Scripture and designed to transform how you live, lead, and provide. Built by <a href="https://calyvent.com" target="_blank" class="text-royal-gold hover:underline">Calyvent</a>.</p>
           </div>
-
-          <!-- CTA Buttons -->
           <div class="mt-14 flex flex-col sm:flex-row items-center justify-center gap-4">
-            <button onclick="openSignIn('register')" class="px-10 py-4 bg-royal-gold text-white font-cinzel tracking-wider rounded-lg hover:bg-royal-plum transition-all duration-500 gold-glow text-base">
-              Create Account
-            </button>
-            <button onclick="openSignIn('login')" class="px-10 py-4 border border-royal-gold/30 text-royal-gold font-cinzel tracking-wider rounded-lg hover:bg-royal-gold/10 transition-all duration-500 text-base">
-              Sign In
-            </button>
+            <button onclick="openSignIn('register')" class="px-10 py-4 bg-royal-gold text-white font-cinzel tracking-wider rounded-lg hover:bg-royal-plum transition-all duration-500 gold-glow text-base">Create Account</button>
+            <button onclick="openSignIn('login')" class="px-10 py-4 border border-royal-gold/30 text-royal-gold font-cinzel tracking-wider rounded-lg hover:bg-royal-gold/10 transition-all duration-500 text-base">Sign In</button>
           </div>
-
-          <!-- Pillar Preview (subtle) -->
           <div class="mt-20 grid grid-cols-4 md:grid-cols-8 gap-3 max-w-md mx-auto opacity-40">
-            <div class="text-center text-xs font-inter text-royal-sapphire/50">
-              <div class="text-lg mb-1">I</div>
-              <span>Nourish</span>
-            </div>
-            <div class="text-center text-xs font-inter text-royal-sapphire/50">
-              <div class="text-lg mb-1">II</div>
-              <span>Attire</span>
-            </div>
-            <div class="text-center text-xs font-inter text-royal-sapphire/50">
-              <div class="text-lg mb-1">III</div>
-              <span>Mind</span>
-            </div>
-            <div class="text-center text-xs font-inter text-royal-sapphire/50">
-              <div class="text-lg mb-1">IV</div>
-              <span>Treasury</span>
-            </div>
-            <div class="text-center text-xs font-inter text-royal-sapphire/50">
-              <div class="text-lg mb-1">V</div>
-              <span>Body</span>
-            </div>
-            <div class="text-center text-xs font-inter text-royal-sapphire/50">
-              <div class="text-lg mb-1">VI</div>
-              <span>Presence</span>
-            </div>
-            <div class="text-center text-xs font-inter text-royal-sapphire/50">
-              <div class="text-lg mb-1">VII</div>
-              <span>Speech</span>
-            </div>
-            <div class="text-center text-xs font-inter text-royal-sapphire/50">
-              <div class="text-lg mb-1">+</div>
-              <span>Legacy</span>
-            </div>
+            <div class="text-center text-xs font-inter text-royal-sapphire/50"><div class="text-lg mb-1">I</div><span>Nourish</span></div>
+            <div class="text-center text-xs font-inter text-royal-sapphire/50"><div class="text-lg mb-1">II</div><span>Attire</span></div>
+            <div class="text-center text-xs font-inter text-royal-sapphire/50"><div class="text-lg mb-1">III</div><span>Mind</span></div>
+            <div class="text-center text-xs font-inter text-royal-sapphire/50"><div class="text-lg mb-1">IV</div><span>Treasury</span></div>
+            <div class="text-center text-xs font-inter text-royal-sapphire/50"><div class="text-lg mb-1">V</div><span>Body</span></div>
+            <div class="text-center text-xs font-inter text-royal-sapphire/50"><div class="text-lg mb-1">VI</div><span>Presence</span></div>
+            <div class="text-center text-xs font-inter text-royal-sapphire/50"><div class="text-lg mb-1">VII</div><span>Speech</span></div>
+            <div class="text-center text-xs font-inter text-royal-sapphire/50"><div class="text-lg mb-1">+</div><span>Legacy</span></div>
           </div>
         </div>
       </div>
-
-      <!-- Public Footer -->
       <div id="publicFooter"></div>
     </section>
   </div>
 
-  <!-- ============================================================
-       PRIVATE DASHBOARD (visible when logged in)
-       ============================================================ -->
+  <!-- ============ PRIVATE DASHBOARD ============ -->
   <div id="privateDashboard" style="display:none">
     <div id="mainNav"></div>
 
-    <!-- Dashboard Hero -->
-    <section class="max-w-7xl mx-auto px-6 pt-16 pb-8 text-center animate-fadeInUp">
-      <h1 class="font-cinzel text-3xl md:text-5xl text-royal-plum tracking-wide text-shadow-gold">
-        Your Kingdom Awaits
-      </h1>
-      <p class="font-playfair italic text-royal-gold mt-4 max-w-xl mx-auto">
-        Continue your transformation. Walk the pillars. Build your legacy.
-      </p>
+    <!-- Continue Your Royal Journey Banner -->
+    <section class="max-w-4xl mx-auto px-6 pt-12 pb-4 animate-fadeIn">
+      <div class="bg-[#052B20] rounded-2xl p-6 flex flex-col sm:flex-row items-center justify-between gap-4">
+        <div>
+          <h2 class="font-cinzel text-lg text-[#A38255]">Continue Your Royal Journey</h2>
+          <p class="font-inter text-sm text-white/50 mt-1">Day <span class="streak-count text-[#A38255] font-semibold">0</span> of your transformation. The throne is built one discipline at a time.</p>
+        </div>
+        <div class="flex items-center gap-2 bg-[#A38255]/20 px-4 py-2 rounded-lg">
+          <span class="font-cinzel text-2xl text-[#A38255] streak-count">0</span>
+          <span class="text-xs text-white/60 font-inter">day<br>streak</span>
+        </div>
+      </div>
     </section>
 
-    <!-- Daily Principle (standalone card) -->
-    <section class="max-w-4xl mx-auto px-6 mb-16 animate-fadeIn" style="animation-delay:0.2s">
+    <!-- Today's Royal Ritual -->
+    <section id="todayRitual" class="max-w-4xl mx-auto px-6 mb-8">
+      <div class="bg-royal-sapphire/5 dark:bg-white/5 border border-royal-gold/10 rounded-2xl p-6 text-center">
+        <h3 class="font-cinzel text-xs tracking-[0.3em] text-royal-gold uppercase mb-3">Today's Royal Nourishment Ritual</h3>
+        <p id="ritualText" class="font-playfair text-royal-plum dark:text-royal-gold italic"></p>
+        <a id="ritualLink" href="nourishment.html" class="inline-block mt-4 px-6 py-2 bg-royal-gold text-white text-xs font-cinzel rounded-lg hover:bg-royal-plum transition">Continue Lesson</a>
+      </div>
+    </section>
+
+    <!-- Hero Principle -->
+    <section class="max-w-4xl mx-auto px-6 mb-16">
       <div class="bg-royal-sapphire/5 dark:bg-white/5 border border-royal-gold/10 rounded-2xl p-8 text-center">
         <h2 class="font-cinzel text-xs tracking-[0.3em] text-royal-gold uppercase mb-4">Today's Royal Principle</h2>
         <div id="heroPrinciple" class="font-playfair text-lg text-royal-plum dark:text-royal-gold italic"></div>
@@ -169,88 +93,26 @@
 
     <!-- Pillars Grid -->
     <section id="pillars" class="max-w-7xl mx-auto px-6 mb-24">
-      <div class="text-center mb-16 animate-fadeInUp" style="animation-delay:0.15s">
-        <h2 class="font-cinzel text-3xl md:text-4xl text-royal-plum">The Seven Pillars</h2>
-        <p class="font-inter text-sm text-royal-sapphire/50 mt-3">Each pillar is a path toward mastery. Walk them all.</p>
-      </div>
+      <div class="text-center mb-16"><h2 class="font-cinzel text-3xl md:text-4xl text-royal-plum">The Seven Pillars</h2><p class="font-inter text-sm text-royal-sapphire/50 mt-3">Each pillar is a path toward mastery. Walk them all.</p></div>
       <div class="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
-
-        <a href="nourishment.html" class="group block p-8 bg-white dark:bg-royal-sapphire/30 border border-royal-gold/10 rounded-2xl hover:border-royal-gold/40 transition-all duration-500 gold-glow animate-fadeInUp" style="animation-delay:0.1s">
-          <div class="font-cinzel text-xs text-royal-gold/40 tracking-widest mb-3">PILLAR I</div>
-          <h3 class="font-cinzel text-royal-plum dark:text-royal-gold text-lg mb-2 group-hover:text-royal-gold transition-colors">Nourishment</h3>
-          <p class="text-sm text-royal-sapphire/60 dark:text-white/50 leading-relaxed">Clean eating, gentleman dining, and mastering your plate like a king.</p>
-        </a>
-
-        <a href="attire.html" class="group block p-8 bg-white dark:bg-royal-sapphire/30 border border-royal-gold/10 rounded-2xl hover:border-royal-gold/40 transition-all duration-500 gold-glow animate-fadeInUp" style="animation-delay:0.15s">
-          <div class="font-cinzel text-xs text-royal-gold/40 tracking-widest mb-3">PILLAR II</div>
-          <h3 class="font-cinzel text-royal-plum dark:text-royal-gold text-lg mb-2 group-hover:text-royal-gold transition-colors">Attire</h3>
-          <p class="text-sm text-royal-sapphire/60 dark:text-white/50 leading-relaxed">Dress with purpose. From boardroom to church to poolside.</p>
-        </a>
-
-        <a href="mentality.html" class="group block p-8 bg-white dark:bg-royal-sapphire/30 border border-royal-gold/10 rounded-2xl hover:border-royal-gold/40 transition-all duration-500 gold-glow animate-fadeInUp" style="animation-delay:0.2s">
-          <div class="font-cinzel text-xs text-royal-gold/40 tracking-widest mb-3">PILLAR III</div>
-          <h3 class="font-cinzel text-royal-plum dark:text-royal-gold text-lg mb-2 group-hover:text-royal-gold transition-colors">Mentality</h3>
-          <p class="text-sm text-royal-sapphire/60 dark:text-white/50 leading-relaxed">Habits, discipline, love, relationships, and inner warfare.</p>
-        </a>
-
-        <a href="treasury.html" class="group block p-8 bg-white dark:bg-royal-sapphire/30 border border-royal-gold/10 rounded-2xl hover:border-royal-gold/40 transition-all duration-500 gold-glow animate-fadeInUp" style="animation-delay:0.25s">
-          <div class="font-cinzel text-xs text-royal-gold/40 tracking-widest mb-3">PILLAR IV</div>
-          <h3 class="font-cinzel text-royal-plum dark:text-royal-gold text-lg mb-2 group-hover:text-royal-gold transition-colors">Treasury</h3>
-          <p class="text-sm text-royal-sapphire/60 dark:text-white/50 leading-relaxed">Budget wisely, build wealth, and provide like a king should.</p>
-        </a>
-
-        <a href="body.html" class="group block p-8 bg-white dark:bg-royal-sapphire/30 border border-royal-gold/10 rounded-2xl hover:border-royal-gold/40 transition-all duration-500 gold-glow animate-fadeInUp" style="animation-delay:0.3s">
-          <div class="font-cinzel text-xs text-royal-gold/40 tracking-widest mb-3">PILLAR V</div>
-          <h3 class="font-cinzel text-royal-plum dark:text-royal-gold text-lg mb-2 group-hover:text-royal-gold transition-colors">Body</h3>
-          <p class="text-sm text-royal-sapphire/60 dark:text-white/50 leading-relaxed">Fitness, energy, posture — your body is the temple of your kingdom.</p>
-        </a>
-
-        <a href="presence.html" class="group block p-8 bg-white dark:bg-royal-sapphire/30 border border-royal-gold/10 rounded-2xl hover:border-royal-gold/40 transition-all duration-500 gold-glow animate-fadeInUp" style="animation-delay:0.35s">
-          <div class="font-cinzel text-xs text-royal-gold/40 tracking-widest mb-3">PILLAR VI</div>
-          <h3 class="font-cinzel text-royal-plum dark:text-royal-gold text-lg mb-2 group-hover:text-royal-gold transition-colors">Presence</h3>
-          <p class="text-sm text-royal-sapphire/60 dark:text-white/50 leading-relaxed">Walk, sit, stand, and command any room with silent authority.</p>
-        </a>
-
-        <a href="speech.html" class="group block p-8 bg-white dark:bg-royal-sapphire/30 border border-royal-gold/10 rounded-2xl hover:border-royal-gold/40 transition-all duration-500 gold-glow animate-fadeInUp" style="animation-delay:0.4s">
-          <div class="font-cinzel text-xs text-royal-gold/40 tracking-widest mb-3">PILLAR VII</div>
-          <h3 class="font-cinzel text-royal-plum dark:text-royal-gold text-lg mb-2 group-hover:text-royal-gold transition-colors">Speech</h3>
-          <p class="text-sm text-royal-sapphire/60 dark:text-white/50 leading-relaxed">Vocabulary, filler-word mastery, and powerful conversation.</p>
-        </a>
-
-        <a href="legacy.html" class="group block p-8 bg-white dark:bg-royal-sapphire/30 border border-royal-gold/10 rounded-2xl hover:border-royal-gold/40 transition-all duration-500 gold-glow animate-fadeInUp" style="animation-delay:0.45s">
-          <div class="font-cinzel text-xs text-royal-gold/40 tracking-widest mb-3">THE CROWN</div>
-          <h3 class="font-cinzel text-royal-plum dark:text-royal-gold text-lg mb-2 group-hover:text-royal-gold transition-colors">Legacy</h3>
-          <p class="text-sm text-royal-sapphire/60 dark:text-white/50 leading-relaxed">Protect, provide, and lead your family with honor that outlasts you.</p>
-        </a>
-
+        <a href="nourishment.html" class="group block p-8 bg-white dark:bg-royal-sapphire/30 border border-royal-gold/10 rounded-2xl hover:border-royal-gold/40 transition-all duration-500 gold-glow"><div class="font-cinzel text-xs text-royal-gold/40 tracking-widest mb-3">PILLAR I</div><h3 class="font-cinzel text-royal-plum dark:text-royal-gold text-lg mb-2 group-hover:text-royal-gold transition-colors">Nourishment</h3><p class="text-sm text-royal-sapphire/60 dark:text-white/50 leading-relaxed">Clean eating by the Creator's blueprint. Leviticus 11 made practical for 2026.</p></a>
+        <a href="attire.html" class="group block p-8 bg-white dark:bg-royal-sapphire/30 border border-royal-gold/10 rounded-2xl hover:border-royal-gold/40 transition-all duration-500 gold-glow"><div class="font-cinzel text-xs text-royal-gold/40 tracking-widest mb-3">PILLAR II</div><h3 class="font-cinzel text-royal-plum dark:text-royal-gold text-lg mb-2 group-hover:text-royal-gold transition-colors">Attire</h3><p class="text-sm text-royal-sapphire/60 dark:text-white/50 leading-relaxed">Dress with purpose. From boardroom to church to poolside.</p></a>
+        <a href="mentality.html" class="group block p-8 bg-white dark:bg-royal-sapphire/30 border border-royal-gold/10 rounded-2xl hover:border-royal-gold/40 transition-all duration-500 gold-glow"><div class="font-cinzel text-xs text-royal-gold/40 tracking-widest mb-3">PILLAR III</div><h3 class="font-cinzel text-royal-plum dark:text-royal-gold text-lg mb-2 group-hover:text-royal-gold transition-colors">Mentality</h3><p class="text-sm text-royal-sapphire/60 dark:text-white/50 leading-relaxed">Habits, discipline, love, relationships, and inner warfare.</p></a>
+        <a href="treasury.html" class="group block p-8 bg-white dark:bg-royal-sapphire/30 border border-royal-gold/10 rounded-2xl hover:border-royal-gold/40 transition-all duration-500 gold-glow"><div class="font-cinzel text-xs text-royal-gold/40 tracking-widest mb-3">PILLAR IV</div><h3 class="font-cinzel text-royal-plum dark:text-royal-gold text-lg mb-2 group-hover:text-royal-gold transition-colors">Treasury</h3><p class="text-sm text-royal-sapphire/60 dark:text-white/50 leading-relaxed">Budget wisely, build wealth, and provide like a king should.</p></a>
+        <a href="body.html" class="group block p-8 bg-white dark:bg-royal-sapphire/30 border border-royal-gold/10 rounded-2xl hover:border-royal-gold/40 transition-all duration-500 gold-glow"><div class="font-cinzel text-xs text-royal-gold/40 tracking-widest mb-3">PILLAR V</div><h3 class="font-cinzel text-royal-plum dark:text-royal-gold text-lg mb-2 group-hover:text-royal-gold transition-colors">Body</h3><p class="text-sm text-royal-sapphire/60 dark:text-white/50 leading-relaxed">Fitness, energy, posture &mdash; your body is the temple of your kingdom.</p></a>
+        <a href="presence.html" class="group block p-8 bg-white dark:bg-royal-sapphire/30 border border-royal-gold/10 rounded-2xl hover:border-royal-gold/40 transition-all duration-500 gold-glow"><div class="font-cinzel text-xs text-royal-gold/40 tracking-widest mb-3">PILLAR VI</div><h3 class="font-cinzel text-royal-plum dark:text-royal-gold text-lg mb-2 group-hover:text-royal-gold transition-colors">Presence</h3><p class="text-sm text-royal-sapphire/60 dark:text-white/50 leading-relaxed">Walk, sit, stand, and command any room with silent authority.</p></a>
+        <a href="speech.html" class="group block p-8 bg-white dark:bg-royal-sapphire/30 border border-royal-gold/10 rounded-2xl hover:border-royal-gold/40 transition-all duration-500 gold-glow"><div class="font-cinzel text-xs text-royal-gold/40 tracking-widest mb-3">PILLAR VII</div><h3 class="font-cinzel text-royal-plum dark:text-royal-gold text-lg mb-2 group-hover:text-royal-gold transition-colors">Speech</h3><p class="text-sm text-royal-sapphire/60 dark:text-white/50 leading-relaxed">Vocabulary, filler-word mastery, and powerful conversation.</p></a>
+        <a href="legacy.html" class="group block p-8 bg-white dark:bg-royal-sapphire/30 border border-royal-gold/10 rounded-2xl hover:border-royal-gold/40 transition-all duration-500 gold-glow"><div class="font-cinzel text-xs text-royal-gold/40 tracking-widest mb-3">THE CROWN</div><h3 class="font-cinzel text-royal-plum dark:text-royal-gold text-lg mb-2 group-hover:text-royal-gold transition-colors">Legacy</h3><p class="text-sm text-royal-sapphire/60 dark:text-white/50 leading-relaxed">Protect, provide, and lead your family with honor that outlasts you.</p></a>
       </div>
     </section>
 
     <!-- Royal Tools -->
     <section class="max-w-5xl mx-auto px-6 mb-24">
-      <div class="text-center mb-12">
-        <h2 class="font-cinzel text-2xl text-royal-plum">Royal Tools</h2>
-        <p class="text-sm text-royal-sapphire/50 mt-2 font-inter">Instruments of refinement, at your service.</p>
-      </div>
+      <div class="text-center mb-12"><h2 class="font-cinzel text-2xl text-royal-plum">Royal Tools</h2><p class="text-sm text-royal-sapphire/50 mt-2 font-inter">Instruments of refinement, at your service.</p></div>
       <div class="grid sm:grid-cols-3 gap-6">
-        <div class="bg-white dark:bg-royal-sapphire/20 border border-royal-gold/10 rounded-xl p-6 text-center gold-glow transition-all duration-500">
-          <div class="font-cinzel text-xs text-royal-gold/40 tracking-widest mb-3">TOOL</div>
-          <h4 class="font-cinzel text-sm text-royal-plum dark:text-royal-gold mb-2">Plate Scanner</h4>
-          <p class="text-xs text-royal-sapphire/50 dark:text-white/40 leading-relaxed">Photograph your meal and receive kingly nutrition counsel.</p>
-          <a href="nourishment.html#plate-scanner" class="inline-block mt-4 text-xs text-royal-gold hover:underline font-inter">Open Scanner</a>
-        </div>
-        <div class="bg-white dark:bg-royal-sapphire/20 border border-royal-gold/10 rounded-xl p-6 text-center gold-glow transition-all duration-500">
-          <div class="font-cinzel text-xs text-royal-gold/40 tracking-widest mb-3">TOOL</div>
-          <h4 class="font-cinzel text-sm text-royal-plum dark:text-royal-gold mb-2">Speech Analyzer</h4>
-          <p class="text-xs text-royal-sapphire/50 dark:text-white/40 leading-relaxed">Record conversations, eliminate filler words, refine your command.</p>
-          <a href="speech.html#speech-recorder" class="inline-block mt-4 text-xs text-royal-gold hover:underline font-inter">Open Analyzer</a>
-        </div>
-        <div class="bg-white dark:bg-royal-sapphire/20 border border-royal-gold/10 rounded-xl p-6 text-center gold-glow transition-all duration-500">
-          <div class="font-cinzel text-xs text-royal-gold/40 tracking-widest mb-3">TOOL</div>
-          <h4 class="font-cinzel text-sm text-royal-plum dark:text-royal-gold mb-2">Wisdom Journal</h4>
-          <p class="text-xs text-royal-sapphire/50 dark:text-white/40 leading-relaxed">Capture reflections, track growth, and build your royal archive.</p>
-          <a href="journal.html" class="inline-block mt-4 text-xs text-royal-gold hover:underline font-inter">Open Journal</a>
-        </div>
+        <div class="bg-white dark:bg-royal-sapphire/20 border border-royal-gold/10 rounded-xl p-6 text-center gold-glow transition-all duration-500"><div class="font-cinzel text-xs text-royal-gold/40 tracking-widest mb-3">TOOL</div><h4 class="font-cinzel text-sm text-royal-plum dark:text-royal-gold mb-2">Plate Scanner</h4><p class="text-xs text-royal-sapphire/50 dark:text-white/40 leading-relaxed">Photograph your meal and receive Leviticus 11 analysis.</p><a href="nourishment.html#plate-scanner" class="inline-block mt-4 text-xs text-royal-gold hover:underline font-inter">Open Scanner</a></div>
+        <div class="bg-white dark:bg-royal-sapphire/20 border border-royal-gold/10 rounded-xl p-6 text-center gold-glow transition-all duration-500"><div class="font-cinzel text-xs text-royal-gold/40 tracking-widest mb-3">TOOL</div><h4 class="font-cinzel text-sm text-royal-plum dark:text-royal-gold mb-2">Speech Analyzer</h4><p class="text-xs text-royal-sapphire/50 dark:text-white/40 leading-relaxed">Record conversations, eliminate filler words, refine your command.</p><a href="speech.html#speech-recorder" class="inline-block mt-4 text-xs text-royal-gold hover:underline font-inter">Open Analyzer</a></div>
+        <div class="bg-white dark:bg-royal-sapphire/20 border border-royal-gold/10 rounded-xl p-6 text-center gold-glow transition-all duration-500"><div class="font-cinzel text-xs text-royal-gold/40 tracking-widest mb-3">TOOL</div><h4 class="font-cinzel text-sm text-royal-plum dark:text-royal-gold mb-2">Wisdom Journal</h4><p class="text-xs text-royal-sapphire/50 dark:text-white/40 leading-relaxed">Capture reflections, track growth, and build your royal archive.</p><a href="journal.html" class="inline-block mt-4 text-xs text-royal-gold hover:underline font-inter">Open Journal</a></div>
       </div>
     </section>
 
@@ -259,9 +121,7 @@
       <div class="bg-royal-sapphire dark:bg-royal-sapphire/80 rounded-2xl p-12 text-white">
         <h2 class="font-cinzel text-2xl text-royal-gold mb-4">Your Journey Begins With a Single Question</h2>
         <p class="font-inter text-sm text-white/60 mb-8 max-w-lg mx-auto">The onboarding takes 5 minutes. Answer honestly. We will build your personalized royal curriculum.</p>
-        <a href="onboarding.html" class="inline-block px-8 py-3 bg-royal-gold text-royal-sapphire font-cinzel tracking-wider rounded-lg hover:bg-white hover:text-royal-sapphire transition-all duration-500">
-          Begin Onboarding
-        </a>
+        <a href="onboarding.html" class="inline-block px-8 py-3 bg-royal-gold text-royal-sapphire font-cinzel tracking-wider rounded-lg hover:bg-white hover:text-royal-sapphire transition-all duration-500">Begin Onboarding</a>
       </div>
     </section>
 
@@ -270,29 +130,23 @@
 
   <script src="shared.js"></script>
   <script>
-    document.addEventListener('DOMContentLoaded', function() {
+    document.addEventListener('DOMContentLoaded',function(){
       ensureGuest();
-
-      if (isLoggedIn()) {
-        document.getElementById('publicLanding').style.display = 'none';
-        document.getElementById('privateDashboard').style.display = '';
+      if(isLoggedIn()){
+        document.getElementById('publicLanding').style.display='none';
+        document.getElementById('privateDashboard').style.display='';
         initPrivate();
-
-        // Render hero principle separately
-        var el = document.getElementById('heroPrinciple');
-        if (el) {
-          var bible = getMode();
-          var p = bible ? PRINCIPLES_BIBLE[getDayIndex()] : PRINCIPLES_SECULAR[getDayIndex()];
-          var span1 = document.createElement('span');
-          span1.textContent = '\u201C' + p.text + '\u201D';
-          var span2 = document.createElement('span');
-          span2.className = 'block mt-2 text-sm not-italic opacity-60';
-          span2.textContent = '\u2014 ' + p.ref;
-          el.append(span1, span2);
-        }
-      } else {
-        document.getElementById('publicLanding').style.display = '';
-        document.getElementById('privateDashboard').style.display = 'none';
+        // Hero principle
+        var el=document.getElementById('heroPrinciple');
+        if(el){var p=getTodayPrinciple();var s1=document.createElement('span');s1.className='cursor-pointer hover:opacity-80 transition';s1.textContent='\u201C'+p.text+'\u201D';s1.onclick=function(){openVerseModal(p);};var s2=document.createElement('span');s2.className='block mt-2 text-sm not-italic opacity-60';s2.textContent='\u2014 '+p.ref;el.append(s1,s2);}
+        // Today's Ritual
+        var next=getTodayRitual('nourishment',25);
+        var rt=document.getElementById('ritualText');var rl=document.getElementById('ritualLink');
+        if(next&&rt){rt.textContent='Continue with Lesson '+String(next).padStart(2,'0')+' in the Nourishment pillar.';rl.href='nourishment.html#lesson-'+String(next).padStart(2,'0');}
+        else if(rt){rt.textContent='You have absorbed all Nourishment lessons. Explore another pillar today.';rl.href='attire.html';rl.textContent='Next Pillar';}
+      }else{
+        document.getElementById('publicLanding').style.display='';
+        document.getElementById('privateDashboard').style.display='none';
         initPublic();
       }
     });
