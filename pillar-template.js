@@ -1,4 +1,4 @@
-/* pillar-template.js – v0.0.3 */
+/* pillar-template.js – v0.0.5 */
 /* ============================================================
    Shared Pillar Page Interactivity
    Quiz · Checklist · Scenario Solver · Journal Save
@@ -13,7 +13,6 @@ function initPillar(pillarId) {
   initQuiz();
   initScenarioSolver();
   initChecklistForm(pillarId);
-  setMode(getMode());
 }
 
 /* ---------- Journal Prompt Saving ---------- */

@@ -1,16 +1,16 @@
-<!-- settings.html – v0.0.3 -->
+<!-- settings.html – v0.0.5 -->
 <!DOCTYPE html>
 <html lang="en" class="scroll-smooth">
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0">
   <title>Settings — A King's Lifestyle</title>
   <link rel="manifest" href="manifest.json">
   <script src="https://cdn.tailwindcss.com"></script>
   <script>tailwind.config={darkMode:'class',theme:{extend:{colors:{royal:{green:'#052B20',cream:'#FFF6E6',gold:'#A38255',plum:'#571641',sapphire:'#08052D'}},fontFamily:{cinzel:['Cinzel','serif'],inter:['Inter','sans-serif'],playfair:['Playfair Display','serif']},animation:{fadeIn:'fadeIn 0.8s ease-out forwards',fadeInUp:'fadeInUp 0.8s ease-out forwards'},keyframes:{fadeIn:{'0%':{opacity:'0'},'100%':{opacity:'1'}},fadeInUp:{'0%':{opacity:'0',transform:'translateY(24px)'},'100%':{opacity:'1',transform:'translateY(0)'}}}}}};</script>
   <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600;700&family=Inter:wght@300;400;500;600&family=Playfair+Display:ital,wght@0,400;0,600;1,400&display=swap" rel="stylesheet">
   <script src="https://unpkg.com/@supabase/supabase-js@2" defer></script>
-  <style>.bg-parchment{background-image:url("data:image/svg+xml,%3Csvg width='100' height='100' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.8' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100' height='100' filter='url(%23n)' opacity='0.03'/%3E%3C/svg%3E");}.gold-glow:hover{box-shadow:0 0 30px rgba(163,130,85,0.25);}.dark .bg-parchment{background-color:#0a0a0a;}.dark body{background-color:#0a0a0a;color:#e0d5c4;}.toggle-track{width:52px;height:28px;border-radius:14px;position:relative;cursor:pointer;transition:background-color 0.3s ease;}.toggle-track.off{background-color:rgba(163,130,85,0.15);}.toggle-track.on{background-color:#A38255;}.toggle-knob{width:22px;height:22px;border-radius:50%;background:#fff;position:absolute;top:3px;transition:left 0.3s ease;box-shadow:0 1px 4px rgba(0,0,0,0.15);}.toggle-track.off .toggle-knob{left:3px;}.toggle-track.on .toggle-knob{left:27px;}</style>
+  <style>html,body{overflow-x:hidden;max-width:100vw;}.bg-parchment{background-image:url("data:image/svg+xml,%3Csvg width='100' height='100' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.8' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100' height='100' filter='url(%23n)' opacity='0.03'/%3E%3C/svg%3E");}.gold-glow:hover{box-shadow:0 0 30px rgba(163,130,85,0.25);}.dark .bg-parchment{background-color:#0a0a0a;}.dark body{background-color:#0a0a0a;color:#e0d5c4;}.toggle-track{width:52px;height:28px;border-radius:14px;position:relative;cursor:pointer;transition:background-color 0.3s ease;}.toggle-track.off{background-color:rgba(163,130,85,0.15);}.toggle-track.on{background-color:#A38255;}.toggle-knob{width:22px;height:22px;border-radius:50%;background:#fff;position:absolute;top:3px;transition:left 0.3s ease;box-shadow:0 1px 4px rgba(0,0,0,0.15);}.toggle-track.off .toggle-knob{left:3px;}.toggle-track.on .toggle-knob{left:27px;}</style>
 </head>
 <body class="bg-royal-cream bg-parchment font-inter text-royal-sapphire min-h-screen">
   <div id="mainNav"></div>
@@ -53,19 +53,63 @@
         </div>
       </div>
 
-      <!-- 3. Wisdom Mode: Bible/Secular -->
+      <!-- 3. Connect Your LLM -->
       <div class="bg-white dark:bg-royal-sapphire/20 border border-royal-gold/10 rounded-2xl p-6 md:p-8">
-        <h2 class="font-cinzel text-lg text-royal-plum dark:text-royal-gold mb-6">Wisdom Mode</h2>
-        <div class="flex items-center justify-between">
+        <h2 class="font-cinzel text-lg text-royal-plum dark:text-royal-gold mb-2">Connect Your LLM</h2>
+        <p class="text-xs text-royal-sapphire/40 dark:text-white/30 mb-6">Power the Ask the King feature with your own AI model.</p>
+
+        <!-- Status indicator -->
+        <div id="llmStatus" class="flex items-center gap-2 mb-6 px-4 py-3 rounded-xl bg-royal-sapphire/5 dark:bg-white/5">
+          <span id="llmStatusDot" class="w-2.5 h-2.5 rounded-full bg-royal-sapphire/20 dark:bg-white/20"></span>
+          <span id="llmStatusText" class="text-xs font-inter text-royal-sapphire/50 dark:text-white/40">Not connected</span>
+        </div>
+
+        <div class="space-y-4">
+          <!-- Provider -->
           <div>
-            <p class="text-sm font-medium dark:text-white/80">Biblical Wisdom</p>
-            <p class="text-xs text-royal-sapphire/40 dark:text-white/30 mt-1">Toggle between Biblical and secular philosophical guidance</p>
+            <label for="llmProvider" class="block text-xs font-cinzel text-royal-gold/60 dark:text-royal-gold/40 tracking-wider mb-2">Provider</label>
+            <select id="llmProvider" class="w-full px-4 py-3 rounded-xl border border-royal-gold/20 bg-royal-cream/50 dark:bg-white/5 font-inter text-sm focus:outline-none focus:border-royal-gold transition dark:text-white/80">
+              <option value="">Select provider...</option>
+              <option value="ollama">Ollama</option>
+              <option value="openai">OpenAI</option>
+              <option value="xai">Grok / xAI</option>
+              <option value="custom">Custom</option>
+            </select>
           </div>
-          <div id="modeToggle" class="toggle-track off" role="switch" aria-label="Wisdom mode toggle" tabindex="0">
-            <div class="toggle-knob"></div>
+
+          <!-- Endpoint URL -->
+          <div>
+            <label for="llmEndpoint" class="block text-xs font-cinzel text-royal-gold/60 dark:text-royal-gold/40 tracking-wider mb-2">Endpoint URL</label>
+            <input type="url" id="llmEndpoint" placeholder="e.g. http://192.168.1.100:11434 or https://api.openai.com/v1/chat/completions" class="w-full px-4 py-3 rounded-xl border border-royal-gold/20 bg-royal-cream/50 dark:bg-white/5 font-inter text-sm focus:outline-none focus:border-royal-gold transition dark:text-white/80">
+          </div>
+
+          <!-- API Key -->
+          <div>
+            <label for="llmApiKey" class="block text-xs font-cinzel text-royal-gold/60 dark:text-royal-gold/40 tracking-wider mb-2">API Key</label>
+            <div class="relative">
+              <input type="password" id="llmApiKey" placeholder="sk-... (leave blank for Ollama)" class="w-full px-4 py-3 pr-16 rounded-xl border border-royal-gold/20 bg-royal-cream/50 dark:bg-white/5 font-inter text-sm focus:outline-none focus:border-royal-gold transition dark:text-white/80">
+              <button type="button" id="toggleApiKey" class="absolute right-3 top-1/2 -translate-y-1/2 text-xs text-royal-gold hover:text-royal-plum transition">Show</button>
+            </div>
+          </div>
+
+          <!-- Model name -->
+          <div>
+            <label for="llmModel" class="block text-xs font-cinzel text-royal-gold/60 dark:text-royal-gold/40 tracking-wider mb-2">Model Name</label>
+            <input type="text" id="llmModel" placeholder="e.g. llama3.2, gpt-4o-mini, grok-2" class="w-full px-4 py-3 rounded-xl border border-royal-gold/20 bg-royal-cream/50 dark:bg-white/5 font-inter text-sm focus:outline-none focus:border-royal-gold transition dark:text-white/80">
+          </div>
+
+          <!-- Buttons -->
+          <div class="flex flex-col sm:flex-row gap-3 pt-2">
+            <button id="saveLLMBtn" class="flex-1 px-6 py-3 bg-royal-gold text-white font-cinzel text-sm rounded-xl hover:bg-royal-plum transition-all duration-300 gold-glow">Save Configuration</button>
+            <button id="testLLMBtn" class="flex-1 px-6 py-3 border border-royal-gold/30 text-royal-gold font-cinzel text-sm rounded-xl hover:bg-royal-gold/10 transition-all duration-300">Test Connection</button>
+          </div>
+
+          <!-- Test response area -->
+          <div id="llmTestResponse" class="hidden mt-2 p-4 rounded-xl bg-royal-sapphire/5 dark:bg-white/5 border border-royal-gold/10">
+            <p class="text-xs font-cinzel text-royal-gold/60 tracking-wider mb-2">Test Response</p>
+            <p id="llmTestText" class="text-sm font-inter text-royal-sapphire/70 dark:text-white/50 leading-relaxed"></p>
           </div>
         </div>
-        <p id="modeLabel" class="text-xs text-royal-gold mt-4 font-inter"></p>
       </div>
 
       <!-- 4. Data Management -->
@@ -93,7 +137,7 @@
     </div>
 
     <!-- 6. Version -->
-    <p class="text-center text-xs text-royal-sapphire/20 dark:text-white/15 mt-12 font-inter">v0.0.3</p>
+    <p class="text-center text-xs text-royal-sapphire/20 dark:text-white/15 mt-12 font-inter">v0.0.5</p>
   </section>
 
   <div id="mainFooter"></div>
@@ -130,28 +174,83 @@
         }
       });
 
-      // --- Wisdom Mode Toggle ---
-      var modeToggle = document.getElementById('modeToggle');
-      var modeLabel = document.getElementById('modeLabel');
+      // --- LLM Configuration ---
+      var cfg = getLLMConfig();
+      if (cfg.provider) document.getElementById('llmProvider').value = cfg.provider;
+      if (cfg.endpoint) document.getElementById('llmEndpoint').value = cfg.endpoint;
+      if (cfg.apiKey) document.getElementById('llmApiKey').value = cfg.apiKey;
+      if (cfg.model) document.getElementById('llmModel').value = cfg.model;
+      updateLLMStatus();
 
-      function updateModeToggle() {
-        var isBible = getMode();
-        modeToggle.className = 'toggle-track ' + (isBible ? 'on' : 'off');
-        modeLabel.textContent = isBible ? 'Currently: Biblical Wisdom' : 'Currently: Secular Philosophy';
-      }
-      updateModeToggle();
-
-      modeToggle.addEventListener('click', function() {
-        setMode(!getMode());
-        updateModeToggle();
-      });
-      modeToggle.addEventListener('keydown', function(e) {
-        if (e.key === 'Enter' || e.key === ' ') {
-          e.preventDefault();
-          setMode(!getMode());
-          updateModeToggle();
+      // Show/hide API key
+      document.getElementById('toggleApiKey').addEventListener('click', function() {
+        var input = document.getElementById('llmApiKey');
+        if (input.type === 'password') {
+          input.type = 'text';
+          this.textContent = 'Hide';
+        } else {
+          input.type = 'password';
+          this.textContent = 'Show';
         }
       });
+
+      // Auto-fill endpoint on provider change
+      document.getElementById('llmProvider').addEventListener('change', function() {
+        var endpoint = document.getElementById('llmEndpoint');
+        if (!endpoint.value) {
+          if (this.value === 'ollama') endpoint.value = 'http://localhost:11434';
+          else if (this.value === 'openai') endpoint.value = 'https://api.openai.com/v1/chat/completions';
+          else if (this.value === 'xai') endpoint.value = 'https://api.x.ai/v1/chat/completions';
+        }
+      });
+
+      // Save LLM config
+      document.getElementById('saveLLMBtn').addEventListener('click', function() {
+        var provider = document.getElementById('llmProvider').value;
+        var endpoint = document.getElementById('llmEndpoint').value.trim();
+        var apiKey = document.getElementById('llmApiKey').value.trim();
+        var model = document.getElementById('llmModel').value.trim();
+        saveLLMConfig(provider, endpoint, apiKey, model);
+        updateLLMStatus();
+        this.textContent = 'Saved';
+        var self = this;
+        setTimeout(function() { self.textContent = 'Save Configuration'; }, 2000);
+      });
+
+      // Test LLM connection
+      document.getElementById('testLLMBtn').addEventListener('click', function() {
+        var btn = this;
+        var responseArea = document.getElementById('llmTestResponse');
+        var responseText = document.getElementById('llmTestText');
+        btn.textContent = 'Testing...';
+        btn.disabled = true;
+        responseArea.classList.remove('hidden');
+        responseText.textContent = 'Connecting to your LLM...';
+
+        askLLM('What is a king? Answer in one sentence.').then(function(response) {
+          responseText.textContent = response;
+          btn.textContent = 'Test Connection';
+          btn.disabled = false;
+          updateLLMStatus();
+        }).catch(function(err) {
+          responseText.textContent = 'Error: ' + (err.message || 'Connection failed. Check your endpoint and API key.');
+          btn.textContent = 'Test Connection';
+          btn.disabled = false;
+        });
+      });
+
+      function updateLLMStatus() {
+        var cfg = getLLMConfig();
+        var dot = document.getElementById('llmStatusDot');
+        var text = document.getElementById('llmStatusText');
+        if (cfg.endpoint || cfg.apiKey) {
+          dot.className = 'w-2.5 h-2.5 rounded-full bg-green-500';
+          text.textContent = 'Connected — ' + (cfg.provider || 'Custom') + (cfg.model ? ' / ' + cfg.model : '');
+        } else {
+          dot.className = 'w-2.5 h-2.5 rounded-full bg-royal-sapphire/20 dark:bg-white/20';
+          text.textContent = 'Not connected';
+        }
+      }
 
       // --- Export Data ---
       document.getElementById('exportBtn').addEventListener('click', function() {
