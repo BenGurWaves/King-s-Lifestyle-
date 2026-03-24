@@ -1,0 +1,227 @@
+---
+import Base from '../layouts/Base.astro';
+---
+
+<Base
+  title="Home"
+  description="A King's Lifestyle teaches young men ages 13-26 how to become better men through biblical wisdom and modern practical knowledge. Seven pillars of genuine transformation."
+>
+  <Fragment slot="schema">
+    <script type="application/ld+json" set:html={JSON.stringify({
+      "@context": "https://schema.org",
+      "@type": "WebSite",
+      "name": "A King's Lifestyle",
+      "url": "https://akingslifestyle.com",
+      "description": "Genuine transformation into a better man through biblical wisdom and modern practical knowledge. Seven pillars. No shortcuts.",
+      "publisher": {
+        "@type": "Organization",
+        "name": "A King's Lifestyle"
+      }
+    })} />
+  </Fragment>
+
+  <!-- Hero -->
+  <section class="hero">
+    <div class="hero__content">
+      <span class="label fade-in">Est. MMXXVI</span>
+      <h1 class="hero__title fade-in fade-in-delay-1">
+        The making of<br />better men.
+      </h1>
+      <p class="hero__subtitle fade-in fade-in-delay-2">
+        Seven pillars of genuine transformation,<br class="hide-mobile" />
+        grounded in Scripture and built for the modern world.
+      </p>
+      <div class="divider fade-in fade-in-delay-3"></div>
+    </div>
+  </section>
+
+  <!-- Pillars preview -->
+  <section class="pillars">
+    <div class="pillars__inner">
+      <span class="label">The Seven Pillars</span>
+      <div class="pillars__grid">
+        <a href="/pillars" class="pillar-card">
+          <span class="pillar-card__numeral">I</span>
+          <span class="pillar-card__name">Nourishment</span>
+        </a>
+        <a href="/pillars" class="pillar-card">
+          <span class="pillar-card__numeral">II</span>
+          <span class="pillar-card__name">Attire</span>
+        </a>
+        <a href="/pillars" class="pillar-card">
+          <span class="pillar-card__numeral">III</span>
+          <span class="pillar-card__name">Mentality</span>
+        </a>
+        <a href="/pillars" class="pillar-card">
+          <span class="pillar-card__numeral">IV</span>
+          <span class="pillar-card__name">Treasury</span>
+        </a>
+        <a href="/pillars" class="pillar-card">
+          <span class="pillar-card__numeral">V</span>
+          <span class="pillar-card__name">Body</span>
+        </a>
+        <a href="/pillars" class="pillar-card">
+          <span class="pillar-card__numeral">VI</span>
+          <span class="pillar-card__name">Presence</span>
+        </a>
+        <a href="/pillars" class="pillar-card">
+          <span class="pillar-card__numeral">VII</span>
+          <span class="pillar-card__name">Speech</span>
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <!-- Ethos -->
+  <section class="ethos">
+    <div class="ethos__inner content-narrow">
+      <blockquote class="ethos__quote">
+        "It is the glory of God to conceal a matter; to search out a matter is the glory of kings."
+      </blockquote>
+      <cite class="ethos__cite">Proverbs 25 : 2</cite>
+    </div>
+  </section>
+</Base>
+
+<style>
+  /* Hero */
+  .hero {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 85vh;
+    padding: var(--space-xl) var(--space-md);
+    text-align: center;
+  }
+
+  .hero__content {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: var(--space-md);
+  }
+
+  .hero__title {
+    font-family: var(--font-serif);
+    font-weight: 300;
+    font-size: clamp(2.25rem, 5vw, 3.75rem);
+    line-height: 1.15;
+    color: var(--color-black);
+    letter-spacing: -0.02em;
+  }
+
+  .hero__subtitle {
+    font-family: var(--font-sans);
+    font-size: clamp(0.875rem, 1.5vw, 1.0625rem);
+    font-weight: 300;
+    color: var(--color-greige);
+    line-height: 1.8;
+    max-width: 480px;
+  }
+
+  .hide-mobile {
+    display: none;
+  }
+
+  @media (min-width: 768px) {
+    .hide-mobile {
+      display: inline;
+    }
+  }
+
+  /* Pillars */
+  .pillars {
+    padding: var(--space-xl) var(--space-md);
+    background: var(--color-warm-white);
+  }
+
+  .pillars__inner {
+    max-width: var(--max-width);
+    margin: 0 auto;
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-lg);
+  }
+
+  .pillars__grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 1px;
+    background: rgba(184, 175, 166, 0.15);
+    border: 1px solid rgba(184, 175, 166, 0.15);
+  }
+
+  @media (min-width: 640px) {
+    .pillars__grid {
+      grid-template-columns: repeat(4, 1fr);
+    }
+  }
+
+  .pillar-card {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0.5rem;
+    padding: var(--space-lg) var(--space-sm);
+    background: var(--color-warm-white);
+    text-decoration: none;
+    transition: background 0.4s ease;
+  }
+
+  .pillar-card:hover {
+    background: var(--color-ivory);
+    opacity: 1;
+  }
+
+  .pillar-card__numeral {
+    font-family: var(--font-serif);
+    font-size: 1.5rem;
+    font-weight: 300;
+    color: var(--color-taupe);
+    letter-spacing: 0.05em;
+  }
+
+  .pillar-card__name {
+    font-family: var(--font-sans);
+    font-size: 0.75rem;
+    font-weight: 500;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--color-charcoal);
+  }
+
+  /* Ethos */
+  .ethos {
+    padding: var(--space-2xl) var(--space-md);
+    text-align: center;
+  }
+
+  .ethos__inner {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: var(--space-sm);
+  }
+
+  .ethos__quote {
+    font-family: var(--font-serif);
+    font-style: italic;
+    font-weight: 300;
+    font-size: clamp(1.25rem, 2.5vw, 1.75rem);
+    line-height: 1.6;
+    color: var(--color-charcoal);
+    max-width: 600px;
+    border: none;
+    padding: 0;
+  }
+
+  .ethos__cite {
+    font-family: var(--font-sans);
+    font-style: normal;
+    font-size: 0.6875rem;
+    font-weight: 500;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    color: var(--color-taupe);
+  }
+</style>

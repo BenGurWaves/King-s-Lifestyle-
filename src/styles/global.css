@@ -1,0 +1,173 @@
+/* ──────────────────────────────────────────────
+   A King's Lifestyle — Quiet Luxury Design Tokens
+   ────────────────────────────────────────────── */
+
+@import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,400&family=Satoshi:wght@300;400;500;700&display=swap');
+
+:root {
+  /* Palette — muted neutrals only */
+  --color-ivory: #FAF7F2;
+  --color-cream: #F0EBE3;
+  --color-taupe: #B8AFA6;
+  --color-greige: #9C9488;
+  --color-charcoal: #2C2C2C;
+  --color-black: #1A1A1A;
+  --color-olive: #4A4A3A;
+  --color-warm-white: #FEFCF9;
+
+  /* Accent — one subtle tone */
+  --color-accent: #8C7B6B;
+
+  /* Typography */
+  --font-sans: 'Satoshi', -apple-system, sans-serif;
+  --font-serif: 'Cormorant Garamond', 'Georgia', serif;
+
+  /* Spacing scale */
+  --space-xs: 0.5rem;
+  --space-sm: 1rem;
+  --space-md: 2rem;
+  --space-lg: 4rem;
+  --space-xl: 6rem;
+  --space-2xl: 10rem;
+
+  /* Layout */
+  --max-width: 1200px;
+  --content-width: 720px;
+}
+
+/* ── Reset ── */
+*, *::before, *::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+html {
+  font-size: 16px;
+  scroll-behavior: smooth;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+body {
+  font-family: var(--font-sans);
+  font-weight: 400;
+  line-height: 1.7;
+  color: var(--color-charcoal);
+  background-color: var(--color-ivory);
+  overflow-x: hidden;
+}
+
+/* ── Typography ── */
+h1, h2, h3, h4 {
+  font-family: var(--font-serif);
+  font-weight: 400;
+  line-height: 1.2;
+  color: var(--color-black);
+}
+
+h1 {
+  font-size: clamp(2rem, 4vw, 3.25rem);
+  letter-spacing: -0.01em;
+}
+
+h2 {
+  font-size: clamp(1.5rem, 3vw, 2.25rem);
+  letter-spacing: -0.005em;
+}
+
+h3 {
+  font-size: clamp(1.125rem, 2vw, 1.5rem);
+}
+
+p {
+  max-width: 65ch;
+  line-height: 1.8;
+}
+
+a {
+  color: var(--color-accent);
+  text-decoration: none;
+  transition: opacity 0.3s ease;
+}
+
+a:hover {
+  opacity: 0.7;
+}
+
+/* ── Utility ── */
+.container {
+  width: 100%;
+  max-width: var(--max-width);
+  margin: 0 auto;
+  padding: 0 var(--space-md);
+}
+
+.content-narrow {
+  max-width: var(--content-width);
+  margin: 0 auto;
+}
+
+/* ── Subtle label (caps tracking) ── */
+.label {
+  font-family: var(--font-sans);
+  font-size: 0.6875rem;
+  font-weight: 500;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  color: var(--color-greige);
+}
+
+/* ── Divider ── */
+.divider {
+  width: 3rem;
+  height: 1px;
+  background: var(--color-taupe);
+  opacity: 0.4;
+}
+
+/* ── Gentle fade-in animation ── */
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(12px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+.fade-in {
+  animation: fadeIn 0.8s ease-out forwards;
+  opacity: 0;
+}
+
+.fade-in-delay-1 { animation-delay: 0.15s; }
+.fade-in-delay-2 { animation-delay: 0.3s; }
+.fade-in-delay-3 { animation-delay: 0.45s; }
+
+/* ── Selection ── */
+::selection {
+  background: var(--color-cream);
+  color: var(--color-black);
+}
+
+/* ── Scrollbar (webkit) ── */
+::-webkit-scrollbar {
+  width: 6px;
+}
+::-webkit-scrollbar-track {
+  background: var(--color-ivory);
+}
+::-webkit-scrollbar-thumb {
+  background: var(--color-taupe);
+  border-radius: 3px;
+}
+
+/* ── Focus states ── */
+:focus-visible {
+  outline: 1px solid var(--color-accent);
+  outline-offset: 3px;
+}
+
+/* ── Image defaults ── */
+img {
+  max-width: 100%;
+  height: auto;
+  display: block;
+}

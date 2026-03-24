@@ -1,0 +1,45 @@
+---
+const year = new Date().getFullYear();
+---
+
+<footer class="footer">
+  <div class="footer__inner">
+    <span class="footer__mark">A King's Lifestyle</span>
+    <span class="footer__sep">&mdash;</span>
+    <span class="footer__copy">&copy; {year}</span>
+  </div>
+</footer>
+
+<style>
+  .footer {
+    padding: var(--space-lg) var(--space-md) var(--space-md);
+    text-align: center;
+  }
+
+  .footer__inner {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.75rem;
+  }
+
+  .footer__mark {
+    font-family: var(--font-serif);
+    font-size: 0.8125rem;
+    color: var(--color-taupe);
+    letter-spacing: 0.02em;
+  }
+
+  .footer__sep {
+    color: var(--color-taupe);
+    opacity: 0.4;
+    font-size: 0.75rem;
+  }
+
+  .footer__copy {
+    font-family: var(--font-sans);
+    font-size: 0.6875rem;
+    color: var(--color-taupe);
+    letter-spacing: 0.05em;
+  }
+</style>
