@@ -1,0 +1,47 @@
+---
+interface Props {
+  title: string;
+  description: string;
+  url: string;
+  datePublished: string;
+  dateModified: string;
+  image?: string;
+  author?: string;
+}
+
+const {
+  title,
+  description,
+  url,
+  datePublished,
+  dateModified,
+  image = 'https://akingslifestyle.com/og-image.jpg',
+  author = "A King's Lifestyle",
+} = Astro.props;
+
+const schema = {
+  "@context": "https://schema.org",
+  "@type": "Article",
+  "headline": title,
+  "description": description,
+  "url": url,
+  "image": image,
+  "datePublished": datePublished,
+  "dateModified": dateModified,
+  "author": {
+    "@type": "Organization",
+    "name": author,
+  },
+  "publisher": {
+    "@type": "Organization",
+    "name": "A King's Lifestyle",
+    "url": "https://akingslifestyle.com",
+  },
+  "mainEntityOfPage": {
+    "@type": "WebPage",
+    "@id": url,
+  },
+};
+---
+
+<script type="application/ld+json" set:html={JSON.stringify(schema)} />

@@ -1,0 +1,17 @@
+User-agent: *
+Allow: /
+Disallow: /_assets/
+
+User-agent: GPTBot
+Allow: /
+
+User-agent: ClaudeBot
+Allow: /
+
+User-agent: PerplexityBot
+Allow: /
+
+User-agent: Google-Extended
+Allow: /
+
+Sitemap: https://akingslifestyle.com/sitemap-index.xml
