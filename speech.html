@@ -1,448 +1,359 @@
-<!-- speech.html – v0.0.7 -->
+<!-- speech.html – v0.0.8 -->
 <!DOCTYPE html>
 <html lang="en" class="scroll-smooth">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0">
   <title>Speech — A King's Lifestyle</title>
+  <meta name="description" content="The Words of a King Shape Kingdoms: Biblical speech mastery, de-escalation, persuasion without manipulation. Deep lessons for the modern king.">
   <link rel="manifest" href="manifest.json">
   <script src="https://cdn.tailwindcss.com"></script>
   <script>tailwind.config={darkMode:'class',theme:{extend:{colors:{royal:{green:'#052B20',cream:'#FFF6E6',gold:'#A38255',plum:'#571641',sapphire:'#08052D'}},fontFamily:{cinzel:['Cinzel','serif'],inter:['Inter','sans-serif'],playfair:['Playfair Display','serif']},animation:{fadeIn:'fadeIn 0.8s ease-out forwards',fadeInUp:'fadeInUp 0.8s ease-out forwards'},keyframes:{fadeIn:{'0%':{opacity:'0'},'100%':{opacity:'1'}},fadeInUp:{'0%':{opacity:'0',transform:'translateY(24px)'},'100%':{opacity:'1',transform:'translateY(0)'}}}}}};</script>
   <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600;700&family=Inter:wght@300;400;500;600&family=Playfair+Display:ital,wght@0,400;0,600;1,400&display=swap" rel="stylesheet">
   <script src="https://unpkg.com/@supabase/supabase-js@2" defer></script>
-  <style>html,body{overflow-x:hidden;max-width:100vw;}.bg-parchment{background-image:url("data:image/svg+xml,%3Csvg width='100' height='100' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.8' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100' height='100' filter='url(%23n)' opacity='0.03'/%3E%3C/svg%3E");}.gold-glow:hover{box-shadow:0 0 30px rgba(163,130,85,0.25);}.dark .bg-parchment{background-color:#0a0a0a;}.dark body{background-color:#0a0a0a;color:#e0d5c4;}</style>
+  <style>
+    html,body{overflow-x:hidden;max-width:100vw;}
+    .bg-parchment{background-image:url("data:image/svg+xml,%3Csvg width='100' height='100' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.8' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100' height='100' filter='url(%23n)' opacity='0.03'/%3E%3C/svg%3E");}
+    .gold-glow:hover{box-shadow:0 0 30px rgba(163,130,85,0.25);}
+    .dark .bg-parchment{background-color:#0a0a0a;}
+    .dark body{background-color:#0a0a0a;color:#e0d5c4;}
+    .lesson-section{opacity:0;transform:translateY(30px);transition:opacity 0.7s ease-out,transform 0.7s ease-out;}
+    .lesson-section.visible{opacity:1;transform:translateY(0);}
+    .toc-dot{width:8px;height:8px;border-radius:50%;border:1.5px solid rgba(74,85,104,0.3);transition:all 0.3s;display:block;}
+    .toc-dot.active{background:#4A5568;border-color:#4A5568;box-shadow:0 0 8px rgba(74,85,104,0.4);}
+    .gold-divider{height:1px;background:linear-gradient(90deg,transparent,#A38255 50%,transparent);margin:0 auto;max-width:200px;}
+    .absorb-btn.absorbed{background:#052B20 !important;cursor:default;}
+    .card-parchment{background:linear-gradient(135deg,#FFF6E6 0%,#f5e6cc 100%);}
+    .dark .card-parchment{background:linear-gradient(135deg,#1a1a1a 0%,#141210 100%);}
+    .quiz-option{cursor:pointer;transition:border-color 0.2s;}
+    .quiz-option:hover{border-color:#A38255 !important;}
+    .royal-decree{border-left:3px solid #A38255;background:linear-gradient(135deg,rgba(163,130,85,0.05),rgba(163,130,85,0.02));padding:1.5rem;border-radius:0 0.75rem 0.75rem 0;margin:1.5rem 0;}
+    .quest-panel{background:linear-gradient(135deg,#052B20,#08052D);border-radius:1rem;padding:1.5rem;color:white;}
+  </style>
 </head>
-<body class="bg-royal-cream bg-parchment font-inter text-royal-sapphire min-h-screen">
+<body class="bg-royal-cream bg-parchment font-inter text-royal-sapphire min-h-screen overflow-x-hidden">
   <div id="mainNav"></div>
 
-  <!-- ============================================================
-       STORYTELLING INTRO
-       ============================================================ -->
-  <section class="max-w-4xl mx-auto px-6 pt-20 pb-12 animate-fadeInUp">
-    <div class="text-center mb-16">
-      <h1 class="font-cinzel text-3xl md:text-5xl text-royal-plum mb-8 tracking-wide">Speech</h1>
-      <div class="max-w-2xl mx-auto space-y-5">
-        <p class="font-playfair italic text-royal-gold text-lg leading-relaxed">
-          In the courts of ancient kings, a single sentence could build a city or raze one to ash. The monarch's word was not merely heard — it was law, carved into stone and carried across empires by men who would die to deliver it. Language was the truest weapon of sovereignty, sharper than any blade.
-        </p>
-        <p class="font-inter text-sm text-royal-sapphire/70 dark:text-white/50 leading-relaxed">
-          The modern gentleman wields language with that same gravity, whether he knows it or not. Every filler word — every "um," "like," "you know" — is a crack in the crown. Every precisely chosen phrase is a brick laid in the fortress of his reputation. The man who masters his tongue masters his world. The one who neglects it surrenders authority with every careless syllable.
-        </p>
-        <p class="font-inter text-sm text-royal-sapphire/70 dark:text-white/50 leading-relaxed">
-          This pillar is not about sounding impressive. It is about speaking with the weight and clarity that commands respect — at the dinner table, in the boardroom, in the quiet conversation that changes a life. A king's speech is measured, intentional, and impossible to ignore.
-        </p>
-      </div>
+  <!-- PROGRESS BAR -->
+  <div class="fixed top-0 left-0 right-0 z-[60] pointer-events-none">
+    <div class="h-1 bg-royal-sapphire/5">
+      <div id="progressFill" class="h-full bg-gradient-to-r from-[#4A5568] to-royal-plum transition-all duration-700 ease-out" style="width:0%"></div>
     </div>
+  </div>
 
-    <!-- Bible quote -->
-    <div data-bible class="bg-royal-sapphire/5 dark:bg-white/5 border border-royal-gold/10 rounded-xl p-6 mb-6 text-center">
-      <p class="font-playfair italic text-royal-plum dark:text-royal-gold">"The tongue has the power of life and death, and those who love it will eat its fruit."</p>
-      <p class="text-xs text-royal-sapphire/40 mt-2">&mdash; Proverbs 18:21</p>
+  <!-- HERO -->
+  <section class="max-w-4xl mx-auto px-6 pt-24 pb-12 text-center">
+    <div class="font-cinzel text-xs tracking-[0.3em] text-royal-gold/50 uppercase mb-4">Year 1 &mdash; The Architecture of Wisdom</div>
+    <h1 class="font-cinzel text-4xl md:text-5xl lg:text-6xl text-royal-plum dark:text-royal-gold tracking-wide leading-tight">Speech</h1>
+    <p class="font-playfair italic text-royal-gold text-lg mt-4">A King&rsquo;s Lifestyle</p>
+    <p class="font-inter text-sm text-royal-sapphire/50 dark:text-white/40 mt-2 max-w-xl mx-auto">The Words of a King Shape Kingdoms</p>
+    <p class="font-inter text-sm text-royal-sapphire/50 dark:text-white/40 mt-3 max-w-xl mx-auto">Two lessons. The architecture of a tongue that builds rather than burns.</p>
+    <div class="mt-6 flex items-center justify-center gap-3">
+      <div class="h-2 w-48 bg-royal-sapphire/5 dark:bg-white/5 rounded-full overflow-hidden">
+        <div id="progressBar" class="h-full bg-gradient-to-r from-[#4A5568] to-royal-plum rounded-full transition-all duration-700" style="width:0%"></div>
+      </div>
+      <span id="progressText" class="text-xs font-inter text-[#4A5568]">Speech Mastery 0%</span>
     </div>
   </section>
 
-  <!-- ============================================================
-       6 PRACTICAL STEPS
-       ============================================================ -->
-  <section class="max-w-4xl mx-auto px-6 space-y-16 mb-20">
+  <!-- TABLE OF CONTENTS (fixed right, desktop) -->
+  <nav id="lessonToc" class="fixed right-3 top-1/2 -translate-y-1/2 z-40 hidden xl:flex flex-col items-center gap-2">
+    <a href="#lesson-01" class="toc-dot" title="01"></a><a href="#lesson-02" class="toc-dot" title="02"></a>
+  </nav>
 
-    <!-- Step 1: The Filler Word Purge -->
-    <div class="animate-fadeIn">
-      <h2 class="font-cinzel text-2xl text-royal-plum dark:text-royal-gold mb-4">1. The Filler Word Purge</h2>
-      <div class="font-inter text-sm leading-relaxed text-royal-sapphire/80 dark:text-white/60 space-y-4">
-        <p>"Um," "like," "you know," "basically," "literally" — these parasitic syllables drain authority from every sentence they infest. They signal to the listener that you have not thought before speaking, that your mind is scrambling to catch up with your mouth. A king pauses. Silence between sentences is not emptiness — it is gravity.</p>
-        <div class="bg-white dark:bg-royal-sapphire/20 border-l-4 border-royal-gold rounded-r-xl p-5 mt-4">
-          <h4 class="font-cinzel text-sm text-royal-gold mb-3">Identify Your Fillers</h4>
-          <p class="text-xs mb-2">Record yourself speaking for two minutes on any topic. Play it back and tally every filler. Most men are horrified — the average person uses 5-8 fillers per minute. You will eliminate yours.</p>
-        </div>
-        <div class="bg-white dark:bg-royal-sapphire/20 border-l-4 border-royal-gold rounded-r-xl p-5">
-          <h4 class="font-cinzel text-sm text-royal-gold mb-3">The Rubber Band Technique</h4>
-          <p class="text-xs mb-2">Wear a rubber band on your wrist. Each time you catch a filler in conversation, snap it. The mild sting creates awareness. Within one week, your brain begins to self-correct before the filler escapes. Within two weeks, you will notice silence replacing the crutch.</p>
-        </div>
-        <div class="bg-white dark:bg-royal-sapphire/20 border-l-4 border-royal-gold rounded-r-xl p-5">
-          <h4 class="font-cinzel text-sm text-royal-gold mb-3">The 7-Day Filler Detox</h4>
-          <p class="text-xs">Day 1-2: Record yourself. Count every filler. This is your baseline. Day 3-4: Practice speaking in 30-second bursts with zero fillers. Pause instead. Day 5-6: Have a full conversation while consciously replacing fillers with silence. Day 7: Record again. Compare to Day 1. The difference will astonish you.</p>
-        </div>
+  <div class="gold-divider mb-16"></div>
+
+  <!-- ======== LESSON 01 ======== -->
+  <section id="lesson-01" class="lesson-section max-w-4xl mx-auto px-6 pb-20">
+    <div class="font-cinzel text-xs tracking-[0.3em] text-royal-gold/40 mb-3">LESSON 01</div>
+    <h2 class="font-cinzel text-2xl md:text-3xl text-royal-plum dark:text-royal-gold mb-2">Words Under Pressure</h2>
+    <p class="font-inter text-xs text-royal-gold/60 mb-8 tracking-wider">YEAR 1 &bull; THE ARCHITECTURE OF WISDOM</p>
+
+    <!-- THE RAW INGREDIENT -->
+    <div class="mb-8">
+      <h3 class="font-cinzel text-sm text-royal-gold tracking-wider mb-3">THE RAW INGREDIENT</h3>
+      <div class="bg-royal-sapphire/5 dark:bg-white/5 border border-royal-gold/10 rounded-xl p-6 text-center">
+        <p class="font-playfair italic text-royal-plum dark:text-royal-gold text-lg">&ldquo;A gentle answer turns away wrath, but a harsh word stirs up anger.&rdquo;</p>
+        <p class="text-xs text-royal-sapphire/40 mt-2">&mdash; Proverbs 15:1</p>
+      </div>
+      <p class="font-inter text-sm text-royal-sapphire/60 dark:text-white/50 mt-4 leading-relaxed"><strong class="text-royal-gold">Hebrew Root:</strong> <em>rakh</em> (&#x05E8;&#x05B7;&#x05DA;&#x05BC;) &mdash; soft, tender, gentle. The Hebrew word describes not weakness but deliberate restraint &mdash; the way a master swordsman sheathes his blade by choice, not inability. <em>Rakh</em> appears throughout the Hebrew Bible to describe tenderness of heart, softness of speech, and the controlled power of a man who could destroy but elects to preserve.</p>
+    </div>
+
+    <!-- THE PREPARATION -->
+    <div class="mb-8">
+      <h3 class="font-cinzel text-sm text-royal-gold tracking-wider mb-3">THE PREPARATION</h3>
+      <div class="font-inter text-sm text-royal-sapphire/70 dark:text-white/60 leading-relaxed space-y-4">
+        <p>Solomon observed that volume and aggression are inversions of power. The loudest man in the room holds the least authority. In ancient courts, the advisor who spoke softly forced the king to lean in &mdash; creating intimacy and influence where shouting would have produced only distance and suspicion. The soft-spoken counselor understood a principle that modern leadership theory has spent decades rediscovering: attention is not seized by force; it is earned by gravity. The man who must raise his voice has already confessed that his words alone are insufficient.</p>
+        <p>David processed fury through Psalms, channeling rage into worship rather than destruction. When Shimei cursed him during Absalom&rsquo;s rebellion, David did not execute the man &mdash; though he had every right and the soldiers to do it. He absorbed the insult, trusting that God would settle the account. The Psalms are filled with honest rage &mdash; David screaming at heaven, begging for the destruction of his enemies &mdash; but those screams were directed upward, not outward. He understood that anger expressed to God is prayer; anger expressed to men is often arson.</p>
+        <p>The physiological reality confirms what Solomon wrote three millennia ago. Cortisol floods the prefrontal cortex during conflict, reducing cognitive capacity by up to thirty percent. The amygdala hijacks rational thought, narrowing your vocabulary to the bluntest instruments in the arsenal. The gentle answer is not merely spiritual wisdom &mdash; it is neurological strategy. When you lower your voice in the middle of a confrontation, you are not surrendering. You are forcing your own brain to re-engage its highest faculties while simultaneously disarming the other person&rsquo;s cortisol response. A gentle answer is tactical superiority disguised as meekness.</p>
       </div>
     </div>
 
-    <!-- Step 2: Vocabulary Expansion -->
-    <div class="animate-fadeIn">
-      <h2 class="font-cinzel text-2xl text-royal-plum dark:text-royal-gold mb-4">2. Vocabulary Expansion</h2>
-      <div class="font-inter text-sm leading-relaxed text-royal-sapphire/80 dark:text-white/60 space-y-4">
-        <p>A king does not use ten words when five will suffice, nor five when one precise word says everything. Expanding your vocabulary is not about impressing others with obscure terms — it is about having the exact tool for every situation. The man who says "I feel ambivalent" commands more authority than the one who says "I feel kind of weird about it."</p>
-        <h3 class="font-cinzel text-lg text-royal-plum dark:text-royal-gold mt-6">One New Word Per Day</h3>
-        <p>Choose one word each morning. Write it. Define it. Use it in three sentences throughout the day. By month's end, you have thirty new instruments of precision at your disposal. In a year, your speech will be unrecognizable to those who knew the old you.</p>
-        <h3 class="font-cinzel text-lg text-royal-plum dark:text-royal-gold mt-6">The Reading Habit</h3>
-        <p>Read authors who write with deliberate craft. Not social media posts — books. Biographies, philosophy, classic literature. Your vocabulary absorbs what you expose it to. Feed it well and it will serve you in every conversation, negotiation, and moment of public speech.</p>
-        <h3 class="font-cinzel text-lg text-royal-plum dark:text-royal-gold mt-6">Replace These Immediately</h3>
-        <div class="grid md:grid-cols-2 gap-3 mt-4">
-          <div class="bg-white dark:bg-royal-sapphire/20 border border-royal-gold/10 rounded-lg p-4 flex items-center gap-4">
-            <span class="text-red-400/60 line-through text-sm">Nice</span>
-            <span class="text-royal-gold">&rarr;</span>
-            <span class="text-sm font-medium">Admirable, refined, commendable</span>
-          </div>
-          <div class="bg-white dark:bg-royal-sapphire/20 border border-royal-gold/10 rounded-lg p-4 flex items-center gap-4">
-            <span class="text-red-400/60 line-through text-sm">Very good</span>
-            <span class="text-royal-gold">&rarr;</span>
-            <span class="text-sm font-medium">Exceptional, outstanding, exemplary</span>
-          </div>
-          <div class="bg-white dark:bg-royal-sapphire/20 border border-royal-gold/10 rounded-lg p-4 flex items-center gap-4">
-            <span class="text-red-400/60 line-through text-sm">Bad</span>
-            <span class="text-royal-gold">&rarr;</span>
-            <span class="text-sm font-medium">Inadequate, deplorable, substandard</span>
-          </div>
-          <div class="bg-white dark:bg-royal-sapphire/20 border border-royal-gold/10 rounded-lg p-4 flex items-center gap-4">
-            <span class="text-red-400/60 line-through text-sm">I think</span>
-            <span class="text-royal-gold">&rarr;</span>
-            <span class="text-sm font-medium">I believe, I'm convinced, in my assessment</span>
-          </div>
-          <div class="bg-white dark:bg-royal-sapphire/20 border border-royal-gold/10 rounded-lg p-4 flex items-center gap-4">
-            <span class="text-red-400/60 line-through text-sm">Stuff</span>
-            <span class="text-royal-gold">&rarr;</span>
-            <span class="text-sm font-medium">Matters, particulars, elements</span>
-          </div>
-          <div class="bg-white dark:bg-royal-sapphire/20 border border-royal-gold/10 rounded-lg p-4 flex items-center gap-4">
-            <span class="text-red-400/60 line-through text-sm">Like, um, uh</span>
-            <span class="text-royal-gold">&rarr;</span>
-            <span class="text-sm font-medium">[Silence] &mdash; the king's most powerful word</span>
-          </div>
-        </div>
-        <p class="mt-4 text-xs text-royal-sapphire/50 dark:text-white/30 italic">Use words in context, never to show off. The man who drops "sesquipedalian" at a barbecue is a fool. The man who uses "discerning" in a boardroom is a leader.</p>
+    <!-- ROYAL DECREE -->
+    <div class="royal-decree border-l-[3px] border-[#A38255] bg-gradient-to-r from-[#A38255]/5 to-transparent p-6 rounded-r-xl my-8">
+      <p class="font-cinzel text-xs tracking-[0.2em] text-[#A38255] mb-2">ROYAL DECREE</p>
+      <p class="font-playfair italic text-[#571641] dark:text-[#A38255] text-sm leading-relaxed">The King decrees: a gentle answer is not retreat. It is the most advanced form of combat &mdash; disarming wrath without drawing a weapon.</p>
+    </div>
+
+    <!-- THE CONSUMPTION -->
+    <div class="mb-8">
+      <h3 class="font-cinzel text-sm text-royal-gold tracking-wider mb-3">THE CONSUMPTION</h3>
+      <div class="font-inter text-sm text-royal-sapphire/70 dark:text-white/60 leading-relaxed space-y-4">
+        <p>Road rage on I-70 heading to the mountains from Aurora. Arguments with family at Slavic gatherings where voices carry the weight of generations and old grievances resurface between the borscht and the pelmeni. Workplace confrontation in Aurora offices where a passive-aggressive email chain has been building for two weeks. Church disagreements over doctrine where both parties believe God is exclusively on their side. These are the proving grounds of Proverbs 15:1 in 2026 Colorado. De-escalation phrases are the gentleman&rsquo;s concealed weapon: &ldquo;Help me understand,&rdquo; &ldquo;I hear you,&rdquo; &ldquo;Let me think about that.&rdquo; Each phrase accomplishes the same objective &mdash; it creates space between the provocation and your response.</p>
+        <p>The five-second rule: when provoked, count to five before opening your mouth. In those five seconds, the cortisol peak passes and the prefrontal cortex re-engages. You shift from the reactive brain to the reasoning brain. Five seconds is the difference between a sentence you will regret at 2 a.m. and a response that commands respect from everyone in the room. Practice it on I-225 when someone cuts you off. Practice it at Thanksgiving when your uncle starts an argument. Practice it in the Aurora office when your colleague takes credit for your work. The five seconds will cost you nothing and save you everything.</p>
       </div>
     </div>
 
-    <!-- Step 3: Active Listening -->
-    <div class="animate-fadeIn">
-      <h2 class="font-cinzel text-2xl text-royal-plum dark:text-royal-gold mb-4">3. Active Listening</h2>
-      <div class="font-inter text-sm leading-relaxed text-royal-sapphire/80 dark:text-white/60 space-y-4">
-        <p>The greatest speakers in history were first extraordinary listeners. The 80/20 rule: listen 80% of the time, speak 20%. When you do speak, your words carry the weight of understanding. The man who talks endlessly reveals insecurity. The man who listens deeply and then speaks reveals wisdom.</p>
-        <div class="grid md:grid-cols-2 gap-4 mt-4">
-          <div class="bg-white dark:bg-royal-sapphire/20 border border-royal-gold/10 rounded-xl p-5 gold-glow transition-all">
-            <h4 class="font-cinzel text-sm text-royal-gold mb-2">Paraphrase Before Responding</h4>
-            <p class="text-xs">Before offering your view, restate what the other person said: "If I understand correctly, you're saying..." This demonstrates respect, prevents misunderstanding, and gives you time to formulate a precise response.</p>
-          </div>
-          <div class="bg-white dark:bg-royal-sapphire/20 border border-royal-gold/10 rounded-xl p-5 gold-glow transition-all">
-            <h4 class="font-cinzel text-sm text-royal-gold mb-2">The Power of the Follow-Up Question</h4>
-            <p class="text-xs">Instead of pivoting to your own story, ask a deeper question about theirs. "What did that teach you?" or "How did that change your approach?" People remember the man who was genuinely curious about them far more than the one who was clever.</p>
-          </div>
-          <div class="bg-white dark:bg-royal-sapphire/20 border border-royal-gold/10 rounded-xl p-5 gold-glow transition-all">
-            <h4 class="font-cinzel text-sm text-royal-gold mb-2">Eliminate the Reload</h4>
-            <p class="text-xs">Most people don't listen — they reload. While someone speaks, they are already crafting their response. Kill this habit. Empty your mind while listening. Trust that the right words will come when it is your turn.</p>
-          </div>
-          <div class="bg-white dark:bg-royal-sapphire/20 border border-royal-gold/10 rounded-xl p-5 gold-glow transition-all">
-            <h4 class="font-cinzel text-sm text-royal-gold mb-2">Read the Unspoken</h4>
-            <p class="text-xs">Listen to tone, pace, and what is not said. The man who hears only words misses half the conversation. The king hears the hesitation, the emphasis, the silence between sentences. That is where truth lives.</p>
-          </div>
-        </div>
+    <!-- SLIDE CARDS -->
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-5 my-10">
+      <div class="card-parchment border border-royal-gold/10 rounded-xl p-6">
+        <div class="font-cinzel text-xs text-[#4A5568] tracking-widest mb-2">DISCIPLINE</div>
+        <h4 class="font-cinzel text-sm text-royal-plum dark:text-royal-gold mb-2">The 5-Second Rule</h4>
+        <p class="text-xs text-royal-sapphire/60 dark:text-white/50 leading-relaxed">When provoked, count to five before speaking. The cortisol peak passes, the prefrontal cortex re-engages, and you respond from wisdom rather than reflex.</p>
+      </div>
+      <div class="card-parchment border border-royal-gold/10 rounded-xl p-6">
+        <div class="font-cinzel text-xs text-[#4A5568] tracking-widest mb-2">ARSENAL</div>
+        <h4 class="font-cinzel text-sm text-royal-plum dark:text-royal-gold mb-2">De-escalation Phrases</h4>
+        <p class="text-xs text-royal-sapphire/60 dark:text-white/50 leading-relaxed">&ldquo;Help me understand.&rdquo; &ldquo;I hear you.&rdquo; &ldquo;Let me think about that.&rdquo; Three sentences that disarm aggression without conceding an inch of ground.</p>
+      </div>
+      <div class="card-parchment border border-royal-gold/10 rounded-xl p-6">
+        <div class="font-cinzel text-xs text-[#4A5568] tracking-widest mb-2">SCIENCE</div>
+        <h4 class="font-cinzel text-sm text-royal-plum dark:text-royal-gold mb-2">Cortisol Science</h4>
+        <p class="text-xs text-royal-sapphire/60 dark:text-white/50 leading-relaxed">Cortisol reduces prefrontal cortex function by up to 30% during conflict. A gentle answer is not merely virtue &mdash; it is neurological strategy that keeps your brain online.</p>
+      </div>
+      <div class="card-parchment border border-royal-gold/10 rounded-xl p-6">
+        <div class="font-cinzel text-xs text-[#4A5568] tracking-widest mb-2">DEVOTION</div>
+        <h4 class="font-cinzel text-sm text-royal-plum dark:text-royal-gold mb-2">David&rsquo;s Psalm Method</h4>
+        <p class="text-xs text-royal-sapphire/60 dark:text-white/50 leading-relaxed">Channel anger upward, not outward. Write your fury to God in private. The Psalms prove that honest rage directed at heaven is worship; directed at men, it is destruction.</p>
       </div>
     </div>
 
-    <!-- Step 4: The Art of the Story -->
-    <div class="animate-fadeIn">
-      <h2 class="font-cinzel text-2xl text-royal-plum dark:text-royal-gold mb-4">4. The Art of the Story</h2>
-      <div class="font-inter text-sm leading-relaxed text-royal-sapphire/80 dark:text-white/60 space-y-4">
-        <p>Every great leader in history was a storyteller. Facts inform. Stories transform. The man who can hold a room with a well-told anecdote possesses a rare and ancient power that no amount of data can replicate.</p>
-        <div class="bg-white dark:bg-royal-sapphire/20 border-l-4 border-royal-gold rounded-r-xl p-5 mt-4">
-          <h4 class="font-cinzel text-sm text-royal-gold mb-3">The Three-Act Structure</h4>
-          <p class="text-xs"><strong>Setup:</strong> Establish the scene quickly. Who, where, when — in one or two sentences. <strong>Tension:</strong> The conflict, the surprise, the unexpected turn. This is where attention locks in. <strong>Resolution:</strong> The payoff. Keep it tight. The best stories end one sentence before the audience expects them to.</p>
-        </div>
-        <div class="bg-white dark:bg-royal-sapphire/20 border-l-4 border-royal-gold rounded-r-xl p-5">
-          <h4 class="font-cinzel text-sm text-royal-gold mb-3">Personal Anecdotes</h4>
-          <p class="text-xs">Build a library of five to ten personal stories that illustrate lessons. Practice them until the delivery feels natural, not rehearsed. A story told with genuine emotion and precise timing is more persuasive than any argument.</p>
-        </div>
-        <div class="bg-white dark:bg-royal-sapphire/20 border-l-4 border-royal-gold rounded-r-xl p-5">
-          <h4 class="font-cinzel text-sm text-royal-gold mb-3">Knowing When to Stop</h4>
-          <p class="text-xs">The amateur over-explains the punchline. The king lets it land. When you have made your point, stop. Silence after a well-delivered conclusion is more powerful than any additional sentence you could add. Let the room breathe.</p>
-        </div>
+    <!-- PRACTICAL STEPS -->
+    <div class="mb-8">
+      <h3 class="font-cinzel text-lg text-royal-plum dark:text-royal-gold mb-4">Practical Steps</h3>
+      <ul class="space-y-3 text-sm font-inter text-royal-sapphire/70 dark:text-white/60">
+        <li class="flex gap-3"><span class="text-royal-gold font-cinzel">I.</span> Practice the five-second pause in your next disagreement this week. Whether it is on I-70, at work in Aurora, or at the dinner table &mdash; count to five before your mouth opens.</li>
+        <li class="flex gap-3"><span class="text-royal-gold font-cinzel">II.</span> Memorize three de-escalation phrases and use one in a real conversation before Sunday. &ldquo;Help me understand,&rdquo; &ldquo;I hear you,&rdquo; &ldquo;Let me think about that.&rdquo;</li>
+        <li class="flex gap-3"><span class="text-royal-gold font-cinzel">III.</span> Write a &ldquo;processing psalm&rdquo; &mdash; a private journal entry where you express anger to God instead of the person. Be as honest as David was. No one reads this but the Almighty.</li>
+      </ul>
+    </div>
+
+    <!-- WISDOM REFLECTION -->
+    <div class="bg-white dark:bg-royal-sapphire/20 border border-royal-gold/10 rounded-xl p-6 mb-8">
+      <p class="font-playfair italic text-royal-plum dark:text-royal-gold text-sm mb-4">&ldquo;When was the last time your words escalated a conflict instead of resolving it? What would a gentle answer have looked like?&rdquo;</p>
+      <textarea rows="3" placeholder="Write your reflection..." class="w-full px-4 py-3 rounded-lg border border-royal-gold/20 bg-royal-cream/50 dark:bg-white/5 font-inter text-sm focus:outline-none focus:border-royal-gold resize-none"></textarea>
+      <button data-prompt="When was the last time your words escalated a conflict instead of resolving it?" class="journal-save-btn mt-2 px-4 py-2 bg-royal-gold text-white text-xs font-cinzel rounded-lg hover:bg-royal-plum transition">Save to Journal</button>
+    </div>
+
+    <!-- QUIZ -->
+    <div class="quiz-block bg-white dark:bg-royal-sapphire/20 border border-royal-gold/10 rounded-xl p-6 mb-8">
+      <h4 class="font-cinzel text-sm text-royal-gold mb-4">Counsel from the Throne</h4>
+      <p class="font-playfair italic text-royal-plum dark:text-royal-gold text-sm mb-5">&ldquo;Your coworker publicly criticizes your work in a meeting. A king responds by:&rdquo;</p>
+      <div class="space-y-2">
+        <button data-correct="false" class="quiz-option w-full text-left px-4 py-3 rounded-lg border border-royal-gold/15 text-sm font-inter">Matching their tone to establish dominance &mdash; if they come loud, you come louder</button>
+        <button data-correct="true" class="quiz-option w-full text-left px-4 py-3 rounded-lg border border-royal-gold/15 text-sm font-inter">Speaking softly and asking clarifying questions, forcing them to justify their position while you remain composed</button>
+        <button data-correct="false" class="quiz-option w-full text-left px-4 py-3 rounded-lg border border-royal-gold/15 text-sm font-inter">Saying nothing and harboring resentment for weeks until it erupts at the worst possible moment</button>
+      </div>
+      <div class="quiz-feedback hidden mt-4 text-sm font-playfair italic"></div>
+    </div>
+
+    <button class="audio-briefing-btn w-full py-3 border border-[#A38255]/20 text-[#A38255] font-cinzel text-sm rounded-xl hover:bg-[#A38255]/5 transition mb-4">Play Royal Briefing</button>
+    <div class="quest-panel bg-gradient-to-br from-[#052B20] to-[#08052D] rounded-xl p-6 mb-4">
+      <p class="font-cinzel text-xs tracking-[0.2em] text-[#A38255] mb-3">TODAY&rsquo;S QUEST</p>
+      <label class="flex items-start gap-3 cursor-pointer">
+        <input type="checkbox" class="quest-checkbox accent-[#A38255] mt-1" data-lesson="1">
+        <span class="text-sm font-inter text-white/80 leading-relaxed">Use the five-second pause before responding in one real conflict this week. Journal the result.</span>
+      </label>
+    </div>
+    <button class="absorb-btn w-full py-3 bg-royal-gold text-white font-cinzel tracking-wider rounded-lg hover:bg-royal-plum transition" data-lesson="1">Mark as Absorbed</button>
+    <div class="gold-divider mt-16"></div>
+  </section>
+
+  <!-- ======== LESSON 02 ======== -->
+  <section id="lesson-02" class="lesson-section max-w-4xl mx-auto px-6 pb-20">
+    <div class="font-cinzel text-xs tracking-[0.3em] text-royal-gold/40 mb-3">LESSON 02</div>
+    <h2 class="font-cinzel text-2xl md:text-3xl text-royal-plum dark:text-royal-gold mb-2">Persuasion Without Manipulation</h2>
+    <p class="font-inter text-xs text-royal-gold/60 mb-8 tracking-wider">YEAR 1 &bull; THE ARCHITECTURE OF WISDOM</p>
+
+    <!-- THE RAW INGREDIENT -->
+    <div class="mb-8">
+      <h3 class="font-cinzel text-sm text-royal-gold tracking-wider mb-3">THE RAW INGREDIENT</h3>
+      <div class="bg-royal-sapphire/5 dark:bg-white/5 border border-royal-gold/10 rounded-xl p-6 text-center">
+        <p class="font-playfair italic text-royal-plum dark:text-royal-gold text-lg">&ldquo;Don&rsquo;t let anyone look down on you because you are young, but set an example in speech, in conduct, in love, in faith and in purity.&rdquo;</p>
+        <p class="text-xs text-royal-sapphire/40 mt-2">&mdash; 1 Timothy 4:12</p>
+      </div>
+      <p class="font-inter text-sm text-royal-sapphire/60 dark:text-white/50 mt-4 leading-relaxed"><strong class="text-royal-gold">Greek Root:</strong> <em>logos</em> (&#x03BB;&#x03CC;&#x03B3;&#x03BF;&#x03C2;) &mdash; word, speech, reason. The same word used for Christ in John 1:1: &ldquo;In the beginning was the <em>Logos</em>.&rdquo; Your speech carries the weight of your identity. In Greek rhetorical tradition, <em>logos</em> was one of three pillars of persuasion &mdash; the logical argument itself, inseparable from the character of the speaker. When Paul tells Timothy to set an example &ldquo;in speech,&rdquo; he is saying: let your words be so aligned with your life that they become proof of your authority.</p>
+    </div>
+
+    <!-- THE PREPARATION -->
+    <div class="mb-8">
+      <h3 class="font-cinzel text-sm text-royal-gold tracking-wider mb-3">THE PREPARATION</h3>
+      <div class="font-inter text-sm text-royal-sapphire/70 dark:text-white/60 leading-relaxed space-y-4">
+        <p>Paul instructs Timothy that his words are his authority &mdash; not his title, age, or position. Timothy was young, leading a church in Ephesus where older men questioned his right to teach. Paul did not tell him to demand respect or cite his apostolic endorsement. He told him to earn it through the quality of his speech, conduct, love, faith, and purity. The instruction is radical in its simplicity: you do not need permission to be authoritative. You need alignment between what you say and how you live. That alignment is the only credential that cannot be revoked.</p>
+        <p>In the Greek rhetorical tradition, <em>logos</em> (logical argument), <em>ethos</em> (character-based credibility), and <em>pathos</em> (emotional connection) formed the triangle of persuasion. Aristotle understood that all three were necessary, but Paul emphasizes <em>ethos</em> above all: set an example in speech, conduct, love, faith, purity. The man whose life contradicts his words has no <em>ethos</em>, and without <em>ethos</em>, his <em>logos</em> is noise and his <em>pathos</em> is manipulation. A king does not separate what he says from who he is. His persuasion begins the moment he enters the room, long before he opens his mouth.</p>
+        <p>The distinction between persuasion and manipulation is transparency. Manipulation hides the goal; persuasion reveals it. A king states his intent before making his case. He says, &ldquo;I want to propose something and here is why,&rdquo; not &ldquo;Let me tell you a story&rdquo; that conveniently arrives at the conclusion he wanted all along. The difference is not technique &mdash; it is honor. The man who must hide his goal has already lost his authority, because concealment is the confession that his request cannot survive the light of scrutiny.</p>
       </div>
     </div>
 
-    <!-- Step 5: Conflict Resolution Through Words -->
-    <div class="animate-fadeIn">
-      <h2 class="font-cinzel text-2xl text-royal-plum dark:text-royal-gold mb-4">5. Conflict Resolution Through Words</h2>
-      <div class="font-inter text-sm leading-relaxed text-royal-sapphire/80 dark:text-white/60 space-y-4">
-        <p>A king never raises his voice. The man who shouts has already lost. True authority speaks at conversational volume and is obeyed because of the weight behind the words, not the decibels. Conflict is inevitable — how you navigate it with language defines your reign.</p>
-        <div class="space-y-3 mt-4">
-          <div class="bg-white dark:bg-royal-sapphire/20 border border-royal-gold/10 rounded-xl p-5">
-            <h4 class="font-cinzel text-sm text-royal-gold mb-2">De-escalation Phrases</h4>
-            <p class="text-xs">Memorize these and deploy them instinctively: "I hear you, and I want to understand." / "Help me see this from your perspective." / "We're on the same side — let's find the solution together." These phrases disarm aggression without conceding ground.</p>
-          </div>
-          <div class="bg-white dark:bg-royal-sapphire/20 border border-royal-gold/10 rounded-xl p-5">
-            <h4 class="font-cinzel text-sm text-royal-gold mb-2">"I" Statements</h4>
-            <p class="text-xs">Replace "You always..." with "I feel... when..." The first creates a wall. The second opens a door. "I feel disrespected when commitments aren't honored" is infinitely more effective than "You never follow through." One invites resolution. The other invites war.</p>
-          </div>
-          <div class="bg-white dark:bg-royal-sapphire/20 border border-royal-gold/10 rounded-xl p-5">
-            <h4 class="font-cinzel text-sm text-royal-gold mb-2">The 24-Hour Rule</h4>
-            <p class="text-xs">When emotions are high, delay. "I want to give this the thought it deserves. Let me come back to you tomorrow." This is not avoidance — it is strategy. The words you speak in anger are the ones that cost you the most. A king governs his tongue before it governs him.</p>
-          </div>
-        </div>
+    <!-- ROYAL DECREE -->
+    <div class="royal-decree border-l-[3px] border-[#A38255] bg-gradient-to-r from-[#A38255]/5 to-transparent p-6 rounded-r-xl my-8">
+      <p class="font-cinzel text-xs tracking-[0.2em] text-[#A38255] mb-2">ROYAL DECREE</p>
+      <p class="font-playfair italic text-[#571641] dark:text-[#A38255] text-sm leading-relaxed">The King decrees: persuasion reveals its intent. Manipulation conceals it. The man who must hide his goal has already lost his authority.</p>
+    </div>
+
+    <!-- THE CONSUMPTION -->
+    <div class="mb-8">
+      <h3 class="font-cinzel text-sm text-royal-gold tracking-wider mb-3">THE CONSUMPTION</h3>
+      <div class="font-inter text-sm text-royal-sapphire/70 dark:text-white/60 leading-relaxed space-y-4">
+        <p>The STAR method for persuasive requests at work: Situation, Task, Action, Result. In 2026 Aurora, whether you are negotiating a salary increase at a tech company off Havana Street or proposing a new workflow to your team lead, the STAR framework forces clarity. &ldquo;Here is the situation we face. Here is what needs to happen. Here is what I did or propose. Here is the result or projected outcome.&rdquo; Salary negotiations demand framing your value without arrogance &mdash; not &ldquo;I deserve more,&rdquo; but &ldquo;Here is the value I have delivered, and here is the market rate for that value.&rdquo; Church leadership proposals require the same structure: suggest change respectfully to elders by showing the gap, the opportunity, and the path forward, rather than criticizing the current state. Convincing your wife on a major purchase demands partnership language, not sales language &mdash; &ldquo;What do you think about this?&rdquo; not &ldquo;Trust me on this one.&rdquo;</p>
+        <p>The one-sentence principle: if you cannot state your request in one sentence, you do not understand what you are asking for. Before any persuasive conversation &mdash; with your boss, your pastor, your spouse, your landlord in Aurora &mdash; distill the request to a single line. &ldquo;I am requesting a fifteen percent raise based on three completed projects that exceeded targets.&rdquo; &ldquo;I propose we launch a neighborhood outreach program starting in April, and I will lead it.&rdquo; &ldquo;I think we should invest in this property, and here is the math.&rdquo; One sentence. If it takes you two paragraphs to explain what you want, you have not done the preparation. Go back and think until the request is sharp enough to cut glass.</p>
       </div>
     </div>
 
-    <!-- Step 6: Public Speaking Foundations -->
-    <div class="animate-fadeIn">
-      <h2 class="font-cinzel text-2xl text-royal-plum dark:text-royal-gold mb-4">6. Public Speaking Foundations</h2>
-      <div class="font-inter text-sm leading-relaxed text-royal-sapphire/80 dark:text-white/60 space-y-4">
-        <p>Every man will be called to speak publicly — a toast, a meeting, a eulogy, a pitch. The gentleman is prepared for each. Public speaking is not a talent reserved for the naturally charismatic. It is a skill built through structure and practice.</p>
-        <div class="grid md:grid-cols-3 gap-4 mt-4">
-          <div class="bg-white dark:bg-royal-sapphire/20 border border-royal-gold/10 rounded-xl p-5 gold-glow transition-all">
-            <h4 class="font-cinzel text-sm text-royal-gold mb-2">The 3-Point Structure</h4>
-            <p class="text-xs">Every speech, no matter the length, should make exactly three points. One is forgettable. Five is overwhelming. Three is the architecture of persuasion. State them clearly. Support each briefly. Conclude by restating all three.</p>
-          </div>
-          <div class="bg-white dark:bg-royal-sapphire/20 border border-royal-gold/10 rounded-xl p-5 gold-glow transition-all">
-            <h4 class="font-cinzel text-sm text-royal-gold mb-2">Open with a Question</h4>
-            <p class="text-xs">Begin with a question the audience cannot help but answer internally. "When was the last time you said something you wished you could take back?" Instantly, every mind in the room is engaged. You own them before your second sentence.</p>
-          </div>
-          <div class="bg-white dark:bg-royal-sapphire/20 border border-royal-gold/10 rounded-xl p-5 gold-glow transition-all">
-            <h4 class="font-cinzel text-sm text-royal-gold mb-2">Eye Contact Rotation</h4>
-            <p class="text-xs">Divide the room into three zones: left, center, right. Deliver one complete thought to each zone. This creates the impression that you are speaking to every individual while maintaining natural, unhurried eye contact.</p>
-          </div>
-        </div>
-        <div class="bg-white dark:bg-royal-sapphire/20 border-l-4 border-royal-gold rounded-r-xl p-5 mt-4">
-          <h4 class="font-cinzel text-sm text-royal-gold mb-3">The Power of the Pause</h4>
-          <p class="text-xs">Before your key point, pause for two full seconds. Let the silence build anticipation. Then deliver the line at a slightly lower volume. The room leans in. This technique is used by every great orator in history — and it cannot be overused. Silence is not dead air. It is the frame around your most important words.</p>
-        </div>
+    <!-- SLIDE CARDS -->
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-5 my-10">
+      <div class="card-parchment border border-royal-gold/10 rounded-xl p-6">
+        <div class="font-cinzel text-xs text-[#4A5568] tracking-widest mb-2">FRAMEWORK</div>
+        <h4 class="font-cinzel text-sm text-royal-plum dark:text-royal-gold mb-2">The STAR Method</h4>
+        <p class="text-xs text-royal-sapphire/60 dark:text-white/50 leading-relaxed">Situation. Task. Action. Result. Four words that structure any persuasive request into a clear, compelling case that respects the listener&rsquo;s intelligence.</p>
+      </div>
+      <div class="card-parchment border border-royal-gold/10 rounded-xl p-6">
+        <div class="font-cinzel text-xs text-[#4A5568] tracking-widest mb-2">CHARACTER</div>
+        <h4 class="font-cinzel text-sm text-royal-plum dark:text-royal-gold mb-2">Ethos Over Pathos</h4>
+        <p class="text-xs text-royal-sapphire/60 dark:text-white/50 leading-relaxed">Emotional appeals without character credibility are manipulation. Build your ethos first &mdash; let your life be the evidence &mdash; and your words will carry weight without volume.</p>
+      </div>
+      <div class="card-parchment border border-royal-gold/10 rounded-xl p-6">
+        <div class="font-cinzel text-xs text-[#4A5568] tracking-widest mb-2">CLARITY</div>
+        <h4 class="font-cinzel text-sm text-royal-plum dark:text-royal-gold mb-2">The One-Sentence Principle</h4>
+        <p class="text-xs text-royal-sapphire/60 dark:text-white/50 leading-relaxed">If you cannot state your request in one sentence, you do not understand what you are asking for. Distill before you deliver. Precision is respect.</p>
+      </div>
+      <div class="card-parchment border border-royal-gold/10 rounded-xl p-6">
+        <div class="font-cinzel text-xs text-[#4A5568] tracking-widest mb-2">INTEGRITY</div>
+        <h4 class="font-cinzel text-sm text-royal-plum dark:text-royal-gold mb-2">Transparency Test</h4>
+        <p class="text-xs text-royal-sapphire/60 dark:text-white/50 leading-relaxed">Before every persuasive conversation, ask: would I be comfortable if the other person knew my full intent? If not, you are manipulating, not persuading.</p>
       </div>
     </div>
 
-    <!-- ============================================================
-         SPEECH RECORDER TOOL
-         ============================================================ -->
-    <div id="speech-recorder" class="bg-royal-sapphire/5 dark:bg-white/5 border border-royal-gold/10 rounded-2xl p-8 animate-fadeIn">
-      <h2 class="font-cinzel text-xl text-royal-plum dark:text-royal-gold mb-2">Speech Recorder</h2>
-      <p class="text-sm text-royal-sapphire/60 dark:text-white/40 mb-6">Practice your delivery. Record, listen back, and note your fillers, pace, and clarity. Mastery begins with awareness.</p>
-
-      <div class="flex flex-col items-center gap-4">
-        <!-- Record Button -->
-        <button id="recordBtn" class="px-8 py-4 bg-royal-gold text-white font-cinzel rounded-xl hover:bg-royal-plum transition-all text-lg tracking-wide gold-glow">
-          Start Recording
-        </button>
-        <!-- Recording Status -->
-        <div id="recordingStatus" class="text-sm text-royal-sapphire/40 dark:text-white/30 h-6"></div>
-      </div>
-
-      <!-- Playback (hidden until recording complete) -->
-      <div id="playbackSection" class="mt-6 hidden">
-        <div class="bg-white dark:bg-royal-sapphire/20 border border-royal-gold/10 rounded-xl p-6 space-y-4">
-          <h4 class="font-cinzel text-sm text-royal-gold">Playback</h4>
-          <audio id="audioPlayback" controls class="w-full"></audio>
-          <div class="grid grid-cols-3 gap-3 text-center text-xs font-inter">
-            <div class="p-3 bg-royal-sapphire/5 dark:bg-white/5 rounded-lg">
-              <span class="block text-royal-sapphire/50 dark:text-white/40">Clarity</span>
-              <span class="text-royal-gold font-semibold">Listen &amp; Rate</span>
-            </div>
-            <div class="p-3 bg-royal-sapphire/5 dark:bg-white/5 rounded-lg">
-              <span class="block text-royal-sapphire/50 dark:text-white/40">Filler Words</span>
-              <span class="text-royal-gold font-semibold">Count Them</span>
-            </div>
-            <div class="p-3 bg-royal-sapphire/5 dark:bg-white/5 rounded-lg">
-              <span class="block text-royal-sapphire/50 dark:text-white/40">Pace</span>
-              <span class="text-royal-gold font-semibold">Self-Assess</span>
-            </div>
-          </div>
-        </div>
-      </div>
-
-      <!-- Speech Notes -->
-      <div class="mt-6">
-        <label class="block font-cinzel text-sm text-royal-plum dark:text-royal-gold mb-2">Speech Notes</label>
-        <textarea id="speechNotes" rows="4" placeholder="Write your observations here. How many fillers did you count? Where did you rush? Where did you shine?" class="w-full px-4 py-3 rounded-lg border border-royal-gold/20 bg-white/50 dark:bg-white/5 font-inter text-sm focus:outline-none focus:border-royal-gold resize-none text-royal-sapphire dark:text-white/80"></textarea>
-        <p class="text-xs text-royal-sapphire/30 dark:text-white/20 mt-1 italic font-playfair">"Listen to your recording with the ear of a king. Mark where you waver. Mark where you command. Mastery is in the gap between the two."</p>
-      </div>
+    <!-- PRACTICAL STEPS -->
+    <div class="mb-8">
+      <h3 class="font-cinzel text-lg text-royal-plum dark:text-royal-gold mb-4">Practical Steps</h3>
+      <ul class="space-y-3 text-sm font-inter text-royal-sapphire/70 dark:text-white/60">
+        <li class="flex gap-3"><span class="text-royal-gold font-cinzel">I.</span> Write one persuasive request you need to make this week. Reduce it to a single sentence. If it takes more than one sentence, you have not thought enough.</li>
+        <li class="flex gap-3"><span class="text-royal-gold font-cinzel">II.</span> Before making the request, state your intent openly: &ldquo;I want to propose something and here is why.&rdquo; Let your transparency be the first proof of your credibility.</li>
+        <li class="flex gap-3"><span class="text-royal-gold font-cinzel">III.</span> After the conversation, evaluate: did you persuade or manipulate? Was your goal visible from the start, or did you conceal it until the close? Journal the honest answer.</li>
+      </ul>
     </div>
 
-    <!-- ============================================================
-         YOUTUBE VIDEO EMBEDS
-         ============================================================ -->
-    <div>
-      <h2 class="font-cinzel text-2xl text-royal-plum dark:text-royal-gold mb-6">Lessons from the Masters</h2>
-      <div class="grid md:grid-cols-2 gap-6">
-        <!-- Video 1 -->
-        <div class="rounded-xl overflow-hidden border border-royal-gold/10">
-          <div class="aspect-video bg-royal-sapphire/10 relative">
-            <iframe class="w-full h-full" src="about:blank" data-src="https://www.youtube.com/embed/eIho2S0ZahI" title="The Art of Powerful Speaking" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
-            <button onclick="loadVideo(this)" class="absolute inset-0 flex items-center justify-center bg-royal-sapphire/20 hover:bg-royal-sapphire/10 transition group">
-              <span class="px-5 py-2.5 bg-royal-gold text-white font-cinzel text-sm rounded-lg group-hover:bg-royal-plum transition">Load Video</span>
-            </button>
-          </div>
-          <div class="p-4 bg-white dark:bg-royal-sapphire/20"><h4 class="font-cinzel text-sm text-royal-plum dark:text-royal-gold">The Art of Powerful Speaking</h4></div>
-        </div>
-        <!-- Video 2 -->
-        <div class="rounded-xl overflow-hidden border border-royal-gold/10">
-          <div class="aspect-video bg-royal-sapphire/10 relative">
-            <iframe class="w-full h-full" src="about:blank" data-src="https://www.youtube.com/embed/HAnw168huqA" title="How to Speak with Vocal Authority" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
-            <button onclick="loadVideo(this)" class="absolute inset-0 flex items-center justify-center bg-royal-sapphire/20 hover:bg-royal-sapphire/10 transition group">
-              <span class="px-5 py-2.5 bg-royal-gold text-white font-cinzel text-sm rounded-lg group-hover:bg-royal-plum transition">Load Video</span>
-            </button>
-          </div>
-          <div class="p-4 bg-white dark:bg-royal-sapphire/20"><h4 class="font-cinzel text-sm text-royal-plum dark:text-royal-gold">How to Speak with Vocal Authority</h4></div>
-        </div>
+    <!-- WISDOM REFLECTION -->
+    <div class="bg-white dark:bg-royal-sapphire/20 border border-royal-gold/10 rounded-xl p-6 mb-8">
+      <p class="font-playfair italic text-royal-plum dark:text-royal-gold text-sm mb-4">&ldquo;Think of the last time you tried to convince someone of something. Were you transparent about your goal, or did you hide it?&rdquo;</p>
+      <textarea rows="3" placeholder="Write your reflection..." class="w-full px-4 py-3 rounded-lg border border-royal-gold/20 bg-royal-cream/50 dark:bg-white/5 font-inter text-sm focus:outline-none focus:border-royal-gold resize-none"></textarea>
+      <button data-prompt="Think of the last time you tried to convince someone of something. Were you transparent about your goal?" class="journal-save-btn mt-2 px-4 py-2 bg-royal-gold text-white text-xs font-cinzel rounded-lg hover:bg-royal-plum transition">Save to Journal</button>
+    </div>
+
+    <!-- QUIZ -->
+    <div class="quiz-block bg-white dark:bg-royal-sapphire/20 border border-royal-gold/10 rounded-xl p-6 mb-8">
+      <h4 class="font-cinzel text-sm text-royal-gold mb-4">Counsel from the Throne</h4>
+      <p class="font-playfair italic text-royal-plum dark:text-royal-gold text-sm mb-5">&ldquo;You want your church to adopt a new outreach program. The most effective approach is:&rdquo;</p>
+      <div class="space-y-2">
+        <button data-correct="false" class="quiz-option w-full text-left px-4 py-3 rounded-lg border border-royal-gold/15 text-sm font-inter">Presenting the program passionately at the next meeting and pushing for an immediate vote</button>
+        <button data-correct="true" class="quiz-option w-full text-left px-4 py-3 rounded-lg border border-royal-gold/15 text-sm font-inter">Having private conversations with key leaders first, sharing your vision transparently, then proposing it formally with their input already incorporated</button>
+        <button data-correct="false" class="quiz-option w-full text-left px-4 py-3 rounded-lg border border-royal-gold/15 text-sm font-inter">Implementing it on your own and presenting results later to prove it works &mdash; ask forgiveness, not permission</button>
       </div>
+      <div class="quiz-feedback hidden mt-4 text-sm font-playfair italic"></div>
     </div>
 
-    <!-- ============================================================
-         WISDOM REFLECTIONS (2 prompts)
-         ============================================================ -->
-    <div>
-      <h2 class="font-cinzel text-2xl text-royal-plum dark:text-royal-gold mb-6">Wisdom Reflections</h2>
-      <div class="space-y-6">
-        <!-- Reflection 1 -->
-        <div class="bg-white dark:bg-royal-sapphire/20 border border-royal-gold/10 rounded-xl p-6">
-          <p class="font-playfair italic text-royal-plum dark:text-royal-gold text-sm mb-4">"Think of the last difficult conversation you had. If you could speak those words again as a king, what would change?"</p>
-          <textarea rows="3" placeholder="Write your reflection..." class="w-full px-4 py-3 rounded-lg border border-royal-gold/20 bg-royal-cream/50 dark:bg-white/5 font-inter text-sm focus:outline-none focus:border-royal-gold resize-none"></textarea>
-          <button data-prompt="Think of the last difficult conversation you had. If you could speak those words again as a king, what would change?" class="journal-save-btn mt-2 px-4 py-2 bg-royal-gold text-white text-xs font-cinzel rounded-lg hover:bg-royal-plum transition">Save to Journal</button>
-        </div>
-        <!-- Reflection 2 -->
-        <div class="bg-white dark:bg-royal-sapphire/20 border border-royal-gold/10 rounded-xl p-6">
-          <p class="font-playfair italic text-royal-plum dark:text-royal-gold text-sm mb-4">"What is the one phrase you rely on most as a verbal crutch? What would replace it if you spoke with the precision of a sovereign?"</p>
-          <textarea rows="3" placeholder="Write your reflection..." class="w-full px-4 py-3 rounded-lg border border-royal-gold/20 bg-royal-cream/50 dark:bg-white/5 font-inter text-sm focus:outline-none focus:border-royal-gold resize-none"></textarea>
-          <button data-prompt="What is the one phrase you rely on most as a verbal crutch? What would replace it if you spoke with the precision of a sovereign?" class="journal-save-btn mt-2 px-4 py-2 bg-royal-gold text-white text-xs font-cinzel rounded-lg hover:bg-royal-plum transition">Save to Journal</button>
-        </div>
-      </div>
+    <button class="audio-briefing-btn w-full py-3 border border-[#A38255]/20 text-[#A38255] font-cinzel text-sm rounded-xl hover:bg-[#A38255]/5 transition mb-4">Play Royal Briefing</button>
+    <div class="quest-panel bg-gradient-to-br from-[#052B20] to-[#08052D] rounded-xl p-6 mb-4">
+      <p class="font-cinzel text-xs tracking-[0.2em] text-[#A38255] mb-3">TODAY&rsquo;S QUEST</p>
+      <label class="flex items-start gap-3 cursor-pointer">
+        <input type="checkbox" class="quest-checkbox accent-[#A38255] mt-1" data-lesson="2">
+        <span class="text-sm font-inter text-white/80 leading-relaxed">Make one persuasive request this week using the STAR method. Note whether you stated your intent openly.</span>
+      </label>
     </div>
+    <button class="absorb-btn w-full py-3 bg-royal-gold text-white font-cinzel tracking-wider rounded-lg hover:bg-royal-plum transition" data-lesson="2">Mark as Absorbed</button>
+    <div class="gold-divider mt-16"></div>
+  </section>
 
-    <!-- ============================================================
-         QUIZ
-         ============================================================ -->
-    <div>
-      <h2 class="font-cinzel text-2xl text-royal-plum dark:text-royal-gold mb-6">Counsel from the Throne</h2>
-      <div class="quiz-block bg-white dark:bg-royal-sapphire/20 border border-royal-gold/10 rounded-xl p-8">
-        <p class="font-playfair italic text-royal-plum dark:text-royal-gold mb-6">"You're giving a toast at a friend's wedding and your mind goes blank mid-sentence. What does the gentleman do?"</p>
-        <div class="space-y-3">
-          <button data-correct="false" class="quiz-option w-full text-left px-5 py-3 rounded-lg border border-royal-gold/15 hover:border-royal-gold/40 transition text-sm font-inter">Laugh nervously, say "sorry, I lost my train of thought," and rush to sit down</button>
-          <button data-correct="true" class="quiz-option w-full text-left px-5 py-3 rounded-lg border border-royal-gold/15 hover:border-royal-gold/40 transition text-sm font-inter">Pause deliberately, take a breath, smile at the couple, and say: "Some things are too important to rush" — then continue or close gracefully</button>
-          <button data-correct="false" class="quiz-option w-full text-left px-5 py-3 rounded-lg border border-royal-gold/15 hover:border-royal-gold/40 transition text-sm font-inter">Pull out your phone to read from notes you prepared earlier</button>
-        </div>
-        <div class="quiz-feedback hidden"></div>
-      </div>
+  <!-- FAQ (SEO) -->
+  <section class="max-w-4xl mx-auto px-6 pb-16">
+    <h2 class="font-cinzel text-2xl text-royal-plum dark:text-royal-gold mb-8 text-center">Frequently Asked Questions</h2>
+    <div class="space-y-4">
+      <details class="bg-white dark:bg-royal-sapphire/20 border border-royal-gold/10 rounded-xl p-6">
+        <summary class="font-cinzel text-sm text-royal-gold cursor-pointer">Does the Bible actually teach specific communication techniques?</summary>
+        <p class="mt-3 text-sm font-inter text-royal-sapphire/70 dark:text-white/60 leading-relaxed">Scripture is saturated with communication instruction. Proverbs alone contains over one hundred verses about the tongue, speech, and the power of words. James dedicates an entire chapter to the tongue. Paul gives Timothy direct coaching on persuasive, exemplary speech. The Bible does not merely suggest good communication &mdash; it treats it as a core discipline of wisdom.</p>
+      </details>
+      <details class="bg-white dark:bg-royal-sapphire/20 border border-royal-gold/10 rounded-xl p-6">
+        <summary class="font-cinzel text-sm text-royal-gold cursor-pointer">Is it weak to speak softly when someone is aggressive toward you?</summary>
+        <p class="mt-3 text-sm font-inter text-royal-sapphire/70 dark:text-white/60 leading-relaxed">The opposite. Neuroscience confirms that maintaining a calm tone during conflict preserves prefrontal cortex function while the aggressive person loses cognitive capacity to cortisol. Speaking softly under pressure requires more strength than matching aggression &mdash; it is the verbal equivalent of a controlled fighter who never throws a wild punch.</p>
+      </details>
+      <details class="bg-white dark:bg-royal-sapphire/20 border border-royal-gold/10 rounded-xl p-6">
+        <summary class="font-cinzel text-sm text-royal-gold cursor-pointer">What is the difference between persuasion and manipulation from a Biblical perspective?</summary>
+        <p class="mt-3 text-sm font-inter text-royal-sapphire/70 dark:text-white/60 leading-relaxed">Persuasion operates in the light; manipulation operates in shadow. Paul told Timothy to set an example &mdash; to lead through visible integrity, not hidden agendas. A persuasive man states his intent openly and lets the strength of his case speak. A manipulative man conceals his goal and engineers consent through deception. Scripture consistently condemns the latter and honors the former.</p>
+      </details>
     </div>
-
-    <!-- ============================================================
-         WEIRD-SCENARIO SOLVER
-         ============================================================ -->
-    <div class="bg-royal-sapphire dark:bg-royal-sapphire/80 rounded-2xl p-8 text-white">
-      <h2 class="font-cinzel text-xl text-royal-gold mb-2">Royal Protocol Solver</h2>
-      <p class="text-sm text-white/40 mb-4">Describe any awkward or challenging speech situation. Receive the king's counsel.</p>
-      <form id="scenarioForm" class="flex gap-3">
-        <input type="text" id="scenarioInput" placeholder="e.g., 'Someone won't stop talking and I need to end the conversation gracefully...'" class="flex-1 px-4 py-3 rounded-lg bg-white/10 border border-royal-gold/20 text-white font-inter text-sm focus:outline-none focus:border-royal-gold placeholder-white/30">
-        <button type="submit" class="px-6 py-3 bg-royal-gold text-royal-sapphire font-cinzel text-sm rounded-lg hover:bg-white transition">Counsel</button>
-      </form>
-      <div id="scenarioResponse" class="mt-4"></div>
-    </div>
-
-    <!-- ============================================================
-         CHECKLIST BUILDER
-         ============================================================ -->
-    <div>
-      <h2 class="font-cinzel text-2xl text-royal-plum dark:text-royal-gold mb-6">Your Royal Speech Checklist</h2>
-      <div class="bg-white dark:bg-royal-sapphire/20 border border-royal-gold/10 rounded-xl p-6">
-        <form id="checklistForm" class="flex gap-3 mb-6">
-          <input type="text" id="checklistInput" placeholder="Add a speech improvement goal..." class="flex-1 px-4 py-3 rounded-lg border border-royal-gold/20 bg-royal-cream/50 dark:bg-white/5 font-inter text-sm focus:outline-none focus:border-royal-gold">
-          <button type="submit" class="px-4 py-3 bg-royal-gold text-white text-sm font-cinzel rounded-lg hover:bg-royal-plum transition">Add</button>
-        </form>
-        <div id="checklistItems" class="space-y-2"></div>
-      </div>
-    </div>
-
+    <p class="text-xs text-royal-sapphire/30 dark:text-white/15 text-center mt-8 font-inter">Last updated: March 2026</p>
   </section>
 
   <div id="mainFooter"></div>
+
   <script src="shared.js"></script>
   <script src="pillar-template.js"></script>
   <script>
     document.addEventListener('DOMContentLoaded', function() {
-      if (!requireAuth()) return;
       initPillar('speech');
-      initSpeechRecorder();
-    });
 
-    /* ---------- Load Video (privacy-respecting lazy load) ---------- */
-    function loadVideo(btn) {
-      var container = btn.parentElement;
-      var iframe = container.querySelector('iframe');
-      if (iframe && iframe.dataset.src) {
-        iframe.src = iframe.dataset.src;
-      }
-      btn.remove();
-    }
+      var absorbed = JSON.parse(localStorage.getItem('kl_speech_absorbed') || '[]');
+      var total = 2;
+      var pct = Math.round((absorbed.length / total) * 100);
+      var bar = document.getElementById('progressBar');
+      var fill = document.getElementById('progressFill');
+      var text = document.getElementById('progressText');
+      if (bar) bar.style.width = pct + '%';
+      if (fill) fill.style.width = pct + '%';
+      if (text) text.textContent = 'Speech Mastery ' + pct + '%';
 
-    /* ---------- Speech Recorder (Web Audio API / MediaRecorder) ---------- */
-    var mediaRecorder = null;
-    var audioChunks = [];
-    var isRecording = false;
-
-    function initSpeechRecorder() {
-      var btn = document.getElementById('recordBtn');
-      if (btn) {
-        btn.addEventListener('click', toggleRecording);
-      }
-    }
-
-    function toggleRecording() {
-      if (isRecording) {
-        stopRecording();
-      } else {
-        startRecording();
-      }
-    }
-
-    function startRecording() {
-      navigator.mediaDevices.getUserMedia({ audio: true }).then(function(stream) {
-        mediaRecorder = new MediaRecorder(stream);
-        audioChunks = [];
-
-        mediaRecorder.addEventListener('dataavailable', function(e) {
-          audioChunks.push(e.data);
+      document.querySelectorAll('.absorb-btn').forEach(function(btn) {
+        var lesson = parseInt(btn.dataset.lesson);
+        if (absorbed.includes(lesson)) {
+          btn.textContent = 'Absorbed';
+          btn.classList.add('absorbed');
+        }
+        btn.addEventListener('click', function() {
+          if (absorbed.includes(lesson)) return;
+          absorbed.push(lesson);
+          localStorage.setItem('kl_speech_absorbed', JSON.stringify(absorbed));
+          btn.textContent = 'Absorbed';
+          btn.classList.add('absorbed');
+          pct = Math.round((absorbed.length / total) * 100);
+          if (bar) bar.style.width = pct + '%';
+          if (fill) fill.style.width = pct + '%';
+          if (text) text.textContent = 'Speech Mastery ' + pct + '%';
+          updateStreak();
         });
-
-        mediaRecorder.addEventListener('stop', function() {
-          var blob = new Blob(audioChunks, { type: 'audio/webm' });
-          var url = URL.createObjectURL(blob);
-          var audio = document.getElementById('audioPlayback');
-          audio.src = url;
-          var section = document.getElementById('playbackSection');
-          section.classList.remove('hidden');
-          section.style.animation = 'fadeInUp 0.5s ease-out';
-          var status = document.getElementById('recordingStatus');
-          status.textContent = 'Recording complete. Listen back and assess yourself below.';
-        });
-
-        mediaRecorder.start();
-        isRecording = true;
-
-        var btn = document.getElementById('recordBtn');
-        btn.textContent = 'Stop Recording';
-        btn.classList.add('bg-red-700');
-        btn.classList.remove('bg-royal-gold');
-
-        var status = document.getElementById('recordingStatus');
-        status.textContent = '';
-        var pulse = document.createElement('span');
-        pulse.className = 'animate-pulse text-red-400';
-        pulse.textContent = 'Recording in progress...';
-        status.appendChild(pulse);
-      }).catch(function() {
-        var status = document.getElementById('recordingStatus');
-        status.textContent = 'Microphone access is required for the speech recorder.';
       });
-    }
 
-    function stopRecording() {
-      if (mediaRecorder && mediaRecorder.state !== 'inactive') {
-        mediaRecorder.stop();
-        mediaRecorder.stream.getTracks().forEach(function(t) { t.stop(); });
-      }
-      isRecording = false;
+      var observer = new IntersectionObserver(function(entries) {
+        entries.forEach(function(e) {
+          if (e.isIntersecting) e.target.classList.add('visible');
+        });
+      }, { threshold: 0.05 });
+      document.querySelectorAll('.lesson-section').forEach(function(s) { observer.observe(s); });
 
-      var btn = document.getElementById('recordBtn');
-      btn.textContent = 'Start Recording';
-      btn.classList.remove('bg-red-700');
-      btn.classList.add('bg-royal-gold');
-
-      var status = document.getElementById('recordingStatus');
-      status.textContent = 'Processing...';
-    }
+      var tocDots = document.querySelectorAll('#lessonToc .toc-dot');
+      var sections = document.querySelectorAll('.lesson-section');
+      var tocObserver = new IntersectionObserver(function(entries) {
+        entries.forEach(function(e) {
+          if (e.isIntersecting) {
+            var id = e.target.id;
+            tocDots.forEach(function(d) {
+              d.classList.toggle('active', d.getAttribute('href') === '#' + id);
+            });
+          }
+        });
+      }, { threshold: 0.3, rootMargin: '-100px 0px -60% 0px' });
+      sections.forEach(function(s) { tocObserver.observe(s); });
+    });
   </script>
 </body>
 </html>

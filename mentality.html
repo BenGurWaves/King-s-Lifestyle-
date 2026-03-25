@@ -1,320 +1,479 @@
-<!-- mentality.html – v0.0.7 -->
+<!-- mentality.html – v0.0.8 -->
 <!DOCTYPE html>
 <html lang="en" class="scroll-smooth">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0">
-  <title>Mentality — A King's Lifestyle</title>
+  <title>Mentality &mdash; A King's Lifestyle</title>
+  <meta name="description" content="The King's Mind: 3 deep lessons on servant leadership, followership, and wise counsel. Biblical mentality for the modern king in Aurora, Colorado.">
   <link rel="manifest" href="manifest.json">
   <script src="https://cdn.tailwindcss.com"></script>
-  <script>tailwind.config={darkMode:'class',theme:{extend:{colors:{royal:{green:'#052B20',cream:'#FFF6E6',gold:'#A38255',plum:'#571641',sapphire:'#08052D'}},fontFamily:{cinzel:['Cinzel','serif'],inter:['Inter','sans-serif'],playfair:['Playfair Display','serif']},animation:{fadeIn:'fadeIn 0.8s ease-out forwards',fadeInUp:'fadeInUp 0.8s ease-out forwards'},keyframes:{fadeIn:{'0%':{opacity:'0'},'100%':{opacity:'1'}},fadeInUp:{'0%':{opacity:'0',transform:'translateY(24px)'},'100%':{opacity:'1',transform:'translateY(0)'}}}}}};</script>
+  <script>tailwind.config={darkMode:'class',theme:{extend:{colors:{royal:{green:'#052B20',cream:'#FFF6E6',gold:'#A38255',plum:'#571641',sapphire:'#08052D'},campus:{'olive':'#3D4F2F'}},fontFamily:{cinzel:['Cinzel','serif'],inter:['Inter','sans-serif'],playfair:['Playfair Display','serif']},animation:{fadeIn:'fadeIn 0.8s ease-out forwards',fadeInUp:'fadeInUp 0.8s ease-out forwards'},keyframes:{fadeIn:{'0%':{opacity:'0'},'100%':{opacity:'1'}},fadeInUp:{'0%':{opacity:'0',transform:'translateY(24px)'},'100%':{opacity:'1',transform:'translateY(0)'}}}}}};</script>
   <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600;700&family=Inter:wght@300;400;500;600&family=Playfair+Display:ital,wght@0,400;0,600;1,400&display=swap" rel="stylesheet">
   <script src="https://unpkg.com/@supabase/supabase-js@2" defer></script>
-  <style>html,body{overflow-x:hidden;max-width:100vw;}.bg-parchment{background-image:url("data:image/svg+xml,%3Csvg width='100' height='100' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.8' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100' height='100' filter='url(%23n)' opacity='0.03'/%3E%3C/svg%3E");}.gold-glow:hover{box-shadow:0 0 30px rgba(163,130,85,0.25);}.dark .bg-parchment{background-color:#0a0a0a;}.dark body{background-color:#0a0a0a;color:#e0d5c4;}</style>
+  <style>
+    html,body{overflow-x:hidden;max-width:100vw;}
+    .bg-parchment{background-image:url("data:image/svg+xml,%3Csvg width='100' height='100' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.8' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100' height='100' filter='url(%23n)' opacity='0.03'/%3E%3C/svg%3E");}
+    .gold-glow:hover{box-shadow:0 0 30px rgba(61,79,47,0.25);}
+    .dark .bg-parchment{background-color:#0a0a0a;}
+    .dark body{background-color:#0a0a0a;color:#e0d5c4;}
+    .lesson-section{opacity:0;transform:translateY(30px);transition:opacity 0.7s ease-out,transform 0.7s ease-out;}
+    .lesson-section.visible{opacity:1;transform:translateY(0);}
+    .toc-dot{width:8px;height:8px;border-radius:50%;border:1.5px solid rgba(61,79,47,0.3);transition:all 0.3s;display:block;}
+    .toc-dot.active{background:#3D4F2F;border-color:#3D4F2F;box-shadow:0 0 8px rgba(61,79,47,0.4);}
+    .gold-divider{height:1px;background:linear-gradient(90deg,transparent,#3D4F2F 50%,transparent);margin:0 auto;max-width:200px;}
+    .absorb-btn.absorbed{background:#052B20 !important;cursor:default;}
+    .card-parchment{background:linear-gradient(135deg,#FFF6E6 0%,#f5e6cc 100%);}
+    .dark .card-parchment{background:linear-gradient(135deg,#1a1a1a 0%,#141210 100%);}
+    .quiz-option{cursor:pointer;transition:border-color 0.2s;}
+    .quiz-option:hover{border-color:#3D4F2F !important;}
+    .royal-decree{border-left:3px solid #3D4F2F;background:linear-gradient(135deg,rgba(61,79,47,0.05),rgba(61,79,47,0.02));padding:1.5rem;border-radius:0 0.75rem 0.75rem 0;margin:1.5rem 0;}
+    .quest-panel{background:linear-gradient(135deg,#052B20,#08052D);border-radius:1rem;padding:1.5rem;color:white;}
+  </style>
 </head>
-<body class="bg-royal-cream bg-parchment font-inter text-royal-sapphire min-h-screen">
+<body class="bg-royal-cream bg-parchment font-inter text-royal-sapphire min-h-screen overflow-x-hidden">
   <div id="mainNav"></div>
 
-  <!-- ============================================================
-       STORYTELLING INTRO
-       ============================================================ -->
-  <section class="max-w-4xl mx-auto px-6 pt-20 pb-12 animate-fadeInUp">
-    <div class="text-center mb-16">
-      <h1 class="font-cinzel text-3xl md:text-5xl text-royal-plum mb-8 tracking-wide">Mentality</h1>
-      <div class="max-w-2xl mx-auto space-y-5">
-        <p class="font-playfair italic text-royal-gold text-lg leading-relaxed">
-          Every king faced an enemy inside before he conquered the world outside. The battlefield within — the space between your ears — is the territory upon which every other victory is either built or lost. A man who cannot govern his own mind will never govern anything else of consequence.
-        </p>
-        <p class="font-inter text-sm text-royal-sapphire/70 dark:text-white/50 leading-relaxed">
-          The ancient rulers understood this. Before they studied warfare, they studied themselves. Before they commanded armies, they commanded their impulses, their fears, their tempers. Marcus Aurelius wrote his Meditations not for publication but as a daily exercise in mental sovereignty. David poured his inner turmoil into psalms not for performance but for survival. The greatest leaders in history were first and foremost masters of their own inner world.
-        </p>
-        <p class="font-inter text-sm text-royal-sapphire/70 dark:text-white/50 leading-relaxed">
-          Mental discipline is the foundation every other pillar rests upon. Your nourishment, your attire, your speech, your body, your legacy — all of these begin or collapse in the mind. This pillar is not about positive thinking or hollow affirmations. It is about building the mental architecture of a man who cannot be easily shaken, who meets difficulty with composure, and who builds his life with the patience and precision of a cathedral architect.
-        </p>
-      </div>
+  <!-- PROGRESS BAR -->
+  <div class="fixed top-0 left-0 right-0 z-[60] pointer-events-none">
+    <div class="h-1 bg-royal-sapphire/5">
+      <div id="progressFill" class="h-full bg-gradient-to-r from-[#3D4F2F] to-royal-gold transition-all duration-700 ease-out" style="width:0%"></div>
     </div>
+  </div>
 
-    <div data-bible class="bg-royal-sapphire/5 dark:bg-white/5 border border-royal-gold/10 rounded-xl p-6 mb-6 text-center">
-      <p class="font-playfair italic text-royal-plum dark:text-royal-gold text-lg">"As a man thinks in his heart, so is he."</p>
-      <p class="text-xs text-royal-sapphire/40 mt-2">— Proverbs 23:7</p>
+  <!-- HERO -->
+  <section class="max-w-4xl mx-auto px-6 pt-24 pb-12 text-center">
+    <div class="font-cinzel text-xs tracking-[0.3em] text-[#3D4F2F]/50 uppercase mb-4">Year 1 &mdash; The Architecture of Wisdom</div>
+    <h1 class="font-cinzel text-4xl md:text-5xl lg:text-6xl text-royal-plum dark:text-royal-gold tracking-wide leading-tight">Mentality</h1>
+    <p class="font-playfair italic text-[#3D4F2F] text-lg mt-4">The King&rsquo;s Mind</p>
+    <p class="font-inter text-sm text-royal-sapphire/50 dark:text-white/40 mt-3 max-w-xl mx-auto">Govern the inner court before you govern anything external. Three lessons on servant kingship, followership, and the lost art of counseling the wise.</p>
+    <div class="mt-6 flex items-center justify-center gap-3">
+      <div class="h-2 w-48 bg-royal-sapphire/5 dark:bg-white/5 rounded-full overflow-hidden">
+        <div id="progressBar" class="h-full bg-gradient-to-r from-[#3D4F2F] to-royal-gold rounded-full transition-all duration-700" style="width:0%"></div>
+      </div>
+      <span id="progressText" class="text-xs font-inter text-[#3D4F2F]">Mentality Mastery 0%</span>
     </div>
   </section>
 
-  <!-- ============================================================
-       PRACTICAL STEPS
-       ============================================================ -->
-  <section class="max-w-4xl mx-auto px-6 space-y-16 mb-20">
+  <!-- TABLE OF CONTENTS (fixed right, desktop) -->
+  <nav id="lessonToc" class="fixed right-3 top-1/2 -translate-y-1/2 z-40 hidden xl:flex flex-col items-center gap-2">
+    <a href="#lesson-01" class="toc-dot" title="01"></a><a href="#lesson-02" class="toc-dot" title="02"></a><a href="#lesson-03" class="toc-dot" title="03"></a>
+  </nav>
 
-    <!-- Step 1: The Morning Reign -->
-    <div class="animate-fadeIn">
-      <h2 class="font-cinzel text-2xl text-royal-plum dark:text-royal-gold mb-4">I. The Morning Reign</h2>
-      <div class="font-inter text-sm leading-relaxed text-royal-sapphire/80 dark:text-white/60 space-y-4">
-        <p>A king who surrenders his morning surrenders his day. The first hour belongs to you — not to your inbox, not to social media, not to the demands of others. Rise before the world demands your attention and invest in yourself before you invest in anything else.</p>
-        <div class="bg-white dark:bg-royal-sapphire/20 border-l-4 border-royal-gold rounded-r-xl p-6 mt-4 space-y-3">
-          <div class="flex items-start gap-3">
-            <span class="text-royal-gold font-cinzel text-sm mt-0.5">5:30</span>
-            <p class="text-xs"><strong>Wake.</strong> No snooze button. The snooze button is the first negotiation you lose every day. Place your alarm across the room if necessary. Feet on the floor within 10 seconds of the alarm.</p>
-          </div>
-          <div class="flex items-start gap-3">
-            <span class="text-royal-gold font-cinzel text-sm mt-0.5">5:35</span>
-            <p class="text-xs"><strong>Hydrate.</strong> 500ml of water. Your body has been fasting for 7-8 hours. Rehydrate before caffeine. This single habit will sharpen your morning clarity more than any supplement.</p>
-          </div>
-          <div class="flex items-start gap-3">
-            <span class="text-royal-gold font-cinzel text-sm mt-0.5">5:45</span>
-            <p class="text-xs"><strong>Move.</strong> 15-20 minutes of physical movement. Stretch, walk, bodyweight exercises, or a full workout. Move blood, move oxygen, wake the body that carries your ambition.</p>
-          </div>
-          <div class="flex items-start gap-3">
-            <span class="text-royal-gold font-cinzel text-sm mt-0.5">6:05</span>
-            <p class="text-xs"><strong>Still.</strong> 10 minutes of prayer, meditation, or silent reflection. This is where you center your mind before the world pulls it in a hundred directions. Non-negotiable.</p>
-          </div>
-          <div class="flex items-start gap-3">
-            <span class="text-royal-gold font-cinzel text-sm mt-0.5">6:15</span>
-            <p class="text-xs"><strong>Plan.</strong> Write three priorities for the day. Not ten. Three. The king who chases ten rabbits catches none. Identify the three outcomes that would make this day a victory, and pursue them with singular focus.</p>
-          </div>
-          <div class="flex items-start gap-3">
-            <span class="text-royal-gold font-cinzel text-sm mt-0.5">6:30</span>
-            <p class="text-xs"><strong>No Phone.</strong> The first hour is sacred. No email, no social media, no news. These are other people's agendas. Your morning belongs to your agenda, your growth, your kingdom.</p>
-          </div>
-        </div>
+  <!-- ======== LESSON 01 ======== -->
+  <section id="lesson-01" class="lesson-section max-w-4xl mx-auto px-6 pb-20">
+    <div class="font-cinzel text-xs tracking-[0.3em] text-[#3D4F2F]/40 mb-3">LESSON 01</div>
+    <h2 class="font-cinzel text-2xl md:text-3xl text-royal-plum dark:text-royal-gold mb-2">The Servant King</h2>
+    <p class="font-inter text-xs text-[#3D4F2F]/60 mb-8 tracking-wider">YEAR 1 &bull; THE ARCHITECTURE OF WISDOM</p>
+
+    <!-- THE RAW INGREDIENT -->
+    <div class="mb-8">
+      <h3 class="font-cinzel text-sm text-[#3D4F2F] tracking-wider mb-3">THE RAW INGREDIENT</h3>
+      <div class="bg-royal-sapphire/5 dark:bg-white/5 border border-[#3D4F2F]/10 rounded-xl p-6 text-center cursor-pointer hover:border-[#3D4F2F]/30 transition" onclick="openVerseModal({text:'Whoever wants to become great among you must be your servant, and whoever wants to be first must be your slave &mdash; just as the Son of Man did not come to be served, but to serve, and to give his life as a ransom for many.',ref:'Matthew 20:26-28',context:'Jesus spoke these words after James and John requested thrones at His right and left hand in the coming kingdom. The other ten disciples were furious &mdash; not because the request was inappropriate, but because they wanted the same thing. Into that raw ambition, Jesus dropped the most subversive leadership principle in human history: the way up is down. The Greek diakonos does not mean a reluctant servant shuffling through obligations. It denotes a deliberate minister who chooses to attend to the needs of others as his primary vocation. Jesus was not abolishing hierarchy. He was inverting it.',crossRefs:['Mark 10:42-45','Luke 22:26-27','John 13:14-15','Philippians 2:5-8'],application:'In 2026 Aurora, this principle obliterates the power games you see in offices, churches, and families. The man who serves coffee at the meeting, who clears the table at family dinner, who stays late to help a colleague finish a project &mdash; that man is ascending, not descending. The kingdom economy runs in reverse.'})">
+        <p class="font-playfair italic text-royal-plum dark:text-royal-gold text-lg">&ldquo;Whoever wants to become great among you must be your servant, and whoever wants to be first must be your slave.&rdquo;</p>
+        <p class="text-xs text-royal-sapphire/40 mt-2">&mdash; Matthew 20:26&ndash;28</p>
+        <p class="text-xs text-[#3D4F2F]/50 mt-1">Tap for full context &amp; Greek insight</p>
+      </div>
+      <p class="font-inter text-sm text-royal-sapphire/60 dark:text-white/50 mt-4 leading-relaxed"><strong class="text-[#3D4F2F]">Greek Root:</strong> <em>diakonos</em> (&#x03B4;&#x03B9;&#x03AC;&#x03BA;&#x03BF;&#x03BD;&#x03BF;&#x03C2;) &mdash; translated &ldquo;servant&rdquo; or &ldquo;minister,&rdquo; this word literally means &ldquo;one who runs through the dust,&rdquo; derived from the image of a person racing to attend to another&rsquo;s needs. It carried no shame in the ancient world when chosen voluntarily; it described the trusted household attendant who managed affairs on behalf of the master. Paul used <em>diakonos</em> to describe his own apostolic role. Jesus applied it to the highest aspiration a man could hold: greatness.</p>
+    </div>
+
+    <!-- THE PREPARATION -->
+    <div class="mb-8">
+      <h3 class="font-cinzel text-sm text-[#3D4F2F] tracking-wider mb-3">THE PREPARATION</h3>
+      <div class="font-inter text-sm text-royal-sapphire/70 dark:text-white/60 leading-relaxed space-y-4">
+        <p>The Roman Empire operated on a brutally simple hierarchy: power flowed downward, obedience flowed upward, and the man at the top served no one. Caesar did not carry his own cloak. Senators did not pour their own wine. The entire Mediterranean world organized itself around a single axiom: greatness means being served. Into that world, Jesus of Nazareth walked into a room with twelve men who had absorbed that axiom from birth, picked up a basin and a towel, and knelt to wash their feet. He did not wash the feet of strangers to make a theological point at a conference. He washed the feet of men who would abandon Him within hours. The act was not symbolic. It was architectural. He was laying the foundation of a kingdom that would outlast Rome by millennia.</p>
+        <p>The context of Matthew 20 is critical. James and John had just lobbied for the highest seats in the kingdom &mdash; positions of honor, visibility, and authority. The other ten were outraged, not because the request was spiritually inappropriate, but because they had been thinking the same thing and were angry at being outmaneuvered. Jesus did not rebuke the desire for greatness. He never said, &ldquo;Stop wanting to be great.&rdquo; He said, &ldquo;Here is how greatness actually works.&rdquo; The pathway to the throne runs through the kitchen, the hospital ward, the thankless task no one else will do. This is not weakness wearing a mask. It is power expressed through its most potent form: voluntary service.</p>
+        <p>History validates the principle with ruthless consistency. The leaders who endured &mdash; the ones whose names still carry weight centuries later &mdash; were not the tyrants but the servants. George Washington could have been crowned king of a new nation. He refused and went home to farm. Winston Churchill, for all his aristocratic bearing, spent the Blitz walking through bombed-out neighborhoods, personally inspecting the damage and encouraging the people who lost everything. Closer to home, your pastor in Aurora who stays after service to stack chairs, the business owner on Colfax who personally trains every new employee, the father who cooks breakfast for his children on Saturday morning without being asked &mdash; these men understand what Rome never could.</p>
       </div>
     </div>
 
-    <!-- Step 2: Emotional Mastery -->
-    <div class="animate-fadeIn">
-      <h2 class="font-cinzel text-2xl text-royal-plum dark:text-royal-gold mb-4">II. Emotional Mastery</h2>
-      <div class="font-inter text-sm leading-relaxed text-royal-sapphire/80 dark:text-white/60 space-y-4">
-        <p>Emotional mastery is not the suppression of feeling — it is the governance of response. A king feels anger, frustration, grief, and joy as deeply as any man. The difference is in the gap between the feeling and the action. That gap is where kings are made.</p>
-        <div class="grid md:grid-cols-2 gap-4 mt-6">
-          <div class="bg-white dark:bg-royal-sapphire/20 border border-royal-gold/10 rounded-xl p-5">
-            <h4 class="font-cinzel text-sm text-royal-gold mb-2">Identify Your Triggers</h4>
-            <p class="text-xs">Write down the five situations that most consistently provoke a strong emotional response in you. Disrespect? Financial pressure? Comparison? Naming them strips their power. You cannot govern what you cannot see.</p>
-          </div>
-          <div class="bg-white dark:bg-royal-sapphire/20 border border-royal-gold/10 rounded-xl p-5">
-            <h4 class="font-cinzel text-sm text-royal-gold mb-2">The 10-Second Rule</h4>
-            <p class="text-xs">When triggered, count to ten before responding. Not silently — deliberately. Feel the emotion rise, acknowledge it, then choose your response rather than being chosen by your reaction. This practice alone will prevent most regrettable words and actions.</p>
-          </div>
-          <div class="bg-white dark:bg-royal-sapphire/20 border border-royal-gold/10 rounded-xl p-5">
-            <h4 class="font-cinzel text-sm text-royal-gold mb-2">The Reframe</h4>
-            <p class="text-xs">Ask: "Will this matter in five years?" If yes, respond with gravity. If not, respond with grace. Most of the things that consume our emotional energy are five-minute problems wearing five-year masks.</p>
-          </div>
-          <div class="bg-white dark:bg-royal-sapphire/20 border border-royal-gold/10 rounded-xl p-5">
-            <h4 class="font-cinzel text-sm text-royal-gold mb-2">Controlled Expression</h4>
-            <p class="text-xs">A king expresses displeasure with calm authority, not with volume. He expresses joy without losing composure. He grieves fully but recovers with purpose. Emotion is human; emotional chaos is not kingly.</p>
-          </div>
-        </div>
+    <!-- ROYAL DECREE -->
+    <div class="royal-decree">
+      <p class="font-cinzel text-xs tracking-[0.2em] text-[#3D4F2F] mb-2">ROYAL DECREE</p>
+      <p class="font-playfair italic text-royal-plum dark:text-royal-gold text-sm leading-relaxed">The King decrees: greatness is measured not by the number of people who serve you, but by the number of people you serve. The throne is built from the bottom up, one act of voluntary service at a time.</p>
+    </div>
+
+    <!-- THE CONSUMPTION -->
+    <div class="mb-8">
+      <h3 class="font-cinzel text-sm text-[#3D4F2F] tracking-wider mb-3">THE CONSUMPTION</h3>
+      <div class="font-inter text-sm text-royal-sapphire/70 dark:text-white/60 leading-relaxed space-y-4">
+        <p>In 2026 Aurora, Colorado, the servant-king principle applies with surgical precision. At your workplace on East Colfax or in the Denver Tech Center, the man who arrives first and sets up the conference room before anyone else walks in has already established authority before the meeting begins. When you serve coffee to your colleague instead of waiting for the intern to do it, you are not diminishing your rank &mdash; you are demonstrating the kind of character that makes rank irrelevant. Your coworkers will not consciously process why they trust you more than the man in the corner office who barks orders. But they will trust you. Because service creates loyalty that title never can.</p>
+        <p>At family dinners, the same principle transforms the table. The man who clears plates, who serves his wife before himself, who ensures the children have what they need before he sits down &mdash; that man is not performing. He is reigning. The counterintuitive power of going last is that everyone in the room follows the man who puts them first. Your Slavic grandmother understood this instinctively when she refused to eat until every guest had a full plate. She was not being subservient. She was presiding. The last to sit is often the one the room revolves around. Let it be you.</p>
       </div>
     </div>
 
-    <!-- Step 3: The Daily Journal -->
-    <div class="animate-fadeIn">
-      <h2 class="font-cinzel text-2xl text-royal-plum dark:text-royal-gold mb-4">III. The Daily Journal</h2>
-      <div class="font-inter text-sm leading-relaxed text-royal-sapphire/80 dark:text-white/60 space-y-4">
-        <p>The unexamined life is a kingdom without a map. Every evening, before sleep, sit with a journal and answer three questions. This practice takes five minutes and compounds into a document of your transformation — a record of the man you were and the man you are becoming.</p>
-        <div class="bg-white dark:bg-royal-sapphire/20 border-l-4 border-royal-gold rounded-r-xl p-6 mt-4 space-y-4">
-          <div>
-            <h4 class="font-cinzel text-sm text-royal-gold mb-1">1. What am I grateful for today?</h4>
-            <p class="text-xs">Gratitude rewires the brain toward abundance. Even on the worst days, there is always something — health, a roof, a meal, a person who cares. Write three specific things. Not generic. Specific.</p>
-          </div>
-          <div>
-            <h4 class="font-cinzel text-sm text-royal-gold mb-1">2. Where did I fall short, and what will I do differently?</h4>
-            <p class="text-xs">Honest self-assessment without self-destruction. Not "I am a failure" but "I did not follow through on X, and tomorrow I will do Y differently." The king audits his reign nightly and adjusts with precision.</p>
-          </div>
-          <div>
-            <h4 class="font-cinzel text-sm text-royal-gold mb-1">3. What are my three priorities for tomorrow?</h4>
-            <p class="text-xs">Go to sleep with a plan. Wake with a purpose. The mind processes and prepares while you rest. A man who sleeps without tomorrow's plan wakes already behind.</p>
-          </div>
-        </div>
+    <!-- SLIDE CARDS -->
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-5 my-10">
+      <div class="card-parchment border border-[#3D4F2F]/10 rounded-xl p-6">
+        <div class="font-cinzel text-xs text-[#3D4F2F] tracking-widest mb-2">INVERSION</div>
+        <h4 class="font-cinzel text-sm text-royal-plum dark:text-royal-gold mb-2">The Way Up Is Down</h4>
+        <p class="text-xs text-royal-sapphire/60 dark:text-white/50 leading-relaxed">Jesus did not abolish the desire for greatness. He inverted the pathway. The man who descends into service ascends into authority that no title can manufacture.</p>
+      </div>
+      <div class="card-parchment border border-[#3D4F2F]/10 rounded-xl p-6">
+        <div class="font-cinzel text-xs text-[#3D4F2F] tracking-widest mb-2">ETYMOLOGY</div>
+        <h4 class="font-cinzel text-sm text-royal-plum dark:text-royal-gold mb-2">Diakonos: Running Through Dust</h4>
+        <p class="text-xs text-royal-sapphire/60 dark:text-white/50 leading-relaxed">The Greek word for servant evokes urgency and voluntary action. Not the shuffling of obligation but the sprint of a man who has chosen to attend to another&rsquo;s need before his own.</p>
+      </div>
+      <div class="card-parchment border border-[#3D4F2F]/10 rounded-xl p-6">
+        <div class="font-cinzel text-xs text-[#3D4F2F] tracking-widest mb-2">PRECEDENT</div>
+        <h4 class="font-cinzel text-sm text-royal-plum dark:text-royal-gold mb-2">The Basin and the Towel</h4>
+        <p class="text-xs text-royal-sapphire/60 dark:text-white/50 leading-relaxed">John 13 records God incarnate kneeling to wash feet. If the Creator of the universe serves, your refusal to serve is not dignity &mdash; it is delusion.</p>
+      </div>
+      <div class="card-parchment border border-[#3D4F2F]/10 rounded-xl p-6">
+        <div class="font-cinzel text-xs text-[#3D4F2F] tracking-widest mb-2">LOYALTY</div>
+        <h4 class="font-cinzel text-sm text-royal-plum dark:text-royal-gold mb-2">Service Creates Allegiance</h4>
+        <p class="text-xs text-royal-sapphire/60 dark:text-white/50 leading-relaxed">Title demands compliance. Service earns devotion. The leader who serves builds a kingdom of loyalty that no restructuring can dissolve.</p>
       </div>
     </div>
 
-    <!-- Step 4: Relationships as Kingdom Alliances -->
-    <div class="animate-fadeIn">
-      <h2 class="font-cinzel text-2xl text-royal-plum dark:text-royal-gold mb-4">IV. Relationships as Kingdom Alliances</h2>
-      <div class="font-inter text-sm leading-relaxed text-royal-sapphire/80 dark:text-white/60 space-y-4">
-        <p>A king's greatest test is not in battle but in love, in friendship, and in the alliances he forges. The people you allow into your inner circle will either build you or dismantle you. Choose with the same care you would choose advisors to a throne.</p>
-        <div class="grid md:grid-cols-2 gap-4 mt-6">
-          <div class="bg-white dark:bg-royal-sapphire/20 border border-royal-gold/10 rounded-xl p-5">
-            <h4 class="font-cinzel text-sm text-royal-gold mb-2">Choosing Your Circle</h4>
-            <p class="text-xs">Surround yourself with men and women who challenge you, who tell you the truth when it is uncomfortable, and who are building something of their own. Avoid those who only appear when they need something and vanish when you do.</p>
-          </div>
-          <div class="bg-white dark:bg-royal-sapphire/20 border border-royal-gold/10 rounded-xl p-5">
-            <h4 class="font-cinzel text-sm text-royal-gold mb-2">Boundaries Are Not Walls</h4>
-            <p class="text-xs">A boundary says "I value this relationship enough to protect it." Learn to say no without guilt, to decline invitations without excuses, and to remove yourself from relationships that consistently drain more than they deposit.</p>
-          </div>
-          <div class="bg-white dark:bg-royal-sapphire/20 border border-royal-gold/10 rounded-xl p-5">
-            <h4 class="font-cinzel text-sm text-royal-gold mb-2">Loyalty</h4>
-            <p class="text-xs">A king does not gossip, does not betray confidence, and does not compete with those he calls brother. Speak of people the same way whether they are present or absent. This single discipline will earn you trust that money cannot buy.</p>
-          </div>
-          <div class="bg-white dark:bg-royal-sapphire/20 border border-royal-gold/10 rounded-xl p-5">
-            <h4 class="font-cinzel text-sm text-royal-gold mb-2">In Romance</h4>
-            <p class="text-xs">Lead with consistency, not grand gestures. Be present. Listen without fixing. Protect her peace. A king's love is steady, not performative. Power without tenderness is tyranny. Tenderness without strength is passivity. Hold both.</p>
-          </div>
-        </div>
+    <!-- PRACTICAL STEPS -->
+    <div class="mb-8">
+      <h3 class="font-cinzel text-lg text-royal-plum dark:text-royal-gold mb-4">Practical Steps</h3>
+      <ul class="space-y-3 text-sm font-inter text-royal-sapphire/70 dark:text-white/60">
+        <li class="flex gap-3"><span class="text-[#3D4F2F] font-cinzel">I.</span> This week at work, arrive ten minutes early and prepare the meeting room &mdash; adjust chairs, set out materials, make coffee &mdash; before anyone else arrives. Do not mention it.</li>
+        <li class="flex gap-3"><span class="text-[#3D4F2F] font-cinzel">II.</span> At your next family dinner, serve every person at the table before you sit down. Observe how it shifts the energy in the room.</li>
+        <li class="flex gap-3"><span class="text-[#3D4F2F] font-cinzel">III.</span> Identify one person in your church or community in Aurora who is doing thankless work. Join them this Sunday without being asked. Stack chairs. Carry boxes. Serve in silence.</li>
+      </ul>
+    </div>
+
+    <!-- WISDOM REFLECTION -->
+    <div class="bg-white dark:bg-royal-sapphire/20 border border-[#3D4F2F]/10 rounded-xl p-6 mb-8">
+      <p class="font-playfair italic text-royal-plum dark:text-royal-gold text-sm mb-4">&ldquo;Where in your life have you been waiting to be served when you should have been serving? Name the specific situation. What changes tomorrow?&rdquo;</p>
+      <textarea rows="3" placeholder="Write your reflection..." class="w-full px-4 py-3 rounded-lg border border-[#3D4F2F]/20 bg-royal-cream/50 dark:bg-white/5 font-inter text-sm focus:outline-none focus:border-[#3D4F2F] resize-none"></textarea>
+      <button data-prompt="Where have you been waiting to be served when you should have been serving?" class="journal-save-btn mt-2 px-4 py-2 bg-[#3D4F2F] text-white text-xs font-cinzel rounded-lg hover:bg-royal-plum transition">Save to Journal</button>
+    </div>
+
+    <!-- QUIZ -->
+    <div class="quiz-block bg-white dark:bg-royal-sapphire/20 border border-[#3D4F2F]/10 rounded-xl p-6 mb-8">
+      <h4 class="font-cinzel text-sm text-[#3D4F2F] mb-4">Counsel from the Throne</h4>
+      <p class="font-playfair italic text-royal-plum dark:text-royal-gold text-sm mb-5">&ldquo;You arrive at a church potluck in Aurora. The kitchen is a mess, the trash needs emptying, and people are standing around waiting for someone to take charge. What does the king do?&rdquo;</p>
+      <div class="space-y-2">
+        <button data-correct="false" class="quiz-option w-full text-left px-4 py-3 rounded-lg border border-[#3D4F2F]/15 text-sm font-inter">Wait for the designated volunteers &mdash; stepping in uninvited could seem presumptuous</button>
+        <button data-correct="true" class="quiz-option w-full text-left px-4 py-3 rounded-lg border border-[#3D4F2F]/15 text-sm font-inter">Roll up your sleeves, take out the trash, and start organizing the kitchen &mdash; without announcement or expectation of thanks</button>
+        <button data-correct="false" class="quiz-option w-full text-left px-4 py-3 rounded-lg border border-[#3D4F2F]/15 text-sm font-inter">Point out the mess to the event coordinator and suggest they recruit help</button>
+      </div>
+      <div class="quiz-feedback hidden mt-4 text-sm font-playfair italic"></div>
+    </div>
+
+    <!-- QUEST -->
+    <div class="quest-panel mb-8">
+      <h4 class="font-cinzel text-sm text-royal-gold mb-2">Quest: The Invisible Servant</h4>
+      <p class="text-xs text-white/70 mb-3">Perform one act of service today that no one will notice or credit to you. Clean something, prepare something, fix something &mdash; and tell no one. Record it in your journal tonight as evidence that your throne is being built.</p>
+      <label class="flex items-center gap-2 cursor-pointer">
+        <input type="checkbox" class="quest-checkbox accent-royal-gold" data-quest="mn-01">
+        <span class="text-xs text-white/80">I completed the invisible service act</span>
+      </label>
+    </div>
+
+    <button class="audio-briefing-btn w-full py-3 border border-[#3D4F2F]/20 text-[#3D4F2F] font-cinzel text-sm rounded-xl hover:bg-[#3D4F2F]/5 transition mb-4">Play Royal Briefing</button>
+    <button class="absorb-btn w-full py-3 bg-[#3D4F2F] text-white font-cinzel tracking-wider rounded-lg hover:bg-royal-plum transition" data-lesson="1">Mark as Absorbed</button>
+    <div class="gold-divider mt-16"></div>
+  </section>
+
+  <!-- ======== LESSON 02 ======== -->
+  <section id="lesson-02" class="lesson-section max-w-4xl mx-auto px-6 pb-20">
+    <div class="font-cinzel text-xs tracking-[0.3em] text-[#3D4F2F]/40 mb-3">LESSON 02</div>
+    <h2 class="font-cinzel text-2xl md:text-3xl text-royal-plum dark:text-royal-gold mb-2">Leading as a Follower</h2>
+    <p class="font-inter text-xs text-[#3D4F2F]/60 mb-8 tracking-wider">YEAR 1 &bull; THE ARCHITECTURE OF WISDOM</p>
+
+    <!-- THE RAW INGREDIENT -->
+    <div class="mb-8">
+      <h3 class="font-cinzel text-sm text-[#3D4F2F] tracking-wider mb-3">THE RAW INGREDIENT</h3>
+      <div class="bg-royal-sapphire/5 dark:bg-white/5 border border-[#3D4F2F]/10 rounded-xl p-6 text-center cursor-pointer hover:border-[#3D4F2F]/30 transition" onclick="openVerseModal({text:'Follow my example, as I follow the example of Christ.',ref:'1 Corinthians 11:1',context:'Paul wrote this to a church he had planted, a congregation he led, a people who looked to him for spiritual authority. And yet his claim to leadership was entirely derivative: follow me because I am following someone else. The Greek mimetes means imitator, not in the sense of mimicry or performance but in the sense of apprenticeship &mdash; the deliberate study and replication of a master&rsquo;s patterns. Paul was simultaneously the leader of the Corinthian church and the follower of Christ. He held both roles without contradiction because he understood that legitimate authority always flows from submission to a higher authority.',crossRefs:['1 Corinthians 4:16','Philippians 3:17','1 Thessalonians 1:6','Hebrews 13:7'],application:'In 2026 Aurora, the man who cannot submit to his pastor, his mentor, or his wife&rsquo;s counsel in her area of expertise will never develop the character necessary to lead others. Followership is not a stage you graduate from. It is a permanent posture that authenticates your authority.'})">
+        <p class="font-playfair italic text-royal-plum dark:text-royal-gold text-lg">&ldquo;Follow my example, as I follow the example of Christ.&rdquo;</p>
+        <p class="text-xs text-royal-sapphire/40 mt-2">&mdash; 1 Corinthians 11:1</p>
+        <p class="text-xs text-[#3D4F2F]/50 mt-1">Tap for full context &amp; Greek insight</p>
+      </div>
+      <p class="font-inter text-sm text-royal-sapphire/60 dark:text-white/50 mt-4 leading-relaxed"><strong class="text-[#3D4F2F]">Greek Root:</strong> <em>mimetes</em> (&#x03BC;&#x03B9;&#x03BC;&#x03B7;&#x03C4;&#x03AE;&#x03C2;) &mdash; translated &ldquo;imitator,&rdquo; derived from <em>mimeomai</em>, meaning &ldquo;to imitate, to follow as a pattern.&rdquo; In the Greco-Roman apprenticeship system, the <em>mimetes</em> was not a passive observer but an active student who studied the master&rsquo;s movements, absorbed his reasoning, and eventually reproduced his skill. Paul is not saying &ldquo;copy my personality.&rdquo; He is saying: &ldquo;I have studied Christ&rsquo;s pattern so thoroughly that my life has become a reliable secondary source. Use me as a textbook while you learn to read the original.&rdquo;</p>
+    </div>
+
+    <!-- THE PREPARATION -->
+    <div class="mb-8">
+      <h3 class="font-cinzel text-sm text-[#3D4F2F] tracking-wider mb-3">THE PREPARATION</h3>
+      <div class="font-inter text-sm text-royal-sapphire/70 dark:text-white/60 leading-relaxed space-y-4">
+        <p>The modern world has made an idol of autonomy. Self-made man. Independent thinker. My own boss. These phrases are marketed as virtues, but Scripture frames them as amputations &mdash; a man severed from the body, operating without connection to the head. Paul was arguably the most influential leader in church history: he planted churches across three continents, wrote thirteen epistles that became Scripture, and shaped Western civilization for two millennia. And yet his claim to authority was always anchored in his submission to Christ. He did not lead from independence. He led from dependence. The most powerful man in early Christianity described himself, repeatedly, as a servant, a slave, and a follower.</p>
+        <p>The king who cannot submit to authority cannot exercise it. This is not paradox &mdash; it is engineering. A bridge that is not anchored on both sides collapses under its own weight. Authority without submission is tyranny. Submission without authority is passivity. Paul held both simultaneously, and the Corinthian church thrived because of it. Consider the Roman centurion in Matthew 8 who understood authority precisely because he was under authority. Jesus marveled at his faith &mdash; the only time in the Gospels that Jesus is recorded as being amazed by a person. The centurion grasped what the Pharisees never could: legitimate power flows from voluntary placement beneath a higher power.</p>
+        <p>In Slavic-American family culture, this principle carries particular weight. Many of our fathers and grandfathers modeled a version of masculinity where submission was synonymous with weakness &mdash; where the man of the house answered to no one. But look at the fruit. Broken marriages. Distant children. Isolated men who drank their loneliness into the grave. The biblical model is different. The man who follows his pastor&rsquo;s counsel, who listens to his wife&rsquo;s insight in domains where she is wiser, who submits to his mentor&rsquo;s correction without defensiveness &mdash; that man is not weak. He is anchored. And an anchored man can hold weight that an untethered man cannot.</p>
       </div>
     </div>
 
-    <!-- Step 5: Discipline Over Motivation -->
-    <div class="animate-fadeIn">
-      <h2 class="font-cinzel text-2xl text-royal-plum dark:text-royal-gold mb-4">V. Discipline Over Motivation</h2>
-      <div class="font-inter text-sm leading-relaxed text-royal-sapphire/80 dark:text-white/60 space-y-4">
-        <p>Motivation is a visitor. Discipline is a resident. Motivation comes and goes like courtiers seeking favor — present on sunny days, absent when the work is hard. Discipline remains when the palace is empty and the battles are long. Build systems, not dreams.</p>
-        <div class="bg-white dark:bg-royal-sapphire/20 border-l-4 border-royal-gold rounded-r-xl p-6 mt-4 space-y-3">
-          <div class="flex items-start gap-3">
-            <span class="text-royal-gold font-cinzel text-sm mt-0.5">1.</span>
-            <p class="text-xs"><strong>Systems Over Goals.</strong> A goal says "I want to lose 20 pounds." A system says "I train at 6am every day and eat by the Royal Plate Method." Goals are destinations. Systems are the roads that get you there. Build the road.</p>
-          </div>
-          <div class="flex items-start gap-3">
-            <span class="text-royal-gold font-cinzel text-sm mt-0.5">2.</span>
-            <p class="text-xs"><strong>Habit Stacking.</strong> Attach new habits to existing ones. After I brush my teeth, I meditate. After I park the car at work, I review my priorities. After dinner, I journal. Stacking removes the decision of "when" and replaces it with automation.</p>
-          </div>
-          <div class="flex items-start gap-3">
-            <span class="text-royal-gold font-cinzel text-sm mt-0.5">3.</span>
-            <p class="text-xs"><strong>Accountability.</strong> Find one person who will ask you the hard questions weekly. Not a yes-man. A truthful ally. Share your commitments and let them hold you to them. A king is accountable to his people.</p>
-          </div>
-          <div class="flex items-start gap-3">
-            <span class="text-royal-gold font-cinzel text-sm mt-0.5">4.</span>
-            <p class="text-xs"><strong>The Two-Day Rule.</strong> Never skip a habit two days in a row. One day off is rest. Two days off is the beginning of a new pattern. If you miss Monday, you do not miss Tuesday. This rule alone has kept more habits alive than any motivational speech.</p>
-          </div>
-        </div>
+    <!-- ROYAL DECREE -->
+    <div class="royal-decree">
+      <p class="font-cinzel text-xs tracking-[0.2em] text-[#3D4F2F] mb-2">ROYAL DECREE</p>
+      <p class="font-playfair italic text-royal-plum dark:text-royal-gold text-sm leading-relaxed">The King decrees: followership is not a stage to graduate from but a permanent posture that authenticates your authority. The man who submits to nothing leads nothing worth following.</p>
+    </div>
+
+    <!-- THE CONSUMPTION -->
+    <div class="mb-8">
+      <h3 class="font-cinzel text-sm text-[#3D4F2F] tracking-wider mb-3">THE CONSUMPTION</h3>
+      <div class="font-inter text-sm text-royal-sapphire/70 dark:text-white/60 leading-relaxed space-y-4">
+        <p>In 2026 Aurora, practical followership looks like this: when your pastor preaches a sermon that convicts you, you do not dismiss it because you disagree with his delivery. You take the conviction home and act on it. When your wife tells you that you have been distant with the children, you do not defend your schedule &mdash; you recognize that she has diagnostic authority in the emotional landscape of your home that you may lack. When your mentor at work corrects your approach to a project, you do not perform compliance while internally dismissing the feedback. You genuinely absorb it, adjust, and grow. The man who follows well in private develops the credibility to lead publicly.</p>
+        <p>At your job in the Denver metro area, followership does not mean passivity. It means executing your supervisor&rsquo;s vision with excellence, even when you believe your approach is superior. It means supporting the team lead&rsquo;s decision publicly while offering private counsel respectfully. It means trusting the process before you have earned the authority to redesign it. The paradox is that the men who follow with this kind of discipline are the ones who get promoted &mdash; not because they are agreeable, but because they have demonstrated the rarest quality in modern organizations: trustworthiness under authority.</p>
       </div>
     </div>
 
-    <!-- Step 6: The Inner War -->
-    <div class="animate-fadeIn">
-      <h2 class="font-cinzel text-2xl text-royal-plum dark:text-royal-gold mb-4">VI. The Inner War</h2>
-      <div class="font-inter text-sm leading-relaxed text-royal-sapphire/80 dark:text-white/60 space-y-4">
-        <p>Self-doubt, comparison, negative self-talk — these are the assassins that infiltrate the king's court when he least expects it. They do not announce themselves with drums and banners. They whisper. And if left unchecked, they will topple everything you have built.</p>
-        <div class="space-y-4 mt-6">
-          <div class="bg-white dark:bg-royal-sapphire/20 border border-royal-gold/10 rounded-xl p-5">
-            <h4 class="font-cinzel text-sm text-royal-gold mb-2">Self-Doubt</h4>
-            <p class="text-xs">Every king has heard the voice that says "you are not enough." The answer is not to silence it but to act in spite of it. Courage is not the absence of doubt — it is action in the presence of it. Move forward. The voice fades with every step taken.</p>
-          </div>
-          <div class="bg-white dark:bg-royal-sapphire/20 border border-royal-gold/10 rounded-xl p-5">
-            <h4 class="font-cinzel text-sm text-royal-gold mb-2">Comparison</h4>
-            <p class="text-xs">Comparison is the thief of peace. Another man's success is not your failure. Another man's timeline is not your deadline. The only comparison worth making is between who you were yesterday and who you are today. Run your own race with kingly patience.</p>
-          </div>
-          <div class="bg-white dark:bg-royal-sapphire/20 border border-royal-gold/10 rounded-xl p-5">
-            <h4 class="font-cinzel text-sm text-royal-gold mb-2">Negative Self-Talk</h4>
-            <p class="text-xs">Would you allow a servant to speak to the king the way you speak to yourself? "You are stupid. You will fail. You do not deserve this." Replace these with statements grounded in evidence: "I have overcome difficult things before. I am building competence. I am in process, and process takes time."</p>
-          </div>
-          <div data-bible class="bg-white dark:bg-royal-sapphire/20 border border-royal-gold/10 rounded-xl p-5">
-            <h4 class="font-cinzel text-sm text-royal-gold mb-2">The Armor</h4>
-            <p class="text-xs">Put on the full armor: truth as your belt, righteousness as your breastplate, faith as your shield, salvation as your helmet, the Word as your sword, and prayer as your constant communication with the Commander. This is not metaphor — it is survival gear.</p>
-          </div>
-        </div>
+    <!-- SLIDE CARDS -->
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-5 my-10">
+      <div class="card-parchment border border-[#3D4F2F]/10 rounded-xl p-6">
+        <div class="font-cinzel text-xs text-[#3D4F2F] tracking-widest mb-2">ARCHITECTURE</div>
+        <h4 class="font-cinzel text-sm text-royal-plum dark:text-royal-gold mb-2">The Anchored Bridge</h4>
+        <p class="text-xs text-royal-sapphire/60 dark:text-white/50 leading-relaxed">Authority without submission collapses like an unanchored bridge. Paul led the early church because he was anchored to Christ. Your leadership holds weight only when anchored to something above you.</p>
+      </div>
+      <div class="card-parchment border border-[#3D4F2F]/10 rounded-xl p-6">
+        <div class="font-cinzel text-xs text-[#3D4F2F] tracking-widest mb-2">APPRENTICESHIP</div>
+        <h4 class="font-cinzel text-sm text-royal-plum dark:text-royal-gold mb-2">Mimetes: The Active Student</h4>
+        <p class="text-xs text-royal-sapphire/60 dark:text-white/50 leading-relaxed">Greek apprenticeship was not passive observation. The imitator studied the master&rsquo;s patterns, absorbed his reasoning, and reproduced his skill. Following is a rigorous discipline, not a demotion.</p>
+      </div>
+      <div class="card-parchment border border-[#3D4F2F]/10 rounded-xl p-6">
+        <div class="font-cinzel text-xs text-[#3D4F2F] tracking-widest mb-2">CENTURION</div>
+        <h4 class="font-cinzel text-sm text-royal-plum dark:text-royal-gold mb-2">Authority Under Authority</h4>
+        <p class="text-xs text-royal-sapphire/60 dark:text-white/50 leading-relaxed">The Roman centurion in Matthew 8 amazed Jesus. He understood power because he was under power. Legitimate authority flows from voluntary submission to a higher authority.</p>
+      </div>
+      <div class="card-parchment border border-[#3D4F2F]/10 rounded-xl p-6">
+        <div class="font-cinzel text-xs text-[#3D4F2F] tracking-widest mb-2">CULTURE</div>
+        <h4 class="font-cinzel text-sm text-royal-plum dark:text-royal-gold mb-2">Redefining Slavic Strength</h4>
+        <p class="text-xs text-royal-sapphire/60 dark:text-white/50 leading-relaxed">Our fathers modeled autonomy as manhood. Many died isolated. The biblical model reframes submission as the structural steel that allows a man to carry weight without breaking.</p>
       </div>
     </div>
 
-    <!-- ============================================================
-         YOUTUBE VIDEO EMBEDS
-         ============================================================ -->
-    <div>
-      <h2 class="font-cinzel text-2xl text-royal-plum dark:text-royal-gold mb-6">Lessons from the Masters</h2>
-      <div class="grid md:grid-cols-2 gap-6">
-        <div class="rounded-xl overflow-hidden border border-royal-gold/10">
-          <div class="aspect-video bg-royal-sapphire/10 flex items-center justify-center" id="videoContainer1">
-            <iframe class="w-full h-full hidden" id="video1" src="about:blank" data-src="https://www.youtube.com/embed/mgmVOuLgFB0" title="The Power of Daily Discipline and Habit" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
-            <button class="load-video-btn px-6 py-3 bg-royal-gold/90 text-white font-cinzel text-sm rounded-lg hover:bg-royal-gold transition" data-target="video1">Load Video</button>
-          </div>
-          <div class="p-4 bg-white dark:bg-royal-sapphire/20">
-            <h4 class="font-cinzel text-sm text-royal-plum dark:text-royal-gold">The Power of Daily Discipline</h4>
-            <p class="text-xs text-royal-sapphire/40 mt-1">Why systems defeat motivation every time</p>
-          </div>
-        </div>
-        <div class="rounded-xl overflow-hidden border border-royal-gold/10">
-          <div class="aspect-video bg-royal-sapphire/10 flex items-center justify-center" id="videoContainer2">
-            <iframe class="w-full h-full hidden" id="video2" src="about:blank" data-src="https://www.youtube.com/embed/IdTMDpizis8" title="Building an Unbreakable Mind" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
-            <button class="load-video-btn px-6 py-3 bg-royal-gold/90 text-white font-cinzel text-sm rounded-lg hover:bg-royal-gold transition" data-target="video2">Load Video</button>
-          </div>
-          <div class="p-4 bg-white dark:bg-royal-sapphire/20">
-            <h4 class="font-cinzel text-sm text-royal-plum dark:text-royal-gold">Building an Unbreakable Mind</h4>
-            <p class="text-xs text-royal-sapphire/40 mt-1">Mental toughness through stoic principles</p>
-          </div>
-        </div>
+    <!-- PRACTICAL STEPS -->
+    <div class="mb-8">
+      <h3 class="font-cinzel text-lg text-royal-plum dark:text-royal-gold mb-4">Practical Steps</h3>
+      <ul class="space-y-3 text-sm font-inter text-royal-sapphire/70 dark:text-white/60">
+        <li class="flex gap-3"><span class="text-[#3D4F2F] font-cinzel">I.</span> Identify three authorities in your life: a spiritual mentor (pastor or elder), a professional leader (boss or senior colleague), and a domestic counselor (wife, parent, or trusted friend). Write their names in your journal tonight.</li>
+        <li class="flex gap-3"><span class="text-[#3D4F2F] font-cinzel">II.</span> This week, when one of those three gives you counsel that makes you defensive, pause and ask: &ldquo;Am I resisting this because it is wrong, or because submission is uncomfortable?&rdquo; Journal the answer honestly.</li>
+        <li class="flex gap-3"><span class="text-[#3D4F2F] font-cinzel">III.</span> Execute one instruction from an authority figure with full excellence this week &mdash; not grudging compliance, but the kind of follow-through that would make a Roman centurion nod with approval.</li>
+      </ul>
+    </div>
+
+    <!-- WISDOM REFLECTION -->
+    <div class="bg-white dark:bg-royal-sapphire/20 border border-[#3D4F2F]/10 rounded-xl p-6 mb-8">
+      <p class="font-playfair italic text-royal-plum dark:text-royal-gold text-sm mb-4">&ldquo;Who are you currently following with genuine submission? If you cannot name anyone, what does that reveal about the foundation of your own authority?&rdquo;</p>
+      <textarea rows="3" placeholder="Write your reflection..." class="w-full px-4 py-3 rounded-lg border border-[#3D4F2F]/20 bg-royal-cream/50 dark:bg-white/5 font-inter text-sm focus:outline-none focus:border-[#3D4F2F] resize-none"></textarea>
+      <button data-prompt="Who are you currently following with genuine submission?" class="journal-save-btn mt-2 px-4 py-2 bg-[#3D4F2F] text-white text-xs font-cinzel rounded-lg hover:bg-royal-plum transition">Save to Journal</button>
+    </div>
+
+    <!-- QUIZ -->
+    <div class="quiz-block bg-white dark:bg-royal-sapphire/20 border border-[#3D4F2F]/10 rounded-xl p-6 mb-8">
+      <h4 class="font-cinzel text-sm text-[#3D4F2F] mb-4">Counsel from the Throne</h4>
+      <p class="font-playfair italic text-royal-plum dark:text-royal-gold text-sm mb-5">&ldquo;Your wife tells you that your approach to disciplining the children is too harsh. You disagree. What does the king do?&rdquo;</p>
+      <div class="space-y-2">
+        <button data-correct="false" class="quiz-option w-full text-left px-4 py-3 rounded-lg border border-[#3D4F2F]/15 text-sm font-inter">Explain why your approach is correct &mdash; you are the head of the household and discipline is your domain</button>
+        <button data-correct="true" class="quiz-option w-full text-left px-4 py-3 rounded-lg border border-[#3D4F2F]/15 text-sm font-inter">Listen fully, acknowledge that she has diagnostic authority in the emotional landscape of the home, and adjust your approach while maintaining the standard</button>
+        <button data-correct="false" class="quiz-option w-full text-left px-4 py-3 rounded-lg border border-[#3D4F2F]/15 text-sm font-inter">Defer entirely to avoid conflict &mdash; keeping the peace is more important than being right</button>
+      </div>
+      <div class="quiz-feedback hidden mt-4 text-sm font-playfair italic"></div>
+    </div>
+
+    <!-- QUEST -->
+    <div class="quest-panel mb-8">
+      <h4 class="font-cinzel text-sm text-royal-gold mb-2">Quest: The Willing Follower</h4>
+      <p class="text-xs text-white/70 mb-3">This week, identify one instruction from an authority figure that you have been internally resisting. Execute it with full excellence and zero complaint. Record the experience and what it taught you about your own leadership capacity.</p>
+      <label class="flex items-center gap-2 cursor-pointer">
+        <input type="checkbox" class="quest-checkbox accent-royal-gold" data-quest="mn-02">
+        <span class="text-xs text-white/80">I executed with full excellence under authority</span>
+      </label>
+    </div>
+
+    <button class="audio-briefing-btn w-full py-3 border border-[#3D4F2F]/20 text-[#3D4F2F] font-cinzel text-sm rounded-xl hover:bg-[#3D4F2F]/5 transition mb-4">Play Royal Briefing</button>
+    <button class="absorb-btn w-full py-3 bg-[#3D4F2F] text-white font-cinzel tracking-wider rounded-lg hover:bg-royal-plum transition" data-lesson="2">Mark as Absorbed</button>
+    <div class="gold-divider mt-16"></div>
+  </section>
+
+  <!-- ======== LESSON 03 ======== -->
+  <section id="lesson-03" class="lesson-section max-w-4xl mx-auto px-6 pb-20">
+    <div class="font-cinzel text-xs tracking-[0.3em] text-[#3D4F2F]/40 mb-3">LESSON 03</div>
+    <h2 class="font-cinzel text-2xl md:text-3xl text-royal-plum dark:text-royal-gold mb-2">Advising the Wise</h2>
+    <p class="font-inter text-xs text-[#3D4F2F]/60 mb-8 tracking-wider">YEAR 1 &bull; THE ARCHITECTURE OF WISDOM</p>
+
+    <!-- THE RAW INGREDIENT -->
+    <div class="mb-8">
+      <h3 class="font-cinzel text-sm text-[#3D4F2F] tracking-wider mb-3">THE RAW INGREDIENT</h3>
+      <div class="bg-royal-sapphire/5 dark:bg-white/5 border border-[#3D4F2F]/10 rounded-xl p-6 text-center cursor-pointer hover:border-[#3D4F2F]/30 transition" onclick="openVerseModal({text:'Do not rebuke mockers or they will hate you; rebuke the wise and they will love you. Instruct the wise and they will be wiser still; teach the righteous and they will add to their learning.',ref:'Proverbs 9:8-9',context:'Solomon draws a sharp binary between the mocker (Hebrew: luts) and the wise man (Hebrew: chakam). The mocker responds to correction with hostility because correction threatens the fragile architecture of his ego. The wise man responds to correction with gratitude because correction is the raw material from which wisdom is built. This proverb is not primarily about receiving counsel. It is about giving it &mdash; specifically, knowing how to counsel upward: to your pastor, your boss, someone with more experience, more education, or more authority than you hold.',crossRefs:['Proverbs 12:1','Proverbs 15:31-32','Proverbs 27:5-6','Ecclesiastes 7:5'],application:'In 2026 Aurora, this skill is rare and priceless. The ability to counsel your boss without threatening him, to advise your pastor without usurping him, to speak truth to someone who holds power over you &mdash; this is the differentiator between a man who is merely competent and a man who is indispensable.'})">
+        <p class="font-playfair italic text-royal-plum dark:text-royal-gold text-lg">&ldquo;Rebuke the wise and they will love you. Instruct the wise and they will be wiser still.&rdquo;</p>
+        <p class="text-xs text-royal-sapphire/40 mt-2">&mdash; Proverbs 9:8&ndash;9</p>
+        <p class="text-xs text-[#3D4F2F]/50 mt-1">Tap for full context &amp; Hebrew insight</p>
+      </div>
+      <p class="font-inter text-sm text-royal-sapphire/60 dark:text-white/50 mt-4 leading-relaxed"><strong class="text-[#3D4F2F]">Hebrew Root:</strong> <em>chakam</em> (&#x05D7;&#x05B8;&#x05DB;&#x05B8;&#x05DD;) &mdash; translated &ldquo;wise&rdquo; but carrying a far richer meaning than mere intellectual acumen. <em>Chakam</em> denotes skill, craftsmanship, and applied intelligence. In Exodus 31:3, the same word describes Bezalel, the artisan who built the Tabernacle &mdash; a man wise with his hands, not merely his head. The wise person in Proverbs is not the one who knows the most. He is the one who is most skilled at living. And the hallmark of that skill is the ability to receive counsel from anyone, including those beneath him in rank, without defensiveness.</p>
+    </div>
+
+    <!-- THE PREPARATION -->
+    <div class="mb-8">
+      <h3 class="font-cinzel text-sm text-[#3D4F2F] tracking-wider mb-3">THE PREPARATION</h3>
+      <div class="font-inter text-sm text-royal-sapphire/70 dark:text-white/60 leading-relaxed space-y-4">
+        <p>Solomon, the wisest man who ever lived according to Scripture, did not attain wisdom in isolation. First Kings 10 records the visit of the Queen of Sheba, who came not merely to test Solomon but to exchange counsel with him. The text says she &ldquo;told him all that was on her mind&rdquo; (1 Kings 10:2). Solomon listened. The wisest man on earth sat across from a foreign queen and listened. He did not dismiss her questions. He did not condescend. He engaged. Wisdom, at its highest expression, is a two-way conversation &mdash; not a monologue delivered from a throne.</p>
+        <p>The tragedy of Rehoboam in 1 Kings 12 provides the inverse case study. When the people of Israel asked Rehoboam for lighter burdens, he consulted the elders who had served his father Solomon. Their counsel was sound: &ldquo;Lighten their load and they will serve you forever.&rdquo; Rehoboam rejected their advice and instead listened to the young men who had grown up with him &mdash; men who told him what his ego wanted to hear. The result was catastrophic: the kingdom split in two, and Rehoboam ruled over the remnant of what could have been a unified empire. The lesson is architectural: the quality of the counsel you accept determines the trajectory of your reign.</p>
+        <p>Advising upward &mdash; counseling your boss, your pastor, someone with more authority or expertise &mdash; is one of the most valuable and most dangerous skills a man can develop. It is valuable because every leader has blind spots, and the man who can illuminate those blind spots without triggering defensiveness becomes indispensable. It is dangerous because poorly executed upward counsel is indistinguishable from insubordination. The Socratic method is the key: ask questions instead of making declarations. &ldquo;Have you considered...?&rdquo; carries ten times the persuasive weight of &ldquo;You should...&rdquo; One opens a door. The other builds a wall.</p>
       </div>
     </div>
 
-    <!-- ============================================================
-         WISDOM REFLECTIONS
-         ============================================================ -->
-    <div>
-      <h2 class="font-cinzel text-2xl text-royal-plum dark:text-royal-gold mb-6">Wisdom Reflections</h2>
-      <div class="space-y-6">
-        <div class="bg-white dark:bg-royal-sapphire/20 border border-royal-gold/10 rounded-xl p-6">
-          <p class="font-playfair italic text-royal-plum dark:text-royal-gold text-sm mb-4">"What thought pattern have you tolerated that a king would never allow in his court? Name it. Then decide what replaces it."</p>
-          <textarea rows="3" placeholder="Write your reflection..." class="w-full px-4 py-3 rounded-lg border border-royal-gold/20 bg-royal-cream/50 dark:bg-white/5 font-inter text-sm focus:outline-none focus:border-royal-gold resize-none"></textarea>
-          <button data-prompt="What thought pattern have you tolerated that a king would never allow in his court?" class="journal-save-btn mt-2 px-4 py-2 bg-royal-gold text-white text-xs font-cinzel rounded-lg hover:bg-royal-plum transition">Save to Journal</button>
-        </div>
-        <div class="bg-white dark:bg-royal-sapphire/20 border border-royal-gold/10 rounded-xl p-6">
-          <p class="font-playfair italic text-royal-plum dark:text-royal-gold text-sm mb-4">"If discipline were a person who watched your last seven days, what would he say to you? Would he be proud, or would he pull you aside for a difficult conversation?"</p>
-          <textarea rows="3" placeholder="Write your reflection..." class="w-full px-4 py-3 rounded-lg border border-royal-gold/20 bg-royal-cream/50 dark:bg-white/5 font-inter text-sm focus:outline-none focus:border-royal-gold resize-none"></textarea>
-          <button data-prompt="If discipline were a person who watched your last 7 days, what would he say to you?" class="journal-save-btn mt-2 px-4 py-2 bg-royal-gold text-white text-xs font-cinzel rounded-lg hover:bg-royal-plum transition">Save to Journal</button>
-        </div>
+    <!-- ROYAL DECREE -->
+    <div class="royal-decree">
+      <p class="font-cinzel text-xs tracking-[0.2em] text-[#3D4F2F] mb-2">ROYAL DECREE</p>
+      <p class="font-playfair italic text-royal-plum dark:text-royal-gold text-sm leading-relaxed">The King decrees: a wise man does not merely accept counsel &mdash; he cultivates the skill of giving counsel upward, using questions as his instrument and timing as his ally. The mocker tells people what to do. The <em>chakam</em> asks the question that changes what they see.</p>
+    </div>
+
+    <!-- THE CONSUMPTION -->
+    <div class="mb-8">
+      <h3 class="font-cinzel text-sm text-[#3D4F2F] tracking-wider mb-3">THE CONSUMPTION</h3>
+      <div class="font-inter text-sm text-royal-sapphire/70 dark:text-white/60 leading-relaxed space-y-4">
+        <p>In 2026 Aurora professional life, the ability to advise upward separates the man who remains at the same desk for a decade from the man whose counsel is sought by the corner office. When your boss at the company on South Havana Street or in the Denver Tech Center is about to make a decision you believe is flawed, you do not say, &ldquo;That is a bad idea.&rdquo; You say, &ldquo;I want to make sure we have considered one factor &mdash; what happens if X occurs?&rdquo; You frame your insight as a question, not a verdict. You time it privately, not in front of the team. You use one sentence, not a lecture. The one-sentence principle is critical: if you cannot distill your counsel into a single, precise observation, you have not thought about it enough to speak.</p>
+        <p>In church, the same protocol applies. When your pastor makes a decision you question, you do not challenge him publicly or gossip to fellow congregants. You request a private conversation. You begin with affirmation of his leadership. You present your concern as a question: &ldquo;Pastor, I noticed X, and I wondered if you had considered Y.&rdquo; Timing matters enormously &mdash; Sunday morning after a demanding service is the worst time. A Tuesday coffee meeting is the best. Tone matters: curious, not combative. Posture matters: seated at the same level, not standing over him with arms crossed. The wise man makes his counsel easy to receive because he understands that the packaging of truth is as important as the truth itself.</p>
       </div>
     </div>
 
-    <!-- ============================================================
-         COUNSEL FROM THE THRONE QUIZ
-         ============================================================ -->
-    <div>
-      <h2 class="font-cinzel text-2xl text-royal-plum dark:text-royal-gold mb-6">Counsel from the Throne</h2>
-      <div class="quiz-block bg-white dark:bg-royal-sapphire/20 border border-royal-gold/10 rounded-xl p-8">
-        <p class="font-playfair italic text-royal-plum dark:text-royal-gold mb-6">"A close friend publicly disrespects you at a gathering. Others are watching. Your pulse quickens and your jaw tightens. What does the king do?"</p>
-        <div class="space-y-3">
-          <button data-correct="false" class="quiz-option w-full text-left px-5 py-3 rounded-lg border border-royal-gold/15 hover:border-royal-gold/40 transition text-sm font-inter">Respond immediately with equal force to maintain respect in front of the group</button>
-          <button data-correct="false" class="quiz-option w-full text-left px-5 py-3 rounded-lg border border-royal-gold/15 hover:border-royal-gold/40 transition text-sm font-inter">Walk away silently, cut them from your life, and never address it</button>
-          <button data-correct="true" class="quiz-option w-full text-left px-5 py-3 rounded-lg border border-royal-gold/15 hover:border-royal-gold/40 transition text-sm font-inter">Pause, maintain composure with a calm expression, and address it privately later with direct but controlled authority</button>
-        </div>
-        <div class="quiz-feedback hidden mt-4 text-sm font-playfair italic"></div>
+    <!-- SLIDE CARDS -->
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-5 my-10">
+      <div class="card-parchment border border-[#3D4F2F]/10 rounded-xl p-6">
+        <div class="font-cinzel text-xs text-[#3D4F2F] tracking-widest mb-2">METHOD</div>
+        <h4 class="font-cinzel text-sm text-royal-plum dark:text-royal-gold mb-2">The Socratic Instrument</h4>
+        <p class="text-xs text-royal-sapphire/60 dark:text-white/50 leading-relaxed">&ldquo;Have you considered...?&rdquo; opens a door. &ldquo;You should...&rdquo; builds a wall. Questions carry ten times the persuasive weight of declarations when counseling upward.</p>
+      </div>
+      <div class="card-parchment border border-[#3D4F2F]/10 rounded-xl p-6">
+        <div class="font-cinzel text-xs text-[#3D4F2F] tracking-widest mb-2">WARNING</div>
+        <h4 class="font-cinzel text-sm text-royal-plum dark:text-royal-gold mb-2">The Rehoboam Catastrophe</h4>
+        <p class="text-xs text-royal-sapphire/60 dark:text-white/50 leading-relaxed">Rehoboam rejected wise counsel and accepted flattery. The kingdom split in two. The quality of counsel you accept determines the trajectory of your entire reign.</p>
+      </div>
+      <div class="card-parchment border border-[#3D4F2F]/10 rounded-xl p-6">
+        <div class="font-cinzel text-xs text-[#3D4F2F] tracking-widest mb-2">TIMING</div>
+        <h4 class="font-cinzel text-sm text-royal-plum dark:text-royal-gold mb-2">The Tuesday Principle</h4>
+        <p class="text-xs text-royal-sapphire/60 dark:text-white/50 leading-relaxed">Sunday morning after a demanding service is the worst time to counsel your pastor. A Tuesday coffee meeting is the best. Timing is half of truth&rsquo;s effectiveness.</p>
+      </div>
+      <div class="card-parchment border border-[#3D4F2F]/10 rounded-xl p-6">
+        <div class="font-cinzel text-xs text-[#3D4F2F] tracking-widest mb-2">PRECISION</div>
+        <h4 class="font-cinzel text-sm text-royal-plum dark:text-royal-gold mb-2">The One-Sentence Rule</h4>
+        <p class="text-xs text-royal-sapphire/60 dark:text-white/50 leading-relaxed">If you cannot distill your counsel into a single sentence, you have not thought about it enough to speak. Brevity is not limitation &mdash; it is evidence of clarity.</p>
       </div>
     </div>
 
-    <!-- ============================================================
-         WEIRD-SCENARIO SOLVER
-         ============================================================ -->
-    <div class="bg-royal-sapphire dark:bg-royal-sapphire/80 rounded-2xl p-8 text-white">
-      <h2 class="font-cinzel text-xl text-royal-gold mb-2">Royal Protocol Solver</h2>
-      <p class="text-sm text-white/50 mb-6">Describe any mental or relational challenge — handling jealous coworkers, maintaining composure when insulted, balancing confidence vs. arrogance, navigating cultural differences in showing respect — and receive the king's counsel.</p>
-      <form id="scenarioForm" class="flex gap-3">
-        <input type="text" id="scenarioInput" placeholder="e.g., 'I keep procrastinating on important decisions...'" class="flex-1 px-4 py-3 rounded-lg bg-white/10 border border-royal-gold/20 text-white font-inter text-sm focus:outline-none focus:border-royal-gold placeholder-white/30">
-        <button type="submit" class="px-6 py-3 bg-royal-gold text-royal-sapphire font-cinzel text-sm rounded-lg hover:bg-white transition">Counsel</button>
-      </form>
-      <div id="scenarioResponse" class="mt-4"></div>
+    <!-- PRACTICAL STEPS -->
+    <div class="mb-8">
+      <h3 class="font-cinzel text-lg text-royal-plum dark:text-royal-gold mb-4">Practical Steps</h3>
+      <ul class="space-y-3 text-sm font-inter text-royal-sapphire/70 dark:text-white/60">
+        <li class="flex gap-3"><span class="text-[#3D4F2F] font-cinzel">I.</span> This week, identify one situation at work where you have a genuine insight that your boss has not considered. Distill it into one sentence framed as a question. Deliver it privately, with timing and tone.</li>
+        <li class="flex gap-3"><span class="text-[#3D4F2F] font-cinzel">II.</span> Practice the Socratic method in a low-stakes conversation. Ask three consecutive questions before making any statement. Observe how the other person arrives at the conclusion you wanted to declare.</li>
+        <li class="flex gap-3"><span class="text-[#3D4F2F] font-cinzel">III.</span> Read 1 Kings 12 tonight &mdash; the story of Rehoboam&rsquo;s catastrophic rejection of wise counsel. Write one sentence in your journal about what you would have done differently.</li>
+      </ul>
     </div>
 
-    <!-- ============================================================
-         CHECKLIST BUILDER
-         ============================================================ -->
-    <div>
-      <h2 class="font-cinzel text-2xl text-royal-plum dark:text-royal-gold mb-6">Your Royal Mentality Checklist</h2>
-      <div class="bg-white dark:bg-royal-sapphire/20 border border-royal-gold/10 rounded-xl p-6">
-        <form id="checklistForm" class="flex gap-3 mb-6">
-          <input type="text" id="checklistInput" placeholder="Add a mental discipline goal..." class="flex-1 px-4 py-3 rounded-lg border border-royal-gold/20 bg-royal-cream/50 dark:bg-white/5 font-inter text-sm focus:outline-none focus:border-royal-gold">
-          <button type="submit" class="px-4 py-3 bg-royal-gold text-white text-sm font-cinzel rounded-lg hover:bg-royal-plum transition">Add</button>
-        </form>
-        <div id="checklistItems" class="space-y-2"></div>
+    <!-- WISDOM REFLECTION -->
+    <div class="bg-white dark:bg-royal-sapphire/20 border border-[#3D4F2F]/10 rounded-xl p-6 mb-8">
+      <p class="font-playfair italic text-royal-plum dark:text-royal-gold text-sm mb-4">&ldquo;When was the last time you counseled someone with more authority than you? Did you use questions or declarations? How was it received &mdash; and what would you do differently?&rdquo;</p>
+      <textarea rows="3" placeholder="Write your reflection..." class="w-full px-4 py-3 rounded-lg border border-[#3D4F2F]/20 bg-royal-cream/50 dark:bg-white/5 font-inter text-sm focus:outline-none focus:border-[#3D4F2F] resize-none"></textarea>
+      <button data-prompt="When was the last time you counseled someone with more authority than you?" class="journal-save-btn mt-2 px-4 py-2 bg-[#3D4F2F] text-white text-xs font-cinzel rounded-lg hover:bg-royal-plum transition">Save to Journal</button>
+    </div>
+
+    <!-- QUIZ -->
+    <div class="quiz-block bg-white dark:bg-royal-sapphire/20 border border-[#3D4F2F]/10 rounded-xl p-6 mb-8">
+      <h4 class="font-cinzel text-sm text-[#3D4F2F] mb-4">Counsel from the Throne</h4>
+      <p class="font-playfair italic text-royal-plum dark:text-royal-gold text-sm mb-5">&ldquo;Your boss is about to present a strategy that you believe has a critical flaw. The presentation is tomorrow. What does the king do?&rdquo;</p>
+      <div class="space-y-2">
+        <button data-correct="false" class="quiz-option w-full text-left px-4 py-3 rounded-lg border border-[#3D4F2F]/15 text-sm font-inter">Say nothing and let the presentation fail &mdash; he will learn from the mistake</button>
+        <button data-correct="false" class="quiz-option w-full text-left px-4 py-3 rounded-lg border border-[#3D4F2F]/15 text-sm font-inter">Email the entire team with your analysis of the flaw, ensuring the issue is documented</button>
+        <button data-correct="true" class="quiz-option w-full text-left px-4 py-3 rounded-lg border border-[#3D4F2F]/15 text-sm font-inter">Request a brief private meeting today, affirm the overall strategy, then ask one precise question that illuminates the blind spot without declaring the flaw</button>
       </div>
+      <div class="quiz-feedback hidden mt-4 text-sm font-playfair italic"></div>
     </div>
 
+    <!-- QUEST -->
+    <div class="quest-panel mb-8">
+      <h4 class="font-cinzel text-sm text-royal-gold mb-2">Quest: The Socratic Advisor</h4>
+      <p class="text-xs text-white/70 mb-3">This week, deliver one piece of upward counsel using only questions. No declarations, no opinions stated as facts. Ask the question, wait for the response, and observe the result. Record the exchange in your journal.</p>
+      <label class="flex items-center gap-2 cursor-pointer">
+        <input type="checkbox" class="quest-checkbox accent-royal-gold" data-quest="mn-03">
+        <span class="text-xs text-white/80">I delivered upward counsel through questions alone</span>
+      </label>
+    </div>
+
+    <button class="audio-briefing-btn w-full py-3 border border-[#3D4F2F]/20 text-[#3D4F2F] font-cinzel text-sm rounded-xl hover:bg-[#3D4F2F]/5 transition mb-4">Play Royal Briefing</button>
+    <button class="absorb-btn w-full py-3 bg-[#3D4F2F] text-white font-cinzel tracking-wider rounded-lg hover:bg-royal-plum transition" data-lesson="3">Mark as Absorbed</button>
+    <div class="gold-divider mt-16"></div>
+  </section>
+
+  <!-- FAQ (SEO) -->
+  <section class="max-w-4xl mx-auto px-6 pb-16">
+    <h2 class="font-cinzel text-2xl text-royal-plum dark:text-royal-gold mb-8 text-center">Frequently Asked Questions</h2>
+    <div class="space-y-4">
+      <details class="bg-white dark:bg-royal-sapphire/20 border border-[#3D4F2F]/10 rounded-xl p-6">
+        <summary class="font-cinzel text-sm text-[#3D4F2F] cursor-pointer">Does servant leadership mean letting people walk over you?</summary>
+        <p class="mt-3 text-sm font-inter text-royal-sapphire/70 dark:text-white/60 leading-relaxed">Absolutely not. Jesus, the archetype of servant leadership, also overturned tables in the temple and rebuked the Pharisees with devastating precision. Servant leadership is not passivity &mdash; it is the strategic deployment of power through service rather than coercion. The servant king serves from strength, not weakness. He chooses to go last; he is not forced there. The distinction is critical: a man who is unable to assert himself is not humble &mdash; he is powerless. A man who is capable of assertion but chooses service instead is exercising the highest form of authority available.</p>
+      </details>
+      <details class="bg-white dark:bg-royal-sapphire/20 border border-[#3D4F2F]/10 rounded-xl p-6">
+        <summary class="font-cinzel text-sm text-[#3D4F2F] cursor-pointer">How do I submit to authority I disagree with?</summary>
+        <p class="mt-3 text-sm font-inter text-royal-sapphire/70 dark:text-white/60 leading-relaxed">Submission does not require agreement. It requires trust in the structure, not necessarily trust in the individual. When you disagree with your boss or pastor, you first execute with excellence, then offer counsel privately using the Socratic method. The exception is clear moral violation &mdash; you never submit to instructions that violate Scripture or conscience. But most disagreements are not moral crises; they are preference conflicts. In those cases, the king executes the vision he is under and offers his perspective through proper channels, at proper timing, with proper tone.</p>
+      </details>
+      <details class="bg-white dark:bg-royal-sapphire/20 border border-[#3D4F2F]/10 rounded-xl p-6">
+        <summary class="font-cinzel text-sm text-[#3D4F2F] cursor-pointer">What if my counsel is rejected by someone in authority?</summary>
+        <p class="mt-3 text-sm font-inter text-royal-sapphire/70 dark:text-white/60 leading-relaxed">You delivered the counsel. That was your responsibility. The response is theirs. Proverbs 9:8-9 distinguishes between the wise and the mocker: the wise person receives counsel with gratitude; the mocker responds with hostility. If your boss rejects your well-timed, well-framed insight, you do not repeat it louder. You do not sulk. You do not say &ldquo;I told you so&rdquo; when the consequences arrive. You continue to serve with excellence and wait for the next opportunity. Your credibility compounds over time. The man who is right once and gracious about it will be listened to more carefully the second time.</p>
+      </details>
+    </div>
+    <p class="text-xs text-royal-sapphire/30 dark:text-white/15 text-center mt-8 font-inter">Last updated: March 2026</p>
   </section>
 
   <div id="mainFooter"></div>
+
   <script src="shared.js"></script>
   <script src="pillar-template.js"></script>
   <script>
     document.addEventListener('DOMContentLoaded', function() {
-      if (!requireAuth()) return;
       initPillar('mentality');
 
-      /* ---------- Lazy-Load Videos ---------- */
-      document.querySelectorAll('.load-video-btn').forEach(function(btn) {
+      var absorbed = JSON.parse(localStorage.getItem('kl_mentality_absorbed') || '[]');
+      var total = 3;
+      var pct = Math.round((absorbed.length / total) * 100);
+      var bar = document.getElementById('progressBar');
+      var fill = document.getElementById('progressFill');
+      var text = document.getElementById('progressText');
+      if (bar) bar.style.width = pct + '%';
+      if (fill) fill.style.width = pct + '%';
+      if (text) text.textContent = 'Mentality Mastery ' + pct + '%';
+
+      document.querySelectorAll('.absorb-btn').forEach(function(btn) {
+        var lesson = parseInt(btn.dataset.lesson);
+        if (absorbed.includes(lesson)) {
+          btn.textContent = 'Absorbed';
+          btn.classList.add('absorbed');
+        }
         btn.addEventListener('click', function() {
-          var iframe = document.getElementById(btn.dataset.target);
-          if (iframe) {
-            iframe.src = iframe.dataset.src;
-            iframe.classList.remove('hidden');
-            btn.remove();
+          if (absorbed.includes(lesson)) return;
+          absorbed.push(lesson);
+          localStorage.setItem('kl_mentality_absorbed', JSON.stringify(absorbed));
+          btn.textContent = 'Absorbed';
+          btn.classList.add('absorbed');
+          pct = Math.round((absorbed.length / total) * 100);
+          if (bar) bar.style.width = pct + '%';
+          if (fill) fill.style.width = pct + '%';
+          if (text) text.textContent = 'Mentality Mastery ' + pct + '%';
+          updateStreak();
+        });
+      });
+
+      var observer = new IntersectionObserver(function(entries) {
+        entries.forEach(function(e) {
+          if (e.isIntersecting) e.target.classList.add('visible');
+        });
+      }, { threshold: 0.05 });
+      document.querySelectorAll('.lesson-section').forEach(function(s) { observer.observe(s); });
+
+      var tocDots = document.querySelectorAll('#lessonToc .toc-dot');
+      var sections = document.querySelectorAll('.lesson-section');
+      var tocObserver = new IntersectionObserver(function(entries) {
+        entries.forEach(function(e) {
+          if (e.isIntersecting) {
+            var id = e.target.id;
+            tocDots.forEach(function(d) {
+              d.classList.toggle('active', d.getAttribute('href') === '#' + id);
+            });
           }
+        });
+      }, { threshold: 0.3, rootMargin: '-100px 0px -60% 0px' });
+      sections.forEach(function(s) { tocObserver.observe(s); });
+
+      document.querySelectorAll('.quest-checkbox').forEach(function(cb) {
+        var key = 'kl_quest_' + cb.dataset.quest;
+        cb.checked = localStorage.getItem(key) === 'true';
+        cb.addEventListener('change', function() {
+          localStorage.setItem(key, cb.checked);
         });
       });
     });

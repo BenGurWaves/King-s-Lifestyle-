@@ -1,318 +1,769 @@
-<!-- attire.html – v0.0.7 -->
+<!-- attire.html – v0.0.8 -->
 <!DOCTYPE html>
 <html lang="en" class="scroll-smooth">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0">
   <title>Attire — A King's Lifestyle</title>
+  <meta name="description" content="Biblical jewelry and modest adornment for the modern king. 6 deep lessons on rings, watches, chains, and the minimalist standard grounded in Scripture.">
   <link rel="manifest" href="manifest.json">
   <script src="https://cdn.tailwindcss.com"></script>
   <script>tailwind.config={darkMode:'class',theme:{extend:{colors:{royal:{green:'#052B20',cream:'#FFF6E6',gold:'#A38255',plum:'#571641',sapphire:'#08052D'}},fontFamily:{cinzel:['Cinzel','serif'],inter:['Inter','sans-serif'],playfair:['Playfair Display','serif']},animation:{fadeIn:'fadeIn 0.8s ease-out forwards',fadeInUp:'fadeInUp 0.8s ease-out forwards'},keyframes:{fadeIn:{'0%':{opacity:'0'},'100%':{opacity:'1'}},fadeInUp:{'0%':{opacity:'0',transform:'translateY(24px)'},'100%':{opacity:'1',transform:'translateY(0)'}}}}}};</script>
   <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600;700&family=Inter:wght@300;400;500;600&family=Playfair+Display:ital,wght@0,400;0,600;1,400&display=swap" rel="stylesheet">
   <script src="https://unpkg.com/@supabase/supabase-js@2" defer></script>
-  <style>html,body{overflow-x:hidden;max-width:100vw;}.bg-parchment{background-image:url("data:image/svg+xml,%3Csvg width='100' height='100' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.8' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100' height='100' filter='url(%23n)' opacity='0.03'/%3E%3C/svg%3E");}.gold-glow:hover{box-shadow:0 0 30px rgba(163,130,85,0.25);}.dark .bg-parchment{background-color:#0a0a0a;}.dark body{background-color:#0a0a0a;color:#e0d5c4;}</style>
+  <style>
+    html,body{overflow-x:hidden;max-width:100vw;}
+    .bg-parchment{background-image:url("data:image/svg+xml,%3Csvg width='100' height='100' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.8' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100' height='100' filter='url(%23n)' opacity='0.03'/%3E%3C/svg%3E");}
+    .gold-glow:hover{box-shadow:0 0 30px rgba(163,130,85,0.25);}
+    .dark .bg-parchment{background-color:#0a0a0a;}
+    .dark body{background-color:#0a0a0a;color:#e0d5c4;}
+    .lesson-section{opacity:0;transform:translateY(30px);transition:opacity 0.7s ease-out,transform 0.7s ease-out;}
+    .lesson-section.visible{opacity:1;transform:translateY(0);}
+    .toc-dot{width:8px;height:8px;border-radius:50%;border:1.5px solid rgba(139,125,107,0.3);transition:all 0.3s;display:block;}
+    .toc-dot.active{background:#8B7D6B;border-color:#8B7D6B;box-shadow:0 0 8px rgba(139,125,107,0.4);}
+    .gold-divider{height:1px;background:linear-gradient(90deg,transparent,#8B7D6B 50%,transparent);margin:0 auto;max-width:200px;}
+    .absorb-btn.absorbed{background:#052B20 !important;cursor:default;}
+    .card-parchment{background:linear-gradient(135deg,#FFF6E6 0%,#f5e6cc 100%);}
+    .dark .card-parchment{background:linear-gradient(135deg,#1a1a1a 0%,#141210 100%);}
+    .quiz-option{cursor:pointer;transition:border-color 0.2s;}
+    .quiz-option:hover{border-color:#8B7D6B !important;}
+    .royal-decree{border-left:3px solid #A38255;background:linear-gradient(135deg,rgba(163,130,85,0.05),rgba(163,130,85,0.02));padding:1.5rem;border-radius:0 0.75rem 0.75rem 0;margin:1.5rem 0;}
+    .quest-panel{background:linear-gradient(135deg,#052B20,#08052D);border-radius:1rem;padding:1.5rem;color:white;}
+  </style>
 </head>
-<body class="bg-royal-cream bg-parchment font-inter text-royal-sapphire min-h-screen">
+<body class="bg-royal-cream bg-parchment font-inter text-royal-sapphire min-h-screen overflow-x-hidden">
   <div id="mainNav"></div>
 
-  <!-- ============================================================
-       STORYTELLING INTRO
-       ============================================================ -->
-  <section class="max-w-4xl mx-auto px-6 pt-20 pb-12 animate-fadeInUp">
-    <div class="text-center mb-16">
-      <h1 class="font-cinzel text-3xl md:text-5xl text-royal-plum mb-8 tracking-wide">Attire</h1>
-      <div class="max-w-2xl mx-auto space-y-5">
-        <p class="font-playfair italic text-royal-gold text-lg leading-relaxed">
-          A king's garments were never accidental. Every thread spoke before he did. The silk announced wealth without vulgarity. The cut declared authority without aggression. The color communicated allegiance, mourning, celebration, or war — all before a single word crossed his lips. His clothing was his first act of communication, and he never wasted it.
-        </p>
-        <p class="font-inter text-sm text-royal-sapphire/70 dark:text-white/50 leading-relaxed">
-          In the modern world, most men have lost this understanding. They dress by convenience, by trend, by whatever algorithm placed in front of them. They buy what is marketed, not what is meaningful. The result is a wardrobe full of clothes and nothing to wear — a closet that communicates confusion rather than clarity. A king does not follow fashion. He establishes a standard and holds it.
-        </p>
-        <p class="font-inter text-sm text-royal-sapphire/70 dark:text-white/50 leading-relaxed">
-          First impressions are armor. Research consistently shows that it takes seven seconds to form a judgment, and the majority of that judgment is visual. Your attire is not vanity — it is strategy. It is the external declaration of the internal work you have done. Dress with purpose, and the world will respond to the man it sees before it ever knows the man within.
-        </p>
-      </div>
+  <!-- PROGRESS BAR -->
+  <div class="fixed top-0 left-0 right-0 z-[60] pointer-events-none">
+    <div class="h-1 bg-royal-sapphire/5">
+      <div id="progressFill" class="h-full bg-gradient-to-r from-[#8B7D6B] to-royal-gold transition-all duration-700 ease-out" style="width:0%"></div>
     </div>
+  </div>
 
-    <div class="bg-royal-sapphire/5 dark:bg-white/5 border border-royal-gold/10 rounded-xl p-6 mb-6 text-center">
-      <p class="font-playfair italic text-royal-plum dark:text-royal-gold text-lg">"She makes coverings for her bed; she is clothed in fine linen and purple."</p>
-      <p class="text-xs text-royal-sapphire/40 mt-2">— Proverbs 31:22</p>
+  <!-- HERO -->
+  <section class="max-w-4xl mx-auto px-6 pt-24 pb-12 text-center">
+    <div class="font-cinzel text-xs tracking-[0.3em] text-[#8B7D6B]/50 uppercase mb-4">Year 1 &mdash; The Architecture of Wisdom</div>
+    <h1 class="font-cinzel text-4xl md:text-5xl lg:text-6xl text-royal-plum dark:text-royal-gold tracking-wide leading-tight">Attire</h1>
+    <p class="font-playfair italic text-[#8B7D6B] text-lg mt-4">Jewelry &amp; Modest Adornment</p>
+    <p class="font-inter text-sm text-royal-sapphire/50 dark:text-white/40 mt-3 max-w-xl mx-auto">A king&rsquo;s adornment was never accidental. Every ring carried authority. Every chain declared allegiance. Six lessons on Biblical jewelry, modest presentation, and the minimalist standard that separates royalty from noise.</p>
+    <div class="mt-6 flex items-center justify-center gap-3">
+      <div class="h-2 w-48 bg-royal-sapphire/5 dark:bg-white/5 rounded-full overflow-hidden">
+        <div id="progressBar" class="h-full bg-gradient-to-r from-[#8B7D6B] to-royal-gold rounded-full transition-all duration-700" style="width:0%"></div>
+      </div>
+      <span id="progressText" class="text-xs font-inter text-[#8B7D6B]">Adornment Mastery 0%</span>
     </div>
   </section>
 
-  <!-- ============================================================
-       PRACTICAL STEPS
-       ============================================================ -->
-  <section class="max-w-4xl mx-auto px-6 space-y-16 mb-20">
+  <!-- TABLE OF CONTENTS (fixed right, desktop) -->
+  <nav id="lessonToc" class="fixed right-3 top-1/2 -translate-y-1/2 z-40 hidden xl:flex flex-col items-center gap-2">
+    <a href="#lesson-01" class="toc-dot" title="01"></a><a href="#lesson-02" class="toc-dot" title="02"></a><a href="#lesson-03" class="toc-dot" title="03"></a><a href="#lesson-04" class="toc-dot" title="04"></a><a href="#lesson-05" class="toc-dot" title="05"></a><a href="#lesson-06" class="toc-dot" title="06"></a>
+  </nav>
 
-    <!-- Step 1: The Capsule Kingdom -->
-    <div class="animate-fadeIn">
-      <h2 class="font-cinzel text-2xl text-royal-plum dark:text-royal-gold mb-4">I. The Capsule Kingdom</h2>
-      <div class="font-inter text-sm leading-relaxed text-royal-sapphire/80 dark:text-white/60 space-y-4">
-        <p>A king does not chase trends — he sets standards. Your wardrobe should be built on 15 essential pieces that communicate permanence, taste, and quiet confidence. These pieces mix and match across every occasion in your life. Quality over quantity, always. One excellent garment is worth ten mediocre ones.</p>
-        <div class="grid md:grid-cols-3 gap-4 mt-6">
-          <div class="bg-white dark:bg-royal-sapphire/20 border border-royal-gold/10 rounded-xl p-5 gold-glow transition-all">
-            <h4 class="font-cinzel text-sm text-royal-gold mb-2">Navy Suit</h4>
-            <p class="text-xs">The cornerstone. Fits every occasion from boardroom to evening event. Invest in tailoring — fit is everything. Half-canvassed minimum. Super 110s to 130s wool.</p>
-          </div>
-          <div class="bg-white dark:bg-royal-sapphire/20 border border-royal-gold/10 rounded-xl p-5 gold-glow transition-all">
-            <h4 class="font-cinzel text-sm text-royal-gold mb-2">Charcoal Suit</h4>
-            <p class="text-xs">Your second suit. Darker, more authoritative. Appropriate for funerals, serious meetings, and winter events. Notch lapel for versatility, peak for power.</p>
-          </div>
-          <div class="bg-white dark:bg-royal-sapphire/20 border border-royal-gold/10 rounded-xl p-5 gold-glow transition-all">
-            <h4 class="font-cinzel text-sm text-royal-gold mb-2">White Dress Shirts (3)</h4>
-            <p class="text-xs">Crisp, well-fitted, spread collar. The canvas upon which all else is built. Keep one with French cuffs for formal occasions. Iron or steam before every wear.</p>
-          </div>
-          <div class="bg-white dark:bg-royal-sapphire/20 border border-royal-gold/10 rounded-xl p-5 gold-glow transition-all">
-            <h4 class="font-cinzel text-sm text-royal-gold mb-2">Light Blue Shirt</h4>
-            <p class="text-xs">The gentleman's casual. Works with and without a blazer, with suits, with dark denim. The most versatile shirt color after white.</p>
-          </div>
-          <div class="bg-white dark:bg-royal-sapphire/20 border border-royal-gold/10 rounded-xl p-5 gold-glow transition-all">
-            <h4 class="font-cinzel text-sm text-royal-gold mb-2">Navy Blazer</h4>
-            <p class="text-xs">The most powerful single garment in menswear. Transforms any outfit from casual to composed. Gold or silver buttons. Fits with jeans, chinos, dress trousers.</p>
-          </div>
-          <div class="bg-white dark:bg-royal-sapphire/20 border border-royal-gold/10 rounded-xl p-5 gold-glow transition-all">
-            <h4 class="font-cinzel text-sm text-royal-gold mb-2">Dark Denim</h4>
-            <p class="text-xs">Slim (not skinny) fit, no rips, no distressing. Dark wash only. With a blazer and pocket square, these rival any trouser for elegant casual.</p>
-          </div>
-          <div class="bg-white dark:bg-royal-sapphire/20 border border-royal-gold/10 rounded-xl p-5 gold-glow transition-all">
-            <h4 class="font-cinzel text-sm text-royal-gold mb-2">Charcoal Trousers</h4>
-            <p class="text-xs">Versatile, elegant, pairs with everything. Properly hemmed with no break or slight break. Wool or wool blend for year-round use.</p>
-          </div>
-          <div class="bg-white dark:bg-royal-sapphire/20 border border-royal-gold/10 rounded-xl p-5 gold-glow transition-all">
-            <h4 class="font-cinzel text-sm text-royal-gold mb-2">Chinos (2 pairs)</h4>
-            <p class="text-xs">Tan/khaki and olive. The bridge between casual and formal. Pair with a polo for weekends, a dress shirt for smart casual events.</p>
-          </div>
-          <div class="bg-white dark:bg-royal-sapphire/20 border border-royal-gold/10 rounded-xl p-5 gold-glow transition-all">
-            <h4 class="font-cinzel text-sm text-royal-gold mb-2">Quality Belt & Timepiece</h4>
-            <p class="text-xs">Belt: match to your shoes, always. Watch: not for the time — for the statement. A quality timepiece announces you understand value and patience.</p>
-          </div>
-        </div>
+  <!-- ======== LESSON 01 ======== -->
+  <section id="lesson-01" class="lesson-section max-w-4xl mx-auto px-6 pb-20">
+    <div class="font-cinzel text-xs tracking-[0.3em] text-[#8B7D6B]/40 mb-3">LESSON 01</div>
+    <h2 class="font-cinzel text-2xl md:text-3xl text-royal-plum dark:text-royal-gold mb-2">The Covenant Ring</h2>
+    <p class="font-inter text-xs text-[#8B7D6B]/60 mb-8 tracking-wider">YEAR 1 &bull; THE ARCHITECTURE OF WISDOM</p>
+
+    <!-- THE RAW INGREDIENT -->
+    <div class="mb-8">
+      <h3 class="font-cinzel text-sm text-[#8B7D6B] tracking-wider mb-3">THE RAW INGREDIENT</h3>
+      <div class="bg-royal-sapphire/5 dark:bg-white/5 border border-[#8B7D6B]/10 rounded-xl p-6 text-center cursor-pointer hover:border-[#8B7D6B]/30 transition" onclick="openVerseModal({text:'Then Pharaoh took his signet ring from his finger and put it on Joseph\'s finger. He dressed him in robes of fine linen and put a gold chain around his neck.',ref:'Genesis 41:42',context:'Joseph had been in prison for years &mdash; falsely accused, forgotten by the cupbearer, invisible to the empire. In a single audience with Pharaoh, he interpreted two dreams that no magician in Egypt could decode. Pharaoh&rsquo;s response was not a handshake or a verbal commendation. It was the transfer of the signet ring &mdash; the tabba&rsquo;at &mdash; which carried the full executive authority of Egypt. Whoever wore that ring could seal decrees, authorize expenditure, and command armies. The ring was not decoration. It was a portable throne.',crossRefs:['Luke 15:22','Esther 3:10','Esther 8:2','Haggai 2:23','James 2:2'],application:'In 2026 Aurora, a ring on your hand still communicates before you speak. A wedding band declares covenant. A signet-style ring declares heritage. The question is whether your rings carry meaning or merely occupy space.'})">
+        <p class="font-playfair italic text-royal-plum dark:text-royal-gold text-lg">&ldquo;Then Pharaoh took his signet ring from his finger and put it on Joseph&rsquo;s finger.&rdquo;</p>
+        <p class="text-xs text-royal-sapphire/40 mt-2">&mdash; Genesis 41:42</p>
+        <p class="text-xs text-[#8B7D6B]/50 mt-1">Tap for full context &amp; Hebrew insight</p>
+      </div>
+      <p class="font-inter text-sm text-royal-sapphire/60 dark:text-white/50 mt-4 leading-relaxed"><strong class="text-[#8B7D6B]">Hebrew Root:</strong> <em>tabba&rsquo;at</em> (&#x05D8;&#x05B7;&#x05D1;&#x05BC;&#x05B7;&#x05E2;&#x05B7;&#x05EA;) &mdash; signet ring, seal ring. Derived from the root <em>taba</em>, meaning to sink or impress, because the signet was pressed into hot wax or clay to authenticate documents. The ring did not merely symbolize authority &mdash; it functioned as authority. A decree sealed with the king&rsquo;s <em>tabba&rsquo;at</em> was irrevocable (Esther 8:8). The metal on your finger was, in the ancient world, the most consequential object a man could wear.</p>
+    </div>
+
+    <!-- THE PREPARATION -->
+    <div class="mb-8">
+      <h3 class="font-cinzel text-sm text-[#8B7D6B] tracking-wider mb-3">THE PREPARATION</h3>
+      <div class="font-inter text-sm text-royal-sapphire/70 dark:text-white/60 leading-relaxed space-y-4">
+        <p>The signet ring appears at critical moments throughout Scripture, and every instance carries the same architectural principle: a ring transfers identity and authority from one person to another. When Pharaoh placed his <em>tabba&rsquo;at</em> on Joseph&rsquo;s hand, he was not giving a gift. He was delegating the executive power of the most advanced civilization on earth to a thirty-year-old Hebrew prisoner. Joseph did not earn the ring through charm or politics. He earned it through faithfulness in obscurity &mdash; years of stewarding Potiphar&rsquo;s house, years of managing prison affairs, years of interpreting dreams for men who forgot him immediately. The ring came after the proving. It always does.</p>
+        <p>The pattern repeats in Luke 15:22, where the father of the prodigal son commands his servants to bring a ring for the returning heir. The son had rehearsed a speech asking to be made a servant. The father interrupted him with three items: a robe (covering), sandals (sonship &mdash; slaves went barefoot), and a ring (authority). The ring declared that despite the son&rsquo;s failure, his identity as heir was restored. He was not a servant returning. He was a son coming home. The ring made the declaration that words alone could not.</p>
+        <p>In Esther, the signet ring drives the entire plot. Haman receives the king&rsquo;s ring (Esther 3:10) and uses it to seal a genocide decree against the Jews. When Mordecai later receives the same ring (Esther 8:2), he uses it to seal a counter-decree that saves the nation. The same piece of metal, the same authority, two opposite outcomes &mdash; determined entirely by the character of the man wearing it. This is the lesson the modern king must absorb: a ring amplifies whatever the wearer already is. On a man of integrity, it declares covenant. On a man of vanity, it declares insecurity.</p>
       </div>
     </div>
 
-    <!-- Step 2: Fit is Everything -->
-    <div class="animate-fadeIn">
-      <h2 class="font-cinzel text-2xl text-royal-plum dark:text-royal-gold mb-4">II. Fit Is Everything</h2>
-      <div class="font-inter text-sm leading-relaxed text-royal-sapphire/80 dark:text-white/60 space-y-4">
-        <p>A $200 suit that fits perfectly will always outperform a $2,000 suit that does not. Fit is the single most important factor in how clothes look on your body. Find a good tailor and build a relationship with them — this is one of the most valuable investments a gentleman can make.</p>
-        <div class="bg-white dark:bg-royal-sapphire/20 border-l-4 border-royal-gold rounded-r-xl p-6 mt-4 space-y-3">
-          <div class="flex items-start gap-3">
-            <span class="text-royal-gold font-cinzel text-sm mt-0.5">1.</span>
-            <p class="text-xs"><strong>Shoulder Seams:</strong> Should sit exactly where your shoulder ends and your arm begins. Not a centimeter wider. If the shoulder is wrong, nothing else matters — this is the one measurement tailoring cannot fix easily.</p>
-          </div>
-          <div class="flex items-start gap-3">
-            <span class="text-royal-gold font-cinzel text-sm mt-0.5">2.</span>
-            <p class="text-xs"><strong>Jacket Length:</strong> Should cover the seat of your trousers. A simple test: with arms at your sides, the bottom of the jacket should fall at your curled fingers or the base of your thumb.</p>
-          </div>
-          <div class="flex items-start gap-3">
-            <span class="text-royal-gold font-cinzel text-sm mt-0.5">3.</span>
-            <p class="text-xs"><strong>Trouser Break:</strong> No break (clean, modern) or quarter break (barely touching the shoe). Full break looks sloppy. If fabric pools at your ankle, see the tailor.</p>
-          </div>
-          <div class="flex items-start gap-3">
-            <span class="text-royal-gold font-cinzel text-sm mt-0.5">4.</span>
-            <p class="text-xs"><strong>Shirt Fit:</strong> Two fingers between collar and neck. Sleeves showing 1/2 inch below jacket cuff. No billowing fabric at the waist — if it balloons when tucked, have it darted.</p>
-          </div>
-          <div class="flex items-start gap-3">
-            <span class="text-royal-gold font-cinzel text-sm mt-0.5">5.</span>
-            <p class="text-xs"><strong>The Mirror Test:</strong> Before leaving, face the mirror. Can you move comfortably? Does it pull anywhere? Do you feel like the version of yourself you are building? If not, adjust.</p>
-          </div>
-        </div>
+    <!-- ROYAL DECREE -->
+    <div class="royal-decree">
+      <p class="font-cinzel text-xs tracking-[0.2em] text-[#8B7D6B] mb-2">ROYAL DECREE</p>
+      <p class="font-playfair italic text-royal-plum dark:text-royal-gold text-sm leading-relaxed">&ldquo;The King decrees: a ring on a king&rsquo;s hand is a covenant, not a costume. Every piece of metal carries meaning or it carries nothing.&rdquo;</p>
+    </div>
+
+    <!-- THE CONSUMPTION -->
+    <div class="mb-8">
+      <h3 class="font-cinzel text-sm text-[#8B7D6B] tracking-wider mb-3">THE CONSUMPTION</h3>
+      <div class="font-inter text-sm text-royal-sapphire/70 dark:text-white/60 leading-relaxed space-y-4">
+        <p>In 2026 Aurora, Colorado, the covenant ring principle translates directly into how you shop and what you wear. A wedding band is the most consequential piece of jewelry a man will ever own &mdash; it is a visible, daily declaration of covenant before God and community. If you are married, that band should be quality metal that endures: platinum, tungsten, or gold. It should fit properly, be maintained, and never be removed casually. Helzberg Diamonds at Town Center Aurora carries solid options in the two hundred to five hundred dollar range. Independent jewelers along Havana Street often offer custom signet-style rings with heritage engravings at competitive prices.</p>
+        <p>For the unmarried king, the principle still applies. A class ring, a family heirloom, or a simple signet ring can carry personal significance without pretension. The rule is one or two meaningful pieces maximum. If you cannot articulate the meaning behind a ring in a single sentence, it does not belong on your hand. Walk through the jewelry section at Costco on South Quebec Street &mdash; you will see cases full of rings that look expensive and mean nothing. A king does not shop by appearance. He shops by significance.</p>
       </div>
     </div>
 
-    <!-- Step 3: Occasion Mastery -->
-    <div class="animate-fadeIn">
-      <h2 class="font-cinzel text-2xl text-royal-plum dark:text-royal-gold mb-4">III. Occasion Mastery</h2>
-      <div class="font-inter text-sm leading-relaxed text-royal-sapphire/80 dark:text-white/60 space-y-4">
-        <p>A king is never caught off guard. He reads the room before he enters it and dresses accordingly. Understanding dress codes is not about rigid rules — it is about demonstrating respect for the occasion, the host, and yourself.</p>
-        <div class="space-y-4 mt-6">
-          <div class="bg-white dark:bg-royal-sapphire/20 border border-royal-gold/10 rounded-xl p-6">
-            <h3 class="font-cinzel text-lg text-royal-gold mb-3">The Boardroom</h3>
-            <p class="text-xs text-royal-sapphire/70 dark:text-white/50">Dark suit, white or light blue shirt, silk tie with a subtle pattern, leather cap-toe Oxfords. Your outfit should say "I am in command" without shouting. Pocket square optional but distinguished — white linen, presidential fold.</p>
-          </div>
-          <div class="bg-white dark:bg-royal-sapphire/20 border border-royal-gold/10 rounded-xl p-6">
-            <h3 class="font-cinzel text-lg text-royal-gold mb-3">Church / Formal Gatherings</h3>
-            <p class="text-xs text-royal-sapphire/70 dark:text-white/50">Respectful elegance. Suit or sport coat with dress trousers. No flashy logos. Subdued colors that honor the occasion. A gentleman dresses to respect the space he enters. Tie optional but advisable for formal services.</p>
-          </div>
-          <div class="bg-white dark:bg-royal-sapphire/20 border border-royal-gold/10 rounded-xl p-6">
-            <h3 class="font-cinzel text-lg text-royal-gold mb-3">Date Night</h3>
-            <p class="text-xs text-royal-sapphire/70 dark:text-white/50">Dark jeans or chinos, a fitted button-down or turtleneck, clean leather shoes or boots. A blazer if the venue warrants it. One statement piece only — watch, a ring, or cologne. Never compete with your date; complement her.</p>
-          </div>
-          <div class="bg-white dark:bg-royal-sapphire/20 border border-royal-gold/10 rounded-xl p-6">
-            <h3 class="font-cinzel text-lg text-royal-gold mb-3">Casual Weekend</h3>
-            <p class="text-xs text-royal-sapphire/70 dark:text-white/50">Well-fitted polo or crew-neck tee in a solid color. Chinos or clean sneakers. No graphic tees, no cargo shorts, no flip-flops. A king is never "off duty." Casual is not careless — it is relaxed precision.</p>
-          </div>
-          <div class="bg-white dark:bg-royal-sapphire/20 border border-royal-gold/10 rounded-xl p-6">
-            <h3 class="font-cinzel text-lg text-royal-gold mb-3">Poolside / Beach</h3>
-            <p class="text-xs text-royal-sapphire/70 dark:text-white/50">Fitted swim trunks (not cargo-length), a clean linen shirt for the walk over, leather sandals (never rubber flip-flops). Sunglasses with a classic frame. This is where most men fail — a king maintains his standard even in leisure.</p>
-          </div>
-        </div>
+    <!-- SLIDE CARDS -->
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-5 my-10">
+      <div class="card-parchment border border-[#8B7D6B]/10 rounded-xl p-6">
+        <div class="font-cinzel text-xs text-[#8B7D6B] tracking-widest mb-2">AUTHORITY</div>
+        <h4 class="font-cinzel text-sm text-royal-plum dark:text-royal-gold mb-2">The Signet Principle</h4>
+        <p class="text-xs text-royal-sapphire/60 dark:text-white/50 leading-relaxed">Pharaoh&rsquo;s ring transferred executive authority to Joseph. A ring is not decoration &mdash; it is a portable declaration of who you are and what you represent.</p>
+      </div>
+      <div class="card-parchment border border-[#8B7D6B]/10 rounded-xl p-6">
+        <div class="font-cinzel text-xs text-[#8B7D6B] tracking-widest mb-2">RESTORATION</div>
+        <h4 class="font-cinzel text-sm text-royal-plum dark:text-royal-gold mb-2">The Prodigal&rsquo;s Ring</h4>
+        <p class="text-xs text-royal-sapphire/60 dark:text-white/50 leading-relaxed">The father&rsquo;s ring restored sonship, not servanthood. A ring declares identity. The prodigal did not earn it back &mdash; it was restored by grace.</p>
+      </div>
+      <div class="card-parchment border border-[#8B7D6B]/10 rounded-xl p-6">
+        <div class="font-cinzel text-xs text-[#8B7D6B] tracking-widest mb-2">CHARACTER</div>
+        <h4 class="font-cinzel text-sm text-royal-plum dark:text-royal-gold mb-2">The Haman Warning</h4>
+        <p class="text-xs text-royal-sapphire/60 dark:text-white/50 leading-relaxed">The same ring that Haman used for genocide, Mordecai used for salvation. Metal amplifies the man who wears it. Build the character first.</p>
+      </div>
+      <div class="card-parchment border border-[#8B7D6B]/10 rounded-xl p-6">
+        <div class="font-cinzel text-xs text-[#8B7D6B] tracking-widest mb-2">PRACTICE</div>
+        <h4 class="font-cinzel text-sm text-royal-plum dark:text-royal-gold mb-2">One or Two Maximum</h4>
+        <p class="text-xs text-royal-sapphire/60 dark:text-white/50 leading-relaxed">If you cannot articulate the meaning of a ring in a single sentence, remove it. A king&rsquo;s hands carry purpose, not clutter.</p>
       </div>
     </div>
 
-    <!-- Step 4: Shoe Protocol -->
-    <div class="animate-fadeIn">
-      <h2 class="font-cinzel text-2xl text-royal-plum dark:text-royal-gold mb-4">IV. Shoe Protocol</h2>
-      <div class="font-inter text-sm leading-relaxed text-royal-sapphire/80 dark:text-white/60 space-y-4">
-        <p>A man's shoes reveal his discipline. They are the first thing a discerning person notices and the last thing a careless man considers. Three pairs will carry you through every situation in life, provided you maintain them properly.</p>
-        <div class="grid md:grid-cols-3 gap-4 mt-6">
-          <div class="bg-white dark:bg-royal-sapphire/20 border border-royal-gold/10 rounded-xl p-5 gold-glow transition-all">
-            <h4 class="font-cinzel text-sm text-royal-gold mb-2">Black Cap-Toe Oxfords</h4>
-            <p class="text-xs">The most formal shoe. Boardroom, weddings, black-tie events. Goodyear welted for longevity. Polish weekly with a quality cream. Use cedar shoe trees after every wear.</p>
-          </div>
-          <div class="bg-white dark:bg-royal-sapphire/20 border border-royal-gold/10 rounded-xl p-5 gold-glow transition-all">
-            <h4 class="font-cinzel text-sm text-royal-gold mb-2">Dark Brown Derby or Brogues</h4>
-            <p class="text-xs">More versatile than black. Works with navy, grey, tan, olive. Church, dates, smart-casual dinners. The derby's open lacing makes it slightly less formal but more forgiving on wider feet.</p>
-          </div>
-          <div class="bg-white dark:bg-royal-sapphire/20 border border-royal-gold/10 rounded-xl p-5 gold-glow transition-all">
-            <h4 class="font-cinzel text-sm text-royal-gold mb-2">Clean White Leather Sneakers</h4>
-            <p class="text-xs">The modern gentleman's casual shoe. Minimal branding, clean lines, leather upper. Pairs with chinos, dark jeans, even an unstructured blazer. Keep them pristine — dirty white sneakers betray carelessness.</p>
-          </div>
-        </div>
-        <div class="bg-royal-sapphire/5 dark:bg-white/5 border border-royal-gold/10 rounded-xl p-5 mt-4">
-          <h4 class="font-cinzel text-sm text-royal-gold mb-2">Shoe Care Protocol</h4>
-          <p class="text-xs">Wipe down after every wear. Use cedar shoe trees to maintain shape and absorb moisture. Polish leather shoes weekly. Rotate pairs — never wear the same shoes two days in a row. Resole before the leather wears through. A well-maintained shoe can last a decade.</p>
-        </div>
+    <!-- PRACTICAL STEPS -->
+    <div class="mb-8">
+      <h3 class="font-cinzel text-lg text-royal-plum dark:text-royal-gold mb-4">Practical Steps</h3>
+      <ul class="space-y-3 text-sm font-inter text-royal-sapphire/70 dark:text-white/60">
+        <li class="flex gap-3"><span class="text-[#8B7D6B] font-cinzel">I.</span> Examine every ring you currently own. For each one, write a single sentence explaining its meaning. Any ring that cannot pass this test should be stored or donated.</li>
+        <li class="flex gap-3"><span class="text-[#8B7D6B] font-cinzel">II.</span> If married, inspect your wedding band this week. Does it fit properly? Is it clean? Has it been maintained? If not, take it to a jeweler for polishing and sizing.</li>
+        <li class="flex gap-3"><span class="text-[#8B7D6B] font-cinzel">III.</span> Read Genesis 41:37-45 and Luke 15:11-32. Note how the ring functioned in each narrative. Write three sentences in your journal about what your ring (or future ring) will declare.</li>
+      </ul>
+    </div>
+
+    <!-- WISDOM REFLECTION -->
+    <div class="bg-white dark:bg-royal-sapphire/20 border border-[#8B7D6B]/10 rounded-xl p-6 mb-8">
+      <p class="font-playfair italic text-royal-plum dark:text-royal-gold text-sm mb-4">&ldquo;If the ring on your hand could speak, what would it say about the man who wears it? Does it declare covenant, heritage, and authority &mdash; or does it declare impulse?&rdquo;</p>
+      <textarea rows="3" placeholder="Write your reflection..." class="w-full px-4 py-3 rounded-lg border border-[#8B7D6B]/20 bg-royal-cream/50 dark:bg-white/5 font-inter text-sm focus:outline-none focus:border-[#8B7D6B] resize-none"></textarea>
+      <button data-prompt="If the ring on your hand could speak, what would it say about the man who wears it?" class="journal-save-btn mt-2 px-4 py-2 bg-[#8B7D6B] text-white text-xs font-cinzel rounded-lg hover:bg-royal-plum transition">Save to Journal</button>
+    </div>
+
+    <!-- QUIZ -->
+    <div class="quiz-block bg-white dark:bg-royal-sapphire/20 border border-[#8B7D6B]/10 rounded-xl p-6 mb-8">
+      <h4 class="font-cinzel text-sm text-[#8B7D6B] mb-4">Counsel from the Throne</h4>
+      <p class="font-playfair italic text-royal-plum dark:text-royal-gold text-sm mb-5">&ldquo;A brother asks you why you only wear one ring when you could afford several. How does the king respond?&rdquo;</p>
+      <div class="space-y-2">
+        <button data-correct="false" class="quiz-option w-full text-left px-4 py-3 rounded-lg border border-[#8B7D6B]/15 text-sm font-inter">Explain that you cannot afford more and are saving up for a collection</button>
+        <button data-correct="true" class="quiz-option w-full text-left px-4 py-3 rounded-lg border border-[#8B7D6B]/15 text-sm font-inter">Explain that each ring must carry meaning &mdash; Pharaoh gave Joseph one ring, not ten, and it carried the authority of an empire</button>
+        <button data-correct="false" class="quiz-option w-full text-left px-4 py-3 rounded-lg border border-[#8B7D6B]/15 text-sm font-inter">Dismiss the question entirely and say jewelry is unimportant for men</button>
+      </div>
+      <div class="quiz-feedback hidden mt-4 text-sm font-playfair italic"></div>
+    </div>
+
+    <!-- QUEST -->
+    <div class="quest-panel mb-8">
+      <p class="font-cinzel text-xs tracking-[0.2em] text-[#8B7D6B] mb-3">TODAY&rsquo;S QUEST</p>
+      <label class="flex items-start gap-3 cursor-pointer">
+        <input type="checkbox" class="quest-checkbox accent-[#8B7D6B] mt-1" data-quest="att-01">
+        <span class="text-sm font-inter text-white/80 leading-relaxed">Lay out every ring you own. Write the meaning of each one in your journal. Remove any ring that cannot pass the one-sentence test.</span>
+      </label>
+    </div>
+
+    <!-- AUDIO PLACEHOLDER -->
+    <button class="audio-briefing-btn w-full py-3 border border-[#8B7D6B]/20 text-[#8B7D6B] font-cinzel text-sm rounded-xl hover:bg-[#8B7D6B]/5 transition mb-4">Play Royal Briefing</button>
+
+    <button class="absorb-btn w-full py-3 bg-[#8B7D6B] text-white font-cinzel tracking-wider rounded-lg hover:bg-royal-plum transition" data-lesson="1">Mark as Absorbed</button>
+    <div class="gold-divider mt-16"></div>
+  </section>
+
+  <!-- ======== LESSON 02 ======== -->
+  <section id="lesson-02" class="lesson-section max-w-4xl mx-auto px-6 pb-20">
+    <div class="font-cinzel text-xs tracking-[0.3em] text-[#8B7D6B]/40 mb-3">LESSON 02</div>
+    <h2 class="font-cinzel text-2xl md:text-3xl text-royal-plum dark:text-royal-gold mb-2">The Stewardship Watch</h2>
+    <p class="font-inter text-xs text-[#8B7D6B]/60 mb-8 tracking-wider">YEAR 1 &bull; THE ARCHITECTURE OF WISDOM</p>
+
+    <div class="mb-8">
+      <h3 class="font-cinzel text-sm text-[#8B7D6B] tracking-wider mb-3">THE RAW INGREDIENT</h3>
+      <div class="bg-royal-sapphire/5 dark:bg-white/5 border border-[#8B7D6B]/10 rounded-xl p-6 text-center cursor-pointer hover:border-[#8B7D6B]/30 transition" onclick="openVerseModal({text:'There is a time for everything, and a season for every activity under the heavens: a time to be born and a time to die, a time to plant and a time to uproot.',ref:'Ecclesiastes 3:1-2',context:'Solomon, the wealthiest and wisest king in Israel&rsquo;s history, wrote Ecclesiastes near the end of his life as a meditation on what matters and what vanishes. His opening thesis in chapter 3 is that time itself is structured by God &mdash; every season, every activity, every moment has been appointed. The Hebrew &lsquo;et does not mean random occurrence. It means divinely ordained appointment. The man who wears a timepiece on his wrist is making a daily declaration: I acknowledge that my hours are accountable to a higher authority.',crossRefs:['Psalm 90:12','Ephesians 5:15-16','James 4:14','Proverbs 27:1'],application:'In 2026 Aurora, your phone tells time. Your watch tells character. When you glance at your wrist instead of pulling out a screen, you declare that you are present, disciplined, and aware that every hour is a stewardship.'})">
+        <p class="font-playfair italic text-royal-plum dark:text-royal-gold text-lg">&ldquo;There is a time for everything, and a season for every activity under the heavens.&rdquo;</p>
+        <p class="text-xs text-royal-sapphire/40 mt-2">&mdash; Ecclesiastes 3:1</p>
+        <p class="text-xs text-[#8B7D6B]/50 mt-1">Tap for full context &amp; Hebrew insight</p>
+      </div>
+      <p class="font-inter text-sm text-royal-sapphire/60 dark:text-white/50 mt-4 leading-relaxed"><strong class="text-[#8B7D6B]">Hebrew Root:</strong> <em>&lsquo;et</em> (&#x05E2;&#x05B5;&#x05EA;) &mdash; appointed time, season, designated moment. This is not the casual passing of minutes. It is kairos-level appointment &mdash; a fixed, ordained segment of existence that God has structured with intention. When Moses prayed &ldquo;teach us to number our days&rdquo; (Psalm 90:12), the verb <em>manah</em> means to count with precision, to allocate, to steward as a finite resource. Time is the one asset a king cannot manufacture, purchase, or recover once spent.</p>
+    </div>
+
+    <div class="mb-8">
+      <h3 class="font-cinzel text-sm text-[#8B7D6B] tracking-wider mb-3">THE PREPARATION</h3>
+      <div class="font-inter text-sm text-royal-sapphire/70 dark:text-white/60 leading-relaxed space-y-4">
+        <p>The mechanical watch is one of the few objects a man can wear that simultaneously functions as a tool, an heirloom, and a philosophical statement. When Abraham-Louis Breguet invented the tourbillon in 1801, he was solving a problem of gravity &mdash; the earth&rsquo;s pull was distorting the accuracy of pocket watches held vertically. The metaphor writes itself: left uncompensated, gravity drags everything downward. A precision instrument resists that pull through engineering. The watch on your wrist is a daily reminder that entropy, distraction, and the gravitational pull of a purposeless culture require active resistance.</p>
+        <p>Scripture treats time with extraordinary seriousness. Paul writes in Ephesians 5:15-16 to &ldquo;redeem the time, because the days are evil.&rdquo; The Greek <em>exagorazomenoi</em> means to buy back from the marketplace &mdash; to purchase at full price something that was slipping away. James 4:14 describes life as a mist that appears briefly and vanishes. Proverbs 27:1 forbids boasting about tomorrow. The cumulative Biblical testimony is unambiguous: your hours are not yours. They are loaned to you by the One who ordained every season. The timepiece on your wrist is not jewelry. It is a theological instrument.</p>
+        <p>The modern world has replaced the watch with the smartphone, and in doing so, it replaced a tool of discipline with a portal of distraction. When you check time on a phone, you are ambushed by notifications, messages, headlines, and algorithm-driven content. When you check time on a watch, you get time and nothing else. The act of glancing at your wrist is an act of presence &mdash; it says you are here, aware, and accountable without retreating into a screen. This distinction matters in boardrooms, at dinner tables, and in every conversation where the other person deserves your full attention.</p>
       </div>
     </div>
 
-    <!-- Step 5: Grooming Completes the Crown -->
-    <div class="animate-fadeIn">
-      <h2 class="font-cinzel text-2xl text-royal-plum dark:text-royal-gold mb-4">V. Grooming Completes the Crown</h2>
-      <div class="font-inter text-sm leading-relaxed text-royal-sapphire/80 dark:text-white/60 space-y-4">
-        <p>The finest suit in the world cannot compensate for unkempt nails, unwashed hair, or neglected skin. Grooming is not vanity — it is the finishing layer that tells the world you care about the details. A king who maintains his person maintains his kingdom.</p>
-        <div class="grid md:grid-cols-2 gap-4 mt-6">
-          <div class="bg-white dark:bg-royal-sapphire/20 border border-royal-gold/10 rounded-xl p-5">
-            <h4 class="font-cinzel text-sm text-royal-gold mb-2">Skincare Routine</h4>
-            <p class="text-xs">Morning: cleanser, moisturizer with SPF. Evening: cleanser, treatment (retinol or vitamin C), night moisturizer. This takes three minutes and prevents years of damage. No excuse not to do it.</p>
-          </div>
-          <div class="bg-white dark:bg-royal-sapphire/20 border border-royal-gold/10 rounded-xl p-5">
-            <h4 class="font-cinzel text-sm text-royal-gold mb-2">Hair</h4>
-            <p class="text-xs">Find a barber, not a hairdresser. Get a cut every 3-4 weeks. Find a style that suits your face shape and maintain it consistently. Grey hair is distinguished — keep it groomed, never dye it. Own it.</p>
-          </div>
-          <div class="bg-white dark:bg-royal-sapphire/20 border border-royal-gold/10 rounded-xl p-5">
-            <h4 class="font-cinzel text-sm text-royal-gold mb-2">Nails</h4>
-            <p class="text-xs">Trimmed, clean, no ragged edges. A weekly trim takes 90 seconds. Dirty or bitten nails are the silent disqualifier in professional and romantic settings. Keep a nail kit in your travel bag.</p>
-          </div>
-          <div class="bg-white dark:bg-royal-sapphire/20 border border-royal-gold/10 rounded-xl p-5">
-            <h4 class="font-cinzel text-sm text-royal-gold mb-2">Fragrance</h4>
-            <p class="text-xs">One signature scent. Apply to pulse points only: wrists, neck, behind ears. Two sprays maximum. Your fragrance should be discovered, not announced. If someone across the room can smell you, you have overdone it.</p>
-          </div>
-        </div>
+    <div class="royal-decree">
+      <p class="font-cinzel text-xs tracking-[0.2em] text-[#8B7D6B] mb-2">ROYAL DECREE</p>
+      <p class="font-playfair italic text-royal-plum dark:text-royal-gold text-sm leading-relaxed">&ldquo;The King decrees: the timepiece on your wrist declares that you are a steward of hours, not a slave to them.&rdquo;</p>
+    </div>
+
+    <div class="mb-8">
+      <h3 class="font-cinzel text-sm text-[#8B7D6B] tracking-wider mb-3">THE CONSUMPTION</h3>
+      <div class="font-inter text-sm text-royal-sapphire/70 dark:text-white/60 leading-relaxed space-y-4">
+        <p>In 2026 Aurora, you do not need a Rolex to declare time stewardship. Seiko has manufactured mechanical movements since 1959, and their Presage line offers automatic watches between two hundred and five hundred dollars that rival Swiss movements costing three times as much. Orient, Seiko&rsquo;s sister brand, produces the Bambino &mdash; a dress watch under two hundred dollars that has become a legend in the horological community for its fit, finish, and reliability. Tissot&rsquo;s PRX Powermatic 80 sits at the four to six hundred dollar range and delivers eighty hours of power reserve in a design that works with a suit or dark denim. These are not compromises. They are intelligent selections.</p>
+        <p>The one-watch collection is the king&rsquo;s starting standard. Own a single versatile timepiece that works across every context in your life &mdash; boardroom, church, date, weekend. A silver or black dial with a leather or bracelet strap in the 38-42mm range covers ninety percent of occasions. Costco on South Quebec Street periodically carries Tissot, Bulova, and Citizen automatics at discounted prices. Avoid smartwatches in formal settings &mdash; they signal that you are tethered to notifications, not present in the moment. Care for your watch with a microfiber cloth, keep it wound if automatic, and service the movement every five to seven years. A well-maintained watch outlasts the man who wears it.</p>
       </div>
     </div>
 
-    <!-- ============================================================
-         YOUTUBE VIDEO EMBEDS
-         ============================================================ -->
-    <div>
-      <h2 class="font-cinzel text-2xl text-royal-plum dark:text-royal-gold mb-6">Lessons from the Masters</h2>
-      <div class="grid md:grid-cols-2 gap-6">
-        <div class="rounded-xl overflow-hidden border border-royal-gold/10">
-          <div class="aspect-video bg-royal-sapphire/10 flex items-center justify-center" id="videoContainer1">
-            <iframe class="w-full h-full hidden" id="video1" src="about:blank" data-src="https://www.youtube.com/embed/hPYcUr_vPZQ" title="Building a Timeless Wardrobe — Essential Pieces" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
-            <button class="load-video-btn px-6 py-3 bg-royal-gold/90 text-white font-cinzel text-sm rounded-lg hover:bg-royal-gold transition" data-target="video1">Load Video</button>
-          </div>
-          <div class="p-4 bg-white dark:bg-royal-sapphire/20">
-            <h4 class="font-cinzel text-sm text-royal-plum dark:text-royal-gold">Building a Timeless Wardrobe</h4>
-            <p class="text-xs text-royal-sapphire/40 mt-1">The essential pieces every gentleman needs</p>
-          </div>
-        </div>
-        <div class="rounded-xl overflow-hidden border border-royal-gold/10">
-          <div class="aspect-video bg-royal-sapphire/10 flex items-center justify-center" id="videoContainer2">
-            <iframe class="w-full h-full hidden" id="video2" src="about:blank" data-src="https://www.youtube.com/embed/vbc_vi2kZdY" title="How a Gentleman Dresses with Purpose" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
-            <button class="load-video-btn px-6 py-3 bg-royal-gold/90 text-white font-cinzel text-sm rounded-lg hover:bg-royal-gold transition" data-target="video2">Load Video</button>
-          </div>
-          <div class="p-4 bg-white dark:bg-royal-sapphire/20">
-            <h4 class="font-cinzel text-sm text-royal-plum dark:text-royal-gold">How a Gentleman Dresses with Purpose</h4>
-            <p class="text-xs text-royal-sapphire/40 mt-1">Mastering fit, fabric, and occasion</p>
-          </div>
-        </div>
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-5 my-10">
+      <div class="card-parchment border border-[#8B7D6B]/10 rounded-xl p-6">
+        <div class="font-cinzel text-xs text-[#8B7D6B] tracking-widest mb-2">THEOLOGY</div>
+        <h4 class="font-cinzel text-sm text-royal-plum dark:text-royal-gold mb-2">Ordained Seasons</h4>
+        <p class="text-xs text-royal-sapphire/60 dark:text-white/50 leading-relaxed">The Hebrew <em>&lsquo;et</em> means appointed time, not random occurrence. Every hour of your life has been structured by the One who set the stars in motion.</p>
+      </div>
+      <div class="card-parchment border border-[#8B7D6B]/10 rounded-xl p-6">
+        <div class="font-cinzel text-xs text-[#8B7D6B] tracking-widest mb-2">DISCIPLINE</div>
+        <h4 class="font-cinzel text-sm text-royal-plum dark:text-royal-gold mb-2">Wrist Over Screen</h4>
+        <p class="text-xs text-royal-sapphire/60 dark:text-white/50 leading-relaxed">Checking your wrist gives you time and nothing else. Checking your phone gives you time plus fifty distractions. The medium declares the man.</p>
+      </div>
+      <div class="card-parchment border border-[#8B7D6B]/10 rounded-xl p-6">
+        <div class="font-cinzel text-xs text-[#8B7D6B] tracking-widest mb-2">ENGINEERING</div>
+        <h4 class="font-cinzel text-sm text-royal-plum dark:text-royal-gold mb-2">The Tourbillon Metaphor</h4>
+        <p class="text-xs text-royal-sapphire/60 dark:text-white/50 leading-relaxed">Gravity drags everything down. A precision instrument resists that pull through engineering. Your life requires the same active resistance against entropy.</p>
+      </div>
+      <div class="card-parchment border border-[#8B7D6B]/10 rounded-xl p-6">
+        <div class="font-cinzel text-xs text-[#8B7D6B] tracking-widest mb-2">PRACTICE</div>
+        <h4 class="font-cinzel text-sm text-royal-plum dark:text-royal-gold mb-2">One Watch, Every Context</h4>
+        <p class="text-xs text-royal-sapphire/60 dark:text-white/50 leading-relaxed">A single versatile timepiece &mdash; 38-42mm, leather or bracelet &mdash; covers boardroom, church, date, and weekend. Start with one excellent piece.</p>
       </div>
     </div>
 
-    <!-- ============================================================
-         WISDOM REFLECTIONS
-         ============================================================ -->
-    <div>
-      <h2 class="font-cinzel text-2xl text-royal-plum dark:text-royal-gold mb-6">Wisdom Reflections</h2>
-      <div class="space-y-6">
-        <div class="bg-white dark:bg-royal-sapphire/20 border border-royal-gold/10 rounded-xl p-6">
-          <p class="font-playfair italic text-royal-plum dark:text-royal-gold text-sm mb-4">"Does your current wardrobe reflect the man you are becoming, or the man you were? If a stranger saw your closet, what story would it tell?"</p>
-          <textarea rows="3" placeholder="Write your reflection..." class="w-full px-4 py-3 rounded-lg border border-royal-gold/20 bg-royal-cream/50 dark:bg-white/5 font-inter text-sm focus:outline-none focus:border-royal-gold resize-none"></textarea>
-          <button data-prompt="Does your current wardrobe reflect the man you are becoming, or the man you were?" class="journal-save-btn mt-2 px-4 py-2 bg-royal-gold text-white text-xs font-cinzel rounded-lg hover:bg-royal-plum transition">Save to Journal</button>
-        </div>
-        <div class="bg-white dark:bg-royal-sapphire/20 border border-royal-gold/10 rounded-xl p-6">
-          <p class="font-playfair italic text-royal-plum dark:text-royal-gold text-sm mb-4">"When you walk into a room, what does your appearance communicate before you speak? Is it intentional, or accidental?"</p>
-          <textarea rows="3" placeholder="Write your reflection..." class="w-full px-4 py-3 rounded-lg border border-royal-gold/20 bg-royal-cream/50 dark:bg-white/5 font-inter text-sm focus:outline-none focus:border-royal-gold resize-none"></textarea>
-          <button data-prompt="When you walk into a room, what does your appearance communicate before you speak?" class="journal-save-btn mt-2 px-4 py-2 bg-royal-gold text-white text-xs font-cinzel rounded-lg hover:bg-royal-plum transition">Save to Journal</button>
-        </div>
+    <div class="mb-8">
+      <h3 class="font-cinzel text-lg text-royal-plum dark:text-royal-gold mb-4">Practical Steps</h3>
+      <ul class="space-y-3 text-sm font-inter text-royal-sapphire/70 dark:text-white/60">
+        <li class="flex gap-3"><span class="text-[#8B7D6B] font-cinzel">I.</span> Commit to wearing a watch daily for seven consecutive days. Notice how it changes your relationship with time, your phone, and your presence in conversations.</li>
+        <li class="flex gap-3"><span class="text-[#8B7D6B] font-cinzel">II.</span> Research three watches in your budget: one Seiko, one Orient, one Tissot. Read reviews, compare movements, and select the one that will serve you across every occasion.</li>
+        <li class="flex gap-3"><span class="text-[#8B7D6B] font-cinzel">III.</span> Memorize Psalm 90:12. Let &ldquo;teach us to number our days&rdquo; become the prayer you speak each morning when you clasp the watch to your wrist.</li>
+      </ul>
+    </div>
+
+    <div class="bg-white dark:bg-royal-sapphire/20 border border-[#8B7D6B]/10 rounded-xl p-6 mb-8">
+      <p class="font-playfair italic text-royal-plum dark:text-royal-gold text-sm mb-4">&ldquo;If every hour of your day were audited tonight by the One who appointed them, would you be satisfied with how you allocated the time you were given?&rdquo;</p>
+      <textarea rows="3" placeholder="Write your reflection..." class="w-full px-4 py-3 rounded-lg border border-[#8B7D6B]/20 bg-royal-cream/50 dark:bg-white/5 font-inter text-sm focus:outline-none focus:border-[#8B7D6B] resize-none"></textarea>
+      <button data-prompt="If every hour of your day were audited tonight, would you be satisfied with how you allocated your time?" class="journal-save-btn mt-2 px-4 py-2 bg-[#8B7D6B] text-white text-xs font-cinzel rounded-lg hover:bg-royal-plum transition">Save to Journal</button>
+    </div>
+
+    <div class="quiz-block bg-white dark:bg-royal-sapphire/20 border border-[#8B7D6B]/10 rounded-xl p-6 mb-8">
+      <h4 class="font-cinzel text-sm text-[#8B7D6B] mb-4">Counsel from the Throne</h4>
+      <p class="font-playfair italic text-royal-plum dark:text-royal-gold text-sm mb-5">&ldquo;A friend says, &lsquo;Watches are pointless in 2026 &mdash; your phone tells time.&rsquo; How does the king respond?&rdquo;</p>
+      <div class="space-y-2">
+        <button data-correct="false" class="quiz-option w-full text-left px-4 py-3 rounded-lg border border-[#8B7D6B]/15 text-sm font-inter">Agree and stop wearing your watch to avoid seeming old-fashioned</button>
+        <button data-correct="true" class="quiz-option w-full text-left px-4 py-3 rounded-lg border border-[#8B7D6B]/15 text-sm font-inter">Explain that a watch gives you time without distraction, declares presence over dependency on a screen, and functions as a daily reminder of stewardship</button>
+        <button data-correct="false" class="quiz-option w-full text-left px-4 py-3 rounded-lg border border-[#8B7D6B]/15 text-sm font-inter">Lecture him about watch movements and horological history until he regrets asking</button>
+      </div>
+      <div class="quiz-feedback hidden mt-4 text-sm font-playfair italic"></div>
+    </div>
+
+    <div class="quest-panel mb-8">
+      <p class="font-cinzel text-xs tracking-[0.2em] text-[#8B7D6B] mb-3">TODAY&rsquo;S QUEST</p>
+      <label class="flex items-start gap-3 cursor-pointer">
+        <input type="checkbox" class="quest-checkbox accent-[#8B7D6B] mt-1" data-quest="att-02">
+        <span class="text-sm font-inter text-white/80 leading-relaxed">Wear a watch for the entire day tomorrow. At the end of the day, journal three moments where checking your wrist instead of your phone changed the quality of your attention.</span>
+      </label>
+    </div>
+
+    <button class="audio-briefing-btn w-full py-3 border border-[#8B7D6B]/20 text-[#8B7D6B] font-cinzel text-sm rounded-xl hover:bg-[#8B7D6B]/5 transition mb-4">Play Royal Briefing</button>
+
+    <button class="absorb-btn w-full py-3 bg-[#8B7D6B] text-white font-cinzel tracking-wider rounded-lg hover:bg-royal-plum transition" data-lesson="2">Mark as Absorbed</button>
+    <div class="gold-divider mt-16"></div>
+  </section>
+
+  <!-- ======== LESSON 03 ======== -->
+  <section id="lesson-03" class="lesson-section max-w-4xl mx-auto px-6 pb-20">
+    <div class="font-cinzel text-xs tracking-[0.3em] text-[#8B7D6B]/40 mb-3">LESSON 03</div>
+    <h2 class="font-cinzel text-2xl md:text-3xl text-royal-plum dark:text-royal-gold mb-2">The Necklace Question</h2>
+    <p class="font-inter text-xs text-[#8B7D6B]/60 mb-8 tracking-wider">YEAR 1 &bull; THE ARCHITECTURE OF WISDOM</p>
+
+    <div class="mb-8">
+      <h3 class="font-cinzel text-sm text-[#8B7D6B] tracking-wider mb-3">THE RAW INGREDIENT</h3>
+      <div class="bg-royal-sapphire/5 dark:bg-white/5 border border-[#8B7D6B]/10 rounded-xl p-6 text-center cursor-pointer hover:border-[#8B7D6B]/30 transition" onclick="openVerseModal({text:'Listen, my son, to your father\'s instruction and do not forsake your mother\'s teaching. They are a garland to grace your head and a chain to adorn your neck.',ref:'Proverbs 1:8-9',context:'Solomon opens the entire book of Proverbs by comparing parental wisdom to physical adornment. The Hebrew anaq &mdash; chain, necklace &mdash; is used here as the highest metaphor for internalized instruction. In the ancient Near East, a necklace was not casual jewelry. It was a statement of rank, affiliation, and honor. To say that wisdom adorns your neck like a chain is to say that it marks you publicly as belonging to a lineage of instruction. The chain does not replace character &mdash; it displays it.',crossRefs:['Proverbs 3:3','Proverbs 6:21','Song of Solomon 4:9','Isaiah 3:18-23','Daniel 5:7'],application:'In 2026 Aurora, a thin chain around a man&rsquo;s neck communicates quietly. A cross pendant declares confession. An oversized chain declares insecurity. The question is always: does this adornment point to character or substitute for it?'})">
+        <p class="font-playfair italic text-royal-plum dark:text-royal-gold text-lg">&ldquo;Listen, my son, to your father&rsquo;s instruction and do not forsake your mother&rsquo;s teaching. They are a garland to grace your head and a chain to adorn your neck.&rdquo;</p>
+        <p class="text-xs text-royal-sapphire/40 mt-2">&mdash; Proverbs 1:8&ndash;9</p>
+        <p class="text-xs text-[#8B7D6B]/50 mt-1">Tap for full context &amp; Hebrew insight</p>
+      </div>
+      <p class="font-inter text-sm text-royal-sapphire/60 dark:text-white/50 mt-4 leading-relaxed"><strong class="text-[#8B7D6B]">Hebrew Root:</strong> <em>anaq</em> (&#x05E2;&#x05B2;&#x05E0;&#x05B8;&#x05E7;) &mdash; chain, necklace, neck ornament. Related to the root meaning &ldquo;to encircle&rdquo; or &ldquo;to surround.&rdquo; In Daniel 5:7, King Belshazzar promises a gold chain to whoever can read the writing on the wall &mdash; the chain was a mark of royal favor and rank. When Solomon says wisdom is a chain for your neck, he is not being decorative. He is saying that internalized instruction marks you as royalty in the same way a gold chain marked a courtier in Babylon.</p>
+    </div>
+
+    <div class="mb-8">
+      <h3 class="font-cinzel text-sm text-[#8B7D6B] tracking-wider mb-3">THE PREPARATION</h3>
+      <div class="font-inter text-sm text-royal-sapphire/70 dark:text-white/60 leading-relaxed space-y-4">
+        <p>Scripture holds necklaces and chains in a productive tension. On one hand, Proverbs celebrates them as metaphors for wisdom, instruction, and divine favor. Joseph received a gold chain from Pharaoh (Genesis 41:42). Daniel received a gold chain from Belshazzar (Daniel 5:29). The beloved in Song of Solomon is praised with references to necklaces (Song of Solomon 4:9). On the other hand, Isaiah 3:18-23 catalogs the excessive adornment of the women of Zion as evidence of pride and misplaced priorities &mdash; necklaces, pendants, chains, and ornaments piled upon each other until the woman disappeared beneath the metal. The principle that emerges is not prohibition but proportion. Adornment is affirmed. Excess is condemned.</p>
+        <p>The chain around a man&rsquo;s neck functions differently than any other piece of jewelry. Unlike a ring, which is visible during handshakes and gestures, a chain is often partially concealed beneath a collar. It occupies the threshold between private and public &mdash; visible when you choose to reveal it, hidden when you do not. This gives it a unique power as a declaration of identity. A cross pendant worn against the chest is a confession of faith that does not require an audience. A thin gold chain beneath a dress shirt speaks only when the collar opens. There is something profoundly royal about adornment that does not demand to be seen.</p>
+        <p>The opposite end of the spectrum is the oversized chain worn for display &mdash; thick links, heavy pendants, multiple layers. Scripture&rsquo;s architectural principle addresses this directly: when the adornment is louder than the man, the adornment has become the message. And the message it communicates is not authority but anxiety. A man who needs to be seen through his jewelry has not yet done the interior work that makes exterior declaration unnecessary. The king&rsquo;s standard is simple: one chain or none. If you wear it, it should speak at a whisper, not a shout.</p>
       </div>
     </div>
 
-    <!-- ============================================================
-         COUNSEL FROM THE THRONE QUIZ
-         ============================================================ -->
-    <div>
-      <h2 class="font-cinzel text-2xl text-royal-plum dark:text-royal-gold mb-6">Counsel from the Throne</h2>
-      <div class="quiz-block bg-white dark:bg-royal-sapphire/20 border border-royal-gold/10 rounded-xl p-8">
-        <p class="font-playfair italic text-royal-plum dark:text-royal-gold mb-6">"You arrive at a dinner party and realize you are significantly overdressed. Everyone else is in jeans and T-shirts while you wear a blazer and dress shirt. What does the gentleman do?"</p>
-        <div class="space-y-3">
-          <button data-correct="false" class="quiz-option w-full text-left px-5 py-3 rounded-lg border border-royal-gold/15 hover:border-royal-gold/40 transition text-sm font-inter">Immediately remove your blazer and untuck your shirt to blend in</button>
-          <button data-correct="true" class="quiz-option w-full text-left px-5 py-3 rounded-lg border border-royal-gold/15 hover:border-royal-gold/40 transition text-sm font-inter">Own it with confidence, remove the blazer casually if you wish, and let your ease set the tone</button>
-          <button data-correct="false" class="quiz-option w-full text-left px-5 py-3 rounded-lg border border-royal-gold/15 hover:border-royal-gold/40 transition text-sm font-inter">Make a joke about being overdressed to acknowledge the difference and ease tension</button>
-        </div>
-        <div class="quiz-feedback hidden mt-4 text-sm font-playfair italic"></div>
+    <div class="royal-decree">
+      <p class="font-cinzel text-xs tracking-[0.2em] text-[#8B7D6B] mb-2">ROYAL DECREE</p>
+      <p class="font-playfair italic text-royal-plum dark:text-royal-gold text-sm leading-relaxed">&ldquo;The King decrees: a chain adorns the neck of a man who has already adorned his character. Without the inner work, the outer metal is noise.&rdquo;</p>
+    </div>
+
+    <div class="mb-8">
+      <h3 class="font-cinzel text-sm text-[#8B7D6B] tracking-wider mb-3">THE CONSUMPTION</h3>
+      <div class="font-inter text-sm text-royal-sapphire/70 dark:text-white/60 leading-relaxed space-y-4">
+        <p>In 2026 Aurora, the necklace question applies directly to every man standing in front of his mirror before leaving the house. If you wear a chain, the standard is this: thin, quality metal (14k gold or sterling silver), 18 to 22 inches, and a pendant only if it carries genuine meaning. A cross pendant is a confession &mdash; wear it if it represents your actual faith, not as aesthetic filler. A Saint Christopher medal, a family crest, or a simple bar pendant can carry heritage. The layering trend that social media promotes &mdash; three or four chains of varying lengths &mdash; violates the proportion principle for men. One chain or none. That is the king&rsquo;s standard.</p>
+        <p>For sourcing, Aurora offers several options. Independent jewelers along Havana Street carry solid gold chains at fair markups. Costco&rsquo;s gold chain selection online provides 14k and 18k options at near-wholesale pricing. For sterling silver, Etsy artisans offer handmade cross pendants and signet-style bar pendants that carry more character than mass-produced department store pieces. Avoid plated or filled gold &mdash; the coating wears off within months and communicates the opposite of what you intend. If you cannot afford solid gold, sterling silver is a dignified alternative that lasts indefinitely with proper care. Clean your chain monthly with mild soap and warm water. Store it flat, not tangled, to preserve the links.</p>
       </div>
     </div>
 
-    <!-- ============================================================
-         WEIRD-SCENARIO SOLVER
-         ============================================================ -->
-    <div class="bg-royal-sapphire dark:bg-royal-sapphire/80 rounded-2xl p-8 text-white">
-      <h2 class="font-cinzel text-xl text-royal-gold mb-2">Royal Protocol Solver</h2>
-      <p class="text-sm text-white/50 mb-6">Describe any attire dilemma — overdressed at a barbecue, suit at the beach, meeting her parents, Slavic vs. American dress code gaps — and receive the king's counsel.</p>
-      <form id="scenarioForm" class="flex gap-3">
-        <input type="text" id="scenarioInput" placeholder="e.g., 'Invited to a yacht party but I only own suits...'" class="flex-1 px-4 py-3 rounded-lg bg-white/10 border border-royal-gold/20 text-white font-inter text-sm focus:outline-none focus:border-royal-gold placeholder-white/30">
-        <button type="submit" class="px-6 py-3 bg-royal-gold text-royal-sapphire font-cinzel text-sm rounded-lg hover:bg-white transition">Counsel</button>
-      </form>
-      <div id="scenarioResponse" class="mt-4"></div>
-    </div>
-
-    <!-- ============================================================
-         CHECKLIST BUILDER
-         ============================================================ -->
-    <div>
-      <h2 class="font-cinzel text-2xl text-royal-plum dark:text-royal-gold mb-6">Your Royal Attire Checklist</h2>
-      <div class="bg-white dark:bg-royal-sapphire/20 border border-royal-gold/10 rounded-xl p-6">
-        <form id="checklistForm" class="flex gap-3 mb-6">
-          <input type="text" id="checklistInput" placeholder="Add a wardrobe goal..." class="flex-1 px-4 py-3 rounded-lg border border-royal-gold/20 bg-royal-cream/50 dark:bg-white/5 font-inter text-sm focus:outline-none focus:border-royal-gold">
-          <button type="submit" class="px-4 py-3 bg-royal-gold text-white text-sm font-cinzel rounded-lg hover:bg-royal-plum transition">Add</button>
-        </form>
-        <div id="checklistItems" class="space-y-2"></div>
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-5 my-10">
+      <div class="card-parchment border border-[#8B7D6B]/10 rounded-xl p-6">
+        <div class="font-cinzel text-xs text-[#8B7D6B] tracking-widest mb-2">WISDOM</div>
+        <h4 class="font-cinzel text-sm text-royal-plum dark:text-royal-gold mb-2">Wisdom as Adornment</h4>
+        <p class="text-xs text-royal-sapphire/60 dark:text-white/50 leading-relaxed">Solomon compared parental instruction to a chain around the neck. The highest adornment is not metal &mdash; it is internalized wisdom that others can see in your conduct.</p>
+      </div>
+      <div class="card-parchment border border-[#8B7D6B]/10 rounded-xl p-6">
+        <div class="font-cinzel text-xs text-[#8B7D6B] tracking-widest mb-2">TENSION</div>
+        <h4 class="font-cinzel text-sm text-royal-plum dark:text-royal-gold mb-2">Affirmed, Not Excessive</h4>
+        <p class="text-xs text-royal-sapphire/60 dark:text-white/50 leading-relaxed">Joseph and Daniel received chains as honor. The women of Zion were rebuked for excessive chains. The principle is proportion, not prohibition.</p>
+      </div>
+      <div class="card-parchment border border-[#8B7D6B]/10 rounded-xl p-6">
+        <div class="font-cinzel text-xs text-[#8B7D6B] tracking-widest mb-2">THRESHOLD</div>
+        <h4 class="font-cinzel text-sm text-royal-plum dark:text-royal-gold mb-2">Private Declaration</h4>
+        <p class="text-xs text-royal-sapphire/60 dark:text-white/50 leading-relaxed">A chain beneath a collar occupies the threshold between private and public. It does not demand to be seen. There is something royal about adornment that whispers.</p>
+      </div>
+      <div class="card-parchment border border-[#8B7D6B]/10 rounded-xl p-6">
+        <div class="font-cinzel text-xs text-[#8B7D6B] tracking-widest mb-2">PRACTICE</div>
+        <h4 class="font-cinzel text-sm text-royal-plum dark:text-royal-gold mb-2">One Chain or None</h4>
+        <p class="text-xs text-royal-sapphire/60 dark:text-white/50 leading-relaxed">Layering multiple chains violates the proportion principle. A single thin chain in quality metal &mdash; or no chain at all &mdash; is the king&rsquo;s standard.</p>
       </div>
     </div>
 
+    <div class="mb-8">
+      <h3 class="font-cinzel text-lg text-royal-plum dark:text-royal-gold mb-4">Practical Steps</h3>
+      <ul class="space-y-3 text-sm font-inter text-royal-sapphire/70 dark:text-white/60">
+        <li class="flex gap-3"><span class="text-[#8B7D6B] font-cinzel">I.</span> If you currently wear a chain, hold it in your hand and answer honestly: does this point to my character, my faith, or my heritage? Or does it point to itself? Journal the answer.</li>
+        <li class="flex gap-3"><span class="text-[#8B7D6B] font-cinzel">II.</span> Read Proverbs 1:8-9, Isaiah 3:18-23, and Daniel 5:7 this week. Note how Scripture both celebrates and warns about neck adornment. Write the principle in your own words.</li>
+        <li class="flex gap-3"><span class="text-[#8B7D6B] font-cinzel">III.</span> If you do not own a chain but feel drawn to one, research a single piece of quality metal &mdash; solid gold or sterling silver &mdash; with a pendant that carries genuine meaning to you. Purchase with intention, not impulse.</li>
+      </ul>
+    </div>
+
+    <div class="bg-white dark:bg-royal-sapphire/20 border border-[#8B7D6B]/10 rounded-xl p-6 mb-8">
+      <p class="font-playfair italic text-royal-plum dark:text-royal-gold text-sm mb-4">&ldquo;When people see the chain around your neck, what do they learn about you? Does it whisper character or shout compensation?&rdquo;</p>
+      <textarea rows="3" placeholder="Write your reflection..." class="w-full px-4 py-3 rounded-lg border border-[#8B7D6B]/20 bg-royal-cream/50 dark:bg-white/5 font-inter text-sm focus:outline-none focus:border-[#8B7D6B] resize-none"></textarea>
+      <button data-prompt="When people see the chain around your neck, what do they learn about you?" class="journal-save-btn mt-2 px-4 py-2 bg-[#8B7D6B] text-white text-xs font-cinzel rounded-lg hover:bg-royal-plum transition">Save to Journal</button>
+    </div>
+
+    <div class="quiz-block bg-white dark:bg-royal-sapphire/20 border border-[#8B7D6B]/10 rounded-xl p-6 mb-8">
+      <h4 class="font-cinzel text-sm text-[#8B7D6B] mb-4">Counsel from the Throne</h4>
+      <p class="font-playfair italic text-royal-plum dark:text-royal-gold text-sm mb-5">&ldquo;A younger man asks whether he should layer three chains like he sees on social media. What does the king counsel?&rdquo;</p>
+      <div class="space-y-2">
+        <button data-correct="false" class="quiz-option w-full text-left px-4 py-3 rounded-lg border border-[#8B7D6B]/15 text-sm font-inter">Encourage him &mdash; self-expression through jewelry is always positive and there are no rules</button>
+        <button data-correct="false" class="quiz-option w-full text-left px-4 py-3 rounded-lg border border-[#8B7D6B]/15 text-sm font-inter">Tell him necklaces are for women and a man should never wear a chain</button>
+        <button data-correct="true" class="quiz-option w-full text-left px-4 py-3 rounded-lg border border-[#8B7D6B]/15 text-sm font-inter">Counsel that one chain of quality that carries meaning will always outperform three chains that follow a trend &mdash; adornment should whisper, not shout</button>
+      </div>
+      <div class="quiz-feedback hidden mt-4 text-sm font-playfair italic"></div>
+    </div>
+
+    <div class="quest-panel mb-8">
+      <p class="font-cinzel text-xs tracking-[0.2em] text-[#8B7D6B] mb-3">TODAY&rsquo;S QUEST</p>
+      <label class="flex items-start gap-3 cursor-pointer">
+        <input type="checkbox" class="quest-checkbox accent-[#8B7D6B] mt-1" data-quest="att-03">
+        <span class="text-sm font-inter text-white/80 leading-relaxed">If you own a chain, clean it tonight with mild soap and warm water. If you do not own one, write in your journal whether a chain would carry genuine meaning for you or simply fill a visual gap.</span>
+      </label>
+    </div>
+
+    <button class="audio-briefing-btn w-full py-3 border border-[#8B7D6B]/20 text-[#8B7D6B] font-cinzel text-sm rounded-xl hover:bg-[#8B7D6B]/5 transition mb-4">Play Royal Briefing</button>
+
+    <button class="absorb-btn w-full py-3 bg-[#8B7D6B] text-white font-cinzel tracking-wider rounded-lg hover:bg-royal-plum transition" data-lesson="3">Mark as Absorbed</button>
+    <div class="gold-divider mt-16"></div>
+  </section>
+
+  <!-- ======== LESSON 04 ======== -->
+  <section id="lesson-04" class="lesson-section max-w-4xl mx-auto px-6 pb-20">
+    <div class="font-cinzel text-xs tracking-[0.3em] text-[#8B7D6B]/40 mb-3">LESSON 04</div>
+    <h2 class="font-cinzel text-2xl md:text-3xl text-royal-plum dark:text-royal-gold mb-2">Modest Adornment</h2>
+    <p class="font-inter text-xs text-[#8B7D6B]/60 mb-8 tracking-wider">YEAR 1 &bull; THE ARCHITECTURE OF WISDOM</p>
+
+    <div class="mb-8">
+      <h3 class="font-cinzel text-sm text-[#8B7D6B] tracking-wider mb-3">THE RAW INGREDIENT</h3>
+      <div class="bg-royal-sapphire/5 dark:bg-white/5 border border-[#8B7D6B]/10 rounded-xl p-6 text-center cursor-pointer hover:border-[#8B7D6B]/30 transition" onclick="openVerseModal({text:'I also want the women to dress modestly, with decency and propriety, adorning themselves, not with elaborate hairstyles or gold or pearls or expensive clothes, but with good deeds, appropriate for women who profess to worship God.',ref:'1 Timothy 2:9-10',context:'Paul wrote this letter to Timothy, his young prot&eacute;g&eacute; pastoring the church in Ephesus &mdash; a city famous for its temple of Artemis, where priestesses wore elaborate gold adornments as markers of cultic status. Paul was drawing a direct contrast between pagan display and godly order. The Greek kosmios does not mean plain, invisible, or impoverished. It means well-arranged, orderly, properly proportioned. Paul was not banning adornment &mdash; he was demanding that it serve a higher purpose than self-display.',crossRefs:['1 Peter 3:3-4','Proverbs 31:30','Isaiah 3:16-24','Titus 2:3'],application:'In 2026 Aurora, modesty applies to men with equal force. The capsule jewelry collection &mdash; one watch, one ring, one chain maximum &mdash; is the practical application of kosmios: well-ordered, proportioned, serving character rather than ego.'})">
+        <p class="font-playfair italic text-royal-plum dark:text-royal-gold text-lg">&ldquo;I also want the women to dress modestly, with decency and propriety, adorning themselves &hellip; not with elaborate hairstyles or gold or pearls or expensive clothes, but with good deeds.&rdquo;</p>
+        <p class="text-xs text-royal-sapphire/40 mt-2">&mdash; 1 Timothy 2:9&ndash;10</p>
+        <p class="text-xs text-[#8B7D6B]/50 mt-1">Tap for full context &amp; Greek insight</p>
+      </div>
+      <p class="font-inter text-sm text-royal-sapphire/60 dark:text-white/50 mt-4 leading-relaxed"><strong class="text-[#8B7D6B]">Greek Root:</strong> <em>kosmios</em> (&#x03BA;&#x03CC;&#x03C3;&#x03BC;&#x03B9;&#x03BF;&#x03C2;) &mdash; orderly, well-arranged, modest, decorous. Derived from <em>kosmos</em>, meaning order (the same root that gives us &ldquo;cosmos&rdquo; and &ldquo;cosmetics&rdquo;). The word does not mean invisible, austere, or stripped of beauty. It means arranged with divine order &mdash; everything in its proper place, nothing competing for attention, the whole composition serving a coherent purpose. Paul&rsquo;s instruction is fundamentally architectural: build your exterior presentation with the same intentional order that God built the cosmos.</p>
+    </div>
+
+    <div class="mb-8">
+      <h3 class="font-cinzel text-sm text-[#8B7D6B] tracking-wider mb-3">THE PREPARATION</h3>
+      <div class="font-inter text-sm text-royal-sapphire/70 dark:text-white/60 leading-relaxed space-y-4">
+        <p>The Western church has historically applied 1 Timothy 2:9 exclusively to women, creating an asymmetric standard that exempts men from the modesty conversation entirely. This is a misreading of both the text and the broader Pauline corpus. Paul&rsquo;s instruction to Timothy was addressed to a church, not a gender. The principle of <em>kosmios</em> &mdash; well-ordered presentation that serves character rather than ego &mdash; applies universally. A man who wears a gold chain, a diamond-encrusted watch, three rings, and a bracelet to a worship service has violated the same principle Paul addressed, regardless of his gender. Modesty is not gendered. It is architectural.</p>
+        <p>The Ephesian context deepens this understanding. Ephesus was home to the Temple of Artemis, one of the Seven Wonders of the Ancient World. The priestesses of Artemis adorned themselves with elaborate gold jewelry, pearls, and costly garments as markers of their cultic rank. When converts entered the Christian church from this background, they brought their adornment habits with them. Paul was not condemning beauty. He was severing the link between external display and spiritual authority. In the kingdom of God, authority comes from character, service, and good deeds &mdash; not from the weight of metal on your body.</p>
+        <p>The capsule jewelry collection is the modern application of <em>kosmios</em>. One watch, one ring, one chain maximum. Three pieces or fewer, each carrying specific meaning, each serving the total composition of the man rather than competing for independent attention. Before you add any piece of jewelry to your daily wear, it must pass the <em>kosmios</em> test: does this contribute to an ordered, purposeful presentation, or does it introduce visual noise that points to the accessory rather than the man? If the jewelry disappears when you enter a room, it has done its job. If the jewelry enters the room before you do, it has failed.</p>
+      </div>
+    </div>
+
+    <div class="royal-decree">
+      <p class="font-cinzel text-xs tracking-[0.2em] text-[#8B7D6B] mb-2">ROYAL DECREE</p>
+      <p class="font-playfair italic text-royal-plum dark:text-royal-gold text-sm leading-relaxed">&ldquo;The King decrees: modesty is not the absence of adornment &mdash; it is the mastery of proportion. One excellent piece outperforms five mediocre ones.&rdquo;</p>
+    </div>
+
+    <div class="mb-8">
+      <h3 class="font-cinzel text-sm text-[#8B7D6B] tracking-wider mb-3">THE CONSUMPTION</h3>
+      <div class="font-inter text-sm text-royal-sapphire/70 dark:text-white/60 leading-relaxed space-y-4">
+        <p>In 2026 Aurora, the <em>kosmios</em> test is remarkably practical. Stand in front of your mirror before leaving the house and conduct the ego audit. Look at every piece of metal on your body &mdash; watch, ring, chain, bracelet, earring, whatever you wear. For each piece, ask: does this serve my image or does it feed my ego? The distinction is critical. Serving your image means the piece contributes to a coherent, ordered presentation that communicates discipline, heritage, or covenant. Feeding your ego means the piece exists to draw attention, provoke envy, or compensate for an insecurity you have not addressed internally.</p>
+        <p>The capsule standard for the king of Aurora is three pieces or fewer: one timepiece on the wrist, one ring on the hand, one chain (or none) at the neck. This is not deprivation. It is discipline. When you limit your jewelry to three meaningful pieces, each piece carries more weight. A single well-chosen watch on a man&rsquo;s wrist commands more respect than a wrist stacked with bracelets, beads, and a smartwatch competing for attention. Walk through Town Center Aurora or Park Meadows and observe: the most distinguished men in any room are wearing the fewest accessories. This is not coincidence. It is the <em>kosmios</em> principle in action, whether they know the Greek or not.</p>
+      </div>
+    </div>
+
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-5 my-10">
+      <div class="card-parchment border border-[#8B7D6B]/10 rounded-xl p-6">
+        <div class="font-cinzel text-xs text-[#8B7D6B] tracking-widest mb-2">ARCHITECTURE</div>
+        <h4 class="font-cinzel text-sm text-royal-plum dark:text-royal-gold mb-2">Kosmios: Divine Order</h4>
+        <p class="text-xs text-royal-sapphire/60 dark:text-white/50 leading-relaxed">The Greek <em>kosmios</em> shares its root with &ldquo;cosmos&rdquo; &mdash; divine order. Your presentation should reflect the same intentionality that built the universe.</p>
+      </div>
+      <div class="card-parchment border border-[#8B7D6B]/10 rounded-xl p-6">
+        <div class="font-cinzel text-xs text-[#8B7D6B] tracking-widest mb-2">UNIVERSALITY</div>
+        <h4 class="font-cinzel text-sm text-royal-plum dark:text-royal-gold mb-2">Modesty Is Not Gendered</h4>
+        <p class="text-xs text-royal-sapphire/60 dark:text-white/50 leading-relaxed">Paul wrote to a church, not a gender. The kosmios principle applies to men with equal force. Excessive male jewelry violates the same standard.</p>
+      </div>
+      <div class="card-parchment border border-[#8B7D6B]/10 rounded-xl p-6">
+        <div class="font-cinzel text-xs text-[#8B7D6B] tracking-widest mb-2">TEST</div>
+        <h4 class="font-cinzel text-sm text-royal-plum dark:text-royal-gold mb-2">The Ego Audit</h4>
+        <p class="text-xs text-royal-sapphire/60 dark:text-white/50 leading-relaxed">For each piece of jewelry: does it serve your image or feed your ego? The distinction determines whether it belongs on your body or in a drawer.</p>
+      </div>
+      <div class="card-parchment border border-[#8B7D6B]/10 rounded-xl p-6">
+        <div class="font-cinzel text-xs text-[#8B7D6B] tracking-widest mb-2">CAPSULE</div>
+        <h4 class="font-cinzel text-sm text-royal-plum dark:text-royal-gold mb-2">Three Pieces or Fewer</h4>
+        <p class="text-xs text-royal-sapphire/60 dark:text-white/50 leading-relaxed">One watch, one ring, one chain maximum. When you limit, each piece carries more weight. Limitation is not poverty &mdash; it is concentration of intent.</p>
+      </div>
+    </div>
+
+    <div class="mb-8">
+      <h3 class="font-cinzel text-lg text-royal-plum dark:text-royal-gold mb-4">Practical Steps</h3>
+      <ul class="space-y-3 text-sm font-inter text-royal-sapphire/70 dark:text-white/60">
+        <li class="flex gap-3"><span class="text-[#8B7D6B] font-cinzel">I.</span> Conduct the ego audit tomorrow morning. For every piece of jewelry you put on, speak its purpose out loud. If you hesitate or cannot articulate a purpose, remove it.</li>
+        <li class="flex gap-3"><span class="text-[#8B7D6B] font-cinzel">II.</span> Reduce your daily jewelry to the capsule standard &mdash; three pieces or fewer &mdash; for the next seven days. Observe whether anyone notices. Observe how you feel.</li>
+        <li class="flex gap-3"><span class="text-[#8B7D6B] font-cinzel">III.</span> Memorize 1 Timothy 2:9-10 and the word <em>kosmios</em>. Let &ldquo;well-ordered&rdquo; become the governing principle of every adornment decision you make this year.</li>
+      </ul>
+    </div>
+
+    <div class="bg-white dark:bg-royal-sapphire/20 border border-[#8B7D6B]/10 rounded-xl p-6 mb-8">
+      <p class="font-playfair italic text-royal-plum dark:text-royal-gold text-sm mb-4">&ldquo;If every piece of jewelry you own were laid on a table, would the collection tell a story of meaning and order &mdash; or a story of accumulation and impulse?&rdquo;</p>
+      <textarea rows="3" placeholder="Write your reflection..." class="w-full px-4 py-3 rounded-lg border border-[#8B7D6B]/20 bg-royal-cream/50 dark:bg-white/5 font-inter text-sm focus:outline-none focus:border-[#8B7D6B] resize-none"></textarea>
+      <button data-prompt="Would your jewelry collection tell a story of meaning and order, or accumulation and impulse?" class="journal-save-btn mt-2 px-4 py-2 bg-[#8B7D6B] text-white text-xs font-cinzel rounded-lg hover:bg-royal-plum transition">Save to Journal</button>
+    </div>
+
+    <div class="quiz-block bg-white dark:bg-royal-sapphire/20 border border-[#8B7D6B]/10 rounded-xl p-6 mb-8">
+      <h4 class="font-cinzel text-sm text-[#8B7D6B] mb-4">Counsel from the Throne</h4>
+      <p class="font-playfair italic text-royal-plum dark:text-royal-gold text-sm mb-5">&ldquo;A man argues that modesty means wearing no jewelry at all &mdash; any adornment is vanity. How does the king respond?&rdquo;</p>
+      <div class="space-y-2">
+        <button data-correct="false" class="quiz-option w-full text-left px-4 py-3 rounded-lg border border-[#8B7D6B]/15 text-sm font-inter">Agree &mdash; all jewelry is worldly and a truly spiritual man needs nothing external</button>
+        <button data-correct="false" class="quiz-option w-full text-left px-4 py-3 rounded-lg border border-[#8B7D6B]/15 text-sm font-inter">Disagree strongly and wear extra jewelry to prove your freedom in Christ</button>
+        <button data-correct="true" class="quiz-option w-full text-left px-4 py-3 rounded-lg border border-[#8B7D6B]/15 text-sm font-inter">Point out that kosmios means well-ordered, not absent &mdash; God Himself adorned Joseph with a ring and chain, so the issue is proportion and purpose, not prohibition</button>
+      </div>
+      <div class="quiz-feedback hidden mt-4 text-sm font-playfair italic"></div>
+    </div>
+
+    <div class="quest-panel mb-8">
+      <p class="font-cinzel text-xs tracking-[0.2em] text-[#8B7D6B] mb-3">TODAY&rsquo;S QUEST</p>
+      <label class="flex items-start gap-3 cursor-pointer">
+        <input type="checkbox" class="quest-checkbox accent-[#8B7D6B] mt-1" data-quest="att-04">
+        <span class="text-sm font-inter text-white/80 leading-relaxed">Live the capsule standard for one full day: maximum three pieces of jewelry, each with articulated meaning. Journal the experience at night.</span>
+      </label>
+    </div>
+
+    <button class="audio-briefing-btn w-full py-3 border border-[#8B7D6B]/20 text-[#8B7D6B] font-cinzel text-sm rounded-xl hover:bg-[#8B7D6B]/5 transition mb-4">Play Royal Briefing</button>
+
+    <button class="absorb-btn w-full py-3 bg-[#8B7D6B] text-white font-cinzel tracking-wider rounded-lg hover:bg-royal-plum transition" data-lesson="4">Mark as Absorbed</button>
+    <div class="gold-divider mt-16"></div>
+  </section>
+
+  <!-- ======== LESSON 05 ======== -->
+  <section id="lesson-05" class="lesson-section max-w-4xl mx-auto px-6 pb-20">
+    <div class="font-cinzel text-xs tracking-[0.3em] text-[#8B7D6B]/40 mb-3">LESSON 05</div>
+    <h2 class="font-cinzel text-2xl md:text-3xl text-royal-plum dark:text-royal-gold mb-2">Rings of Meaning</h2>
+    <p class="font-inter text-xs text-[#8B7D6B]/60 mb-8 tracking-wider">YEAR 1 &bull; THE ARCHITECTURE OF WISDOM</p>
+
+    <div class="mb-8">
+      <h3 class="font-cinzel text-sm text-[#8B7D6B] tracking-wider mb-3">THE RAW INGREDIENT</h3>
+      <div class="bg-royal-sapphire/5 dark:bg-white/5 border border-[#8B7D6B]/10 rounded-xl p-6 text-center cursor-pointer hover:border-[#8B7D6B]/30 transition" onclick="openVerseModal({text:'But the father said to his servants, Quick! Bring the best robe and put it on him. Put a ring on his finger and sandals on his feet.',ref:'Luke 15:22',context:'The parable of the prodigal son is perhaps the most famous story Jesus ever told, and the ring is one of its most overlooked details. The son had squandered his entire inheritance in a distant country, reduced himself to feeding pigs (the ultimate degradation for a Jewish man), and rehearsed a speech asking to become a hired servant. The father interrupted the speech. He did not lecture, punish, or impose conditions. He restored identity through three physical objects: robe (covering the shame), sandals (declaring sonship &mdash; slaves went barefoot), and a ring (restoring authority). The Greek daktylios specifically means a finger ring, likely a signet, which would have given the son authority over household affairs once again.',crossRefs:['Genesis 41:42','Esther 8:2','Haggai 2:23','Jeremiah 22:24','Song of Solomon 8:6'],application:'In 2026 Aurora, the ring on your hand declares your identity before you introduce yourself. A wedding band declares covenant. A heritage ring declares lineage. A class ring or military ring declares earned honor. Every ring is a sentence in the story of who you are.'})">
+        <p class="font-playfair italic text-royal-plum dark:text-royal-gold text-lg">&ldquo;But the father said to his servants, &lsquo;Quick! Bring the best robe and put it on him. Put a ring on his finger and sandals on his feet.&rsquo;&rdquo;</p>
+        <p class="text-xs text-royal-sapphire/40 mt-2">&mdash; Luke 15:22</p>
+        <p class="text-xs text-[#8B7D6B]/50 mt-1">Tap for full context &amp; Greek insight</p>
+      </div>
+      <p class="font-inter text-sm text-royal-sapphire/60 dark:text-white/50 mt-4 leading-relaxed"><strong class="text-[#8B7D6B]">Greek Root:</strong> <em>daktylios</em> (&#x03B4;&#x03B1;&#x03BA;&#x03C4;&#x03CD;&#x03BB;&#x03B9;&#x03BF;&#x03C2;) &mdash; finger ring. From <em>daktylos</em>, meaning finger. In Greek and Roman culture, the <em>daktylios</em> was typically a signet ring that functioned as both identification and authorization. When the father placed a <em>daktylios</em> on the prodigal&rsquo;s finger, he was not giving a gift. He was restoring executive authority over the household estate. The ring declared to every servant, merchant, and neighbor that this man was no longer a disgraced son &mdash; he was a restored heir with full legal standing.</p>
+    </div>
+
+    <div class="mb-8">
+      <h3 class="font-cinzel text-sm text-[#8B7D6B] tracking-wider mb-3">THE PREPARATION</h3>
+      <div class="font-inter text-sm text-royal-sapphire/70 dark:text-white/60 leading-relaxed space-y-4">
+        <p>The three items the father gave the prodigal son form a complete restoration: robe, ring, sandals. Each served a distinct function. The robe covered his shame &mdash; he had returned in rags, likely wearing the same clothes he had on when he was feeding pigs. The sandals declared his sonship &mdash; in the ancient Near East, slaves and servants went barefoot while sons of the household wore shoes. The ring restored his authority &mdash; it gave him the legal power to conduct business, seal agreements, and manage resources on behalf of the family. The father did not wait for the son to earn these back. He commanded servants to bring them immediately. Restoration was not a process of probation. It was an act of declaration.</p>
+        <p>This pattern reveals something profound about rings in the Biblical narrative: they always declare what is true about the wearer&rsquo;s identity, not what the wearer has earned through performance. Pharaoh&rsquo;s ring declared Joseph&rsquo;s authority before Joseph had governed a single day. The prodigal&rsquo;s ring declared his sonship before he had demonstrated a single act of faithfulness in his return. Haggai 2:23 uses the signet ring as a metaphor for God&rsquo;s chosen: &ldquo;I will make you like my signet ring, for I have chosen you.&rdquo; The ring does not follow achievement. It precedes it. It declares what is true so that the wearer can live into the identity it confers.</p>
+        <p>For the modern king, this reframes how you think about every ring you own. A wedding band does not reward a successful marriage. It declares a covenant at the beginning, before any of the work has been done. A heritage ring from your father or grandfather does not certify that you have lived up to the family name. It places the family name on your hand as a standard you are called to uphold. The ring comes first. The character follows. This is why cheap, disposable rings carry no weight &mdash; they cost nothing, declare nothing, and can be discarded without consequence. A ring that matters should carry the weight of what it represents.</p>
+      </div>
+    </div>
+
+    <div class="royal-decree">
+      <p class="font-cinzel text-xs tracking-[0.2em] text-[#8B7D6B] mb-2">ROYAL DECREE</p>
+      <p class="font-playfair italic text-royal-plum dark:text-royal-gold text-sm leading-relaxed">&ldquo;The King decrees: the ring on a restored son&rsquo;s hand is the most powerful piece of jewelry in Scripture. Wear yours with the weight of what it represents.&rdquo;</p>
+    </div>
+
+    <div class="mb-8">
+      <h3 class="font-cinzel text-sm text-[#8B7D6B] tracking-wider mb-3">THE CONSUMPTION</h3>
+      <div class="font-inter text-sm text-royal-sapphire/70 dark:text-white/60 leading-relaxed space-y-4">
+        <p>In 2026 Aurora, Colorado, the practical application of the rings-of-meaning principle starts with the wedding band. If you are married, your band should be quality metal that endures the years it represents. Platinum is the most durable and hypoallergenic, typically ranging from four hundred to eight hundred dollars for a simple band at Kay Jewelers in Aurora or Helzberg at Town Center. Tungsten carbide is virtually indestructible and costs between fifty and two hundred dollars &mdash; an excellent option for men who work with their hands. Gold remains the traditional standard: 14k offers the best balance of durability and color. Whatever the metal, the band should fit properly (visit a jeweler for professional sizing &mdash; your finger size changes with seasons and weight), be comfortable for all-day wear, and be maintained with regular cleaning.</p>
+        <p>Beyond the wedding band, heritage rings and earned rings carry legitimate meaning. A class ring from a university represents years of discipline. A military ring represents service and sacrifice. A family signet passed from father to son represents lineage. These are not accessories &mdash; they are chapters in a personal narrative. When you wear one, you should be prepared to tell its story, because someone will ask. Remove rings during gym sessions, manual labor, and any activity that risks damage to the ring or injury to your hand (degloving injuries from rings caught on equipment are documented and serious). Clean your rings monthly with warm water and mild dish soap. Store them in a lined box or tray, not loose in a drawer where they scratch against other metal. Treat the ring as what it is: a covenant object, not a disposable accessory.</p>
+      </div>
+    </div>
+
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-5 my-10">
+      <div class="card-parchment border border-[#8B7D6B]/10 rounded-xl p-6">
+        <div class="font-cinzel text-xs text-[#8B7D6B] tracking-widest mb-2">RESTORATION</div>
+        <h4 class="font-cinzel text-sm text-royal-plum dark:text-royal-gold mb-2">Identity Before Achievement</h4>
+        <p class="text-xs text-royal-sapphire/60 dark:text-white/50 leading-relaxed">The prodigal received the ring before proving himself. A wedding band is given at the beginning, not the end. The ring declares identity so you can live into it.</p>
+      </div>
+      <div class="card-parchment border border-[#8B7D6B]/10 rounded-xl p-6">
+        <div class="font-cinzel text-xs text-[#8B7D6B] tracking-widest mb-2">TRINITY</div>
+        <h4 class="font-cinzel text-sm text-royal-plum dark:text-royal-gold mb-2">Robe, Ring, Sandals</h4>
+        <p class="text-xs text-royal-sapphire/60 dark:text-white/50 leading-relaxed">Three objects for complete restoration: covering (robe), authority (ring), sonship (sandals). The ring was the centerpiece &mdash; it restored legal standing in the household.</p>
+      </div>
+      <div class="card-parchment border border-[#8B7D6B]/10 rounded-xl p-6">
+        <div class="font-cinzel text-xs text-[#8B7D6B] tracking-widest mb-2">HERITAGE</div>
+        <h4 class="font-cinzel text-sm text-royal-plum dark:text-royal-gold mb-2">Rings That Tell Stories</h4>
+        <p class="text-xs text-royal-sapphire/60 dark:text-white/50 leading-relaxed">A class ring, military ring, or family signet is not an accessory. It is a chapter in a personal narrative. Be prepared to tell its story, because someone will ask.</p>
+      </div>
+      <div class="card-parchment border border-[#8B7D6B]/10 rounded-xl p-6">
+        <div class="font-cinzel text-xs text-[#8B7D6B] tracking-widest mb-2">MAINTENANCE</div>
+        <h4 class="font-cinzel text-sm text-royal-plum dark:text-royal-gold mb-2">Care as Covenant</h4>
+        <p class="text-xs text-royal-sapphire/60 dark:text-white/50 leading-relaxed">Clean monthly with warm water and mild soap. Remove during gym and labor. Store properly. A covenant object deserves covenant-level maintenance.</p>
+      </div>
+    </div>
+
+    <div class="mb-8">
+      <h3 class="font-cinzel text-lg text-royal-plum dark:text-royal-gold mb-4">Practical Steps</h3>
+      <ul class="space-y-3 text-sm font-inter text-royal-sapphire/70 dark:text-white/60">
+        <li class="flex gap-3"><span class="text-[#8B7D6B] font-cinzel">I.</span> If married, inspect your wedding band tonight. Is it sized correctly? When was it last cleaned? Take it to Kay Jewelers or a local Aurora shop for a complimentary cleaning and inspection this week.</li>
+        <li class="flex gap-3"><span class="text-[#8B7D6B] font-cinzel">II.</span> Read Luke 15:11-32 with fresh eyes, focusing on the three restoration objects. Write in your journal: what does the ring in this parable teach me about identity versus performance?</li>
+        <li class="flex gap-3"><span class="text-[#8B7D6B] font-cinzel">III.</span> If you have a family ring or heirloom that you do not currently wear, retrieve it. Clean it. Try it on. Consider whether its story deserves to be worn on your hand rather than hidden in a drawer.</li>
+      </ul>
+    </div>
+
+    <div class="bg-white dark:bg-royal-sapphire/20 border border-[#8B7D6B]/10 rounded-xl p-6 mb-8">
+      <p class="font-playfair italic text-royal-plum dark:text-royal-gold text-sm mb-4">&ldquo;The prodigal son rehearsed a speech about becoming a servant. The father gave him a ring instead. What area of your life are you performing in when the Father has already declared your identity?&rdquo;</p>
+      <textarea rows="3" placeholder="Write your reflection..." class="w-full px-4 py-3 rounded-lg border border-[#8B7D6B]/20 bg-royal-cream/50 dark:bg-white/5 font-inter text-sm focus:outline-none focus:border-[#8B7D6B] resize-none"></textarea>
+      <button data-prompt="What area of your life are you performing in when the Father has already declared your identity?" class="journal-save-btn mt-2 px-4 py-2 bg-[#8B7D6B] text-white text-xs font-cinzel rounded-lg hover:bg-royal-plum transition">Save to Journal</button>
+    </div>
+
+    <div class="quiz-block bg-white dark:bg-royal-sapphire/20 border border-[#8B7D6B]/10 rounded-xl p-6 mb-8">
+      <h4 class="font-cinzel text-sm text-[#8B7D6B] mb-4">Counsel from the Throne</h4>
+      <p class="font-playfair italic text-royal-plum dark:text-royal-gold text-sm mb-5">&ldquo;A man wants to buy an expensive ring to impress others at work. He has no heritage or covenant behind the purchase. What does the king counsel?&rdquo;</p>
+      <div class="space-y-2">
+        <button data-correct="false" class="quiz-option w-full text-left px-4 py-3 rounded-lg border border-[#8B7D6B]/15 text-sm font-inter">Encourage him &mdash; a quality ring makes a strong impression regardless of its meaning</button>
+        <button data-correct="false" class="quiz-option w-full text-left px-4 py-3 rounded-lg border border-[#8B7D6B]/15 text-sm font-inter">Tell him rings are meaningless and he should focus only on his work performance</button>
+        <button data-correct="true" class="quiz-option w-full text-left px-4 py-3 rounded-lg border border-[#8B7D6B]/15 text-sm font-inter">Counsel that a ring amplifies whatever the man already carries &mdash; invest in the character first, then let the ring declare what is already true</button>
+      </div>
+      <div class="quiz-feedback hidden mt-4 text-sm font-playfair italic"></div>
+    </div>
+
+    <div class="quest-panel mb-8">
+      <p class="font-cinzel text-xs tracking-[0.2em] text-[#8B7D6B] mb-3">TODAY&rsquo;S QUEST</p>
+      <label class="flex items-start gap-3 cursor-pointer">
+        <input type="checkbox" class="quest-checkbox accent-[#8B7D6B] mt-1" data-quest="att-05">
+        <span class="text-sm font-inter text-white/80 leading-relaxed">Clean every ring you own tonight. As you clean each one, speak its meaning aloud. If a ring has no meaning, set it aside for donation or storage.</span>
+      </label>
+    </div>
+
+    <button class="audio-briefing-btn w-full py-3 border border-[#8B7D6B]/20 text-[#8B7D6B] font-cinzel text-sm rounded-xl hover:bg-[#8B7D6B]/5 transition mb-4">Play Royal Briefing</button>
+
+    <button class="absorb-btn w-full py-3 bg-[#8B7D6B] text-white font-cinzel tracking-wider rounded-lg hover:bg-royal-plum transition" data-lesson="5">Mark as Absorbed</button>
+    <div class="gold-divider mt-16"></div>
+  </section>
+
+  <!-- ======== LESSON 06 ======== -->
+  <section id="lesson-06" class="lesson-section max-w-4xl mx-auto px-6 pb-20">
+    <div class="font-cinzel text-xs tracking-[0.3em] text-[#8B7D6B]/40 mb-3">LESSON 06</div>
+    <h2 class="font-cinzel text-2xl md:text-3xl text-royal-plum dark:text-royal-gold mb-2">The Minimalist Standard</h2>
+    <p class="font-inter text-xs text-[#8B7D6B]/60 mb-8 tracking-wider">YEAR 1 &bull; THE ARCHITECTURE OF WISDOM</p>
+
+    <div class="mb-8">
+      <h3 class="font-cinzel text-sm text-[#8B7D6B] tracking-wider mb-3">THE RAW INGREDIENT</h3>
+      <div class="bg-royal-sapphire/5 dark:bg-white/5 border border-[#8B7D6B]/10 rounded-xl p-6 text-center cursor-pointer hover:border-[#8B7D6B]/30 transition" onclick="openVerseModal({text:'Your beauty should not come from outward adornment, such as elaborate hairstyles and the wearing of gold jewelry or fine clothes. Rather, it should be that of your inner self, the unfading beauty of a gentle and quiet spirit, which is of great worth in God\'s sight.',ref:'1 Peter 3:3-4',context:'Peter wrote this letter to scattered Christians across Asia Minor &mdash; Pontus, Galatia, Cappadocia, Asia, and Bithynia &mdash; communities under social pressure and intermittent persecution. His instruction on adornment is not a fashion directive. It is a survival strategy: when the world is hostile, your inner character must be stronger than your outer presentation. The Greek praos (gentle) does not mean weak. It means strength under control &mdash; a warhorse that obeys the rein, a mighty river contained within its banks. The &ldquo;quiet spirit&rdquo; (hesychios) means tranquil, undisturbed &mdash; a man who does not need external validation because his internal foundation is unshakeable.',crossRefs:['1 Timothy 2:9-10','Proverbs 31:30','Matthew 5:5','Galatians 5:22-23'],application:'In 2026 Aurora, the minimalist standard is the final audit. Lay out all your jewelry. Keep only what carries meaning. The man whose inner self carries weight needs less metal to prove it.'})">
+        <p class="font-playfair italic text-royal-plum dark:text-royal-gold text-lg">&ldquo;Your beauty should not come from outward adornment &hellip; Rather, it should be that of your inner self, the unfading beauty of a gentle and quiet spirit, which is of great worth in God&rsquo;s sight.&rdquo;</p>
+        <p class="text-xs text-royal-sapphire/40 mt-2">&mdash; 1 Peter 3:3&ndash;4</p>
+        <p class="text-xs text-[#8B7D6B]/50 mt-1">Tap for full context &amp; Greek insight</p>
+      </div>
+      <p class="font-inter text-sm text-royal-sapphire/60 dark:text-white/50 mt-4 leading-relaxed"><strong class="text-[#8B7D6B]">Greek Root:</strong> <em>praos</em> (&#x03C0;&#x03C1;&#x03B1;&#x03C8;&#x03C2;) &mdash; gentle, meek, but fundamentally: strength under control. Aristotle defined <em>praotes</em> (the noun form) as the mean between excessive anger and the inability to be angry at all. It is the quality of a trained warhorse &mdash; immense power, perfect obedience. Jesus used this word to describe Himself in Matthew 11:29 (&ldquo;I am gentle and humble in heart&rdquo;) and promised that the <em>praos</em> would inherit the earth (Matthew 5:5). A man with <em>praos</em> does not need external adornment to project strength because the strength is self-evident in his bearing, his speech, and his composure.</p>
+    </div>
+
+    <div class="mb-8">
+      <h3 class="font-cinzel text-sm text-[#8B7D6B] tracking-wider mb-3">THE PREPARATION</h3>
+      <div class="font-inter text-sm text-royal-sapphire/70 dark:text-white/60 leading-relaxed space-y-4">
+        <p>Peter draws a direct, unambiguous line between inner character and outer presentation. The structure of 1 Peter 3:3-4 is architectural: &ldquo;not this &hellip; but this.&rdquo; Not outward adornment as the source of your beauty, but the inner self as the source of your beauty. Note what Peter does not say. He does not say &ldquo;never wear gold.&rdquo; He does not say &ldquo;all jewelry is sin.&rdquo; He establishes a hierarchy of value: the inner self is of &ldquo;great worth in God&rsquo;s sight,&rdquo; while outward adornment, however fine, is secondary. The man who builds inward first will require less outward to communicate his presence. The man who builds outward first will never have enough metal to compensate for what is missing inside.</p>
+        <p>The Greek <em>hesychios</em> (quiet spirit) is not silence. It is the absence of internal agitation. A man with a <em>hesychios</em> spirit does not fidget, does not seek reassurance, does not look to see if others are watching him. He is settled. Stable. Unmoved by flattery or criticism because his identity is anchored in something deeper than public opinion. This internal quietness is the foundation upon which the minimalist standard rests. When your spirit is quiet, your accessories can be quiet too. When your spirit is restless, you will keep adding metal, trying to project an authority you do not feel.</p>
+        <p>The minimalist standard is not an aesthetic preference. It is a diagnostic tool. If removing a piece of jewelry would diminish your confidence or your sense of presence in a room, that piece has become a crutch &mdash; and crutches indicate an injury that needs healing, not more crutches. The final test Peter offers is devastating in its simplicity: what is of great worth in God&rsquo;s sight? Not the gold chain. Not the designer watch. Not the diamond ring. The gentle, quiet, controlled spirit of a man who knows who he is. Everything else is optional.</p>
+      </div>
+    </div>
+
+    <div class="royal-decree">
+      <p class="font-cinzel text-xs tracking-[0.2em] text-[#8B7D6B] mb-2">ROYAL DECREE</p>
+      <p class="font-playfair italic text-royal-plum dark:text-royal-gold text-sm leading-relaxed">&ldquo;The King decrees: less adorns more when the man himself carries weight. The minimalist standard is the highest standard.&rdquo;</p>
+    </div>
+
+    <div class="mb-8">
+      <h3 class="font-cinzel text-sm text-[#8B7D6B] tracking-wider mb-3">THE CONSUMPTION</h3>
+      <div class="font-inter text-sm text-royal-sapphire/70 dark:text-white/60 leading-relaxed space-y-4">
+        <p>In 2026 Aurora, the minimalist standard concludes this campus with a practical exercise. Tonight, lay out every piece of jewelry you own on a flat surface &mdash; rings, watches, chains, bracelets, cufflinks, everything. Look at the collection as a whole. Does it tell a coherent story? Or does it reveal the history of impulse purchases, trend-following, and gifts you kept out of obligation? Apply the removal test to each piece: if removing this item would not diminish your presence in a room, it is not necessary. Keep only what passes. Donate, sell, or store the rest. This is not deprivation. It is curation &mdash; and curation is the discipline of a king who understands that every object on his person either amplifies his presence or dilutes it.</p>
+        <p>The men who command the most respect in any room in Aurora &mdash; whether it is a boardroom at the Hyatt Regency, a dinner at Del Frisco&rsquo;s, or a Sunday morning service at your local church &mdash; are uniformly the men wearing the least jewelry. A single well-chosen watch. A wedding band. Perhaps nothing else. Their authority comes from posture, eye contact, articulation, and the quiet confidence that Peter called <em>praos</em>. They have passed the minimalist test not because they read this lesson, but because they understand instinctively what Scripture codified two thousand years ago: the man is the ornament. Everything on his body is secondary to the character within it. Quality over quantity, always. Meaning over metal, forever.</p>
+      </div>
+    </div>
+
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-5 my-10">
+      <div class="card-parchment border border-[#8B7D6B]/10 rounded-xl p-6">
+        <div class="font-cinzel text-xs text-[#8B7D6B] tracking-widest mb-2">STRENGTH</div>
+        <h4 class="font-cinzel text-sm text-royal-plum dark:text-royal-gold mb-2">Praos: Power Under Control</h4>
+        <p class="text-xs text-royal-sapphire/60 dark:text-white/50 leading-relaxed">Meekness is not weakness. It is the strength of a warhorse that obeys the rein. A man with <em>praos</em> needs less metal because his presence alone communicates authority.</p>
+      </div>
+      <div class="card-parchment border border-[#8B7D6B]/10 rounded-xl p-6">
+        <div class="font-cinzel text-xs text-[#8B7D6B] tracking-widest mb-2">DIAGNOSTIC</div>
+        <h4 class="font-cinzel text-sm text-royal-plum dark:text-royal-gold mb-2">The Removal Test</h4>
+        <p class="text-xs text-royal-sapphire/60 dark:text-white/50 leading-relaxed">If removing a piece of jewelry would diminish your confidence, it has become a crutch. Crutches indicate injury, not strength. Heal the injury instead of adding crutches.</p>
+      </div>
+      <div class="card-parchment border border-[#8B7D6B]/10 rounded-xl p-6">
+        <div class="font-cinzel text-xs text-[#8B7D6B] tracking-widest mb-2">HIERARCHY</div>
+        <h4 class="font-cinzel text-sm text-royal-plum dark:text-royal-gold mb-2">Inner Over Outer</h4>
+        <p class="text-xs text-royal-sapphire/60 dark:text-white/50 leading-relaxed">Peter establishes value hierarchy: the inner self is of &ldquo;great worth in God&rsquo;s sight.&rdquo; Outer adornment is permitted but permanently secondary to character.</p>
+      </div>
+      <div class="card-parchment border border-[#8B7D6B]/10 rounded-xl p-6">
+        <div class="font-cinzel text-xs text-[#8B7D6B] tracking-widest mb-2">CURATION</div>
+        <h4 class="font-cinzel text-sm text-royal-plum dark:text-royal-gold mb-2">The Man Is the Ornament</h4>
+        <p class="text-xs text-royal-sapphire/60 dark:text-white/50 leading-relaxed">The most respected men in any room wear the fewest accessories. Their authority comes from posture, composure, and character. Everything else is secondary.</p>
+      </div>
+    </div>
+
+    <div class="mb-8">
+      <h3 class="font-cinzel text-lg text-royal-plum dark:text-royal-gold mb-4">Practical Steps</h3>
+      <ul class="space-y-3 text-sm font-inter text-royal-sapphire/70 dark:text-white/60">
+        <li class="flex gap-3"><span class="text-[#8B7D6B] font-cinzel">I.</span> Tonight, perform the final audit. Lay out all your jewelry. Apply the removal test to each piece. Keep only what carries meaning. Donate or store the rest.</li>
+        <li class="flex gap-3"><span class="text-[#8B7D6B] font-cinzel">II.</span> For the next thirty days, wear only what survived the audit. Notice whether anyone comments on what is missing. Notice whether your confidence changes without the extra metal.</li>
+        <li class="flex gap-3"><span class="text-[#8B7D6B] font-cinzel">III.</span> Memorize 1 Peter 3:3-4 and the word <em>praos</em>. Let &ldquo;strength under control&rdquo; become the internal standard against which every external decision is measured.</li>
+      </ul>
+    </div>
+
+    <div class="bg-white dark:bg-royal-sapphire/20 border border-[#8B7D6B]/10 rounded-xl p-6 mb-8">
+      <p class="font-playfair italic text-royal-plum dark:text-royal-gold text-sm mb-4">&ldquo;If you walked into a room wearing no jewelry at all &mdash; no watch, no ring, no chain &mdash; would your presence still command attention? If the answer is no, the work is not in the jewelry store. It is in the mirror.&rdquo;</p>
+      <textarea rows="3" placeholder="Write your reflection..." class="w-full px-4 py-3 rounded-lg border border-[#8B7D6B]/20 bg-royal-cream/50 dark:bg-white/5 font-inter text-sm focus:outline-none focus:border-[#8B7D6B] resize-none"></textarea>
+      <button data-prompt="If you walked into a room wearing no jewelry at all, would your presence still command attention?" class="journal-save-btn mt-2 px-4 py-2 bg-[#8B7D6B] text-white text-xs font-cinzel rounded-lg hover:bg-royal-plum transition">Save to Journal</button>
+    </div>
+
+    <div class="quiz-block bg-white dark:bg-royal-sapphire/20 border border-[#8B7D6B]/10 rounded-xl p-6 mb-8">
+      <h4 class="font-cinzel text-sm text-[#8B7D6B] mb-4">Counsel from the Throne</h4>
+      <p class="font-playfair italic text-royal-plum dark:text-royal-gold text-sm mb-5">&ldquo;After completing the final jewelry audit, you discover that only your wedding band carries genuine meaning. Everything else was impulse or trend. What does the king do?&rdquo;</p>
+      <div class="space-y-2">
+        <button data-correct="false" class="quiz-option w-full text-left px-4 py-3 rounded-lg border border-[#8B7D6B]/15 text-sm font-inter">Keep everything anyway &mdash; you already paid for it and it would be wasteful to remove it</button>
+        <button data-correct="false" class="quiz-option w-full text-left px-4 py-3 rounded-lg border border-[#8B7D6B]/15 text-sm font-inter">Immediately buy new meaningful pieces to fill the void left by the ones you removed</button>
+        <button data-correct="true" class="quiz-option w-full text-left px-4 py-3 rounded-lg border border-[#8B7D6B]/15 text-sm font-inter">Wear only the wedding band. Let the absence speak. Add new pieces only when genuine meaning arrives &mdash; never to fill a visual gap</button>
+      </div>
+      <div class="quiz-feedback hidden mt-4 text-sm font-playfair italic"></div>
+    </div>
+
+    <div class="quest-panel mb-8">
+      <p class="font-cinzel text-xs tracking-[0.2em] text-[#8B7D6B] mb-3">TODAY&rsquo;S QUEST</p>
+      <label class="flex items-start gap-3 cursor-pointer">
+        <input type="checkbox" class="quest-checkbox accent-[#8B7D6B] mt-1" data-quest="att-06">
+        <span class="text-sm font-inter text-white/80 leading-relaxed">Perform the final jewelry audit tonight. Lay everything out. Apply the removal test. Keep only what carries meaning. Photograph the before and after. Journal the experience.</span>
+      </label>
+    </div>
+
+    <button class="audio-briefing-btn w-full py-3 border border-[#8B7D6B]/20 text-[#8B7D6B] font-cinzel text-sm rounded-xl hover:bg-[#8B7D6B]/5 transition mb-4">Play Royal Briefing</button>
+
+    <button class="absorb-btn w-full py-3 bg-[#8B7D6B] text-white font-cinzel tracking-wider rounded-lg hover:bg-royal-plum transition" data-lesson="6">Mark as Absorbed</button>
+    <div class="gold-divider mt-16"></div>
+  </section>
+
+  <!-- FAQ (SEO) -->
+  <section class="max-w-4xl mx-auto px-6 pb-16">
+    <h2 class="font-cinzel text-2xl text-royal-plum dark:text-royal-gold mb-8 text-center">Frequently Asked Questions</h2>
+    <div class="space-y-4">
+      <details class="bg-white dark:bg-royal-sapphire/20 border border-[#8B7D6B]/10 rounded-xl p-6">
+        <summary class="font-cinzel text-sm text-[#8B7D6B] cursor-pointer">Does the Bible say men should not wear jewelry?</summary>
+        <p class="mt-3 text-sm font-inter text-royal-sapphire/70 dark:text-white/60 leading-relaxed">No. Scripture records God Himself adorning men with rings and chains as marks of authority and favor. Joseph received Pharaoh&rsquo;s signet ring and a gold chain (Genesis 41:42). Daniel received a gold chain from Belshazzar (Daniel 5:29). The prodigal son received a ring from his father (Luke 15:22). What Scripture prohibits is not adornment itself but excessive, ego-driven adornment that replaces character with display (1 Timothy 2:9-10, 1 Peter 3:3-4). The principle is proportion and meaning, not prohibition.</p>
+      </details>
+      <details class="bg-white dark:bg-royal-sapphire/20 border border-[#8B7D6B]/10 rounded-xl p-6">
+        <summary class="font-cinzel text-sm text-[#8B7D6B] cursor-pointer">How much should a man spend on jewelry?</summary>
+        <p class="mt-3 text-sm font-inter text-royal-sapphire/70 dark:text-white/60 leading-relaxed">The amount matters less than the intention. A fifty-dollar tungsten wedding band worn with covenant commitment outranks a five-thousand-dollar gold ring worn for vanity. That said, quality metal lasts longer, maintains its appearance, and communicates the seriousness of what it represents. Buy the best quality you can afford at the time, prioritize solid metals over plated or filled, and remember that fewer pieces of higher quality will always serve you better than many pieces of inferior material.</p>
+      </details>
+      <details class="bg-white dark:bg-royal-sapphire/20 border border-[#8B7D6B]/10 rounded-xl p-6">
+        <summary class="font-cinzel text-sm text-[#8B7D6B] cursor-pointer">Is wearing a cross necklace a genuine expression of faith or just fashion?</summary>
+        <p class="mt-3 text-sm font-inter text-royal-sapphire/70 dark:text-white/60 leading-relaxed">It depends entirely on the man wearing it. A cross pendant worn by a man who reads Scripture, lives by its principles, and can articulate his faith when asked is a confession &mdash; a visible marker of an invisible reality. A cross pendant worn because it looks good with a V-neck shirt is fashion, and Scripture warns against adornment that substitutes for inner substance. If you wear a cross, be prepared to explain what it means to you. If you cannot, reconsider whether it belongs around your neck.</p>
+      </details>
+      <details class="bg-white dark:bg-royal-sapphire/20 border border-[#8B7D6B]/10 rounded-xl p-6">
+        <summary class="font-cinzel text-sm text-[#8B7D6B] cursor-pointer">Where can I find quality, affordable jewelry in Aurora, Colorado?</summary>
+        <p class="mt-3 text-sm font-inter text-royal-sapphire/70 dark:text-white/60 leading-relaxed">Helzberg Diamonds at Town Center Aurora carries solid gold and platinum wedding bands. Kay Jewelers offers complimentary ring sizing and cleaning. Costco on South Quebec Street periodically stocks 14k gold chains and quality watches at near-wholesale pricing. Independent jewelers along Havana Street offer custom work and heritage-style signet rings at fair markups. For watches, Seiko, Orient, and Tissot offer excellent automatic movements between one hundred and six hundred dollars. Online, Etsy artisans provide handmade pendants with more character than mass-produced alternatives.</p>
+      </details>
+    </div>
+    <p class="text-xs text-royal-sapphire/30 dark:text-white/15 text-center mt-8 font-inter">Last updated: March 2026</p>
   </section>
 
   <div id="mainFooter"></div>
+
   <script src="shared.js"></script>
   <script src="pillar-template.js"></script>
   <script>
     document.addEventListener('DOMContentLoaded', function() {
-      if (!requireAuth()) return;
       initPillar('attire');
 
-      /* ---------- Lazy-Load Videos ---------- */
-      document.querySelectorAll('.load-video-btn').forEach(function(btn) {
+      var absorbed = JSON.parse(localStorage.getItem('kl_attire_absorbed') || '[]');
+      var total = 6;
+      var pct = Math.round((absorbed.length / total) * 100);
+      var bar = document.getElementById('progressBar');
+      var fill = document.getElementById('progressFill');
+      var text = document.getElementById('progressText');
+      if (bar) bar.style.width = pct + '%';
+      if (fill) fill.style.width = pct + '%';
+      if (text) text.textContent = 'Adornment Mastery ' + pct + '%';
+
+      document.querySelectorAll('.absorb-btn').forEach(function(btn) {
+        var lesson = parseInt(btn.dataset.lesson);
+        if (absorbed.includes(lesson)) {
+          btn.textContent = 'Absorbed';
+          btn.classList.add('absorbed');
+        }
         btn.addEventListener('click', function() {
-          var iframe = document.getElementById(btn.dataset.target);
-          if (iframe) {
-            iframe.src = iframe.dataset.src;
-            iframe.classList.remove('hidden');
-            btn.remove();
+          if (absorbed.includes(lesson)) return;
+          absorbed.push(lesson);
+          localStorage.setItem('kl_attire_absorbed', JSON.stringify(absorbed));
+          btn.textContent = 'Absorbed';
+          btn.classList.add('absorbed');
+          pct = Math.round((absorbed.length / total) * 100);
+          if (bar) bar.style.width = pct + '%';
+          if (fill) fill.style.width = pct + '%';
+          if (text) text.textContent = 'Adornment Mastery ' + pct + '%';
+          updateStreak();
+        });
+      });
+
+      var observer = new IntersectionObserver(function(entries) {
+        entries.forEach(function(e) {
+          if (e.isIntersecting) e.target.classList.add('visible');
+        });
+      }, { threshold: 0.05 });
+      document.querySelectorAll('.lesson-section').forEach(function(s) { observer.observe(s); });
+
+      var tocDots = document.querySelectorAll('#lessonToc .toc-dot');
+      var sections = document.querySelectorAll('.lesson-section');
+      var tocObserver = new IntersectionObserver(function(entries) {
+        entries.forEach(function(e) {
+          if (e.isIntersecting) {
+            var id = e.target.id;
+            tocDots.forEach(function(d) {
+              d.classList.toggle('active', d.getAttribute('href') === '#' + id);
+            });
           }
+        });
+      }, { threshold: 0.3, rootMargin: '-100px 0px -60% 0px' });
+      sections.forEach(function(s) { tocObserver.observe(s); });
+
+      document.querySelectorAll('.quest-checkbox').forEach(function(cb) {
+        var key = 'kl_quest_' + cb.dataset.quest;
+        cb.checked = localStorage.getItem(key) === 'true';
+        cb.addEventListener('change', function() {
+          localStorage.setItem(key, cb.checked);
         });
       });
     });

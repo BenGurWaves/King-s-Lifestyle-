@@ -1,302 +1,358 @@
-<!-- legacy.html – v0.0.7 -->
+<!-- legacy.html – v0.0.8 -->
 <!DOCTYPE html>
 <html lang="en" class="scroll-smooth">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0">
   <title>Legacy — A King's Lifestyle</title>
+  <meta name="description" content="Building what outlasts your lifetime. Deep lessons on multi-generational vision, advisory councils, and Biblical legacy architecture for the modern king.">
   <link rel="manifest" href="manifest.json">
   <script src="https://cdn.tailwindcss.com"></script>
   <script>tailwind.config={darkMode:'class',theme:{extend:{colors:{royal:{green:'#052B20',cream:'#FFF6E6',gold:'#A38255',plum:'#571641',sapphire:'#08052D'}},fontFamily:{cinzel:['Cinzel','serif'],inter:['Inter','sans-serif'],playfair:['Playfair Display','serif']},animation:{fadeIn:'fadeIn 0.8s ease-out forwards',fadeInUp:'fadeInUp 0.8s ease-out forwards'},keyframes:{fadeIn:{'0%':{opacity:'0'},'100%':{opacity:'1'}},fadeInUp:{'0%':{opacity:'0',transform:'translateY(24px)'},'100%':{opacity:'1',transform:'translateY(0)'}}}}}};</script>
   <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600;700&family=Inter:wght@300;400;500;600&family=Playfair+Display:ital,wght@0,400;0,600;1,400&display=swap" rel="stylesheet">
   <script src="https://unpkg.com/@supabase/supabase-js@2" defer></script>
-  <style>html,body{overflow-x:hidden;max-width:100vw;}.bg-parchment{background-image:url("data:image/svg+xml,%3Csvg width='100' height='100' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.8' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100' height='100' filter='url(%23n)' opacity='0.03'/%3E%3C/svg%3E");}.gold-glow:hover{box-shadow:0 0 30px rgba(163,130,85,0.25);}.dark .bg-parchment{background-color:#0a0a0a;}.dark body{background-color:#0a0a0a;color:#e0d5c4;}</style>
+  <style>
+    html,body{overflow-x:hidden;max-width:100vw;}
+    .bg-parchment{background-image:url("data:image/svg+xml,%3Csvg width='100' height='100' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.8' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100' height='100' filter='url(%23n)' opacity='0.03'/%3E%3C/svg%3E");}
+    .gold-glow:hover{box-shadow:0 0 30px rgba(163,130,85,0.25);}
+    .dark .bg-parchment{background-color:#0a0a0a;}
+    .dark body{background-color:#0a0a0a;color:#e0d5c4;}
+    .lesson-section{opacity:0;transform:translateY(30px);transition:opacity 0.7s ease-out,transform 0.7s ease-out;}
+    .lesson-section.visible{opacity:1;transform:translateY(0);}
+    .toc-dot{width:8px;height:8px;border-radius:50%;border:1.5px solid rgba(87,22,65,0.3);transition:all 0.3s;display:block;}
+    .toc-dot.active{background:#571641;border-color:#571641;box-shadow:0 0 8px rgba(87,22,65,0.4);}
+    .gold-divider{height:1px;background:linear-gradient(90deg,transparent,#571641 50%,transparent);margin:0 auto;max-width:200px;}
+    .absorb-btn.absorbed{background:#052B20 !important;cursor:default;}
+    .card-parchment{background:linear-gradient(135deg,#FFF6E6 0%,#f5e6cc 100%);}
+    .dark .card-parchment{background:linear-gradient(135deg,#1a1a1a 0%,#141210 100%);}
+    .quiz-option{cursor:pointer;transition:border-color 0.2s;}
+    .quiz-option:hover{border-color:#571641 !important;}
+    .royal-decree{border-left:3px solid #A38255;background:linear-gradient(135deg,rgba(163,130,85,0.05),rgba(163,130,85,0.02));padding:1.5rem;border-radius:0 0.75rem 0.75rem 0;margin:1.5rem 0;}
+    .quest-panel{background:linear-gradient(135deg,#052B20,#08052D);border-radius:1rem;padding:1.5rem;color:white;}
+  </style>
 </head>
-<body class="bg-royal-cream bg-parchment font-inter text-royal-sapphire min-h-screen">
+<body class="bg-royal-cream bg-parchment font-inter text-royal-sapphire min-h-screen overflow-x-hidden">
   <div id="mainNav"></div>
 
-  <!-- ============================================================
-       STORYTELLING INTRO
-       ============================================================ -->
-  <section class="max-w-4xl mx-auto px-6 pt-20 pb-12 animate-fadeInUp">
-    <div class="text-center mb-16">
-      <h1 class="font-cinzel text-3xl md:text-5xl text-royal-plum mb-8 tracking-wide">Legacy</h1>
-      <div class="max-w-2xl mx-auto space-y-5">
-        <p class="font-playfair italic text-royal-gold text-lg leading-relaxed">
-          Some dynasties lasted centuries. The Medicis shaped the Renaissance across generations. The Rothschilds built financial empires that endured for two hundred years. Others — families with equal wealth and talent — crumbled within a single generation, their names forgotten, their fortunes scattered, their lessons unlearned.
-        </p>
-        <p class="font-inter text-sm text-royal-sapphire/70 dark:text-white/50 leading-relaxed">
-          The difference was never money. It was never luck. It was intentionality. The families that endured planted values so deep that no storm could uproot them. They wrote down their principles. They taught by example. They sacrificed present comfort for future strength. Legacy is not what you build for yourself — it is the foundation your children's children will stand upon.
-        </p>
-        <p class="font-inter text-sm text-royal-sapphire/70 dark:text-white/50 leading-relaxed">
-          Every decision you make today either adds a brick to that foundation or removes one. The man who lives only for his own comfort builds a house of sand. The man who lives for something beyond himself builds a cathedral that will stand long after his name has faded from living memory. This pillar is about becoming that man.
-        </p>
-      </div>
+  <!-- PROGRESS BAR -->
+  <div class="fixed top-0 left-0 right-0 z-[60] pointer-events-none">
+    <div class="h-1 bg-royal-sapphire/5">
+      <div id="progressFill" class="h-full bg-gradient-to-r from-royal-plum to-royal-gold transition-all duration-700 ease-out" style="width:0%"></div>
     </div>
+  </div>
 
-    <!-- Bible quote -->
-    <div data-bible class="bg-royal-sapphire/5 dark:bg-white/5 border border-royal-gold/10 rounded-xl p-6 mb-6 text-center">
-      <p class="font-playfair italic text-royal-plum dark:text-royal-gold">"A good man leaves an inheritance to his children's children."</p>
-      <p class="text-xs text-royal-sapphire/40 mt-2">&mdash; Proverbs 13:22</p>
+  <!-- HERO -->
+  <section class="max-w-4xl mx-auto px-6 pt-24 pb-12 text-center">
+    <div class="font-cinzel text-xs tracking-[0.3em] text-royal-plum/50 uppercase mb-4">Year 1 &mdash; The Architecture of Wisdom</div>
+    <h1 class="font-cinzel text-4xl md:text-5xl lg:text-6xl text-royal-plum dark:text-royal-gold tracking-wide leading-tight">Legacy</h1>
+    <p class="font-playfair italic text-royal-gold text-lg mt-4">A King&rsquo;s Lifestyle</p>
+    <p class="font-inter text-sm text-royal-sapphire/50 dark:text-white/40 mt-3 max-w-xl mx-auto">Building what outlasts your lifetime. Two lessons. The foundation of everything your grandchildren will inherit.</p>
+    <div class="mt-6 flex items-center justify-center gap-3">
+      <div class="h-2 w-48 bg-royal-sapphire/5 dark:bg-white/5 rounded-full overflow-hidden">
+        <div id="progressBar" class="h-full bg-gradient-to-r from-royal-plum to-royal-gold rounded-full transition-all duration-700" style="width:0%"></div>
+      </div>
+      <span id="progressText" class="text-xs font-inter text-royal-plum">Legacy Mastery 0%</span>
     </div>
   </section>
 
-  <!-- ============================================================
-       6 PRACTICAL STEPS
-       ============================================================ -->
-  <section class="max-w-4xl mx-auto px-6 space-y-16 mb-20">
+  <!-- TABLE OF CONTENTS (fixed right, desktop) -->
+  <nav id="lessonToc" class="fixed right-3 top-1/2 -translate-y-1/2 z-40 hidden xl:flex flex-col items-center gap-2">
+    <a href="#lesson-01" class="toc-dot" title="01"></a><a href="#lesson-02" class="toc-dot" title="02"></a>
+  </nav>
 
-    <!-- Step 1: Define Your Family Values -->
-    <div class="animate-fadeIn">
-      <h2 class="font-cinzel text-2xl text-royal-plum dark:text-royal-gold mb-4">1. Define Your Family Values</h2>
-      <div class="font-inter text-sm leading-relaxed text-royal-sapphire/80 dark:text-white/60 space-y-4">
-        <p>A kingdom without a constitution crumbles. A family without articulated values drifts. The first act of legacy-building is to define, in writing, what your family stands for. Not vague aspirations — concrete, actionable principles that guide every decision from the dinner table to the deathbed.</p>
-        <div class="bg-white dark:bg-royal-sapphire/20 border-l-4 border-royal-gold rounded-r-xl p-5 mt-4">
-          <h4 class="font-cinzel text-sm text-royal-gold mb-3">Writing a Family Mission Statement</h4>
-          <p class="text-xs mb-2">Sit down — alone first, then with your partner if you have one. Answer three questions: What do we believe about hard work? How do we treat people who can do nothing for us? What will our name mean in fifty years? Distill the answers into three to five sentences. Write them. Frame them. Revisit them every year.</p>
-        </div>
-        <div class="bg-white dark:bg-royal-sapphire/20 border-l-4 border-royal-gold rounded-r-xl p-5">
-          <h4 class="font-cinzel text-sm text-royal-gold mb-3">What You Stand For</h4>
-          <p class="text-xs">Your children will not remember your words about integrity. They will remember the Saturday afternoon you drove back to a store to return twenty cents of incorrect change. Values are not taught in lectures. They are demonstrated in the thousand small choices no one is watching. Decide what yours are. Then live them with relentless consistency.</p>
-        </div>
+  <!-- ======== LESSON 01 ======== -->
+  <section id="lesson-01" class="lesson-section max-w-4xl mx-auto px-6 pb-20">
+    <div class="font-cinzel text-xs tracking-[0.3em] text-royal-plum/40 mb-3">LESSON 01</div>
+    <h2 class="font-cinzel text-2xl md:text-3xl text-royal-plum dark:text-royal-gold mb-2">The Multi-Generational Vision</h2>
+    <p class="font-inter text-xs text-royal-plum/60 mb-8 tracking-wider">YEAR 1 &bull; THE ARCHITECTURE OF WISDOM</p>
+
+    <!-- THE RAW INGREDIENT -->
+    <div class="mb-8">
+      <h3 class="font-cinzel text-sm text-royal-plum tracking-wider mb-3">THE RAW INGREDIENT</h3>
+      <div class="bg-royal-sapphire/5 dark:bg-white/5 border border-royal-plum/10 rounded-xl p-6 text-center">
+        <p class="font-playfair italic text-royal-plum dark:text-royal-gold text-lg">&ldquo;We will tell the next generation the praiseworthy deeds of the Lord, his power, and the wonders he has done&hellip; so the next generation would know them, even the children yet to be born, and they in turn would tell their children.&rdquo;</p>
+        <p class="text-xs text-royal-sapphire/40 mt-2">&mdash; Psalm 78:4&ndash;7</p>
+      </div>
+      <p class="font-inter text-sm text-royal-sapphire/60 dark:text-white/50 mt-4 leading-relaxed"><strong class="text-royal-plum">Hebrew Root:</strong> <em>dor</em> (&#x05D3;&#x05BC;&#x05D5;&#x05B9;&#x05E8;) &mdash; generation, age, period. The word implies cyclical transmission &mdash; each generation receives, lives, and passes forward. <em>Dor</em> does not describe a static era; it describes a relay, a chain of custody for wisdom. When the psalmist invokes <em>dor</em> three times in four verses, he is describing an engineered system of perpetual transfer, not a sentimental wish.</p>
+    </div>
+
+    <!-- THE PREPARATION -->
+    <div class="mb-8">
+      <h3 class="font-cinzel text-sm text-royal-plum tracking-wider mb-3">THE PREPARATION</h3>
+      <div class="font-inter text-sm text-royal-sapphire/70 dark:text-white/60 leading-relaxed space-y-4">
+        <p>The psalmist&rsquo;s vision spans at minimum three generations: the current, the next, and &ldquo;children yet to be born.&rdquo; This is not aspiration. It is architecture. Abraham&rsquo;s covenant was explicitly multi-generational &mdash; &ldquo;I will establish my covenant as an everlasting covenant between me and you and your descendants after you for the generations to come&rdquo; (Genesis 17:7). God Himself thinks in generational terms. The man who limits his planning horizon to his own lifespan has already ensured that his impact dies with him. The Hebrew concept of legacy is not about personal achievement &mdash; it is about what survives your absence.</p>
+        <p>In the ancient Near East, a man&rsquo;s name lived through his children&rsquo;s character, not through monuments. The Egyptians built pyramids; the Israelites built people. Pharaoh&rsquo;s stones still stand, but his lineage and values vanished. Abraham&rsquo;s tent is dust, but his covenant still governs a civilization. The distinction is instructive: physical structures deteriorate on a predictable timeline. Values transmitted through generations compound. The king who thinks in decades while the peasant thinks in days &mdash; this is the fundamental asymmetry that separates legacy from survival.</p>
+        <p>In 2026 Aurora, Colorado, the average family has no written values, no articulated mission, no intentional system for transferring wisdom from one generation to the next. Children inherit social media accounts and storage units. They rarely inherit a coherent understanding of who they are, where they came from, and what they are responsible for carrying forward. The vacuum is not merely cultural. It is architectural. A house without a foundation is not a house &mdash; it is debris waiting to happen. This lesson begins the blueprint.</p>
       </div>
     </div>
 
-    <!-- Step 2: The Provider's Discipline -->
-    <div class="animate-fadeIn">
-      <h2 class="font-cinzel text-2xl text-royal-plum dark:text-royal-gold mb-4">2. The Provider's Discipline</h2>
-      <div class="font-inter text-sm leading-relaxed text-royal-sapphire/80 dark:text-white/60 space-y-4">
-        <p>Provision is not merely earning. It is the strategic, disciplined management of resources so that your family is protected whether you are present or not. A man who dies without a will, without insurance, without an emergency fund leaves behind chaos, not legacy. These are not optional extras — they are the walls of your kingdom.</p>
-        <div class="grid md:grid-cols-2 gap-4 mt-4">
-          <div class="bg-white dark:bg-royal-sapphire/20 border border-royal-gold/10 rounded-xl p-5 gold-glow transition-all">
-            <h4 class="font-cinzel text-sm text-royal-gold mb-2">Life Insurance</h4>
-            <p class="text-xs">Term life insurance at minimum. Calculate your family's needs for ten to twenty years without your income. This is not morbid — it is responsible. The king who prepares for the worst ensures his family never faces it unprepared.</p>
-          </div>
-          <div class="bg-white dark:bg-royal-sapphire/20 border border-royal-gold/10 rounded-xl p-5 gold-glow transition-all">
-            <h4 class="font-cinzel text-sm text-royal-gold mb-2">Estate Basics</h4>
-            <p class="text-xs">At minimum: a will, a healthcare directive, power of attorney, and beneficiary designations on all accounts. These documents take an afternoon to create and protect a lifetime of work. Without them, the state decides what happens to everything you built.</p>
-          </div>
-          <div class="bg-white dark:bg-royal-sapphire/20 border border-royal-gold/10 rounded-xl p-5 gold-glow transition-all">
-            <h4 class="font-cinzel text-sm text-royal-gold mb-2">Emergency Plans</h4>
-            <p class="text-xs">Three to six months of expenses in liquid savings. A binder with all account information, insurance policies, and key contacts. A family emergency meeting point. The king does not hope for the best — he plans for the worst and enjoys the best.</p>
-          </div>
-          <div class="bg-white dark:bg-royal-sapphire/20 border border-royal-gold/10 rounded-xl p-5 gold-glow transition-all">
-            <h4 class="font-cinzel text-sm text-royal-gold mb-2">Financial Literacy for Kids</h4>
-            <p class="text-xs">Teach your children about money before the world teaches them. Allowance tied to chores. Savings jars divided into spend, save, and give. Opening their first bank account together. The family that discusses money openly produces children who handle it wisely.</p>
-          </div>
-        </div>
+    <!-- ROYAL DECREE -->
+    <div class="royal-decree">
+      <p class="font-cinzel text-xs tracking-[0.2em] text-[#A38255] mb-2">ROYAL DECREE</p>
+      <p class="font-playfair italic text-royal-plum dark:text-royal-gold text-sm leading-relaxed">&ldquo;The King decrees: a legacy is not what you build for yourself. It is what remains standing two generations after you are gone.&rdquo;</p>
+    </div>
+
+    <!-- THE CONSUMPTION -->
+    <div class="mb-8">
+      <h3 class="font-cinzel text-sm text-royal-plum tracking-wider mb-3">THE CONSUMPTION</h3>
+      <div class="font-inter text-sm text-royal-sapphire/70 dark:text-white/60 leading-relaxed space-y-4">
+        <p>Write a family mission statement this week. One page. Framed. Displayed where your household sees it daily. This is not a corporate exercise imported into the home &mdash; it is a covenant document that declares who you are, what you stand for, and what you refuse to become. Sit with your partner if you have one. Answer three questions in writing: What do we believe about integrity? How do we treat people who can do nothing for us? What will our family name mean in fifty years? Distill the answers into three to five declarative sentences. Print them. Frame them. Revisit them every anniversary.</p>
+        <p>Create traditions that carry values, not merely memories. A weekly Shabbat-style dinner &mdash; Friday evening, phones collected at the door, candles lit, Scripture read aloud, each family member sharing one thing they are grateful for and one challenge they faced that week. An annual family retreat &mdash; one weekend per year in the Colorado mountains, away from screens, hiking together, cooking together, talking about the year ahead. Birthday letters to each child documenting their growth, their strengths, and one area where you see God working in their character. These are not sentimental accessories. They are load-bearing traditions &mdash; the walls and columns of a multi-generational structure. Start a family education fund. Even fifty dollars per month deposited at a credit union in Aurora compounds across generations. Teach your children to teach their children: the multiplication principle. A king does not merely instruct &mdash; he creates instructors.</p>
       </div>
     </div>
 
-    <!-- Step 3: Mentoring the Next Generation -->
-    <div class="animate-fadeIn">
-      <h2 class="font-cinzel text-2xl text-royal-plum dark:text-royal-gold mb-4">3. Mentoring the Next Generation</h2>
-      <div class="font-inter text-sm leading-relaxed text-royal-sapphire/80 dark:text-white/60 space-y-4">
-        <p>Leadership at home is the hardest and most important leadership of all. The boardroom is nothing compared to the dinner table. Here is where your true reign is tested — not by quarterly results, but by the character of the people you are raising.</p>
-        <div class="space-y-3 mt-4">
-          <div class="bg-white dark:bg-royal-sapphire/20 border border-royal-gold/10 rounded-xl p-5">
-            <h4 class="font-cinzel text-sm text-royal-gold mb-2">Teaching by Example</h4>
-            <p class="text-xs">Your children will not remember your lectures. They will remember how you treated their mother, how you handled failure, how you spoke to the waiter, whether you kept your promises on small things. Be the lesson you want them to learn. Every day, in every interaction, you are the curriculum.</p>
-          </div>
-          <div class="bg-white dark:bg-royal-sapphire/20 border border-royal-gold/10 rounded-xl p-5">
-            <h4 class="font-cinzel text-sm text-royal-gold mb-2">Quality Time</h4>
-            <p class="text-xs">Your children do not need more things — they need more of you. Put the phone down. Look them in the eye. Ask questions and remember their answers. The man who gives his child undivided attention for thirty minutes creates a bond that no amount of money or gifts can replicate.</p>
-          </div>
-          <div class="bg-white dark:bg-royal-sapphire/20 border border-royal-gold/10 rounded-xl p-5">
-            <h4 class="font-cinzel text-sm text-royal-gold mb-2">Difficult Conversations</h4>
-            <p class="text-xs">Do not avoid the hard talks. Discuss money, relationships, failure, mortality, and character early and often. The father who avoids discomfort raises children who are blindsided by life. The father who speaks truth with love raises children who face the world with open eyes and steady hearts.</p>
-          </div>
-        </div>
+    <!-- SLIDE CARDS -->
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-5 my-10">
+      <div class="card-parchment border border-royal-plum/10 rounded-xl p-6">
+        <div class="font-cinzel text-xs text-royal-plum tracking-widest mb-2">VISION</div>
+        <h4 class="font-cinzel text-sm text-royal-plum dark:text-royal-gold mb-2">The 3-Generation Test</h4>
+        <p class="text-xs text-royal-sapphire/60 dark:text-white/50 leading-relaxed">Every decision passes through one filter: will this still matter to my grandchildren? If not, it is maintenance. If yes, it is legacy. Allocate your time accordingly.</p>
+      </div>
+      <div class="card-parchment border border-royal-plum/10 rounded-xl p-6">
+        <div class="font-cinzel text-xs text-royal-plum tracking-widest mb-2">DOCUMENT</div>
+        <h4 class="font-cinzel text-sm text-royal-plum dark:text-royal-gold mb-2">Family Mission Statement</h4>
+        <p class="text-xs text-royal-sapphire/60 dark:text-white/50 leading-relaxed">A written covenant declaring who your family is, what you stand for, and what you refuse to become. One page. Framed. Revisited annually. The constitution of your household.</p>
+      </div>
+      <div class="card-parchment border border-royal-plum/10 rounded-xl p-6">
+        <div class="font-cinzel text-xs text-royal-plum tracking-widest mb-2">STRUCTURE</div>
+        <h4 class="font-cinzel text-sm text-royal-plum dark:text-royal-gold mb-2">Tradition Architecture</h4>
+        <p class="text-xs text-royal-sapphire/60 dark:text-white/50 leading-relaxed">Friday Shabbat dinners, annual mountain retreats, birthday letters. Traditions are not sentimental decoration &mdash; they are load-bearing walls in a multi-generational structure.</p>
+      </div>
+      <div class="card-parchment border border-royal-plum/10 rounded-xl p-6">
+        <div class="font-cinzel text-xs text-royal-plum tracking-widest mb-2">COMPOUND</div>
+        <h4 class="font-cinzel text-sm text-royal-plum dark:text-royal-gold mb-2">The Education Fund</h4>
+        <p class="text-xs text-royal-sapphire/60 dark:text-white/50 leading-relaxed">Fifty dollars per month at a credit union in Aurora. Compounding across decades. The king does not merely provide for his children &mdash; he funds his grandchildren&rsquo;s options.</p>
       </div>
     </div>
 
-    <!-- Step 4: Protecting Your Kingdom -->
-    <div class="animate-fadeIn">
-      <h2 class="font-cinzel text-2xl text-royal-plum dark:text-royal-gold mb-4">4. Protecting Your Kingdom</h2>
-      <div class="font-inter text-sm leading-relaxed text-royal-sapphire/80 dark:text-white/60 space-y-4">
-        <p>Protection is not merely physical — it is emotional, spiritual, and relational. The king who allows toxic people unrestricted access to his family is a king who has abandoned his post. Boundaries are not walls — they are gates, and you decide who passes through.</p>
-        <div class="grid md:grid-cols-2 gap-4 mt-4">
-          <div class="bg-white dark:bg-royal-sapphire/20 border-l-4 border-royal-gold rounded-r-xl p-5">
-            <h4 class="font-cinzel text-sm text-royal-gold mb-2">Setting Boundaries</h4>
-            <p class="text-xs">Identify the relationships that drain your family's peace. Have honest conversations about limits. "I love you, but I will not allow this behavior around my children." This is not cruelty. It is the highest form of care.</p>
-          </div>
-          <div class="bg-white dark:bg-royal-sapphire/20 border-l-4 border-royal-gold rounded-r-xl p-5">
-            <h4 class="font-cinzel text-sm text-royal-gold mb-2">Handling Toxic Relationships</h4>
-            <p class="text-xs">Not every relationship deserves preservation. Some people, including family members, bring destruction wherever they go. The king does not sever connections lightly — but when the cost of connection is the safety of his household, he acts with clarity and without guilt.</p>
-          </div>
-          <div class="bg-white dark:bg-royal-sapphire/20 border-l-4 border-royal-gold rounded-r-xl p-5">
-            <h4 class="font-cinzel text-sm text-royal-gold mb-2">Saying No</h4>
-            <p class="text-xs">Every "yes" to something outside your family is a "no" to something within it. Guard your time with the same ferocity you guard your wallet. The man who cannot say no to his boss, his friends, or his own impulses cannot say yes to what matters most.</p>
-          </div>
-          <div class="bg-white dark:bg-royal-sapphire/20 border-l-4 border-royal-gold rounded-r-xl p-5">
-            <h4 class="font-cinzel text-sm text-royal-gold mb-2">Emotional Protection</h4>
-            <p class="text-xs">Create a home where vulnerability is safe. Shield your family from unnecessary chaos. Be the steady anchor in emotional storms. A king absorbs the turbulence of the outside world and returns calm to his household. He does not bring the battlefield home.</p>
-          </div>
-        </div>
+    <!-- PRACTICAL STEPS -->
+    <div class="mb-8">
+      <h3 class="font-cinzel text-lg text-royal-plum dark:text-royal-gold mb-4">Practical Steps</h3>
+      <ul class="space-y-3 text-sm font-inter text-royal-sapphire/70 dark:text-white/60">
+        <li class="flex gap-3"><span class="text-royal-plum font-cinzel">I.</span> Write a one-page family mission statement this week. Frame it. Display it where your household walks past it every day.</li>
+        <li class="flex gap-3"><span class="text-royal-plum font-cinzel">II.</span> Establish one weekly tradition that carries your values &mdash; a Shabbat dinner, a family devotional, a Sunday evening review. Consistency over intensity.</li>
+        <li class="flex gap-3"><span class="text-royal-plum font-cinzel">III.</span> Open a savings account specifically for multi-generational investment &mdash; even twenty-five dollars per month. The amount matters less than the discipline of starting.</li>
+      </ul>
+    </div>
+
+    <!-- WISDOM REFLECTION -->
+    <div class="bg-white dark:bg-royal-sapphire/20 border border-royal-plum/10 rounded-xl p-6 mb-8">
+      <p class="font-playfair italic text-royal-plum dark:text-royal-gold text-sm mb-4">&ldquo;What would your grandchildren say about you based only on what your children will tell them? Is that legacy intentional or accidental?&rdquo;</p>
+      <textarea rows="3" placeholder="Write your reflection..." class="w-full px-4 py-3 rounded-lg border border-royal-plum/20 bg-royal-cream/50 dark:bg-white/5 font-inter text-sm focus:outline-none focus:border-royal-plum resize-none"></textarea>
+      <button data-prompt="What would your grandchildren say about you based only on what your children will tell them?" class="journal-save-btn mt-2 px-4 py-2 bg-royal-plum text-white text-xs font-cinzel rounded-lg hover:bg-royal-gold transition">Save to Journal</button>
+    </div>
+
+    <!-- QUIZ -->
+    <div class="quiz-block bg-white dark:bg-royal-sapphire/20 border border-royal-plum/10 rounded-xl p-6 mb-8">
+      <h4 class="font-cinzel text-sm text-royal-plum mb-4">Counsel from the Throne</h4>
+      <p class="font-playfair italic text-royal-plum dark:text-royal-gold text-sm mb-5">&ldquo;A king measures his legacy by:&rdquo;</p>
+      <div class="space-y-2">
+        <button data-correct="false" class="quiz-option w-full text-left px-4 py-3 rounded-lg border border-royal-plum/15 text-sm font-inter">The wealth he accumulates in his lifetime</button>
+        <button data-correct="true" class="quiz-option w-full text-left px-4 py-3 rounded-lg border border-royal-plum/15 text-sm font-inter">What his grandchildren&rsquo;s character reveals about the values he transmitted</button>
+        <button data-correct="false" class="quiz-option w-full text-left px-4 py-3 rounded-lg border border-royal-plum/15 text-sm font-inter">The public recognition he receives from his community</button>
+      </div>
+      <div class="quiz-feedback hidden mt-4 text-sm font-playfair italic"></div>
+    </div>
+
+    <!-- QUEST -->
+    <div class="quest-panel mb-8">
+      <p class="font-cinzel text-xs tracking-[0.2em] text-[#A38255] mb-3">TODAY&rsquo;S QUEST</p>
+      <label class="flex items-start gap-3 cursor-pointer">
+        <input type="checkbox" class="quest-checkbox accent-[#A38255] mt-1" data-lesson="1">
+        <span class="text-sm font-inter text-white/80 leading-relaxed">Write your family mission statement this week. Share it with your household.</span>
+      </label>
+    </div>
+
+    <button class="absorb-btn w-full py-3 bg-royal-plum text-white font-cinzel tracking-wider rounded-lg hover:bg-royal-gold transition" data-lesson="1">Mark as Absorbed</button>
+    <div class="gold-divider mt-16"></div>
+  </section>
+
+  <!-- ======== LESSON 02 ======== -->
+  <section id="lesson-02" class="lesson-section max-w-4xl mx-auto px-6 pb-20">
+    <div class="font-cinzel text-xs tracking-[0.3em] text-royal-plum/40 mb-3">LESSON 02</div>
+    <h2 class="font-cinzel text-2xl md:text-3xl text-royal-plum dark:text-royal-gold mb-2">The Advisory Council</h2>
+    <p class="font-inter text-xs text-royal-plum/60 mb-8 tracking-wider">YEAR 1 &bull; THE ARCHITECTURE OF WISDOM</p>
+
+    <!-- THE RAW INGREDIENT -->
+    <div class="mb-8">
+      <h3 class="font-cinzel text-sm text-royal-plum tracking-wider mb-3">THE RAW INGREDIENT</h3>
+      <div class="bg-royal-sapphire/5 dark:bg-white/5 border border-royal-plum/10 rounded-xl p-6 text-center">
+        <p class="font-playfair italic text-royal-plum dark:text-royal-gold text-lg">&ldquo;For lack of guidance a nation falls, but victory is won through many advisers.&rdquo;</p>
+        <p class="text-xs text-royal-sapphire/40 mt-2">&mdash; Proverbs 11:14</p>
+      </div>
+      <p class="font-inter text-sm text-royal-sapphire/60 dark:text-white/50 mt-4 leading-relaxed"><strong class="text-royal-plum">Hebrew Root:</strong> <em>ya&rsquo;ats</em> (&#x05D9;&#x05B8;&#x05E2;&#x05B7;&#x05E5;) &mdash; to counsel, to advise, to purpose together. The word implies collaborative deliberation, not passive consultation. When Scripture speaks of a <em>yo&rsquo;ets</em> (counselor), it describes someone who actively engages in the process of thinking alongside the king &mdash; sharing the cognitive burden of governance, identifying blind spots, and challenging assumptions before they calcify into errors.</p>
+    </div>
+
+    <!-- THE PREPARATION -->
+    <div class="mb-8">
+      <h3 class="font-cinzel text-sm text-royal-plum tracking-wider mb-3">THE PREPARATION</h3>
+      <div class="font-inter text-sm text-royal-sapphire/70 dark:text-white/60 leading-relaxed space-y-4">
+        <p>Solomon maintained a formal advisory structure (1 Kings 4:1&ndash;6) &mdash; not a casual circle of friends, but appointed counselors with specific domains. Azariah served as priest, Elihoreph and Ahijah as secretaries, Jehoshaphat as recorder, Benaiah as commander of the army. Each role was defined, each advisor accountable for a distinct sphere. Solomon, the wisest man who ever lived, did not trust his own judgment alone. He surrounded himself with domain experts. The implication is unavoidable: if the wisest man needed a council, the man who refuses one is not demonstrating wisdom &mdash; he is demonstrating something far more dangerous.</p>
+        <p>His son Rehoboam famously rejected the elder advisors in favor of young friends (1 Kings 12), and it cost him ten of twelve tribes &mdash; the largest political catastrophe in Israel&rsquo;s history, triggered by a single advisory failure. The elders told him to lighten the people&rsquo;s burden. His peers told him to increase it. He chose the counsel that flattered his ego rather than the counsel that served his kingdom. The pattern repeats in every generation: the man who surrounds himself with those who agree with him has not built a council &mdash; he has built an echo chamber. And echo chambers produce blind spots, and blind spots produce catastrophe.</p>
+        <p>The quality of your council determines the trajectory of your reign. In the ancient world, a king without advisors was not independent &mdash; he was vulnerable. Every blind spot unaddressed becomes a breach in the wall. In 2026 Aurora, the principle translates directly: no man navigates marriage, finances, health, career, and spiritual growth with equal competence across all domains. The man who admits this and builds accordingly is the man whose kingdom stands. The man who refuses this admission is Rehoboam, waiting for his ten tribes to walk away.</p>
       </div>
     </div>
 
-    <!-- Step 5: Community and Service -->
-    <div class="animate-fadeIn">
-      <h2 class="font-cinzel text-2xl text-royal-plum dark:text-royal-gold mb-4">5. Community and Service</h2>
-      <div class="font-inter text-sm leading-relaxed text-royal-sapphire/80 dark:text-white/60 space-y-4">
-        <p>A legacy built entirely within your own walls is a legacy that dies with you. The greatest families in history were known not for what they consumed but for what they contributed. The name that endures is the name associated with service, generosity, and quiet impact on the lives of others.</p>
-        <div class="space-y-3 mt-4">
-          <div class="bg-white dark:bg-royal-sapphire/20 border border-royal-gold/10 rounded-xl p-5">
-            <h4 class="font-cinzel text-sm text-royal-gold mb-2">Giving Back</h4>
-            <p class="text-xs">Choose a cause that aligns with your family's values. Give consistently — not when it is convenient, but when it costs something. The man who gives from his surplus gives nothing of himself. The man who gives from his discipline gives everything. Teach your children that generosity is not optional — it is the rent you pay for the space you occupy in this world.</p>
-          </div>
-          <div class="bg-white dark:bg-royal-sapphire/20 border border-royal-gold/10 rounded-xl p-5">
-            <h4 class="font-cinzel text-sm text-royal-gold mb-2">Volunteering</h4>
-            <p class="text-xs">Serve together as a family. Food banks, mentoring programs, community clean-ups, coaching youth sports. When your children see you sweating alongside strangers for no reward, they learn something no school can teach — that a man's worth is measured by what he gives, not what he takes.</p>
-          </div>
-          <div class="bg-white dark:bg-royal-sapphire/20 border border-royal-gold/10 rounded-xl p-5">
-            <h4 class="font-cinzel text-sm text-royal-gold mb-2">Being Known for Contribution</h4>
-            <p class="text-xs">In your neighborhood, in your workplace, in your community — be the man people call when something needs doing. Not for recognition. Not for networking. Because a king who serves only himself rules an empty kingdom. The legacy that lasts is the one built on the gratitude of people whose lives you improved without ever being asked.</p>
-          </div>
-        </div>
+    <!-- ROYAL DECREE -->
+    <div class="royal-decree">
+      <p class="font-cinzel text-xs tracking-[0.2em] text-[#A38255] mb-2">ROYAL DECREE</p>
+      <p class="font-playfair italic text-royal-plum dark:text-royal-gold text-sm leading-relaxed">&ldquo;The King decrees: no king rules alone. The man who refuses counsel does not demonstrate strength &mdash; he demonstrates the pride that precedes the fall.&rdquo;</p>
+    </div>
+
+    <!-- THE CONSUMPTION -->
+    <div class="mb-8">
+      <h3 class="font-cinzel text-sm text-royal-plum tracking-wider mb-3">THE CONSUMPTION</h3>
+      <div class="font-inter text-sm text-royal-sapphire/70 dark:text-white/60 leading-relaxed space-y-4">
+        <p>Build your personal board of five. This is not metaphorical. This is an assignment with names and deadlines. (1) A spiritual mentor &mdash; your pastor or a mature elder at your Aurora church, someone whose walk with God you respect and whose life demonstrates the fruit of sustained faithfulness. (2) A financial advisor &mdash; a fee-only planner, not someone earning commissions off your investments; the distinction matters because incentive structures determine the quality of advice. (3) A health accountability partner &mdash; someone at 24 Hour Fitness or your local gym who checks in weekly, who will notice when you disappear for two weeks and will call you on it. (4) A marriage mentor &mdash; a couple ten or more years ahead of you in marriage, who have navigated the terrain you are about to enter and survived it with their bond intact. (5) A professional mentor &mdash; someone in your industry who has already navigated where you are heading, who can abbreviate your learning curve by sharing what they paid full price to learn.</p>
+        <p>How to ask: &ldquo;I respect your judgment. Would you be willing to meet with me once a month to help me think through decisions in [your domain]?&rdquo; This exact phrasing works because it communicates respect, specificity, and a defined time commitment. Most people are honored to be asked. The barrier is never their willingness &mdash; it is your willingness to be vulnerable enough to admit you need help. Monthly thirty-minute check-ins. Face-to-face at a coffee shop on Havana Street in Aurora. Not text threads. Not voice notes. Eye contact, a table between you, and the undivided attention that produces the kind of counsel that changes the trajectory of a life. Solomon built a council. Rehoboam dismantled one. Choose which king you will emulate.</p>
       </div>
     </div>
 
-    <!-- Step 6: Documenting Your Story -->
-    <div class="animate-fadeIn">
-      <h2 class="font-cinzel text-2xl text-royal-plum dark:text-royal-gold mb-4">6. Documenting Your Story</h2>
-      <div class="font-inter text-sm leading-relaxed text-royal-sapphire/80 dark:text-white/60 space-y-4">
-        <p>The spoken word fades. The written word endures. Every man has wisdom earned through suffering, joy, failure, and triumph — and most of it dies with him because he never wrote it down. Do not let this be your fate. Document your story not for vanity, but for the generations who will need your guidance long after your voice falls silent.</p>
-        <div class="grid md:grid-cols-2 gap-4 mt-4">
-          <div class="bg-white dark:bg-royal-sapphire/20 border border-royal-gold/10 rounded-xl p-5 gold-glow transition-all">
-            <h4 class="font-cinzel text-sm text-royal-gold mb-2">Letters to Future Children</h4>
-            <p class="text-xs">Write letters your children can read at milestones: their 18th birthday, their wedding day, the birth of their first child. Tell them what you learned, what you feared, what you hoped for them. These words will echo through your bloodline long after your voice falls silent. This is the most powerful legacy tool available to any man.</p>
-          </div>
-          <div class="bg-white dark:bg-royal-sapphire/20 border border-royal-gold/10 rounded-xl p-5 gold-glow transition-all">
-            <h4 class="font-cinzel text-sm text-royal-gold mb-2">Family Traditions</h4>
-            <p class="text-xs">Create rituals that anchor your family across time. Weekly family dinner with no phones. Annual trips to the same place. Morning routines shared between father and child. These traditions become the invisible threads that bind a family across generations, the shared story that says "this is who we are."</p>
-          </div>
-          <div class="bg-white dark:bg-royal-sapphire/20 border border-royal-gold/10 rounded-xl p-5 gold-glow transition-all">
-            <h4 class="font-cinzel text-sm text-royal-gold mb-2">Recording Your Wisdom</h4>
-            <p class="text-xs">Keep a journal of lessons learned. Record voice memos to your future grandchildren. Write down the stories your own father told you before they are lost. The man who documents his wisdom creates a guidebook for every descendant who will face the same battles he once fought.</p>
-          </div>
-          <div class="bg-white dark:bg-royal-sapphire/20 border border-royal-gold/10 rounded-xl p-5 gold-glow transition-all">
-            <h4 class="font-cinzel text-sm text-royal-gold mb-2">The Family Archive</h4>
-            <p class="text-xs">Photographs, documents, recipes, letters, report cards, drawings. Create a physical archive that grows with each generation. When a grandchild opens a box and finds their grandfather's handwriting, a connection forms that transcends time. This is legacy made tangible.</p>
-          </div>
-        </div>
+    <!-- SLIDE CARDS -->
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-5 my-10">
+      <div class="card-parchment border border-royal-plum/10 rounded-xl p-6">
+        <div class="font-cinzel text-xs text-royal-plum tracking-widest mb-2">STRUCTURE</div>
+        <h4 class="font-cinzel text-sm text-royal-plum dark:text-royal-gold mb-2">The Board of 5</h4>
+        <p class="text-xs text-royal-sapphire/60 dark:text-white/50 leading-relaxed">Spiritual mentor, financial advisor, health partner, marriage mentor, professional guide. Five domains. Five names. No vacancies permitted.</p>
+      </div>
+      <div class="card-parchment border border-royal-plum/10 rounded-xl p-6">
+        <div class="font-cinzel text-xs text-royal-plum tracking-widest mb-2">PRECEDENT</div>
+        <h4 class="font-cinzel text-sm text-royal-plum dark:text-royal-gold mb-2">Solomon&rsquo;s Structure</h4>
+        <p class="text-xs text-royal-sapphire/60 dark:text-white/50 leading-relaxed">The wisest man in history maintained appointed counselors with defined domains. Wisdom is not self-sufficiency &mdash; it is knowing what you do not know.</p>
+      </div>
+      <div class="card-parchment border border-royal-plum/10 rounded-xl p-6">
+        <div class="font-cinzel text-xs text-royal-plum tracking-widest mb-2">WARNING</div>
+        <h4 class="font-cinzel text-sm text-royal-plum dark:text-royal-gold mb-2">Rehoboam&rsquo;s Mistake</h4>
+        <p class="text-xs text-royal-sapphire/60 dark:text-white/50 leading-relaxed">He replaced elders with peers. He chose flattery over truth. He lost ten tribes in a single conversation. The cost of bad counsel is always higher than the discomfort of honest counsel.</p>
+      </div>
+      <div class="card-parchment border border-royal-plum/10 rounded-xl p-6">
+        <div class="font-cinzel text-xs text-royal-plum tracking-widest mb-2">PRACTICE</div>
+        <h4 class="font-cinzel text-sm text-royal-plum dark:text-royal-gold mb-2">The Monthly Check-In</h4>
+        <p class="text-xs text-royal-sapphire/60 dark:text-white/50 leading-relaxed">Thirty minutes. Face-to-face. A coffee shop on Havana Street. No screens. The kind of undivided attention that changes trajectories and prevents catastrophe.</p>
       </div>
     </div>
 
-    <!-- ============================================================
-         YOUTUBE VIDEO EMBEDS
-         ============================================================ -->
-    <div>
-      <h2 class="font-cinzel text-2xl text-royal-plum dark:text-royal-gold mb-6">Lessons from the Masters</h2>
-      <div class="grid md:grid-cols-2 gap-6">
-        <!-- Video 1 -->
-        <div class="rounded-xl overflow-hidden border border-royal-gold/10">
-          <div class="aspect-video bg-royal-sapphire/10 relative">
-            <iframe class="w-full h-full" src="about:blank" data-src="https://www.youtube.com/embed/jpe-LKn-4gM" title="Leading Your Family with Purpose" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
-            <button onclick="loadVideo(this)" class="absolute inset-0 flex items-center justify-center bg-royal-sapphire/20 hover:bg-royal-sapphire/10 transition group">
-              <span class="px-5 py-2.5 bg-royal-gold text-white font-cinzel text-sm rounded-lg group-hover:bg-royal-plum transition">Load Video</span>
-            </button>
-          </div>
-          <div class="p-4 bg-white dark:bg-royal-sapphire/20"><h4 class="font-cinzel text-sm text-royal-plum dark:text-royal-gold">Leading Your Family with Purpose</h4></div>
-        </div>
-        <!-- Video 2 -->
-        <div class="rounded-xl overflow-hidden border border-royal-gold/10">
-          <div class="aspect-video bg-royal-sapphire/10 relative">
-            <iframe class="w-full h-full" src="about:blank" data-src="https://www.youtube.com/embed/lyu7v7nWzfo" title="Building Generational Wealth & Legacy" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
-            <button onclick="loadVideo(this)" class="absolute inset-0 flex items-center justify-center bg-royal-sapphire/20 hover:bg-royal-sapphire/10 transition group">
-              <span class="px-5 py-2.5 bg-royal-gold text-white font-cinzel text-sm rounded-lg group-hover:bg-royal-plum transition">Load Video</span>
-            </button>
-          </div>
-          <div class="p-4 bg-white dark:bg-royal-sapphire/20"><h4 class="font-cinzel text-sm text-royal-plum dark:text-royal-gold">Building Generational Wealth &amp; Legacy</h4></div>
-        </div>
+    <!-- PRACTICAL STEPS -->
+    <div class="mb-8">
+      <h3 class="font-cinzel text-lg text-royal-plum dark:text-royal-gold mb-4">Practical Steps</h3>
+      <ul class="space-y-3 text-sm font-inter text-royal-sapphire/70 dark:text-white/60">
+        <li class="flex gap-3"><span class="text-royal-plum font-cinzel">I.</span> List the five advisor roles. Write one name next to each role &mdash; even if you have not asked them yet. The act of naming clarifies your network.</li>
+        <li class="flex gap-3"><span class="text-royal-plum font-cinzel">II.</span> Ask one person this week to serve as an advisor in their domain. Use the exact phrasing from this lesson. Do not overthink it.</li>
+        <li class="flex gap-3"><span class="text-royal-plum font-cinzel">III.</span> Schedule your first thirty-minute advisory meeting within fourteen days. Put it on your calendar. What is not scheduled does not happen.</li>
+      </ul>
+    </div>
+
+    <!-- WISDOM REFLECTION -->
+    <div class="bg-white dark:bg-royal-sapphire/20 border border-royal-plum/10 rounded-xl p-6 mb-8">
+      <p class="font-playfair italic text-royal-plum dark:text-royal-gold text-sm mb-4">&ldquo;Which of the five advisor roles is currently empty in your life? Who comes to mind when you think about filling it?&rdquo;</p>
+      <textarea rows="3" placeholder="Write your reflection..." class="w-full px-4 py-3 rounded-lg border border-royal-plum/20 bg-royal-cream/50 dark:bg-white/5 font-inter text-sm focus:outline-none focus:border-royal-plum resize-none"></textarea>
+      <button data-prompt="Which of the 5 advisor roles is currently empty in your life? Who comes to mind when you think about filling it?" class="journal-save-btn mt-2 px-4 py-2 bg-royal-plum text-white text-xs font-cinzel rounded-lg hover:bg-royal-gold transition">Save to Journal</button>
+    </div>
+
+    <!-- QUIZ -->
+    <div class="quiz-block bg-white dark:bg-royal-sapphire/20 border border-royal-plum/10 rounded-xl p-6 mb-8">
+      <h4 class="font-cinzel text-sm text-royal-plum mb-4">Counsel from the Throne</h4>
+      <p class="font-playfair italic text-royal-plum dark:text-royal-gold text-sm mb-5">&ldquo;Rehoboam lost ten tribes because:&rdquo;</p>
+      <div class="space-y-2">
+        <button data-correct="false" class="quiz-option w-full text-left px-4 py-3 rounded-lg border border-royal-plum/15 text-sm font-inter">He was not intelligent enough to rule</button>
+        <button data-correct="true" class="quiz-option w-full text-left px-4 py-3 rounded-lg border border-royal-plum/15 text-sm font-inter">He rejected the experienced counsel of his father&rsquo;s advisors in favor of peers who told him what he wanted to hear</button>
+        <button data-correct="false" class="quiz-option w-full text-left px-4 py-3 rounded-lg border border-royal-plum/15 text-sm font-inter">His kingdom was too large to manage alone</button>
       </div>
+      <div class="quiz-feedback hidden mt-4 text-sm font-playfair italic"></div>
     </div>
 
-    <!-- ============================================================
-         WISDOM REFLECTIONS (2 prompts)
-         ============================================================ -->
-    <div>
-      <h2 class="font-cinzel text-2xl text-royal-plum dark:text-royal-gold mb-6">Wisdom Reflections</h2>
-      <div class="space-y-6">
-        <!-- Reflection 1 -->
-        <div class="bg-white dark:bg-royal-sapphire/20 border border-royal-gold/10 rounded-xl p-6">
-          <p class="font-playfair italic text-royal-plum dark:text-royal-gold text-sm mb-4">"If you left this world tomorrow, what would your family inherit — not in money, but in character, wisdom, and example?"</p>
-          <textarea rows="3" placeholder="Write your reflection..." class="w-full px-4 py-3 rounded-lg border border-royal-gold/20 bg-royal-cream/50 dark:bg-white/5 font-inter text-sm focus:outline-none focus:border-royal-gold resize-none"></textarea>
-          <button data-prompt="If you left this world tomorrow, what would your family inherit — not in money, but in character, wisdom, and example?" class="journal-save-btn mt-2 px-4 py-2 bg-royal-gold text-white text-xs font-cinzel rounded-lg hover:bg-royal-plum transition">Save to Journal</button>
-        </div>
-        <!-- Reflection 2 -->
-        <div class="bg-white dark:bg-royal-sapphire/20 border border-royal-gold/10 rounded-xl p-6">
-          <p class="font-playfair italic text-royal-plum dark:text-royal-gold text-sm mb-4">"What is one tradition you can begin this week that your grandchildren will carry on?"</p>
-          <textarea rows="3" placeholder="Write your reflection..." class="w-full px-4 py-3 rounded-lg border border-royal-gold/20 bg-royal-cream/50 dark:bg-white/5 font-inter text-sm focus:outline-none focus:border-royal-gold resize-none"></textarea>
-          <button data-prompt="What is one tradition you can begin this week that your grandchildren will carry on?" class="journal-save-btn mt-2 px-4 py-2 bg-royal-gold text-white text-xs font-cinzel rounded-lg hover:bg-royal-plum transition">Save to Journal</button>
-        </div>
-      </div>
+    <!-- QUEST -->
+    <div class="quest-panel mb-8">
+      <p class="font-cinzel text-xs tracking-[0.2em] text-[#A38255] mb-3">TODAY&rsquo;S QUEST</p>
+      <label class="flex items-start gap-3 cursor-pointer">
+        <input type="checkbox" class="quest-checkbox accent-[#A38255] mt-1" data-lesson="2">
+        <span class="text-sm font-inter text-white/80 leading-relaxed">Identify your 5 advisor roles and write one name for each. Ask one person this week.</span>
+      </label>
     </div>
 
-    <!-- ============================================================
-         QUIZ
-         ============================================================ -->
-    <div>
-      <h2 class="font-cinzel text-2xl text-royal-plum dark:text-royal-gold mb-6">Counsel from the Throne</h2>
-      <div class="quiz-block bg-white dark:bg-royal-sapphire/20 border border-royal-gold/10 rounded-xl p-8">
-        <p class="font-playfair italic text-royal-plum dark:text-royal-gold mb-6">"Your teenage child makes a serious mistake that embarrasses the family publicly. What does the king-father do?"</p>
-        <div class="space-y-3">
-          <button data-correct="false" class="quiz-option w-full text-left px-5 py-3 rounded-lg border border-royal-gold/15 hover:border-royal-gold/40 transition text-sm font-inter">Publicly discipline them immediately so everyone sees the consequence</button>
-          <button data-correct="false" class="quiz-option w-full text-left px-5 py-3 rounded-lg border border-royal-gold/15 hover:border-royal-gold/40 transition text-sm font-inter">Minimize it publicly and avoid the conversation at home to keep the peace</button>
-          <button data-correct="true" class="quiz-option w-full text-left px-5 py-3 rounded-lg border border-royal-gold/15 hover:border-royal-gold/40 transition text-sm font-inter">Address the public situation with calm dignity, then have an honest private conversation about the mistake, the lesson, and the path forward</button>
-        </div>
-        <div class="quiz-feedback hidden"></div>
-      </div>
-    </div>
+    <button class="absorb-btn w-full py-3 bg-royal-plum text-white font-cinzel tracking-wider rounded-lg hover:bg-royal-gold transition" data-lesson="2">Mark as Absorbed</button>
+    <div class="gold-divider mt-16"></div>
+  </section>
 
-    <!-- ============================================================
-         WEIRD-SCENARIO SOLVER
-         ============================================================ -->
-    <div class="bg-royal-sapphire dark:bg-royal-sapphire/80 rounded-2xl p-8 text-white">
-      <h2 class="font-cinzel text-xl text-royal-gold mb-2">Royal Protocol Solver</h2>
-      <p class="text-sm text-white/40 mb-4">Describe any family leadership challenge. Receive the king's counsel.</p>
-      <form id="scenarioForm" class="flex gap-3">
-        <input type="text" id="scenarioInput" placeholder="e.g., 'How do I balance career ambition with being present for my family?'" class="flex-1 px-4 py-3 rounded-lg bg-white/10 border border-royal-gold/20 text-white font-inter text-sm focus:outline-none focus:border-royal-gold placeholder-white/30">
-        <button type="submit" class="px-6 py-3 bg-royal-gold text-royal-sapphire font-cinzel text-sm rounded-lg hover:bg-white transition">Counsel</button>
-      </form>
-      <div id="scenarioResponse" class="mt-4"></div>
+  <!-- FAQ (SEO) -->
+  <section class="max-w-4xl mx-auto px-6 pb-16">
+    <h2 class="font-cinzel text-2xl text-royal-plum dark:text-royal-gold mb-8 text-center">Frequently Asked Questions</h2>
+    <div class="space-y-4">
+      <details class="bg-white dark:bg-royal-sapphire/20 border border-royal-plum/10 rounded-xl p-6">
+        <summary class="font-cinzel text-sm text-royal-plum cursor-pointer">Does the Bible actually address legacy planning, or is it a modern concept?</summary>
+        <p class="mt-3 text-sm font-inter text-royal-sapphire/70 dark:text-white/60 leading-relaxed">Legacy is among the most persistent themes in Scripture. Proverbs 13:22 declares that &ldquo;a good man leaves an inheritance to his children&rsquo;s children.&rdquo; Psalm 78 outlines a multi-generational transmission system for God&rsquo;s works. Abraham&rsquo;s entire covenant was structured around generational continuity (Genesis 17:7). Deuteronomy 6:6&ndash;7 commands fathers to teach God&rsquo;s commandments to their children &ldquo;when you sit at home and when you walk along the road.&rdquo; The Bible does not merely address legacy &mdash; it treats it as a primary responsibility of every man who fears God.</p>
+      </details>
+      <details class="bg-white dark:bg-royal-sapphire/20 border border-royal-plum/10 rounded-xl p-6">
+        <summary class="font-cinzel text-sm text-royal-plum cursor-pointer">How do I build a legacy if I did not receive one from my own father?</summary>
+        <p class="mt-3 text-sm font-inter text-royal-sapphire/70 dark:text-white/60 leading-relaxed">You become the first link in a new chain. Abraham had no godly heritage &mdash; his father Terah worshipped idols in Ur (Joshua 24:2). Yet God chose Abraham to begin the most consequential generational covenant in human history. The absence of a received legacy does not disqualify you from building one. It makes you the patriarch &mdash; the origin point. Begin with a written family mission statement, one intentional tradition, and the discipline of passing forward what you had to learn alone. Your children will not start from zero because you chose not to let the chain remain broken.</p>
+      </details>
+      <details class="bg-white dark:bg-royal-sapphire/20 border border-royal-plum/10 rounded-xl p-6">
+        <summary class="font-cinzel text-sm text-royal-plum cursor-pointer">Is legacy only about family, or does it include community impact?</summary>
+        <p class="mt-3 text-sm font-inter text-royal-sapphire/70 dark:text-white/60 leading-relaxed">Biblical legacy encompasses both. Nehemiah rebuilt Jerusalem&rsquo;s walls for the entire community, not just his household. Boaz used his position to protect Ruth and Naomi &mdash; people outside his immediate family. In 2026 Aurora, your legacy extends to your church, your neighborhood, and the men you mentor. A family mission statement is the foundation, but the structure includes every life you shape, every young man you counsel, and every institution you strengthen by your presence and contribution.</p>
+      </details>
     </div>
-
-    <!-- ============================================================
-         CHECKLIST BUILDER
-         ============================================================ -->
-    <div>
-      <h2 class="font-cinzel text-2xl text-royal-plum dark:text-royal-gold mb-6">Your Royal Legacy Checklist</h2>
-      <div class="bg-white dark:bg-royal-sapphire/20 border border-royal-gold/10 rounded-xl p-6">
-        <form id="checklistForm" class="flex gap-3 mb-6">
-          <input type="text" id="checklistInput" placeholder="Add a legacy goal..." class="flex-1 px-4 py-3 rounded-lg border border-royal-gold/20 bg-royal-cream/50 dark:bg-white/5 font-inter text-sm focus:outline-none focus:border-royal-gold">
-          <button type="submit" class="px-4 py-3 bg-royal-gold text-white text-sm font-cinzel rounded-lg hover:bg-royal-plum transition">Add</button>
-        </form>
-        <div id="checklistItems" class="space-y-2"></div>
-      </div>
-    </div>
-
+    <p class="text-xs text-royal-sapphire/30 dark:text-white/15 text-center mt-8 font-inter">Last updated: March 2026</p>
   </section>
 
   <div id="mainFooter"></div>
+
   <script src="shared.js"></script>
   <script src="pillar-template.js"></script>
   <script>
     document.addEventListener('DOMContentLoaded', function() {
-      if (!requireAuth()) return;
       initPillar('legacy');
-    });
 
-    /* ---------- Load Video (privacy-respecting lazy load) ---------- */
-    function loadVideo(btn) {
-      var container = btn.parentElement;
-      var iframe = container.querySelector('iframe');
-      if (iframe && iframe.dataset.src) {
-        iframe.src = iframe.dataset.src;
-      }
-      btn.remove();
-    }
+      var absorbed = JSON.parse(localStorage.getItem('kl_legacy_absorbed') || '[]');
+      var total = 2;
+      var pct = Math.round((absorbed.length / total) * 100);
+      var bar = document.getElementById('progressBar');
+      var fill = document.getElementById('progressFill');
+      var text = document.getElementById('progressText');
+      if (bar) bar.style.width = pct + '%';
+      if (fill) fill.style.width = pct + '%';
+      if (text) text.textContent = 'Legacy Mastery ' + pct + '%';
+
+      document.querySelectorAll('.absorb-btn').forEach(function(btn) {
+        var lesson = parseInt(btn.dataset.lesson);
+        if (absorbed.includes(lesson)) {
+          btn.textContent = 'Absorbed';
+          btn.classList.add('absorbed');
+        }
+        btn.addEventListener('click', function() {
+          if (absorbed.includes(lesson)) return;
+          absorbed.push(lesson);
+          localStorage.setItem('kl_legacy_absorbed', JSON.stringify(absorbed));
+          btn.textContent = 'Absorbed';
+          btn.classList.add('absorbed');
+          pct = Math.round((absorbed.length / total) * 100);
+          if (bar) bar.style.width = pct + '%';
+          if (fill) fill.style.width = pct + '%';
+          if (text) text.textContent = 'Legacy Mastery ' + pct + '%';
+          updateStreak();
+        });
+      });
+
+      var observer = new IntersectionObserver(function(entries) {
+        entries.forEach(function(e) {
+          if (e.isIntersecting) e.target.classList.add('visible');
+        });
+      }, { threshold: 0.05 });
+      document.querySelectorAll('.lesson-section').forEach(function(s) { observer.observe(s); });
+
+      var tocDots = document.querySelectorAll('#lessonToc .toc-dot');
+      var sections = document.querySelectorAll('.lesson-section');
+      var tocObserver = new IntersectionObserver(function(entries) {
+        entries.forEach(function(e) {
+          if (e.isIntersecting) {
+            var id = e.target.id;
+            tocDots.forEach(function(d) {
+              d.classList.toggle('active', d.getAttribute('href') === '#' + id);
+            });
+          }
+        });
+      }, { threshold: 0.3, rootMargin: '-100px 0px -60% 0px' });
+      sections.forEach(function(s) { tocObserver.observe(s); });
+    });
   </script>
 </body>
 </html>

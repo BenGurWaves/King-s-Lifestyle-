@@ -1,8 +1,8 @@
-/* shared.js – v0.0.7 */
+/* shared.js – v0.0.8 */
 /* ============================================================
    A King's Lifestyle — Core Module
-   Auth · Campuses · Navigation · Verse Modal · LLM · Quests
-   Bible-only. No secular mode.
+   Auth · Campuses · Daily Codex · Navigation · Verse Modal
+   LLM Enhancement · Quests · Bible-only. No secular mode.
    ============================================================ */
 
 /* ---------- Crown SVG ---------- */
@@ -17,14 +17,110 @@ function esc(s){var d=document.createElement('div');d.textContent=s;return d.inn
    ============================================================ */
 const CAMPUSES = [
   { id:'nourishment', label:'Nourishment', numeral:'I',   href:'nourishment.html', accent:'#A38255', lessons:25, desc:'Clean eating by the Creator\u2019s blueprint. Leviticus 11 made practical for 2026.' },
-  { id:'attire',      label:'Attire',      numeral:'II',  href:'attire.html',      accent:'#8B7D6B', lessons:0,  desc:'Dress with purpose. From boardroom to church to poolside.' },
-  { id:'mentality',   label:'Mentality',   numeral:'III', href:'mentality.html',   accent:'#3D4F2F', lessons:0,  desc:'Habits, discipline, love, relationships, and inner warfare.' },
+  { id:'attire',      label:'Attire',      numeral:'II',  href:'attire.html',      accent:'#8B7D6B', lessons:6,  desc:'Dress with purpose. Modest adornment, jewelry, and the king\u2019s wardrobe.' },
+  { id:'mentality',   label:'Mentality',   numeral:'III', href:'mentality.html',   accent:'#3D4F2F', lessons:3,  desc:'Servant leadership, advising the wise, and the psychology of influence.' },
   { id:'treasury',    label:'Treasury',    numeral:'IV',  href:'treasury.html',    accent:'#7A6542', lessons:0,  desc:'Budget wisely, build wealth, and provide like a king should.' },
-  { id:'templecare',  label:'Temple Care', numeral:'V',   href:'templecare.html',  accent:'#6B5B4E', lessons:12, desc:'Steward the dwelling place of the Holy Spirit. Grooming, hygiene, fitness.' },
-  { id:'presence',    label:'Presence',    numeral:'VI',  href:'presence.html',    accent:'#3A3A3A', lessons:0,  desc:'Walk, sit, stand, and command any room with silent authority.' },
-  { id:'speech',      label:'Speech',      numeral:'VII', href:'speech.html',      accent:'#4A5568', lessons:0,  desc:'Vocabulary, filler-word mastery, and powerful conversation.' },
-  { id:'legacy',      label:'Legacy',      numeral:'+',   href:'legacy.html',      accent:'#571641', lessons:0,  desc:'Protect, provide, and lead your family with honor that outlasts you.' }
+  { id:'templecare',  label:'Temple Care', numeral:'V',   href:'templecare.html',  accent:'#6B5B4E', lessons:20, desc:'Grooming, hygiene, fitness, and royal rest. The full temple stewardship.' },
+  { id:'presence',    label:'Presence',    numeral:'VI',  href:'presence.html',    accent:'#3A3A3A', lessons:3,  desc:'Advanced body language, psychological influence, and commanding any room.' },
+  { id:'speech',      label:'Speech',      numeral:'VII', href:'speech.html',      accent:'#4A5568', lessons:2,  desc:'Speech in confrontation, persuasion without manipulation, and kingly conversation.' },
+  { id:'legacy',      label:'Legacy',      numeral:'+',   href:'legacy.html',      accent:'#571641', lessons:2,  desc:'Multi-generational leadership and building advisory councils that outlast you.' }
 ];
+
+/* ============================================================
+   DAILY ROYAL CODEX — Mixed lesson rotation across all campuses
+   ============================================================ */
+const DAILY_LESSONS = [
+  // Designed to mix campuses so the user touches every area each week
+  {campusId:'nourishment',lesson:1,title:'The Ancient Blueprint',brief:'Why the Creator engraved food laws on eternity.'},
+  {campusId:'templecare',lesson:1,title:'The Temple Mandate',brief:'Your body is a temple of the Holy Spirit.'},
+  {campusId:'attire',lesson:1,title:'The Covenant Ring',brief:'What adorns a king\u2019s hand speaks before he does.'},
+  {campusId:'mentality',lesson:1,title:'The Servant King',brief:'Greatness is measured by service, not status.'},
+  {campusId:'presence',lesson:1,title:'The Silent Commander',brief:'How to own a room without saying a word.'},
+  {campusId:'nourishment',lesson:2,title:'Clean Design Decoded',brief:'Hoof, cud, fin, and scale as divine architecture.'},
+  {campusId:'speech',lesson:1,title:'Words Under Pressure',brief:'How a king speaks when provoked.'},
+  {campusId:'templecare',lesson:2,title:'Hairstyles for a King',brief:'Discipline begins at the crown of the head.'},
+  {campusId:'legacy',lesson:1,title:'The Multi-Generational Vision',brief:'Building a legacy that outlasts your lifetime.'},
+  {campusId:'nourishment',lesson:3,title:'The Royal Herd',brief:'Grass-fed beef, lamb, and venison at Whole Foods Aurora.'},
+  {campusId:'templecare',lesson:13,title:'The Royal Rest Mandate',brief:'Sleep is not laziness \u2014 it is divine restoration.'},
+  {campusId:'attire',lesson:2,title:'The Stewardship Watch',brief:'Time on a king\u2019s wrist is a statement of order.'},
+  {campusId:'nourishment',lesson:4,title:'The Forbidden Swine',brief:'Why pork still weakens the temple in 2026.'},
+  {campusId:'presence',lesson:2,title:'Reading the Room',brief:'Body language fluency in church, business, and family.'},
+  {campusId:'templecare',lesson:3,title:'Beard & Facial Mastery',brief:'Trimmed, not marred \u2014 the line between vanity and neglect.'},
+  {campusId:'mentality',lesson:2,title:'Leading as a Follower',brief:'The king who cannot follow cannot lead.'},
+  {campusId:'nourishment',lesson:5,title:'Ocean Kings',brief:'Wild-caught salmon and cod vs farmed deception.'},
+  {campusId:'templecare',lesson:14,title:'The Architecture of Sleep',brief:'How circadian rhythm mirrors creation\u2019s design.'},
+  {campusId:'attire',lesson:3,title:'The Necklace Question',brief:'When a chain speaks and when it shouts.'},
+  {campusId:'speech',lesson:2,title:'Persuasion Without Manipulation',brief:'The difference between influence and coercion.'},
+  {campusId:'nourishment',lesson:6,title:'Birds of the Throne',brief:'Quail, chicken, and forgotten clean fowl.'},
+  {campusId:'templecare',lesson:4,title:'Daily Shower Protocol',brief:'Wash yourselves, make yourselves clean.'},
+  {campusId:'legacy',lesson:2,title:'The Advisory Council',brief:'Building a circle that sharpens your reign.'},
+  {campusId:'presence',lesson:3,title:'Influence Without Words',brief:'Psychological presence in high-stakes settings.'},
+  {campusId:'nourishment',lesson:7,title:'Genesis Gardens',brief:'Fruits, nuts, and honey that fuel royal energy.'},
+  {campusId:'templecare',lesson:15,title:'The Evening Descent',brief:'How to wind down the temple for restoration.'},
+  {campusId:'attire',lesson:4,title:'Modest Adornment',brief:'The theology of what you wear on your body.'},
+  {campusId:'mentality',lesson:3,title:'Advising the Wise',brief:'How to counsel people smarter than you.'},
+  {campusId:'nourishment',lesson:8,title:'The Gentleman\u2019s Table',brief:'Posture, pace, and presence while dining.'},
+  {campusId:'templecare',lesson:5,title:'Shampoo & Scalp Stewardship',brief:'What touches the crown of the temple matters.'},
+  {campusId:'nourishment',lesson:9,title:'Provision for Legacy',brief:'Hosting family meals that build lineage.'},
+  {campusId:'templecare',lesson:16,title:'The Nap Theology',brief:'Short rest as a weapon of restoration.'},
+  {campusId:'attire',lesson:5,title:'Rings of Meaning',brief:'Covenant, heritage, and the symbolism on your hand.'},
+  {campusId:'nourishment',lesson:10,title:'Highway Kingship',brief:'Gas-station Epic Bars, tuna packs, and I-70 survival.'},
+  {campusId:'templecare',lesson:6,title:'Teeth & Oral Care',brief:'Temple maintenance starts at the gate.'},
+  {campusId:'nourishment',lesson:11,title:'Airport Thrones',brief:'Pre-security clean meals at Denver International.'},
+  {campusId:'templecare',lesson:17,title:'Sleep Environment Design',brief:'The king\u2019s chamber as a sanctuary of rest.'},
+  {campusId:'attire',lesson:6,title:'The Minimalist Standard',brief:'Less adorns more when the man carries weight.'},
+  {campusId:'nourishment',lesson:12,title:'Plate Scanner Mastery',brief:'Real-time Leviticus 11 analysis in 2026.'},
+  {campusId:'templecare',lesson:7,title:'Deodorant & Cologne',brief:'A king\u2019s scent arrives before him.'},
+  {campusId:'nourishment',lesson:13,title:'Poolside Protocol',brief:'BBQ plates and gentleman etiquette.'},
+  {campusId:'templecare',lesson:18,title:'Dreams & the Subconscious',brief:'What the Creator communicates through sleep.'},
+  {campusId:'nourishment',lesson:14,title:'Jeans-at-Table Mastery',brief:'Sitting as royalty in any attire.'},
+  {campusId:'templecare',lesson:8,title:'Skin Care for Kings',brief:'Aging with dignity, not denial.'},
+  {campusId:'nourishment',lesson:15,title:'Slavic-American Fusion',brief:'Old-world discipline meets modern provision.'},
+  {campusId:'templecare',lesson:19,title:'Jet Lag & Travel Sleep',brief:'Maintaining royal rest across time zones.'},
+  {campusId:'nourishment',lesson:16,title:'Butchering with Honor',brief:'How a king prepares meat in 2026 kitchens.'},
+  {campusId:'templecare',lesson:9,title:'Hand & Nail Discipline',brief:'First-impression details.'},
+  {campusId:'nourishment',lesson:17,title:'Seasonal Creation Rhythm',brief:'Farmers markets in Aurora and wild foraging.'},
+  {campusId:'templecare',lesson:20,title:'The Sleep Covenant',brief:'Your 30-day plan for royal rest.'},
+  {campusId:'nourishment',lesson:18,title:'Daniel Fast Reset',brief:'21-day temple cleansing for 2026 warriors.'},
+  {campusId:'templecare',lesson:10,title:'Full Temple Routine',brief:'Morning and evening rituals.'},
+  {campusId:'nourishment',lesson:19,title:'Dining Out as Royalty',brief:'Chick-fil-A, Chipotle, and restaurant command.'},
+  {campusId:'templecare',lesson:11,title:'Travel Grooming Kits',brief:'I-70 and airport ready.'},
+  {campusId:'nourishment',lesson:20,title:'Recovery Fuel',brief:'Post-workout meals that restore the temple.'},
+  {campusId:'templecare',lesson:12,title:'Fitness as Worship',brief:'Exercise as temple maintenance.'},
+  {campusId:'nourishment',lesson:21,title:'Teaching the Next Generation',brief:'Children at the king\u2019s table.'},
+  {campusId:'nourishment',lesson:22,title:'Travel Pantry Blueprint',brief:'Road-trip kits that never compromise.'},
+  {campusId:'nourishment',lesson:23,title:'Energy That Lasts',brief:'Avoiding blood and fat traps in modern food.'},
+  {campusId:'nourishment',lesson:24,title:'The 30-Day Covenant',brief:'Your personal nourishment plan.'},
+  {campusId:'nourishment',lesson:25,title:'Capstone',brief:'Living Leviticus 11 as a 2026 king in Colorado.'}
+];
+
+function getDailyLesson(){
+  var dayIndex=Math.floor((Date.now()-new Date('2024-01-01').getTime())/86400000)%DAILY_LESSONS.length;
+  return DAILY_LESSONS[dayIndex];
+}
+function getDailyLessonCampus(){
+  var dl=getDailyLesson();
+  return CAMPUSES.find(function(c){return c.id===dl.campusId;});
+}
+
+/* ============================================================
+   LLM ENHANCEMENT — "Enhance with My Wisdom" per lesson
+   ============================================================ */
+async function enhanceWithLLM(lessonTitle,campusName){
+  var cfg=getLLMConfig();
+  if(!cfg.endpoint&&!cfg.apiKey)return null;
+  var onboarding=getOnboarding();
+  var context='';
+  if(onboarding){
+    context='The user is based in Aurora, Colorado. ';
+    if(onboarding.name)context+='Their name is '+onboarding.name+'. ';
+    if(onboarding.goals)context+='Their goals: '+onboarding.goals+'. ';
+    if(onboarding.experience)context+='Experience level: '+onboarding.experience+'. ';
+  }
+  var prompt='You are the King\u2019s Counsel. The user just read the lesson "'+lessonTitle+'" from the '+campusName+' campus. '+context+'Give them a personalized Royal Insight \u2014 one paragraph (60-80 words) that connects this lesson to their specific situation in 2026 Aurora, Colorado. Be specific, wise, and encouraging. Reference one relevant Bible verse.';
+  return askLLM(prompt);
+}
+function hasLLMConfigured(){var cfg=getLLMConfig();return !!(cfg.endpoint||cfg.apiKey);}
 
 /* ---------- Daily Royal Principles (Bible only, 10 verses) ---------- */
 const PRINCIPLES = [

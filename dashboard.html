@@ -1,4 +1,4 @@
-<!-- dashboard.html – v0.0.7 -->
+<!-- dashboard.html – v0.0.8 -->
 <!DOCTYPE html>
 <html lang="en" class="scroll-smooth">
 <head>
@@ -38,61 +38,86 @@
 <body class="bg-royal-cream bg-parchment font-inter text-royal-sapphire min-h-screen">
   <div id="mainNav"></div>
 
-  <main class="max-w-6xl mx-auto px-4 sm:px-6 pt-10 pb-20">
+  <main class="max-w-5xl mx-auto px-4 sm:px-6 pt-10 pb-20">
 
-    <!-- 1. Continue Your Royal Journey Banner -->
-    <section class="mb-12 animate-fadeInUp">
+    <!-- 1. Hero: Your Daily Royal Codex -->
+    <section class="mb-14 animate-fadeInUp">
       <div class="bg-royal-green rounded-2xl px-6 py-8 md:px-10 md:py-10 text-white relative overflow-hidden">
         <div class="absolute inset-0 opacity-[0.04]" style="background-image:url('data:image/svg+xml,%3Csvg width=\'60\' height=\'60\' xmlns=\'http://www.w3.org/2000/svg\'%3E%3Cpath d=\'M30 5 L35 20 L50 20 L38 30 L42 45 L30 35 L18 45 L22 30 L10 20 L25 20Z\' fill=\'%23A38255\' opacity=\'0.3\'/%3E%3C/svg%3E');"></div>
         <div class="relative z-10">
-          <p class="font-cinzel text-xs tracking-[0.3em] text-royal-gold/80 uppercase mb-3">Continue Your Royal Journey</p>
-          <h2 class="font-cinzel text-2xl md:text-3xl text-white mb-3">Welcome back, King.</h2>
-          <p class="font-inter text-sm text-white/60 leading-relaxed max-w-xl mb-6">Every day you return is another stone laid in the foundation of your legacy. Consistency is the quiet currency of kings.</p>
-          <div class="flex items-center gap-4">
+          <p class="font-cinzel text-xs tracking-[0.3em] text-royal-gold/80 uppercase mb-2">Daily Royal Codex</p>
+          <h1 class="font-cinzel text-2xl md:text-3xl text-white mb-2">Your Daily Royal Codex</h1>
+          <p class="font-inter text-sm text-white/50 leading-relaxed max-w-xl mb-6">One lesson per day, drawn from across every campus. Absorb it fully before the next page turns.</p>
+          <div class="flex items-center gap-4 mb-6">
             <div class="bg-white/10 border border-royal-gold/20 rounded-xl px-5 py-3 text-center">
-              <span id="bannerStreak" class="block font-cinzel text-2xl text-royal-gold streak-count">0</span>
+              <span id="heroStreak" class="block font-cinzel text-2xl text-royal-gold streak-count">0</span>
               <span class="text-xs text-white/40 font-inter">Day Streak</span>
             </div>
             <div class="bg-white/10 border border-royal-gold/20 rounded-xl px-5 py-3 text-center">
-              <span id="bannerMastery" class="block font-cinzel text-2xl text-royal-gold">0%</span>
-              <span class="text-xs text-white/40 font-inter">Mastery</span>
+              <span id="heroMastery" class="block font-cinzel text-2xl text-royal-gold">0%</span>
+              <span class="text-xs text-white/40 font-inter">Overall Mastery</span>
             </div>
+          </div>
+          <!-- Overall Mastery Bar -->
+          <div class="w-full max-w-md">
+            <div class="w-full h-2 bg-white/10 rounded-full overflow-hidden">
+              <div id="heroMasteryBar" class="h-full bg-gradient-to-r from-royal-gold to-royal-plum rounded-full transition-all duration-1000 ease-out" style="width:0%"></div>
+            </div>
+            <p class="text-xs text-white/25 font-inter mt-1.5">Aggregated across all campuses with active lessons.</p>
           </div>
         </div>
       </div>
     </section>
 
-    <!-- 2. Temple Mastery Overview -->
-    <section class="mb-12 animate-fadeIn">
-      <div class="flex items-center justify-between mb-3">
-        <h3 class="font-cinzel text-sm tracking-[0.2em] text-royal-gold/60 dark:text-royal-gold/40 uppercase">Temple Mastery Overview</h3>
-        <span id="overallMasteryText" class="font-cinzel text-sm text-royal-gold">0%</span>
-      </div>
-      <div class="w-full h-3 bg-royal-gold/10 dark:bg-white/5 rounded-full overflow-hidden">
-        <div id="overallMasteryBar" class="h-full bg-gradient-to-r from-royal-gold to-royal-plum rounded-full transition-all duration-1000 ease-out" style="width:0%"></div>
-      </div>
-      <p class="text-xs text-royal-sapphire/30 dark:text-white/20 font-inter mt-2">Aggregated across all campuses with active lessons.</p>
-    </section>
-
-    <!-- 3. Today's Royal Principle -->
-    <section class="mb-12 animate-fadeIn">
-      <div class="bg-white dark:bg-royal-sapphire/20 border border-royal-gold/10 rounded-2xl p-6 md:p-8 cursor-pointer gold-glow transition-all duration-500" id="principleCard">
-        <p class="font-cinzel text-xs tracking-[0.2em] text-royal-gold/50 dark:text-royal-gold/40 uppercase mb-4">Today's Royal Principle</p>
-        <p id="principleText" class="font-playfair italic text-royal-plum dark:text-royal-gold text-lg leading-relaxed mb-2"></p>
-        <p id="principleRef" class="text-xs text-royal-gold/60 font-inter"></p>
-        <p class="text-xs text-royal-sapphire/20 dark:text-white/15 font-inter mt-4">Tap to explore context, cross-references, and application.</p>
+    <!-- 2. Today's Royal Lesson (inline) -->
+    <section class="mb-14 animate-fadeIn">
+      <div id="dailyLessonCard" class="bg-white dark:bg-royal-sapphire/20 border border-royal-gold/10 rounded-2xl p-6 md:p-8 relative overflow-hidden">
+        <div class="flex items-center gap-3 mb-5">
+          <span id="dlCampusBadge" class="inline-block px-3 py-1 rounded-full font-cinzel text-xs tracking-wider text-white"></span>
+          <p class="font-cinzel text-xs tracking-[0.2em] text-royal-gold/50 dark:text-royal-gold/40 uppercase">Today's Royal Lesson</p>
+        </div>
+        <h2 id="dlTitle" class="font-cinzel text-xl md:text-2xl text-royal-plum dark:text-royal-gold mb-3"></h2>
+        <p id="dlBrief" class="font-playfair italic text-royal-sapphire/60 dark:text-white/50 text-base leading-relaxed mb-6"></p>
+        <div class="flex flex-wrap items-center gap-3">
+          <a id="dlEnterBtn" href="#" class="inline-block px-6 py-2.5 bg-royal-gold text-white font-cinzel text-sm tracking-wider rounded-lg hover:bg-royal-plum transition-all duration-500 gold-glow">Enter Today's Lesson</a>
+          <button id="dlEnhanceBtn" class="px-6 py-2.5 border border-royal-gold/30 text-royal-gold font-cinzel text-sm tracking-wider rounded-lg hover:bg-royal-gold/10 transition-all duration-500" style="display:none;">Enhance with My Wisdom</button>
+        </div>
+        <div id="dlInsightArea" class="mt-6" style="display:none;"></div>
       </div>
     </section>
 
-    <!-- 4. Today's Royal Ritual -->
-    <section class="mb-12 animate-fadeIn">
-      <div id="ritualCard" class="bg-white dark:bg-royal-sapphire/20 border border-royal-gold/10 rounded-2xl p-6 md:p-8">
-        <p class="font-cinzel text-xs tracking-[0.2em] text-royal-gold/50 dark:text-royal-gold/40 uppercase mb-4">Today's Royal Ritual</p>
-        <div id="ritualContent"></div>
+    <!-- 3. Ask the King (inline) -->
+    <section class="mb-14 animate-fadeIn">
+      <div class="bg-white dark:bg-royal-sapphire/20 border border-royal-gold/10 rounded-2xl p-6 md:p-8">
+        <p class="font-cinzel text-xs tracking-[0.2em] text-royal-gold/50 dark:text-royal-gold/40 uppercase mb-4">Ask the King</p>
+        <p class="font-inter text-sm text-royal-sapphire/40 dark:text-white/30 mb-4">Pose a question and receive royal counsel grounded in Scripture.</p>
+        <div class="flex gap-3">
+          <input id="askKingInput" type="text" placeholder="What weighs on your mind, King?" class="flex-1 px-4 py-3 rounded-xl border border-royal-gold/20 bg-royal-cream/50 dark:bg-white/5 font-inter text-sm focus:outline-none focus:border-royal-gold transition dark:text-white/80">
+          <button id="askKingSubmit" class="px-5 py-3 bg-royal-gold text-white font-cinzel text-sm tracking-wider rounded-xl hover:bg-royal-plum transition-all duration-500 gold-glow whitespace-nowrap">Ask</button>
+        </div>
+        <div id="askKingResponse" class="mt-4" style="display:none;"></div>
       </div>
     </section>
 
-    <!-- 5. Quick Journal -->
+    <!-- 4. Royal Campuses Grid -->
+    <section class="mb-14">
+      <div class="mb-8 animate-fadeIn">
+        <h3 class="font-cinzel text-xl text-royal-plum dark:text-royal-gold mb-2">Royal Campuses</h3>
+        <p class="font-inter text-sm text-royal-sapphire/40 dark:text-white/30">Eight pillars of a king's refinement. Enter each campus to study, reflect, and absorb.</p>
+      </div>
+      <div id="campusGrid" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-5"></div>
+    </section>
+
+    <!-- 5. Recent Quests Teaser -->
+    <section class="mb-14 animate-fadeIn">
+      <div class="bg-white dark:bg-royal-sapphire/20 border border-royal-gold/10 rounded-2xl p-6 md:p-8">
+        <p class="font-cinzel text-xs tracking-[0.2em] text-royal-gold/50 dark:text-royal-gold/40 uppercase mb-3">Royal Quests</p>
+        <p id="questSummary" class="font-playfair text-lg text-royal-plum dark:text-royal-gold/90 mb-2"></p>
+        <p class="font-inter text-sm text-royal-sapphire/40 dark:text-white/30">Quests are practical assignments attached to each lesson. Complete them to cement your knowledge.</p>
+      </div>
+    </section>
+
+    <!-- 6. Quick Journal -->
     <section class="mb-16 animate-fadeIn">
       <div class="bg-white dark:bg-royal-sapphire/20 border border-royal-gold/10 rounded-2xl p-6 md:p-8">
         <p class="font-cinzel text-xs tracking-[0.2em] text-royal-gold/50 dark:text-royal-gold/40 uppercase mb-4">Quick Journal</p>
@@ -105,26 +130,8 @@
       </div>
     </section>
 
-    <!-- 6. Royal Campuses Grid -->
-    <section class="mb-16">
-      <div class="mb-8 animate-fadeIn">
-        <h3 class="font-cinzel text-xl text-royal-plum dark:text-royal-gold mb-2">Royal Campuses</h3>
-        <p class="font-inter text-sm text-royal-sapphire/40 dark:text-white/30">Eight pillars of a king's refinement. Enter each campus to study, reflect, and absorb.</p>
-      </div>
-      <div id="campusGrid" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-5"></div>
-    </section>
-
-    <!-- 7. Royal Tools -->
-    <section class="mb-12">
-      <div class="mb-8 animate-fadeIn">
-        <h3 class="font-cinzel text-xl text-royal-plum dark:text-royal-gold mb-2">Royal Tools</h3>
-        <p class="font-inter text-sm text-royal-sapphire/40 dark:text-white/30">Instruments built for your transformation.</p>
-      </div>
-      <div class="grid grid-cols-1 sm:grid-cols-3 gap-5" id="toolsGrid"></div>
-    </section>
-
     <!-- Version -->
-    <p class="text-center text-xs text-royal-sapphire/20 dark:text-white/15 mt-12 font-inter">v0.0.7</p>
+    <p class="text-center text-xs text-royal-sapphire/20 dark:text-white/15 mt-12 font-inter">v0.0.8</p>
   </main>
 
   <div id="mainFooter"></div>
@@ -135,63 +142,80 @@
       if (!requireAuth()) return;
       initPrivate();
 
-      // --- Overall Mastery ---
+      /* ========== Overall Mastery ========== */
       var mastery = getOverallMastery();
-      var masteryBar = document.getElementById('overallMasteryBar');
-      var masteryText = document.getElementById('overallMasteryText');
-      var bannerMastery = document.getElementById('bannerMastery');
-      masteryText.textContent = mastery + '%';
-      bannerMastery.textContent = mastery + '%';
-      // Animate the bar after a brief delay
+      var heroMastery = document.getElementById('heroMastery');
+      var heroMasteryBar = document.getElementById('heroMasteryBar');
+      heroMastery.textContent = mastery + '%';
       setTimeout(function() {
-        masteryBar.style.width = mastery + '%';
+        heroMasteryBar.style.width = mastery + '%';
       }, 200);
 
-      // --- Today's Principle (clickable) ---
-      var p = getTodayPrinciple();
-      var principleText = document.getElementById('principleText');
-      var principleRef = document.getElementById('principleRef');
-      var principleCard = document.getElementById('principleCard');
-      principleText.textContent = '\u201C' + p.text + '\u201D';
-      principleRef.textContent = '\u2014 ' + p.ref;
-      principleCard.addEventListener('click', function() {
-        openVerseModal(p);
-      });
+      /* ========== Today's Daily Lesson (inline render) ========== */
+      var dl = getDailyLesson();
+      var dlCampus = getDailyLessonCampus();
 
-      // --- Today's Ritual ---
-      var ritual = getNextRitualAcrossCampuses();
-      var ritualContent = document.getElementById('ritualContent');
+      var dlCampusBadge = document.getElementById('dlCampusBadge');
+      dlCampusBadge.textContent = dlCampus.numeral + ' ' + dlCampus.label;
+      dlCampusBadge.style.backgroundColor = dlCampus.accent;
 
-      if (ritual) {
-        var ritualCampus = document.createElement('p');
-        ritualCampus.className = 'font-cinzel text-sm text-royal-gold mb-1';
-        ritualCampus.textContent = 'Campus ' + ritual.campus.numeral + ' \u2014 ' + ritual.campus.label;
+      var dlTitle = document.getElementById('dlTitle');
+      dlTitle.textContent = dl.title;
 
-        var ritualLesson = document.createElement('p');
-        ritualLesson.className = 'font-playfair text-lg text-royal-plum dark:text-royal-gold/90 mb-2';
-        ritualLesson.textContent = 'Lesson ' + ritual.lesson + ' awaits your study.';
+      var dlBrief = document.getElementById('dlBrief');
+      dlBrief.textContent = dl.brief;
 
-        var ritualDesc = document.createElement('p');
-        ritualDesc.className = 'font-inter text-sm text-royal-sapphire/50 dark:text-white/40 mb-5';
-        ritualDesc.textContent = 'Continue where you left off. Absorb one lesson per day to build lasting mastery.';
+      // Color the left border of the lesson card with campus accent
+      var dlCard = document.getElementById('dailyLessonCard');
+      dlCard.style.borderLeftWidth = '4px';
+      dlCard.style.borderLeftColor = dlCampus.accent;
 
-        var ritualLink = document.createElement('a');
-        ritualLink.href = ritual.campus.href + '#lesson-' + ritual.lesson;
-        ritualLink.className = 'inline-block px-6 py-2.5 bg-royal-gold text-white font-cinzel text-sm tracking-wider rounded-lg hover:bg-royal-plum transition-all duration-500 gold-glow';
-        ritualLink.textContent = 'Continue Lesson';
+      // Enter button links to the campus page at the lesson anchor
+      var dlEnterBtn = document.getElementById('dlEnterBtn');
+      var lessonNum = dl.lesson < 10 ? '0' + dl.lesson : '' + dl.lesson;
+      dlEnterBtn.href = dlCampus.href + '#lesson-' + lessonNum;
 
-        ritualContent.appendChild(ritualCampus);
-        ritualContent.appendChild(ritualLesson);
-        ritualContent.appendChild(ritualDesc);
-        ritualContent.appendChild(ritualLink);
+      /* ========== Enhance with My Wisdom ========== */
+      var dlEnhanceBtn = document.getElementById('dlEnhanceBtn');
+      var dlInsightArea = document.getElementById('dlInsightArea');
+
+      if (hasLLMConfigured()) {
+        dlEnhanceBtn.style.display = 'inline-block';
+        dlEnhanceBtn.addEventListener('click', function() {
+          dlEnhanceBtn.disabled = true;
+          dlEnhanceBtn.textContent = 'Seeking wisdom...';
+          dlEnhanceBtn.classList.add('opacity-60');
+
+          enhanceWithLLM(dl.title, dlCampus.label).then(function(insight) {
+            dlInsightArea.style.display = 'block';
+            dlInsightArea.textContent = '';
+
+            var insightLabel = document.createElement('p');
+            insightLabel.className = 'font-cinzel text-xs tracking-[0.2em] text-royal-gold/60 uppercase mb-2';
+            insightLabel.textContent = 'Royal Insight';
+            dlInsightArea.appendChild(insightLabel);
+
+            var insightText = document.createElement('p');
+            insightText.className = 'font-playfair text-sm text-royal-plum dark:text-royal-gold/80 italic leading-relaxed bg-royal-gold/5 dark:bg-white/5 rounded-xl p-4 border border-royal-gold/10';
+            insightText.textContent = insight || 'The counsel is unavailable at this hour.';
+            dlInsightArea.appendChild(insightText);
+
+            dlEnhanceBtn.textContent = 'Insight received';
+          }).catch(function() {
+            dlEnhanceBtn.textContent = 'Enhance with My Wisdom';
+            dlEnhanceBtn.disabled = false;
+            dlEnhanceBtn.classList.remove('opacity-60');
+          });
+        });
       } else {
-        var ritualComplete = document.createElement('p');
-        ritualComplete.className = 'font-playfair italic text-royal-plum/60 dark:text-royal-gold/50 text-lg';
-        ritualComplete.textContent = 'All available lessons have been absorbed. You walk the path of a true king.';
-        ritualContent.appendChild(ritualComplete);
+        // Show disabled state with settings prompt
+        dlEnhanceBtn.style.display = 'inline-block';
+        dlEnhanceBtn.disabled = true;
+        dlEnhanceBtn.textContent = 'Connect in Settings for deeper personal counsel';
+        dlEnhanceBtn.classList.add('opacity-50', 'cursor-not-allowed');
       }
 
-      // --- Campus Mastery Grid ---
+      /* ========== Campus Mastery Grid ========== */
       var grid = document.getElementById('campusGrid');
       CAMPUSES.forEach(function(c, index) {
         var card = document.createElement('div');
@@ -209,9 +233,15 @@
 
         // Name
         var name = document.createElement('h4');
-        name.className = 'font-cinzel text-base text-royal-plum dark:text-royal-gold mb-2';
+        name.className = 'font-cinzel text-base text-royal-plum dark:text-royal-gold mb-1';
         name.textContent = c.label;
         card.appendChild(name);
+
+        // Lesson count
+        var count = document.createElement('p');
+        count.className = 'font-inter text-xs text-royal-gold/50 mb-2';
+        count.textContent = c.lessons > 0 ? c.lessons + ' lessons' : 'Coming soon';
+        card.appendChild(count);
 
         // Description
         var desc = document.createElement('p');
@@ -266,7 +296,7 @@
         grid.appendChild(card);
       });
 
-      // Animate campus mastery bars after a brief delay
+      // Animate campus mastery bars
       setTimeout(function() {
         var bars = grid.querySelectorAll('[data-target]');
         bars.forEach(function(bar) {
@@ -274,62 +304,72 @@
         });
       }, 400);
 
-      // --- Royal Tools ---
-      var toolsGrid = document.getElementById('toolsGrid');
-      var tools = [
-        {
-          name: 'Plate Scanner',
-          desc: 'Evaluate any meal against the Creator\u2019s nourishment blueprint from Leviticus 11.',
-          href: 'nourishment.html#plate-scanner',
-          accent: '#A38255'
-        },
-        {
-          name: 'Speech Analyzer',
-          desc: 'Refine your vocabulary, eliminate filler words, and speak with authority.',
-          href: 'speech.html',
-          accent: '#4A5568'
-        },
-        {
-          name: 'Wisdom Journal',
-          desc: 'Record reflections, convictions, and lessons across all eight campuses.',
-          href: 'journal.html',
-          accent: '#571641'
-        }
-      ];
-
-      tools.forEach(function(tool, index) {
-        var card = document.createElement('div');
-        card.className = 'bg-white dark:bg-royal-sapphire/20 border border-royal-gold/10 rounded-2xl p-6 gold-glow transition-all duration-500 animate-fadeInUp';
-        card.style.animationDelay = (index * 0.08) + 's';
-
-        var toolName = document.createElement('h4');
-        toolName.className = 'font-cinzel text-base text-royal-plum dark:text-royal-gold mb-2';
-        toolName.textContent = tool.name;
-        card.appendChild(toolName);
-
-        var toolDesc = document.createElement('p');
-        toolDesc.className = 'font-inter text-xs text-royal-sapphire/40 dark:text-white/30 leading-relaxed mb-5';
-        toolDesc.textContent = tool.desc;
-        card.appendChild(toolDesc);
-
-        var toolLink = document.createElement('a');
-        toolLink.href = tool.href;
-        toolLink.className = 'font-cinzel text-xs tracking-[0.15em] uppercase transition-colors duration-300';
-        toolLink.style.color = tool.accent;
-        toolLink.textContent = 'Open Tool \u2192';
-        toolLink.addEventListener('mouseenter', function() {
-          this.style.color = '#571641';
+      /* ========== Recent Quests Teaser ========== */
+      var totalQuests = 0;
+      CAMPUSES.forEach(function(c) {
+        var quests = getQuests(c.id);
+        var keys = Object.keys(quests);
+        keys.forEach(function(k) {
+          if (quests[k] === true) totalQuests++;
         });
-        toolLink.addEventListener('mouseleave', function() {
-          var a = tool.accent;
-          this.style.color = a;
-        });
-        card.appendChild(toolLink);
+      });
+      var questSummary = document.getElementById('questSummary');
+      if (totalQuests > 0) {
+        questSummary.textContent = totalQuests + ' quest' + (totalQuests !== 1 ? 's' : '') + ' completed across all campuses.';
+      } else {
+        questSummary.textContent = 'No quests completed yet. Begin your first lesson to receive your first quest.';
+      }
 
-        toolsGrid.appendChild(card);
+      /* ========== Ask the King (inline) ========== */
+      var askInput = document.getElementById('askKingInput');
+      var askSubmit = document.getElementById('askKingSubmit');
+      var askResponse = document.getElementById('askKingResponse');
+
+      askSubmit.addEventListener('click', function() {
+        var question = askInput.value.trim();
+        if (!question) { askInput.focus(); return; }
+
+        askSubmit.disabled = true;
+        askSubmit.textContent = '...';
+        askResponse.style.display = 'block';
+        askResponse.textContent = '';
+
+        var loading = document.createElement('p');
+        loading.className = 'font-playfair italic text-royal-plum/50 dark:text-royal-gold/50 text-sm';
+        loading.textContent = 'The King considers your question...';
+        askResponse.appendChild(loading);
+
+        askLLM(question).then(function(answer) {
+          askResponse.textContent = '';
+
+          var answerText = document.createElement('p');
+          answerText.className = 'font-playfair italic text-royal-plum dark:text-royal-gold/90 text-sm leading-relaxed bg-royal-gold/5 dark:bg-white/5 rounded-xl p-4 border border-royal-gold/10';
+          answerText.textContent = answer;
+          askResponse.appendChild(answerText);
+
+          askInput.value = '';
+          askSubmit.disabled = false;
+          askSubmit.textContent = 'Ask';
+        }).catch(function() {
+          askResponse.textContent = '';
+          var errText = document.createElement('p');
+          errText.className = 'font-inter text-sm text-royal-plum/60';
+          errText.textContent = 'The counsel chamber is unreachable. Try again.';
+          askResponse.appendChild(errText);
+          askSubmit.disabled = false;
+          askSubmit.textContent = 'Ask';
+        });
       });
 
-      // --- Quick Journal Save ---
+      // Allow Enter key to submit
+      askInput.addEventListener('keydown', function(e) {
+        if (e.key === 'Enter') {
+          e.preventDefault();
+          askSubmit.click();
+        }
+      });
+
+      /* ========== Quick Journal Save ========== */
       var quickJournalSave = document.getElementById('quickJournalSave');
       var quickJournalText = document.getElementById('quickJournalText');
       var journalSaveStatus = document.getElementById('journalSaveStatus');

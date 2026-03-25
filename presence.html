@@ -1,284 +1,481 @@
-<!-- presence.html – v0.0.7 -->
+<!-- presence.html – v0.0.8 -->
 <!DOCTYPE html>
 <html lang="en" class="scroll-smooth">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0">
-  <title>Presence — A King's Lifestyle</title>
+  <title>Presence &mdash; A King's Lifestyle</title>
+  <meta name="description" content="The King's Gravity: 3 deep lessons on silence, situational intelligence, and wordless influence. Biblical presence for the modern king in Aurora, Colorado.">
   <link rel="manifest" href="manifest.json">
   <script src="https://cdn.tailwindcss.com"></script>
-  <script>tailwind.config={darkMode:'class',theme:{extend:{colors:{royal:{green:'#052B20',cream:'#FFF6E6',gold:'#A38255',plum:'#571641',sapphire:'#08052D'}},fontFamily:{cinzel:['Cinzel','serif'],inter:['Inter','sans-serif'],playfair:['Playfair Display','serif']},animation:{fadeIn:'fadeIn 0.8s ease-out forwards',fadeInUp:'fadeInUp 0.8s ease-out forwards'},keyframes:{fadeIn:{'0%':{opacity:'0'},'100%':{opacity:'1'}},fadeInUp:{'0%':{opacity:'0',transform:'translateY(24px)'},'100%':{opacity:'1',transform:'translateY(0)'}}}}}};</script>
+  <script>tailwind.config={darkMode:'class',theme:{extend:{colors:{royal:{green:'#052B20',cream:'#FFF6E6',gold:'#A38255',plum:'#571641',sapphire:'#08052D'},campus:{'charcoal':'#3A3A3A'}},fontFamily:{cinzel:['Cinzel','serif'],inter:['Inter','sans-serif'],playfair:['Playfair Display','serif']},animation:{fadeIn:'fadeIn 0.8s ease-out forwards',fadeInUp:'fadeInUp 0.8s ease-out forwards'},keyframes:{fadeIn:{'0%':{opacity:'0'},'100%':{opacity:'1'}},fadeInUp:{'0%':{opacity:'0',transform:'translateY(24px)'},'100%':{opacity:'1',transform:'translateY(0)'}}}}}};</script>
   <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600;700&family=Inter:wght@300;400;500;600&family=Playfair+Display:ital,wght@0,400;0,600;1,400&display=swap" rel="stylesheet">
   <script src="https://unpkg.com/@supabase/supabase-js@2" defer></script>
-  <style>html,body{overflow-x:hidden;max-width:100vw;}.bg-parchment{background-image:url("data:image/svg+xml,%3Csvg width='100' height='100' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.8' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100' height='100' filter='url(%23n)' opacity='0.03'/%3E%3C/svg%3E");}.gold-glow:hover{box-shadow:0 0 30px rgba(163,130,85,0.25);}.dark .bg-parchment{background-color:#0a0a0a;}.dark body{background-color:#0a0a0a;color:#e0d5c4;}</style>
+  <style>
+    html,body{overflow-x:hidden;max-width:100vw;}
+    .bg-parchment{background-image:url("data:image/svg+xml,%3Csvg width='100' height='100' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.8' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100' height='100' filter='url(%23n)' opacity='0.03'/%3E%3C/svg%3E");}
+    .gold-glow:hover{box-shadow:0 0 30px rgba(58,58,58,0.25);}
+    .dark .bg-parchment{background-color:#0a0a0a;}
+    .dark body{background-color:#0a0a0a;color:#e0d5c4;}
+    .lesson-section{opacity:0;transform:translateY(30px);transition:opacity 0.7s ease-out,transform 0.7s ease-out;}
+    .lesson-section.visible{opacity:1;transform:translateY(0);}
+    .toc-dot{width:8px;height:8px;border-radius:50%;border:1.5px solid rgba(58,58,58,0.3);transition:all 0.3s;display:block;}
+    .toc-dot.active{background:#3A3A3A;border-color:#3A3A3A;box-shadow:0 0 8px rgba(58,58,58,0.4);}
+    .gold-divider{height:1px;background:linear-gradient(90deg,transparent,#3A3A3A 50%,transparent);margin:0 auto;max-width:200px;}
+    .absorb-btn.absorbed{background:#052B20 !important;cursor:default;}
+    .card-parchment{background:linear-gradient(135deg,#FFF6E6 0%,#f5e6cc 100%);}
+    .dark .card-parchment{background:linear-gradient(135deg,#1a1a1a 0%,#141210 100%);}
+    .quiz-option{cursor:pointer;transition:border-color 0.2s;}
+    .quiz-option:hover{border-color:#3A3A3A !important;}
+    .royal-decree{border-left:3px solid #3A3A3A;background:linear-gradient(135deg,rgba(58,58,58,0.05),rgba(58,58,58,0.02));padding:1.5rem;border-radius:0 0.75rem 0.75rem 0;margin:1.5rem 0;}
+    .quest-panel{background:linear-gradient(135deg,#052B20,#08052D);border-radius:1rem;padding:1.5rem;color:white;}
+  </style>
 </head>
-<body class="bg-royal-cream bg-parchment font-inter text-royal-sapphire min-h-screen">
+<body class="bg-royal-cream bg-parchment font-inter text-royal-sapphire min-h-screen overflow-x-hidden">
   <div id="mainNav"></div>
 
-  <!-- ===== STORYTELLING INTRO ===== -->
-  <section class="max-w-4xl mx-auto px-6 pt-20 pb-12 animate-fadeInUp">
-    <div class="text-center mb-16">
-      <h1 class="font-cinzel text-3xl md:text-5xl text-royal-plum mb-8 tracking-wide">Presence</h1>
-      <div class="max-w-2xl mx-auto space-y-5">
-        <p class="font-playfair italic text-royal-gold text-lg leading-relaxed">
-          Historical kings never needed to announce themselves. When they entered a room, the room changed. Conversations lowered. Postures straightened. Eyes turned. Not because of fear, though fear played its part, but because of gravity. The kind of gravity that comes from a man who has mastered the distance between his thoughts and his gestures.
-        </p>
-        <p class="font-inter text-sm text-royal-sapphire/70 dark:text-white/50 leading-relaxed">
-          Presence is not volume. It is not size. It is not the loudest laugh or the firmest handshake. Presence is the silent force that makes people aware you exist before you speak. It is composed of a thousand micro-decisions: how you stand, where you place your hands, how long you hold eye contact, the pace at which you walk, the stillness you maintain while others fidget.
-        </p>
-        <p class="font-inter text-sm text-royal-sapphire/70 dark:text-white/50 leading-relaxed">
-          These are not tricks or techniques for manipulation. They are the outward expression of inner authority. A man who is at war with himself cannot project peace. A man who doubts himself cannot project certainty. What follows is the architecture of that certainty, broken into components that can be practiced, refined, and eventually made instinctive.
-        </p>
+  <!-- PROGRESS BAR -->
+  <div class="fixed top-0 left-0 right-0 z-[60] pointer-events-none">
+    <div class="h-1 bg-royal-sapphire/5">
+      <div id="progressFill" class="h-full bg-gradient-to-r from-[#3A3A3A] to-royal-gold transition-all duration-700 ease-out" style="width:0%"></div>
+    </div>
+  </div>
+
+  <!-- HERO -->
+  <section class="max-w-4xl mx-auto px-6 pt-24 pb-12 text-center">
+    <div class="font-cinzel text-xs tracking-[0.3em] text-[#3A3A3A]/50 uppercase mb-4">Year 1 &mdash; The Architecture of Wisdom</div>
+    <h1 class="font-cinzel text-4xl md:text-5xl lg:text-6xl text-royal-plum dark:text-royal-gold tracking-wide leading-tight">Presence</h1>
+    <p class="font-playfair italic text-[#3A3A3A] text-lg mt-4">The King&rsquo;s Gravity</p>
+    <p class="font-inter text-sm text-royal-sapphire/50 dark:text-white/40 mt-3 max-w-xl mx-auto">Command attention without demanding it. Three lessons on the sovereignty of silence, situational intelligence, and the persuasion that requires no words.</p>
+    <div class="mt-6 flex items-center justify-center gap-3">
+      <div class="h-2 w-48 bg-royal-sapphire/5 dark:bg-white/5 rounded-full overflow-hidden">
+        <div id="progressBar" class="h-full bg-gradient-to-r from-[#3A3A3A] to-royal-gold rounded-full transition-all duration-700" style="width:0%"></div>
       </div>
+      <span id="progressText" class="text-xs font-inter text-[#3A3A3A]">Presence Mastery 0%</span>
     </div>
-
-    <!-- Bible Quote -->
-    <div data-bible class="bg-royal-sapphire/5 dark:bg-white/5 border border-royal-gold/10 rounded-xl p-6 mb-6 text-center">
-      <p class="font-playfair italic text-royal-plum dark:text-royal-gold">"When the queen of Sheba saw all the wisdom of Solomon and the palace he had built, she was overwhelmed."</p>
-      <p class="text-xs text-royal-sapphire/40 mt-2">— 1 Kings 10:4-5</p>
-    </div>
-
   </section>
 
-  <!-- ===== PRACTICAL STEPS ===== -->
-  <section class="max-w-4xl mx-auto px-6 space-y-16 mb-20">
+  <!-- TABLE OF CONTENTS (fixed right, desktop) -->
+  <nav id="lessonToc" class="fixed right-3 top-1/2 -translate-y-1/2 z-40 hidden xl:flex flex-col items-center gap-2">
+    <a href="#lesson-01" class="toc-dot" title="01"></a><a href="#lesson-02" class="toc-dot" title="02"></a><a href="#lesson-03" class="toc-dot" title="03"></a>
+  </nav>
 
-    <!-- Step 1: The Entrance Protocol -->
-    <div class="animate-fadeIn">
-      <h2 class="font-cinzel text-2xl text-royal-plum dark:text-royal-gold mb-4">I. The Entrance Protocol</h2>
-      <div class="font-inter text-sm leading-relaxed text-royal-sapphire/80 dark:text-white/60 space-y-4">
-        <p>Your first three seconds in a room determine how you are perceived for the rest of the evening. Most men rush in, head down, scanning for familiar faces, already broadcasting anxiety. A king enters differently.</p>
-        <div class="bg-white dark:bg-royal-sapphire/20 border-l-4 border-royal-gold rounded-r-xl p-6">
-          <h4 class="font-cinzel text-sm text-royal-gold mb-3">The Four-Step Entrance</h4>
-          <ul class="text-xs space-y-3 list-disc pl-4">
-            <li><strong>Pause at the threshold.</strong> Stop for one full second at the doorway. This is not hesitation. It is a visual full stop. It draws the eye. It signals that you are arriving, not stumbling in.</li>
-            <li><strong>Survey the room.</strong> Let your eyes move slowly across the space. Not searching, not scanning frantically. Observing. A king assesses his terrain before stepping onto it.</li>
-            <li><strong>Choose your destination.</strong> Before moving, decide where you are going. The bar. A specific person. An open seat. Directionless movement signals uncertainty. Purposeful movement signals authority.</li>
-            <li><strong>Move deliberately.</strong> Walk at 10-15% slower than your natural pace. Measured. Grounded. Your shoulders back, chin level, arms relaxed at your sides. You are not late. You are arriving.</li>
-          </ul>
-        </div>
-        <p class="mt-4">Practice this at everyday locations first. The grocery store. The coffee shop. The office. By the time you enter a room that matters, it will be second nature.</p>
+  <!-- ======== LESSON 01 ======== -->
+  <section id="lesson-01" class="lesson-section max-w-4xl mx-auto px-6 pb-20">
+    <div class="font-cinzel text-xs tracking-[0.3em] text-[#3A3A3A]/40 mb-3">LESSON 01</div>
+    <h2 class="font-cinzel text-2xl md:text-3xl text-royal-plum dark:text-royal-gold mb-2">The Silent Commander</h2>
+    <p class="font-inter text-xs text-[#3A3A3A]/60 mb-8 tracking-wider">YEAR 1 &bull; THE ARCHITECTURE OF WISDOM</p>
+
+    <!-- THE RAW INGREDIENT -->
+    <div class="mb-8">
+      <h3 class="font-cinzel text-sm text-[#3A3A3A] tracking-wider mb-3">THE RAW INGREDIENT</h3>
+      <div class="bg-royal-sapphire/5 dark:bg-white/5 border border-[#3A3A3A]/10 rounded-xl p-6 text-center cursor-pointer hover:border-[#3A3A3A]/30 transition" onclick="openVerseModal({text:'Even fools are thought wise if they keep silent, and discerning if they hold their tongues.',ref:'Proverbs 17:28',context:'Solomon&rsquo;s observation is devastating in its precision: silence can elevate even a fool to the appearance of wisdom. The inverse is equally true &mdash; a wise man who talks without ceasing diminishes himself with every unnecessary syllable. The Hebrew charash carries a meaning far richer than merely &ldquo;not speaking.&rdquo; It denotes purposeful restraint, the deliberate decision to hold peace when speech is available. This is not the silence of ignorance or timidity. It is the silence of sovereignty &mdash; the man who could speak but chooses not to because he understands that what he withholds carries more weight than what he releases.',crossRefs:['Proverbs 10:19','Proverbs 11:12','Proverbs 29:11','Ecclesiastes 3:7','Mark 15:5'],application:'In 2026 Aurora, the silent man is the rarest creature in any room. Practice the 3-second pause before every response. Enter a room without immediately speaking. Let your posture, your stillness, and your eye contact establish your presence before a single word leaves your mouth.'})">
+        <p class="font-playfair italic text-royal-plum dark:text-royal-gold text-lg">&ldquo;Even fools are thought wise if they keep silent, and discerning if they hold their tongues.&rdquo;</p>
+        <p class="text-xs text-royal-sapphire/40 mt-2">&mdash; Proverbs 17:28</p>
+        <p class="text-xs text-[#3A3A3A]/50 mt-1">Tap for full context &amp; Hebrew insight</p>
+      </div>
+      <p class="font-inter text-sm text-royal-sapphire/60 dark:text-white/50 mt-4 leading-relaxed"><strong class="text-[#3A3A3A]">Hebrew Root:</strong> <em>charash</em> (&#x05D7;&#x05B8;&#x05E8;&#x05E9;&#x05C1;) &mdash; translated &ldquo;to be silent&rdquo; or &ldquo;to hold peace,&rdquo; but the word carries a secondary meaning that illuminates everything: &ldquo;to plow, to engrave, to craft.&rdquo; The same root describes the artisan who works metal in silence, shaping raw material into something of value. <em>Charash</em> silence is not empty. It is productive. It is the silence of a man who is forging something internally while the world fills the air with noise. When Solomon invokes this word, he is saying: the silent man is working while the talker is wasting.</p>
+    </div>
+
+    <!-- THE PREPARATION -->
+    <div class="mb-8">
+      <h3 class="font-cinzel text-sm text-[#3A3A3A] tracking-wider mb-3">THE PREPARATION</h3>
+      <div class="font-inter text-sm text-royal-sapphire/70 dark:text-white/60 leading-relaxed space-y-4">
+        <p>Throughout the Proverbs, Solomon returns to silence as a mark of wisdom with a consistency that borders on obsession. Proverbs 10:19 warns that &ldquo;sin is not ended by multiplying words.&rdquo; Proverbs 29:11 declares that &ldquo;fools give full vent to their rage, but the wise bring calm in the end.&rdquo; Ecclesiastes 3:7 places silence in the rhythmic structure of creation itself: &ldquo;a time to be silent and a time to speak.&rdquo; The pattern is unmistakable. The wise man treats words as a finite resource to be deployed with precision, not a continuous stream to fill every vacuum.</p>
+        <p>Jesus embodied this principle in the most consequential moment of His earthly ministry. When brought before Pontius Pilate, the Roman governor who held the legal authority to execute or release Him, Jesus stood silent (Mark 15:5). Pilate was astonished. The Greek word used, <em>thaumazo</em>, means to marvel, to be struck with wonder. The most powerful political figure in Judea was unsettled not by what Jesus said but by what He refused to say. Silence, in that moment, communicated a sovereignty that no defense speech could have achieved. Jesus was not avoiding the question. He was demonstrating that He was not subject to it.</p>
+        <p>The neuroscience of silence confirms the ancient wisdom. Research published in the journal <em>Heart</em> in 2006 found that two minutes of silence produced greater relaxation than listening to relaxing music &mdash; as measured by blood pressure, cardiac function, and cerebral blood flow. A 2013 study in <em>Brain Structure and Function</em> demonstrated that silence stimulates hippocampal neurogenesis: the growth of new brain cells in the region responsible for memory, learning, and emotional regulation. Silence does not merely make you appear wise. It makes you physiologically wiser. The man who practices silence is building neural architecture that the man who fills every moment with sound is not.</p>
       </div>
     </div>
 
-    <!-- Step 2: The Royal Handshake -->
-    <div class="animate-fadeIn">
-      <h2 class="font-cinzel text-2xl text-royal-plum dark:text-royal-gold mb-4">II. The Royal Handshake</h2>
-      <div class="font-inter text-sm leading-relaxed text-royal-sapphire/80 dark:text-white/60 space-y-4">
-        <p>A handshake is the only socially acceptable form of touch between strangers. In 2-3 seconds, it communicates confidence, warmth, and character. Get this wrong and recovery is difficult. Get this right and you have a foundation for everything that follows.</p>
-        <div class="grid md:grid-cols-2 gap-4 mt-4">
-          <div class="bg-white dark:bg-royal-sapphire/20 border border-royal-gold/10 rounded-xl p-5 gold-glow transition-all">
-            <h4 class="font-cinzel text-sm text-royal-gold mb-2">The Mechanics</h4>
-            <ul class="text-xs space-y-1 list-disc pl-4">
-              <li>Firm grip, web to web. Not crushing. Not limp.</li>
-              <li>Two to three pumps. Not a dead fish, not a water pump.</li>
-              <li>Dry palm (if needed, discreetly wipe on trouser leg before approach).</li>
-              <li>Vertical hand position. Offering your palm up signals submission. Palm down signals dominance. Vertical says equals.</li>
-            </ul>
-          </div>
-          <div class="bg-white dark:bg-royal-sapphire/20 border border-royal-gold/10 rounded-xl p-5 gold-glow transition-all">
-            <h4 class="font-cinzel text-sm text-royal-gold mb-2">The Presence Layer</h4>
-            <ul class="text-xs space-y-1 list-disc pl-4">
-              <li>Direct eye contact throughout. Not at the hand. At the person.</li>
-              <li>Slight lean forward from the waist. It communicates engagement.</li>
-              <li>Use their name immediately if you know it. "Good to meet you, Michael."</li>
-              <li>Genuine, slight smile. Not a grin. Warmth, not performance.</li>
-            </ul>
-          </div>
-        </div>
+    <!-- ROYAL DECREE -->
+    <div class="royal-decree">
+      <p class="font-cinzel text-xs tracking-[0.2em] text-[#3A3A3A] mb-2">ROYAL DECREE</p>
+      <p class="font-playfair italic text-royal-plum dark:text-royal-gold text-sm leading-relaxed">The King decrees: silence is not absence &mdash; it is the most concentrated form of presence. The man who withholds speech when he could speak commands more attention than the man who fills every silence with sound.</p>
+    </div>
+
+    <!-- THE CONSUMPTION -->
+    <div class="mb-8">
+      <h3 class="font-cinzel text-sm text-[#3A3A3A] tracking-wider mb-3">THE CONSUMPTION</h3>
+      <div class="font-inter text-sm text-royal-sapphire/70 dark:text-white/60 leading-relaxed space-y-4">
+        <p>In 2026 Aurora, Colorado, silence is your most overlooked weapon. Begin with the three-second pause: before responding to any question, statement, or provocation, count silently to three. This microscopic delay accomplishes three things simultaneously. First, it ensures your response is chosen, not reactive. Second, it creates a vacuum that signals to the listener that you are considering their words seriously. Third, it generates a subtle tension that makes your eventual words land with greater force. Try it in your next meeting in the Denver Tech Center. When your colleague finishes speaking, do not rush to fill the space. Pause. Hold eye contact. Then speak. You will feel the room recalibrate its attention toward you.</p>
+        <p>The physical architecture of silence extends beyond the pause. When you enter a room &mdash; a church foyer on Sunday morning, a restaurant in Southlands, a conference room on South Parker Road &mdash; do not announce yourself. Stand at the threshold for one full second. Let your spine straighten, your chin level, your shoulders settle back. Survey the room slowly. Then move deliberately toward your destination. Your body posture communicates before your voice can: spine straight broadcasts confidence, chin neutral broadcasts composure, shoulders back broadcasts readiness. Walk at ten to fifteen percent slower than your natural pace. The man who does not rush communicates that he is not anxious &mdash; and a man without anxiety is a man the room instinctively follows.</p>
       </div>
     </div>
 
-    <!-- Step 3: Eye Contact Mastery -->
-    <div class="animate-fadeIn">
-      <h2 class="font-cinzel text-2xl text-royal-plum dark:text-royal-gold mb-4">III. Eye Contact Mastery</h2>
-      <div class="font-inter text-sm leading-relaxed text-royal-sapphire/80 dark:text-white/60 space-y-4">
-        <p>Eye contact is the single most powerful non-verbal signal available to you. Too little and you appear shifty, dishonest, or weak. Too much and you appear aggressive or unsettling. The king finds the precise middle ground.</p>
-        <div class="bg-white dark:bg-royal-sapphire/20 border border-royal-gold/10 rounded-xl p-6">
-          <h4 class="font-cinzel text-sm text-royal-gold mb-3">The Triangle Technique</h4>
-          <p class="text-xs mb-3">Shift your gaze slowly between three points: the left eye, the right eye, and the bridge of the nose. This creates the impression of deep, steady eye contact without the intensity of locking onto one eye.</p>
-          <div class="grid grid-cols-3 gap-3 text-center mt-4">
-            <div class="bg-royal-sapphire/5 dark:bg-white/5 rounded-lg p-4">
-              <p class="font-cinzel text-royal-gold text-sm">60-70%</p>
-              <p class="text-xs mt-1">Eye contact while listening</p>
-            </div>
-            <div class="bg-royal-sapphire/5 dark:bg-white/5 rounded-lg p-4">
-              <p class="font-cinzel text-royal-gold text-sm">40-50%</p>
-              <p class="text-xs mt-1">Eye contact while speaking</p>
-            </div>
-            <div class="bg-royal-sapphire/5 dark:bg-white/5 rounded-lg p-4">
-              <p class="font-cinzel text-royal-gold text-sm">3-5 sec</p>
-              <p class="text-xs mt-1">Hold before natural break</p>
-            </div>
-          </div>
-        </div>
-        <div class="bg-royal-sapphire/5 dark:bg-white/5 border border-royal-gold/10 rounded-xl p-5 mt-4">
-          <h4 class="font-cinzel text-sm text-royal-gold mb-2">Breaking Contact</h4>
-          <p class="text-xs">When you break eye contact, look to the side, not down. Looking down signals submission. Looking to the side signals thought. Small distinction, large impact.</p>
-        </div>
+    <!-- SLIDE CARDS -->
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-5 my-10">
+      <div class="card-parchment border border-[#3A3A3A]/10 rounded-xl p-6">
+        <div class="font-cinzel text-xs text-[#3A3A3A] tracking-widest mb-2">ETYMOLOGY</div>
+        <h4 class="font-cinzel text-sm text-royal-plum dark:text-royal-gold mb-2">Charash: The Artisan&rsquo;s Silence</h4>
+        <p class="text-xs text-royal-sapphire/60 dark:text-white/50 leading-relaxed">The Hebrew root means both &ldquo;to be silent&rdquo; and &ldquo;to engrave.&rdquo; The silent man is not idle. He is forging something internally while the talker wastes his material.</p>
+      </div>
+      <div class="card-parchment border border-[#3A3A3A]/10 rounded-xl p-6">
+        <div class="font-cinzel text-xs text-[#3A3A3A] tracking-widest mb-2">SOVEREIGNTY</div>
+        <h4 class="font-cinzel text-sm text-royal-plum dark:text-royal-gold mb-2">Jesus Before Pilate</h4>
+        <p class="text-xs text-royal-sapphire/60 dark:text-white/50 leading-relaxed">Pilate marveled not at what Jesus said but at His refusal to speak. Silence before the most powerful Roman in Judea communicated sovereignty no defense speech could achieve.</p>
+      </div>
+      <div class="card-parchment border border-[#3A3A3A]/10 rounded-xl p-6">
+        <div class="font-cinzel text-xs text-[#3A3A3A] tracking-widest mb-2">NEUROSCIENCE</div>
+        <h4 class="font-cinzel text-sm text-royal-plum dark:text-royal-gold mb-2">Silence Builds Brain Cells</h4>
+        <p class="text-xs text-royal-sapphire/60 dark:text-white/50 leading-relaxed">Two minutes of silence stimulates hippocampal neurogenesis &mdash; new brain cells in the region governing memory, learning, and emotional regulation. Silence makes you physiologically wiser.</p>
+      </div>
+      <div class="card-parchment border border-[#3A3A3A]/10 rounded-xl p-6">
+        <div class="font-cinzel text-xs text-[#3A3A3A] tracking-widest mb-2">PROTOCOL</div>
+        <h4 class="font-cinzel text-sm text-royal-plum dark:text-royal-gold mb-2">The 3-Second Pause</h4>
+        <p class="text-xs text-royal-sapphire/60 dark:text-white/50 leading-relaxed">Before responding to anything, count silently to three. This ensures your response is chosen, signals seriousness to the listener, and makes your eventual words land with greater force.</p>
       </div>
     </div>
 
-    <!-- Step 4: Seated Authority -->
-    <div class="animate-fadeIn">
-      <h2 class="font-cinzel text-2xl text-royal-plum dark:text-royal-gold mb-4">IV. Seated Authority</h2>
-      <div class="font-inter text-sm leading-relaxed text-royal-sapphire/80 dark:text-white/60 space-y-4">
-        <p>How a man sits reveals his inner state. The sloucher is defeated. The fidgeter is anxious. The sprawler is compensating. The king sits with grounded stillness and appropriate space.</p>
-        <div class="grid md:grid-cols-3 gap-4 mt-4">
-          <div class="bg-white dark:bg-royal-sapphire/20 border border-royal-gold/10 rounded-xl p-5">
-            <h4 class="font-cinzel text-sm text-royal-gold mb-2">Boardroom</h4>
-            <p class="text-xs">Upright, both feet flat on the floor. Hands on the table or armrests, visible. Lean slightly forward when listening. It communicates engagement and authority. Never lean back with arms crossed. That is defense, not leadership.</p>
-          </div>
-          <div class="bg-white dark:bg-royal-sapphire/20 border border-royal-gold/10 rounded-xl p-5">
-            <h4 class="font-cinzel text-sm text-royal-gold mb-2">Social Setting</h4>
-            <p class="text-xs">Relaxed but controlled. One ankle may rest on the opposite knee. Arms open, taking up appropriate space. A king does not shrink himself to make others comfortable. He takes the space he has earned.</p>
-          </div>
-          <div class="bg-white dark:bg-royal-sapphire/20 border border-royal-gold/10 rounded-xl p-5">
-            <h4 class="font-cinzel text-sm text-royal-gold mb-2">Dining</h4>
-            <p class="text-xs">Straight back, wrists resting on the table edge. Never elbows on the table during a meal. Lean from the waist when eating, not from the neck. Grace in every gesture. The fork goes to your mouth, not your mouth to the fork.</p>
-          </div>
-        </div>
+    <!-- PRACTICAL STEPS -->
+    <div class="mb-8">
+      <h3 class="font-cinzel text-lg text-royal-plum dark:text-royal-gold mb-4">Practical Steps</h3>
+      <ul class="space-y-3 text-sm font-inter text-royal-sapphire/70 dark:text-white/60">
+        <li class="flex gap-3"><span class="text-[#3A3A3A] font-cinzel">I.</span> Practice the 3-second pause in every conversation today. Before responding to any question or statement, count silently to three. Observe how the dynamic shifts.</li>
+        <li class="flex gap-3"><span class="text-[#3A3A3A] font-cinzel">II.</span> At your next social gathering, enter the room using the threshold protocol: pause at the doorway for one second, survey, choose your destination, then walk deliberately at a reduced pace.</li>
+        <li class="flex gap-3"><span class="text-[#3A3A3A] font-cinzel">III.</span> Conduct a body audit: stand before a mirror and check spine alignment (straight, not rigid), chin position (level, not tilted), shoulder position (back, not hunched), and hand placement (relaxed at sides). Correct and hold for sixty seconds. This is your default posture.</li>
+      </ul>
+    </div>
+
+    <!-- WISDOM REFLECTION -->
+    <div class="bg-white dark:bg-royal-sapphire/20 border border-[#3A3A3A]/10 rounded-xl p-6 mb-8">
+      <p class="font-playfair italic text-royal-plum dark:text-royal-gold text-sm mb-4">&ldquo;When you enter a room, does the room shift? Do conversations pause? Does attention move toward you naturally? If not, what specific element of your physical presence requires correction?&rdquo;</p>
+      <textarea rows="3" placeholder="Write your reflection..." class="w-full px-4 py-3 rounded-lg border border-[#3A3A3A]/20 bg-royal-cream/50 dark:bg-white/5 font-inter text-sm focus:outline-none focus:border-[#3A3A3A] resize-none"></textarea>
+      <button data-prompt="When you enter a room, does the room shift?" class="journal-save-btn mt-2 px-4 py-2 bg-[#3A3A3A] text-white text-xs font-cinzel rounded-lg hover:bg-royal-plum transition">Save to Journal</button>
+    </div>
+
+    <!-- QUIZ -->
+    <div class="quiz-block bg-white dark:bg-royal-sapphire/20 border border-[#3A3A3A]/10 rounded-xl p-6 mb-8">
+      <h4 class="font-cinzel text-sm text-[#3A3A3A] mb-4">Counsel from the Throne</h4>
+      <p class="font-playfair italic text-royal-plum dark:text-royal-gold text-sm mb-5">&ldquo;You walk into a packed networking event in Denver. You know no one. The room is loud. What does the king do in the first ten seconds?&rdquo;</p>
+      <div class="space-y-2">
+        <button data-correct="false" class="quiz-option w-full text-left px-4 py-3 rounded-lg border border-[#3A3A3A]/15 text-sm font-inter">Head straight for the bar to occupy your hands and look comfortable</button>
+        <button data-correct="false" class="quiz-option w-full text-left px-4 py-3 rounded-lg border border-[#3A3A3A]/15 text-sm font-inter">Pull out your phone and check messages to appear busy while you assess the situation</button>
+        <button data-correct="true" class="quiz-option w-full text-left px-4 py-3 rounded-lg border border-[#3A3A3A]/15 text-sm font-inter">Pause at the threshold, stand still with shoulders back and chin level, survey the room slowly, then walk deliberately to one person or small group and introduce yourself with calm eye contact</button>
+      </div>
+      <div class="quiz-feedback hidden mt-4 text-sm font-playfair italic"></div>
+    </div>
+
+    <!-- QUEST -->
+    <div class="quest-panel mb-8">
+      <h4 class="font-cinzel text-sm text-royal-gold mb-2">Quest: The Silent Entrance</h4>
+      <p class="text-xs text-white/70 mb-3">Tomorrow, practice the threshold protocol at three different locations: a grocery store, your workplace, and one social setting. Pause, survey, choose, move. Record how it felt and whether anyone responded differently to your entrance.</p>
+      <label class="flex items-center gap-2 cursor-pointer">
+        <input type="checkbox" class="quest-checkbox accent-royal-gold" data-quest="pr-01">
+        <span class="text-xs text-white/80">I practiced the threshold protocol at three locations</span>
+      </label>
+    </div>
+
+    <button class="audio-briefing-btn w-full py-3 border border-[#3A3A3A]/20 text-[#3A3A3A] font-cinzel text-sm rounded-xl hover:bg-[#3A3A3A]/5 transition mb-4">Play Royal Briefing</button>
+    <button class="absorb-btn w-full py-3 bg-[#3A3A3A] text-white font-cinzel tracking-wider rounded-lg hover:bg-royal-plum transition" data-lesson="1">Mark as Absorbed</button>
+    <div class="gold-divider mt-16"></div>
+  </section>
+
+  <!-- ======== LESSON 02 ======== -->
+  <section id="lesson-02" class="lesson-section max-w-4xl mx-auto px-6 pb-20">
+    <div class="font-cinzel text-xs tracking-[0.3em] text-[#3A3A3A]/40 mb-3">LESSON 02</div>
+    <h2 class="font-cinzel text-2xl md:text-3xl text-royal-plum dark:text-royal-gold mb-2">Reading the Room</h2>
+    <p class="font-inter text-xs text-[#3A3A3A]/60 mb-8 tracking-wider">YEAR 1 &bull; THE ARCHITECTURE OF WISDOM</p>
+
+    <!-- THE RAW INGREDIENT -->
+    <div class="mb-8">
+      <h3 class="font-cinzel text-sm text-[#3A3A3A] tracking-wider mb-3">THE RAW INGREDIENT</h3>
+      <div class="bg-royal-sapphire/5 dark:bg-white/5 border border-[#3A3A3A]/10 rounded-xl p-6 text-center cursor-pointer hover:border-[#3A3A3A]/30 transition" onclick="openVerseModal({text:'From Issachar, men who understood the times and knew what Israel should do &mdash; 200 chiefs, with all their relatives under their command.',ref:'1 Chronicles 12:32',context:'Among the warriors who came to make David king, the tribe of Issachar received a unique description. The other tribes were counted by military numbers &mdash; soldiers, archers, shield-bearers. Issachar contributed only 200 chiefs. But these 200 men possessed something more valuable than ten thousand swords: binah, the ability to discern between conditions and respond accordingly. They understood the political landscape, the spiritual climate, and the social dynamics of their era. They knew what Israel should do &mdash; not because they had the most information, but because they had the best interpretation of the information available.',crossRefs:['Esther 1:13','Daniel 2:21','Matthew 16:3','Luke 12:56'],application:'In 2026 Aurora, reading the room is the difference between the man who speaks and is ignored and the man who speaks and is followed. The sons of Issachar were not the largest contingent. They were the most indispensable. You do not need to be the loudest, the most credentialed, or the most connected. You need to be the man who understands the dynamics nobody else sees.'})">
+        <p class="font-playfair italic text-royal-plum dark:text-royal-gold text-lg">&ldquo;From Issachar, men who understood the times and knew what Israel should do.&rdquo;</p>
+        <p class="text-xs text-royal-sapphire/40 mt-2">&mdash; 1 Chronicles 12:32</p>
+        <p class="text-xs text-[#3A3A3A]/50 mt-1">Tap for full context &amp; Hebrew insight</p>
+      </div>
+      <p class="font-inter text-sm text-royal-sapphire/60 dark:text-white/50 mt-4 leading-relaxed"><strong class="text-[#3A3A3A]">Hebrew Root:</strong> <em>binah</em> (&#x05D1;&#x05B4;&#x05BC;&#x05D9;&#x05E0;&#x05B8;&#x05D4;) &mdash; translated &ldquo;understanding&rdquo; but etymologically derived from <em>bayin</em>, meaning &ldquo;between.&rdquo; <em>Binah</em> is the intelligence that operates in the spaces between things &mdash; between what is said and what is meant, between what is visible and what is hidden, between what the room shows on the surface and what it conceals underneath. This is not raw knowledge (<em>da&rsquo;at</em>) or applied wisdom (<em>chokmah</em>). It is discernment: the ability to distinguish between conditions and calibrate your response to what is actually happening rather than what appears to be happening.</p>
+    </div>
+
+    <!-- THE PREPARATION -->
+    <div class="mb-8">
+      <h3 class="font-cinzel text-sm text-[#3A3A3A] tracking-wider mb-3">THE PREPARATION</h3>
+      <div class="font-inter text-sm text-royal-sapphire/70 dark:text-white/60 leading-relaxed space-y-4">
+        <p>The sons of Issachar appear only once in the list of David&rsquo;s warriors, and their description stands in stark contrast to every other tribe. Benjamin contributed &ldquo;3,000 archers.&rdquo; Zebulun brought &ldquo;50,000 experienced soldiers.&rdquo; Issachar brought 200 chiefs. Two hundred. In a gathering of hundreds of thousands of warriors, two hundred men were singled out for a competence that had nothing to do with swordsmanship or archery. They understood the times. They knew what Israel should do. They possessed situational intelligence &mdash; the ability to read political currents, spiritual conditions, and social dynamics with the precision of a cartographer mapping terrain in real time.</p>
+        <p>Daniel possessed this same binah in Babylon. Thrown into a foreign empire, surrounded by advisors who wanted him dead, navigating a culture that worshipped different gods and operated by different rules, Daniel read the room with supernatural accuracy. He knew when to speak and when to remain silent. He knew which dreams to interpret and which requests to decline. He knew how to serve a pagan king without compromising his faith. His situational intelligence kept him alive across four different regimes &mdash; Nebuchadnezzar, Belshazzar, Darius, and Cyrus. The man with binah does not merely survive changing environments. He thrives in them because he reads the terrain before he steps onto it.</p>
+        <p>The modern science of body language confirms what Scripture teaches about reading rooms. Research by Albert Mehrabian established that in emotional communication, seven percent of meaning is carried by words, thirty-eight percent by vocal tone, and fifty-five percent by body language. The man who listens only to words is receiving seven percent of the available information. The man who reads posture, facial micro-expressions, proximity, and vocal cadence is operating with the full dataset. In any room you enter &mdash; a church foyer, a corporate boardroom, a Slavic family gathering &mdash; the power dynamics are written in the bodies of the people present. Learn to read them.</p>
       </div>
     </div>
 
-    <!-- Step 5: The Power of Stillness -->
-    <div class="animate-fadeIn">
-      <h2 class="font-cinzel text-2xl text-royal-plum dark:text-royal-gold mb-4">V. The Power of Stillness</h2>
-      <div class="font-inter text-sm leading-relaxed text-royal-sapphire/80 dark:text-white/60 space-y-4">
-        <p>Fidgeting is the body broadcasting that the mind is not in control. Every unnecessary movement dilutes your presence. Tapping feet, clicking pens, adjusting hair, touching your face, bouncing a leg. These are not harmless. They are signals of internal noise.</p>
-        <div class="bg-white dark:bg-royal-sapphire/20 border-l-4 border-royal-gold rounded-r-xl p-6">
-          <h4 class="font-cinzel text-sm text-royal-gold mb-3">The Stillness Protocol</h4>
-          <ul class="text-xs space-y-2 list-disc pl-4">
-            <li><strong>Awareness first:</strong> For one full day, notice every fidget. Do not try to stop them yet. Simply count. Most men are shocked by the number.</li>
-            <li><strong>Replace, do not suppress:</strong> Instead of fidgeting, press your fingertips together gently (steepling) or rest your hands on your thighs. Give the energy somewhere deliberate to go.</li>
-            <li><strong>Practice stillness:</strong> Sit in a chair for 5 minutes without moving. No phone. No adjusting. Just stillness. The discomfort you feel is your body rebelling against discipline. Let it rebel. Stay still.</li>
-            <li><strong>Deliberate movement only:</strong> When you do move, make it purposeful. Pick up the glass, drink, set it down. Gesture to make a point, then return hands to rest. Every movement should look chosen, not involuntary.</li>
-          </ul>
-        </div>
-        <p class="mt-4">The man who can be still in a room full of fidgeters owns that room. Stillness is a rare enough quality that it immediately registers as authority.</p>
+    <!-- ROYAL DECREE -->
+    <div class="royal-decree">
+      <p class="font-cinzel text-xs tracking-[0.2em] text-[#3A3A3A] mb-2">ROYAL DECREE</p>
+      <p class="font-playfair italic text-royal-plum dark:text-royal-gold text-sm leading-relaxed">The King decrees: the man with binah reads between the lines, between the people, and between the words. He does not react to the surface. He responds to the depth. Two hundred men with this skill outweigh fifty thousand without it.</p>
+    </div>
+
+    <!-- THE CONSUMPTION -->
+    <div class="mb-8">
+      <h3 class="font-cinzel text-sm text-[#3A3A3A] tracking-wider mb-3">THE CONSUMPTION</h3>
+      <div class="font-inter text-sm text-royal-sapphire/70 dark:text-white/60 leading-relaxed space-y-4">
+        <p>In 2026 Aurora, body language fluency operates differently across three critical settings. In church, the appropriate presence is reverent authority: upright posture, attentive listening, hands visible and still, a demeanor that communicates both respect for the sacred and confidence in your place within it. The man who fidgets during the sermon, who checks his phone, who slouches in the pew broadcasts disengagement. The man who sits still, leans slightly forward, and maintains steady eye contact with the speaker broadcasts that he is receiving something of weight. In the church foyer afterward, shift to warm engagement: firm handshakes, direct eye contact, remembering names, asking specific follow-up questions from previous conversations. This is not networking. This is stewardship of community.</p>
+        <p>In corporate Denver, the register shifts to confident competence. Identify the decision-maker in any meeting within the first ninety seconds: the person others glance at before speaking, the person whose body posture is most expansive, the person who speaks last. Direct your key points to that person while maintaining inclusive eye contact with the group. Mirror their energy level &mdash; if the room is reserved, dial back your enthusiasm. If the room is energized, match it. At Slavic family gatherings, the register shifts again to warm leadership: louder vocal projection, more physical contact (handshakes become embraces), direct eye contact with elders that communicates respect without submission, and the ability to read when grandmother is testing you versus when she genuinely needs help. Each context demands different calibration. The man with binah adjusts instinctively.</p>
       </div>
     </div>
 
-    <!-- Step 6: Walking Like a King -->
-    <div class="animate-fadeIn">
-      <h2 class="font-cinzel text-2xl text-royal-plum dark:text-royal-gold mb-4">VI. Walking Like a King</h2>
-      <div class="font-inter text-sm leading-relaxed text-royal-sapphire/80 dark:text-white/60 space-y-4">
-        <p>Your walk is your opening statement. Before you speak, before you shake hands, you walk. And everyone watches.</p>
-        <div class="space-y-3 mt-4">
-          <div class="bg-white dark:bg-royal-sapphire/20 border border-royal-gold/10 rounded-xl p-5">
-            <p class="text-sm"><strong class="text-royal-gold font-cinzel">Pace:</strong> 10-15% slower than your natural speed. Urgency signals anxiety. A measured pace signals authority. You are never rushing because you are never late. You arrive when you arrive.</p>
-          </div>
-          <div class="bg-white dark:bg-royal-sapphire/20 border border-royal-gold/10 rounded-xl p-5">
-            <p class="text-sm"><strong class="text-royal-gold font-cinzel">Stride:</strong> Shoulder width. Not too wide (aggressive, territorial). Not too narrow (timid, uncertain). Each step plants fully before the next lifts. You walk on the ground, not over it.</p>
-          </div>
-          <div class="bg-white dark:bg-royal-sapphire/20 border border-royal-gold/10 rounded-xl p-5">
-            <p class="text-sm"><strong class="text-royal-gold font-cinzel">Arms:</strong> Relaxed at your sides with a gentle natural swing. Never in pockets for extended periods. Never crossed behind the back (military, not regal). Hands visible. Open hands signal openness.</p>
-          </div>
-          <div class="bg-white dark:bg-royal-sapphire/20 border border-royal-gold/10 rounded-xl p-5">
-            <p class="text-sm"><strong class="text-royal-gold font-cinzel">Head Position:</strong> Level, chin parallel to the ground. Eyes forward, not at the floor. You are surveying your domain, not searching for dropped coins. Imagine wearing a heavy crown. It straightens everything.</p>
-          </div>
-        </div>
+    <!-- SLIDE CARDS -->
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-5 my-10">
+      <div class="card-parchment border border-[#3A3A3A]/10 rounded-xl p-6">
+        <div class="font-cinzel text-xs text-[#3A3A3A] tracking-widest mb-2">INTELLIGENCE</div>
+        <h4 class="font-cinzel text-sm text-royal-plum dark:text-royal-gold mb-2">Binah: Between-Intelligence</h4>
+        <p class="text-xs text-royal-sapphire/60 dark:text-white/50 leading-relaxed">Derived from &ldquo;between,&rdquo; binah operates in the gaps between what is said and what is meant, between the visible and the hidden. It reads the full landscape, not just the signposts.</p>
+      </div>
+      <div class="card-parchment border border-[#3A3A3A]/10 rounded-xl p-6">
+        <div class="font-cinzel text-xs text-[#3A3A3A] tracking-widest mb-2">STATISTIC</div>
+        <h4 class="font-cinzel text-sm text-royal-plum dark:text-royal-gold mb-2">The 7-38-55 Rule</h4>
+        <p class="text-xs text-royal-sapphire/60 dark:text-white/50 leading-relaxed">Seven percent of emotional communication is words. Thirty-eight percent is tone. Fifty-five percent is body language. The man who only listens to words is operating on seven percent of the data.</p>
+      </div>
+      <div class="card-parchment border border-[#3A3A3A]/10 rounded-xl p-6">
+        <div class="font-cinzel text-xs text-[#3A3A3A] tracking-widest mb-2">IDENTIFICATION</div>
+        <h4 class="font-cinzel text-sm text-royal-plum dark:text-royal-gold mb-2">Finding the Decision-Maker</h4>
+        <p class="text-xs text-royal-sapphire/60 dark:text-white/50 leading-relaxed">Identify the decision-maker within ninety seconds: the person others glance at before speaking, whose posture is most expansive, who speaks last. Direct your key points accordingly.</p>
+      </div>
+      <div class="card-parchment border border-[#3A3A3A]/10 rounded-xl p-6">
+        <div class="font-cinzel text-xs text-[#3A3A3A] tracking-widest mb-2">CALIBRATION</div>
+        <h4 class="font-cinzel text-sm text-royal-plum dark:text-royal-gold mb-2">Three Registers</h4>
+        <p class="text-xs text-royal-sapphire/60 dark:text-white/50 leading-relaxed">Church: reverent authority. Corporate: confident competence. Slavic family dinner: warm leadership. The man with binah adjusts his frequency to match the room without losing his signal.</p>
       </div>
     </div>
 
-    <!-- ===== YOUTUBE VIDEO EMBEDS ===== -->
-    <div>
-      <h2 class="font-cinzel text-2xl text-royal-plum dark:text-royal-gold mb-6">Lessons from the Masters</h2>
-      <div class="grid md:grid-cols-2 gap-6">
-        <div class="rounded-xl overflow-hidden border border-royal-gold/10">
-          <div class="aspect-video bg-royal-sapphire/10 flex items-center justify-center">
-            <iframe class="w-full h-full hidden" src="about:blank" data-src="https://www.youtube.com/embed/Ks-_Mh1QhMc" title="Your Body Language Shapes Who You Are" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
-            <button onclick="loadVideo(this)" class="px-6 py-3 bg-royal-gold text-white font-cinzel text-sm rounded-lg hover:bg-royal-plum transition">Load Video</button>
-          </div>
-          <div class="p-4 bg-white dark:bg-royal-sapphire/20">
-            <h4 class="font-cinzel text-sm text-royal-plum dark:text-royal-gold">Your Body Language Shapes Who You Are</h4>
-          </div>
-        </div>
-        <div class="rounded-xl overflow-hidden border border-royal-gold/10">
-          <div class="aspect-video bg-royal-sapphire/10 flex items-center justify-center">
-            <iframe class="w-full h-full hidden" src="about:blank" data-src="https://www.youtube.com/embed/cFLjudWTuGQ" title="Walk with Commanding Confidence" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
-            <button onclick="loadVideo(this)" class="px-6 py-3 bg-royal-gold text-white font-cinzel text-sm rounded-lg hover:bg-royal-plum transition">Load Video</button>
-          </div>
-          <div class="p-4 bg-white dark:bg-royal-sapphire/20">
-            <h4 class="font-cinzel text-sm text-royal-plum dark:text-royal-gold">Walk with Commanding Confidence</h4>
-          </div>
-        </div>
+    <!-- PRACTICAL STEPS -->
+    <div class="mb-8">
+      <h3 class="font-cinzel text-lg text-royal-plum dark:text-royal-gold mb-4">Practical Steps</h3>
+      <ul class="space-y-3 text-sm font-inter text-royal-sapphire/70 dark:text-white/60">
+        <li class="flex gap-3"><span class="text-[#3A3A3A] font-cinzel">I.</span> At your next meeting, spend the first ninety seconds in silence. Observe only. Identify the decision-maker by watching who others defer to with their eyes and body orientation. Write the name in your journal afterward.</li>
+        <li class="flex gap-3"><span class="text-[#3A3A3A] font-cinzel">II.</span> This Sunday at church, consciously shift your body language register: upright posture during the service, warm engagement in the foyer. Notice how people respond differently to you.</li>
+        <li class="flex gap-3"><span class="text-[#3A3A3A] font-cinzel">III.</span> At your next family gathering, observe the power dynamics silently for ten minutes before fully engaging. Who controls the conversation? Whose opinion shifts others? Who is being excluded? Read the room before you participate in it.</li>
+      </ul>
+    </div>
+
+    <!-- WISDOM REFLECTION -->
+    <div class="bg-white dark:bg-royal-sapphire/20 border border-[#3A3A3A]/10 rounded-xl p-6 mb-8">
+      <p class="font-playfair italic text-royal-plum dark:text-royal-gold text-sm mb-4">&ldquo;In the last room you entered, did you read it or simply react to it? What did you miss because you were focused on the surface instead of the dynamics beneath?&rdquo;</p>
+      <textarea rows="3" placeholder="Write your reflection..." class="w-full px-4 py-3 rounded-lg border border-[#3A3A3A]/20 bg-royal-cream/50 dark:bg-white/5 font-inter text-sm focus:outline-none focus:border-[#3A3A3A] resize-none"></textarea>
+      <button data-prompt="In the last room you entered, did you read it or simply react to it?" class="journal-save-btn mt-2 px-4 py-2 bg-[#3A3A3A] text-white text-xs font-cinzel rounded-lg hover:bg-royal-plum transition">Save to Journal</button>
+    </div>
+
+    <!-- QUIZ -->
+    <div class="quiz-block bg-white dark:bg-royal-sapphire/20 border border-[#3A3A3A]/10 rounded-xl p-6 mb-8">
+      <h4 class="font-cinzel text-sm text-[#3A3A3A] mb-4">Counsel from the Throne</h4>
+      <p class="font-playfair italic text-royal-plum dark:text-royal-gold text-sm mb-5">&ldquo;You are at a business dinner in Denver. The CEO barely acknowledges you, but his VP keeps making eye contact and asking you questions. Who holds the real influence in this room?&rdquo;</p>
+      <div class="space-y-2">
+        <button data-correct="false" class="quiz-option w-full text-left px-4 py-3 rounded-lg border border-[#3A3A3A]/15 text-sm font-inter">The CEO, obviously &mdash; title determines power, and you should focus all your attention on him</button>
+        <button data-correct="true" class="quiz-option w-full text-left px-4 py-3 rounded-lg border border-[#3A3A3A]/15 text-sm font-inter">The VP likely gatekeeps the CEO&rsquo;s attention &mdash; build the relationship with the VP first, and the CEO will follow</button>
+        <button data-correct="false" class="quiz-option w-full text-left px-4 py-3 rounded-lg border border-[#3A3A3A]/15 text-sm font-inter">Neither &mdash; power dynamics at dinner are irrelevant, just be yourself and let the evening unfold naturally</button>
+      </div>
+      <div class="quiz-feedback hidden mt-4 text-sm font-playfair italic"></div>
+    </div>
+
+    <!-- QUEST -->
+    <div class="quest-panel mb-8">
+      <h4 class="font-cinzel text-sm text-royal-gold mb-2">Quest: The Issachar Exercise</h4>
+      <p class="text-xs text-white/70 mb-3">In your next group setting (meeting, church, dinner), spend the first five minutes observing only. Identify the decision-maker, the mood of the room, and one unspoken tension. Record all three in your journal with evidence for each observation.</p>
+      <label class="flex items-center gap-2 cursor-pointer">
+        <input type="checkbox" class="quest-checkbox accent-royal-gold" data-quest="pr-02">
+        <span class="text-xs text-white/80">I completed the Issachar observation exercise</span>
+      </label>
+    </div>
+
+    <button class="audio-briefing-btn w-full py-3 border border-[#3A3A3A]/20 text-[#3A3A3A] font-cinzel text-sm rounded-xl hover:bg-[#3A3A3A]/5 transition mb-4">Play Royal Briefing</button>
+    <button class="absorb-btn w-full py-3 bg-[#3A3A3A] text-white font-cinzel tracking-wider rounded-lg hover:bg-royal-plum transition" data-lesson="2">Mark as Absorbed</button>
+    <div class="gold-divider mt-16"></div>
+  </section>
+
+  <!-- ======== LESSON 03 ======== -->
+  <section id="lesson-03" class="lesson-section max-w-4xl mx-auto px-6 pb-20">
+    <div class="font-cinzel text-xs tracking-[0.3em] text-[#3A3A3A]/40 mb-3">LESSON 03</div>
+    <h2 class="font-cinzel text-2xl md:text-3xl text-royal-plum dark:text-royal-gold mb-2">Influence Without Words</h2>
+    <p class="font-inter text-xs text-[#3A3A3A]/60 mb-8 tracking-wider">YEAR 1 &bull; THE ARCHITECTURE OF WISDOM</p>
+
+    <!-- THE RAW INGREDIENT -->
+    <div class="mb-8">
+      <h3 class="font-cinzel text-sm text-[#3A3A3A] tracking-wider mb-3">THE RAW INGREDIENT</h3>
+      <div class="bg-royal-sapphire/5 dark:bg-white/5 border border-[#3A3A3A]/10 rounded-xl p-6 text-center cursor-pointer hover:border-[#3A3A3A]/30 transition" onclick="openVerseModal({text:'Wives, in the same way submit yourselves to your own husbands so that, if any of them do not believe the word, they may be won over without words by the behavior of their wives.',ref:'1 Peter 3:1',context:'Peter is addressing wives of unbelieving husbands, but the principle he articulates transcends the specific context. The Greek anastrophe means &ldquo;manner of life&rdquo; or &ldquo;conduct&rdquo; &mdash; the entirety of how a person carries themselves through daily existence. Peter&rsquo;s revolutionary claim is that behavior persuades more powerfully than argument. The unbelieving husband is not won by theological debate. He is won by watching a life that embodies what words alone cannot communicate. This is not passive manipulation. It is the most potent form of influence available: consistent, visible integrity that makes its own case without requiring a courtroom.',crossRefs:['1 Peter 2:12','Matthew 5:16','Philippians 2:14-15','Titus 2:7-8'],application:'In 2026 Aurora, this principle applies to every relationship where argument has failed. The stubborn father, the skeptical boss, the distracted friend &mdash; none of them will be lectured into change. But they will be influenced by watching you live differently, consistently, over time. Your conduct is your most persuasive sermon.'})">
+        <p class="font-playfair italic text-royal-plum dark:text-royal-gold text-lg">&ldquo;They may be won over without words by the behavior of their wives.&rdquo;</p>
+        <p class="text-xs text-royal-sapphire/40 mt-2">&mdash; 1 Peter 3:1</p>
+        <p class="text-xs text-[#3A3A3A]/50 mt-1">Tap for full context &amp; Greek insight</p>
+      </div>
+      <p class="font-inter text-sm text-royal-sapphire/60 dark:text-white/50 mt-4 leading-relaxed"><strong class="text-[#3A3A3A]">Greek Root:</strong> <em>anastrophe</em> (&#x03B1;&#x0313;&#x03BD;&#x03B1;&#x03C3;&#x03C4;&#x03C1;&#x03BF;&#x03C6;&#x03AE;) &mdash; translated &ldquo;behavior&rdquo; or &ldquo;manner of life,&rdquo; the word literally means &ldquo;a turning back and forth&rdquo; &mdash; the daily rhythm of a person&rsquo;s conduct as observed over time. It does not describe a single impressive act but the cumulative pattern of how someone moves through life. Peter uses this word to argue that the most powerful form of persuasion is not a single argument but the observable trajectory of an entire life. <em>Anastrophe</em> persuades because it cannot be faked over extended periods. It is the anti-manipulation: influence through transparent, consistent living.</p>
+    </div>
+
+    <!-- THE PREPARATION -->
+    <div class="mb-8">
+      <h3 class="font-cinzel text-sm text-[#3A3A3A] tracking-wider mb-3">THE PREPARATION</h3>
+      <div class="font-inter text-sm text-royal-sapphire/70 dark:text-white/60 leading-relaxed space-y-4">
+        <p>The history of persuasion is largely a history of words: speeches, debates, manifestos, sermons. But the most durable influence in human history has always been wordless. Gandhi did not convince the British Empire with arguments. He convinced them with behavior &mdash; salt marches, hunger strikes, and the relentless demonstration of moral superiority through visible suffering. Martin Luther King Jr. was an extraordinary orator, but what moved the needle of American conscience was not his speeches alone. It was the image of dignified Black men and women being brutalized on bridges while maintaining composure. Behavior spoke what words could not.</p>
+        <p>Scripture is saturated with this principle. Jesus told His disciples, &ldquo;Let your light shine before others, that they may see your good deeds and glorify your Father in heaven&rdquo; (Matthew 5:16). Paul told the Philippians to &ldquo;do everything without grumbling or arguing, so that you may become blameless and pure, children of God without fault in a warped and crooked generation. Then you will shine among them like stars in the sky&rdquo; (Philippians 2:14-15). The consistent testimony is this: the most powerful witness is not what you say but what you do &mdash; repeatedly, visibly, over time.</p>
+        <p>Modern psychology has given this phenomenon multiple names. The Ben Franklin effect demonstrates that asking someone for a favor increases their positive feelings toward you because the human brain rationalizes: &ldquo;I did a favor for this person, therefore I must like them.&rdquo; Mirror neurons &mdash; discovered by Italian researchers in the 1990s &mdash; fire both when you perform an action and when you observe someone else performing it, creating an unconscious empathic connection. Consistency bias means that humans tend to align future behavior with past behavior: if you show up reliably ten times, people assume you will show up the eleventh. These mechanisms operate beneath conscious awareness. Your consistent behavior is writing code in other people&rsquo;s subconscious that no verbal argument could implant.</p>
       </div>
     </div>
 
-    <!-- ===== WISDOM REFLECTIONS ===== -->
-    <div>
-      <h2 class="font-cinzel text-2xl text-royal-plum dark:text-royal-gold mb-6">Wisdom Reflections</h2>
-      <div class="space-y-6">
-        <div class="bg-white dark:bg-royal-sapphire/20 border border-royal-gold/10 rounded-xl p-6">
-          <p class="font-playfair italic text-royal-plum dark:text-royal-gold text-sm mb-4">"When you enter a room, do people feel your arrival before they see you? If not, what must change?"</p>
-          <textarea rows="3" placeholder="Write your reflection..." class="w-full px-4 py-3 rounded-lg border border-royal-gold/20 bg-royal-cream/50 dark:bg-white/5 font-inter text-sm focus:outline-none focus:border-royal-gold resize-none"></textarea>
-          <button data-prompt="When you enter a room, do people feel your arrival before they see you?" class="journal-save-btn mt-2 px-4 py-2 bg-royal-gold text-white text-xs font-cinzel rounded-lg hover:bg-royal-plum transition">Save to Journal</button>
-        </div>
-        <div class="bg-white dark:bg-royal-sapphire/20 border border-royal-gold/10 rounded-xl p-6">
-          <p class="font-playfair italic text-royal-plum dark:text-royal-gold text-sm mb-4">"Think of someone whose presence you admire. What specifically do they do differently with their body, their stillness, their gaze?"</p>
-          <textarea rows="3" placeholder="Write your reflection..." class="w-full px-4 py-3 rounded-lg border border-royal-gold/20 bg-royal-cream/50 dark:bg-white/5 font-inter text-sm focus:outline-none focus:border-royal-gold resize-none"></textarea>
-          <button data-prompt="Think of someone whose presence you admire. What specifically do they do differently?" class="journal-save-btn mt-2 px-4 py-2 bg-royal-gold text-white text-xs font-cinzel rounded-lg hover:bg-royal-plum transition">Save to Journal</button>
-        </div>
+    <!-- ROYAL DECREE -->
+    <div class="royal-decree">
+      <p class="font-cinzel text-xs tracking-[0.2em] text-[#3A3A3A] mb-2">ROYAL DECREE</p>
+      <p class="font-playfair italic text-royal-plum dark:text-royal-gold text-sm leading-relaxed">The King decrees: your conduct is your most persuasive sermon. The man who lives differently, consistently, over time, writes code in the subconscious of everyone who watches him. No lecture can accomplish what a life well-lived achieves in silence.</p>
+    </div>
+
+    <!-- THE CONSUMPTION -->
+    <div class="mb-8">
+      <h3 class="font-cinzel text-sm text-[#3A3A3A] tracking-wider mb-3">THE CONSUMPTION</h3>
+      <div class="font-inter text-sm text-royal-sapphire/70 dark:text-white/60 leading-relaxed space-y-4">
+        <p>In 2026 Aurora, there is a stubborn father you have been trying to reach with words. Stop. There is a skeptical boss who dismisses your ideas regardless of their merit. Stop arguing. There is a friend who is self-destructing and ignores every intervention. Stop lecturing. Instead, live. Show up consistently. Deliver with competence. Demonstrate character in the small moments that no one is grading. The stubborn father will notice when you handle a crisis with composure he never had. The skeptical boss will notice when you exceed expectations three quarters in a row. The self-destructing friend will notice when you are the one person who has not abandoned them, who keeps showing up with steady warmth and zero judgment.</p>
+        <p>Influence without words operates on three pillars: consistency (showing up), competence (delivering), and character (being trustworthy). Consistency means that your behavior tomorrow matches your behavior today. Competence means that you do what you do well, not perfectly but reliably. Character means that your private conduct would not embarrass your public conduct if a camera were rolling. When these three pillars are present over time, influence is inevitable. You do not need to pitch yourself. You do not need to argue your case. The case makes itself through the accumulated evidence of your anastrophe &mdash; your observable, daily, unglamorous, relentless way of living.</p>
       </div>
     </div>
 
-    <!-- ===== COUNSEL FROM THE THRONE QUIZ ===== -->
-    <div>
-      <h2 class="font-cinzel text-2xl text-royal-plum dark:text-royal-gold mb-6">Counsel from the Throne</h2>
-      <div class="quiz-block bg-white dark:bg-royal-sapphire/20 border border-royal-gold/10 rounded-xl p-8">
-        <p class="font-playfair italic text-royal-plum dark:text-royal-gold mb-6">"You walk into a networking event knowing nobody. The room is full. What does the king do first?"</p>
-        <div class="space-y-3">
-          <button data-correct="false" class="quiz-option w-full text-left px-5 py-3 rounded-lg border border-royal-gold/15 hover:border-royal-gold/40 transition text-sm font-inter">Head straight for the bar or food table to keep your hands busy and look occupied</button>
-          <button data-correct="false" class="quiz-option w-full text-left px-5 py-3 rounded-lg border border-royal-gold/15 hover:border-royal-gold/40 transition text-sm font-inter">Pull out your phone and wait for someone to approach you</button>
-          <button data-correct="true" class="quiz-option w-full text-left px-5 py-3 rounded-lg border border-royal-gold/15 hover:border-royal-gold/40 transition text-sm font-inter">Pause at the entrance, survey the room, then walk deliberately to one person or small group and introduce yourself with a firm handshake and eye contact</button>
-        </div>
-        <div class="quiz-feedback hidden"></div>
+    <!-- SLIDE CARDS -->
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-5 my-10">
+      <div class="card-parchment border border-[#3A3A3A]/10 rounded-xl p-6">
+        <div class="font-cinzel text-xs text-[#3A3A3A] tracking-widest mb-2">CONDUCT</div>
+        <h4 class="font-cinzel text-sm text-royal-plum dark:text-royal-gold mb-2">Anastrophe: The Daily Trajectory</h4>
+        <p class="text-xs text-royal-sapphire/60 dark:text-white/50 leading-relaxed">Not a single act but a cumulative pattern of living. Anastrophe cannot be faked over time. It is the anti-manipulation: influence through transparent consistency.</p>
+      </div>
+      <div class="card-parchment border border-[#3A3A3A]/10 rounded-xl p-6">
+        <div class="font-cinzel text-xs text-[#3A3A3A] tracking-widest mb-2">NEUROSCIENCE</div>
+        <h4 class="font-cinzel text-sm text-royal-plum dark:text-royal-gold mb-2">Mirror Neurons</h4>
+        <p class="text-xs text-royal-sapphire/60 dark:text-white/50 leading-relaxed">Your brain fires the same neurons when watching an action as when performing it. Your consistent behavior creates empathic resonance in observers &mdash; they begin to feel what you model.</p>
+      </div>
+      <div class="card-parchment border border-[#3A3A3A]/10 rounded-xl p-6">
+        <div class="font-cinzel text-xs text-[#3A3A3A] tracking-widest mb-2">PSYCHOLOGY</div>
+        <h4 class="font-cinzel text-sm text-royal-plum dark:text-royal-gold mb-2">The Ben Franklin Effect</h4>
+        <p class="text-xs text-royal-sapphire/60 dark:text-white/50 leading-relaxed">Asking someone for a small favor increases their affection toward you. The brain rationalizes: &ldquo;I helped this person, therefore I must value them.&rdquo; A subtle, wordless lever of influence.</p>
+      </div>
+      <div class="card-parchment border border-[#3A3A3A]/10 rounded-xl p-6">
+        <div class="font-cinzel text-xs text-[#3A3A3A] tracking-widest mb-2">THREE PILLARS</div>
+        <h4 class="font-cinzel text-sm text-royal-plum dark:text-royal-gold mb-2">Consistency, Competence, Character</h4>
+        <p class="text-xs text-royal-sapphire/60 dark:text-white/50 leading-relaxed">Show up. Deliver. Be trustworthy. When these three pillars are present over time, influence becomes inevitable. You do not need to argue your case. The case makes itself.</p>
       </div>
     </div>
 
-    <!-- ===== WEIRD-SCENARIO SOLVER ===== -->
-    <div class="bg-royal-sapphire dark:bg-royal-sapphire/80 rounded-2xl p-8 text-white">
-      <h2 class="font-cinzel text-xl text-royal-gold mb-2">Royal Protocol Solver</h2>
-      <p class="text-sm text-white/50 mb-6">Describe any social presence dilemma and receive the king's counsel. Try: awkward silences at dinner, accidentally interrupting someone important, what to do when everyone is looking at you, meeting someone much more powerful than you.</p>
-      <form id="scenarioForm" class="flex gap-3">
-        <input type="text" id="scenarioInput" placeholder="e.g., 'I accidentally called someone by the wrong name in front of a group...'" class="flex-1 px-4 py-3 rounded-lg bg-white/10 border border-royal-gold/20 text-white font-inter text-sm focus:outline-none focus:border-royal-gold placeholder-white/30">
-        <button type="submit" class="px-6 py-3 bg-royal-gold text-royal-sapphire font-cinzel text-sm rounded-lg hover:bg-white transition">Counsel</button>
-      </form>
-      <div id="scenarioResponse" class="mt-4"></div>
+    <!-- PRACTICAL STEPS -->
+    <div class="mb-8">
+      <h3 class="font-cinzel text-lg text-royal-plum dark:text-royal-gold mb-4">Practical Steps</h3>
+      <ul class="space-y-3 text-sm font-inter text-royal-sapphire/70 dark:text-white/60">
+        <li class="flex gap-3"><span class="text-[#3A3A3A] font-cinzel">I.</span> Identify one person in your life whom you have been trying to influence through argument. Stop all verbal persuasion for thirty days. Instead, demonstrate through behavior what you have been trying to communicate with words. Journal the results weekly.</li>
+        <li class="flex gap-3"><span class="text-[#3A3A3A] font-cinzel">II.</span> Use the Ben Franklin effect this week: ask a skeptical colleague or acquaintance for a small, genuine favor. A book recommendation. Directions to a good restaurant in Aurora. Advice on a topic they know well. Observe the warmth that follows.</li>
+        <li class="flex gap-3"><span class="text-[#3A3A3A] font-cinzel">III.</span> Conduct a character audit: if someone installed a camera in your home, your car, and your office for one week, would the footage embarrass you? Identify the gap between your public and private conduct and close it this week.</li>
+      </ul>
     </div>
 
-    <!-- ===== CHECKLIST BUILDER ===== -->
-    <div>
-      <h2 class="font-cinzel text-2xl text-royal-plum dark:text-royal-gold mb-6">Your Royal Presence Checklist</h2>
-      <div class="bg-white dark:bg-royal-sapphire/20 border border-royal-gold/10 rounded-xl p-6">
-        <form id="checklistForm" class="flex gap-3 mb-6">
-          <input type="text" id="checklistInput" placeholder="Add a presence goal..." class="flex-1 px-4 py-3 rounded-lg border border-royal-gold/20 bg-royal-cream/50 dark:bg-white/5 font-inter text-sm focus:outline-none focus:border-royal-gold">
-          <button type="submit" class="px-4 py-3 bg-royal-gold text-white text-sm font-cinzel rounded-lg hover:bg-royal-plum transition">Add</button>
-        </form>
-        <div id="checklistItems" class="space-y-2"></div>
+    <!-- WISDOM REFLECTION -->
+    <div class="bg-white dark:bg-royal-sapphire/20 border border-[#3A3A3A]/10 rounded-xl p-6 mb-8">
+      <p class="font-playfair italic text-royal-plum dark:text-royal-gold text-sm mb-4">&ldquo;Who is watching your life right now without you knowing? What is your anastrophe &mdash; your daily conduct &mdash; teaching them about what you believe?&rdquo;</p>
+      <textarea rows="3" placeholder="Write your reflection..." class="w-full px-4 py-3 rounded-lg border border-[#3A3A3A]/20 bg-royal-cream/50 dark:bg-white/5 font-inter text-sm focus:outline-none focus:border-[#3A3A3A] resize-none"></textarea>
+      <button data-prompt="Who is watching your life right now without you knowing?" class="journal-save-btn mt-2 px-4 py-2 bg-[#3A3A3A] text-white text-xs font-cinzel rounded-lg hover:bg-royal-plum transition">Save to Journal</button>
+    </div>
+
+    <!-- QUIZ -->
+    <div class="quiz-block bg-white dark:bg-royal-sapphire/20 border border-[#3A3A3A]/10 rounded-xl p-6 mb-8">
+      <h4 class="font-cinzel text-sm text-[#3A3A3A] mb-4">Counsel from the Throne</h4>
+      <p class="font-playfair italic text-royal-plum dark:text-royal-gold text-sm mb-5">&ldquo;Your father refuses to attend church. You have argued, pleaded, and quoted Scripture for years. Nothing has worked. What does the king do next?&rdquo;</p>
+      <div class="space-y-2">
+        <button data-correct="false" class="quiz-option w-full text-left px-4 py-3 rounded-lg border border-[#3A3A3A]/15 text-sm font-inter">Send him one more compelling article or sermon link &mdash; maybe this one will break through</button>
+        <button data-correct="false" class="quiz-option w-full text-left px-4 py-3 rounded-lg border border-[#3A3A3A]/15 text-sm font-inter">Accept the situation and stop trying altogether &mdash; you cannot force someone to believe</button>
+        <button data-correct="true" class="quiz-option w-full text-left px-4 py-3 rounded-lg border border-[#3A3A3A]/15 text-sm font-inter">Stop arguing and start living so visibly transformed &mdash; in patience, in joy, in handling crisis &mdash; that your father sees the evidence before he hears the theology</button>
       </div>
+      <div class="quiz-feedback hidden mt-4 text-sm font-playfair italic"></div>
     </div>
 
+    <!-- QUEST -->
+    <div class="quest-panel mb-8">
+      <h4 class="font-cinzel text-sm text-royal-gold mb-2">Quest: The Silent Sermon</h4>
+      <p class="text-xs text-white/70 mb-3">Choose one person you have been trying to influence with words. For the next seven days, replace all verbal persuasion with demonstrated behavior. Show up, deliver, be trustworthy. At the end of the week, record any shift in the relationship &mdash; however small.</p>
+      <label class="flex items-center gap-2 cursor-pointer">
+        <input type="checkbox" class="quest-checkbox accent-royal-gold" data-quest="pr-03">
+        <span class="text-xs text-white/80">I completed seven days of influence without words</span>
+      </label>
+    </div>
+
+    <button class="audio-briefing-btn w-full py-3 border border-[#3A3A3A]/20 text-[#3A3A3A] font-cinzel text-sm rounded-xl hover:bg-[#3A3A3A]/5 transition mb-4">Play Royal Briefing</button>
+    <button class="absorb-btn w-full py-3 bg-[#3A3A3A] text-white font-cinzel tracking-wider rounded-lg hover:bg-royal-plum transition" data-lesson="3">Mark as Absorbed</button>
+    <div class="gold-divider mt-16"></div>
+  </section>
+
+  <!-- FAQ (SEO) -->
+  <section class="max-w-4xl mx-auto px-6 pb-16">
+    <h2 class="font-cinzel text-2xl text-royal-plum dark:text-royal-gold mb-8 text-center">Frequently Asked Questions</h2>
+    <div class="space-y-4">
+      <details class="bg-white dark:bg-royal-sapphire/20 border border-[#3A3A3A]/10 rounded-xl p-6">
+        <summary class="font-cinzel text-sm text-[#3A3A3A] cursor-pointer">Is silence not just avoidance or passivity?</summary>
+        <p class="mt-3 text-sm font-inter text-royal-sapphire/70 dark:text-white/60 leading-relaxed">The Hebrew charash distinguishes between silence as weakness (the man who has nothing to say) and silence as sovereignty (the man who chooses not to speak when he could). Jesus before Pilate was not avoiding confrontation &mdash; He was exercising dominion over the conversation by refusing to participate on Pilate&rsquo;s terms. Strategic silence is active, not passive. It is a deliberate choice that communicates more than most words can. The test is simple: are you silent because you are afraid, or because you are composed? Fear-silence diminishes. Sovereignty-silence commands.</p>
+      </details>
+      <details class="bg-white dark:bg-royal-sapphire/20 border border-[#3A3A3A]/10 rounded-xl p-6">
+        <summary class="font-cinzel text-sm text-[#3A3A3A] cursor-pointer">How do I develop body language awareness without becoming self-conscious?</summary>
+        <p class="mt-3 text-sm font-inter text-royal-sapphire/70 dark:text-white/60 leading-relaxed">Like any skill, body language awareness moves through three stages: unconscious incompetence (you do not notice your own signals), conscious incompetence (you notice but feel awkward correcting), and conscious competence (you adjust deliberately and it feels natural). Most men are in stage one. The exercises in these lessons move you to stage two, which feels uncomfortable for approximately two weeks. By the third week, the corrections become habitual &mdash; you no longer think about spine alignment or eye contact duration. They become your default operating system, as natural as breathing.</p>
+      </details>
+      <details class="bg-white dark:bg-royal-sapphire/20 border border-[#3A3A3A]/10 rounded-xl p-6">
+        <summary class="font-cinzel text-sm text-[#3A3A3A] cursor-pointer">What if I try to influence without words and nothing changes?</summary>
+        <p class="mt-3 text-sm font-inter text-royal-sapphire/70 dark:text-white/60 leading-relaxed">Peter&rsquo;s instruction in 1 Peter 3:1 does not guarantee a timeline. It guarantees a method. Behavioral influence operates on a longer timeframe than verbal persuasion because it requires the accumulation of evidence. A single impressive speech can shift a room in minutes. A transformed life shifts a person over months or years. The king plays the long game. Continue being consistent, competent, and trustworthy. The evidence compounds. And even if the specific person never changes, your anastrophe &mdash; your visible way of living &mdash; will influence someone you did not expect. A life well-lived is never wasted, even when its intended audience does not applaud.</p>
+      </details>
+    </div>
+    <p class="text-xs text-royal-sapphire/30 dark:text-white/15 text-center mt-8 font-inter">Last updated: March 2026</p>
   </section>
 
   <div id="mainFooter"></div>
+
   <script src="shared.js"></script>
   <script src="pillar-template.js"></script>
   <script>
-    function loadVideo(btn) {
-      var container = btn.parentElement;
-      var iframe = container.querySelector('iframe');
-      if (iframe && iframe.dataset.src) {
-        iframe.src = iframe.dataset.src;
-        iframe.classList.remove('hidden');
-        btn.remove();
-      }
-    }
-
     document.addEventListener('DOMContentLoaded', function() {
-      if (!requireAuth()) return;
       initPillar('presence');
+
+      var absorbed = JSON.parse(localStorage.getItem('kl_presence_absorbed') || '[]');
+      var total = 3;
+      var pct = Math.round((absorbed.length / total) * 100);
+      var bar = document.getElementById('progressBar');
+      var fill = document.getElementById('progressFill');
+      var text = document.getElementById('progressText');
+      if (bar) bar.style.width = pct + '%';
+      if (fill) fill.style.width = pct + '%';
+      if (text) text.textContent = 'Presence Mastery ' + pct + '%';
+
+      document.querySelectorAll('.absorb-btn').forEach(function(btn) {
+        var lesson = parseInt(btn.dataset.lesson);
+        if (absorbed.includes(lesson)) {
+          btn.textContent = 'Absorbed';
+          btn.classList.add('absorbed');
+        }
+        btn.addEventListener('click', function() {
+          if (absorbed.includes(lesson)) return;
+          absorbed.push(lesson);
+          localStorage.setItem('kl_presence_absorbed', JSON.stringify(absorbed));
+          btn.textContent = 'Absorbed';
+          btn.classList.add('absorbed');
+          pct = Math.round((absorbed.length / total) * 100);
+          if (bar) bar.style.width = pct + '%';
+          if (fill) fill.style.width = pct + '%';
+          if (text) text.textContent = 'Presence Mastery ' + pct + '%';
+          updateStreak();
+        });
+      });
+
+      var observer = new IntersectionObserver(function(entries) {
+        entries.forEach(function(e) {
+          if (e.isIntersecting) e.target.classList.add('visible');
+        });
+      }, { threshold: 0.05 });
+      document.querySelectorAll('.lesson-section').forEach(function(s) { observer.observe(s); });
+
+      var tocDots = document.querySelectorAll('#lessonToc .toc-dot');
+      var sections = document.querySelectorAll('.lesson-section');
+      var tocObserver = new IntersectionObserver(function(entries) {
+        entries.forEach(function(e) {
+          if (e.isIntersecting) {
+            var id = e.target.id;
+            tocDots.forEach(function(d) {
+              d.classList.toggle('active', d.getAttribute('href') === '#' + id);
+            });
+          }
+        });
+      }, { threshold: 0.3, rootMargin: '-100px 0px -60% 0px' });
+      sections.forEach(function(s) { tocObserver.observe(s); });
+
+      document.querySelectorAll('.quest-checkbox').forEach(function(cb) {
+        var key = 'kl_quest_' + cb.dataset.quest;
+        cb.checked = localStorage.getItem(key) === 'true';
+        cb.addEventListener('change', function() {
+          localStorage.setItem(key, cb.checked);
+        });
+      });
     });
   </script>
 </body>
