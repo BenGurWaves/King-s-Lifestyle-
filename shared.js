@@ -16,14 +16,14 @@ function esc(s){var d=document.createElement('div');d.textContent=s;return d.inn
    CAMPUS DATA — Single source of truth
    ============================================================ */
 const CAMPUSES = [
-  { id:'nourishment', label:'Nourishment', numeral:'I',   href:'nourishment.html', accent:'#A38255', lessons:25, desc:'Clean eating by the Creator\u2019s blueprint. Leviticus 11 made practical for 2026.' },
-  { id:'attire',      label:'Attire',      numeral:'II',  href:'attire.html',      accent:'#8B7D6B', lessons:6,  desc:'Dress with purpose. Modest adornment, jewelry, and the king\u2019s wardrobe.' },
-  { id:'mentality',   label:'Mentality',   numeral:'III', href:'mentality.html',   accent:'#3D4F2F', lessons:3,  desc:'Servant leadership, advising the wise, and the psychology of influence.' },
-  { id:'treasury',    label:'Treasury',    numeral:'IV',  href:'treasury.html',    accent:'#7A6542', lessons:0,  desc:'Budget wisely, build wealth, and provide like a king should.' },
-  { id:'templecare',  label:'Temple Care', numeral:'V',   href:'templecare.html',  accent:'#6B5B4E', lessons:20, desc:'Grooming, hygiene, fitness, and royal rest. The full temple stewardship.' },
-  { id:'presence',    label:'Presence',    numeral:'VI',  href:'presence.html',    accent:'#3A3A3A', lessons:3,  desc:'Advanced body language, psychological influence, and commanding any room.' },
-  { id:'speech',      label:'Speech',      numeral:'VII', href:'speech.html',      accent:'#4A5568', lessons:2,  desc:'Speech in confrontation, persuasion without manipulation, and kingly conversation.' },
-  { id:'legacy',      label:'Legacy',      numeral:'+',   href:'legacy.html',      accent:'#571641', lessons:2,  desc:'Multi-generational leadership and building advisory councils that outlast you.' }
+  { id:'nourishment', label:'Nourishment', numeral:'I',   href:'/nourishment', accent:'#A38255', lessons:25, desc:'Clean eating by the Creator\u2019s blueprint. Leviticus 11 made practical for 2026.' },
+  { id:'attire',      label:'Attire',      numeral:'II',  href:'/attire',      accent:'#8B7D6B', lessons:6,  desc:'Dress with purpose. Modest adornment, jewelry, and the king\u2019s wardrobe.' },
+  { id:'mentality',   label:'Mentality',   numeral:'III', href:'/mentality',   accent:'#3D4F2F', lessons:3,  desc:'Servant leadership, advising the wise, and the psychology of influence.' },
+  { id:'treasury',    label:'Treasury',    numeral:'IV',  href:'/treasury',    accent:'#7A6542', lessons:0,  desc:'Budget wisely, build wealth, and provide like a king should.' },
+  { id:'templecare',  label:'Temple Care', numeral:'V',   href:'/templecare',  accent:'#6B5B4E', lessons:20, desc:'Grooming, hygiene, fitness, and royal rest. The full temple stewardship.' },
+  { id:'presence',    label:'Presence',    numeral:'VI',  href:'/presence',    accent:'#3A3A3A', lessons:3,  desc:'Advanced body language, psychological influence, and commanding any room.' },
+  { id:'speech',      label:'Speech',      numeral:'VII', href:'/speech',      accent:'#4A5568', lessons:2,  desc:'Speech in confrontation, persuasion without manipulation, and kingly conversation.' },
+  { id:'legacy',      label:'Legacy',      numeral:'+',   href:'/legacy',      accent:'#571641', lessons:2,  desc:'Multi-generational leadership and building advisory councils that outlast you.' }
 ];
 
 /* ============================================================
@@ -151,7 +151,7 @@ function signOut(){
   localStorage.setItem('kl_isGuest','true');
   localStorage.removeItem('kl_userEmail');
   localStorage.setItem('kl_userId','guest-'+Math.random().toString(36).substring(2,7).toUpperCase());
-  window.location.href='index.html';
+  window.location.href='/';
 }
 function requireAuth(){if(!isLoggedIn()){showAuthWall();return false;}return true;}
 function showAuthWall(){
@@ -162,7 +162,7 @@ function showAuthWall(){
   var crownHolder=document.createRange().createContextualFragment(CROWN_SVG);c.appendChild(crownHolder);
   var h=document.createElement('h1');h.className='font-cinzel text-2xl text-[#571641] mb-4';h.textContent='Royal Access Required';
   var p=document.createElement('p');p.className='font-inter text-sm text-[#08052D]/60 mb-10 leading-relaxed';p.textContent='This area of the kingdom is reserved for those who have begun their transformation.';
-  var a=document.createElement('a');a.href='index.html';a.className='inline-block px-8 py-3 bg-[#A38255] text-white font-cinzel tracking-wider rounded-lg hover:bg-[#571641] transition-all duration-500';a.textContent='Return to the Gates';
+  var a=document.createElement('a');a.href='/';a.className='inline-block px-8 py-3 bg-[#A38255] text-white font-cinzel tracking-wider rounded-lg hover:bg-[#571641] transition-all duration-500';a.textContent='Return to the Gates';
   var cv=document.createElement('p');cv.className='mt-6 text-xs text-[#08052D]/30 font-inter';
   var cvLink=document.createElement('a');cvLink.href='https://calyvent.com';cvLink.target='_blank';cvLink.className='text-[#A38255] hover:underline';cvLink.textContent='Calyvent';
   cv.append('A ',cvLink,' Venture');
@@ -258,7 +258,7 @@ function getCampusMastery(campusId){
    ============================================================ */
 function buildNav(){
   var nav=document.getElementById('mainNav');if(!nav||!isLoggedIn())return;
-  var cur=window.location.pathname.split('/').pop()||'dashboard.html';nav.textContent='';
+  var cur=window.location.pathname||'/dashboard';nav.textContent='';
   var w=document.createElement('div');w.className='bg-[#052B20] text-white sticky top-0 z-50 shadow-lg';
 
   // Daily principle bar
@@ -268,7 +268,7 @@ function buildNav(){
   var mb=document.createElement('div');mb.className='max-w-7xl mx-auto px-4 py-3 flex items-center justify-between';
 
   // Logo
-  var logo=document.createElement('a');logo.href='dashboard.html';logo.className='flex items-center gap-3 group';
+  var logo=document.createElement('a');logo.href='/dashboard';logo.className='flex items-center gap-3 group';
   var logoSvg=document.createRange().createContextualFragment(CROWN_SVG);logo.appendChild(logoSvg);
   var lt=document.createElement('span');lt.className='font-cinzel text-lg tracking-widest text-[#A38255] group-hover:text-white transition-colors hidden sm:inline';lt.textContent="A King\u2019s Lifestyle";logo.appendChild(lt);
 
@@ -276,8 +276,8 @@ function buildNav(){
   var dl=document.createElement('div');dl.className='hidden lg:flex items-center gap-1';
 
   // Dashboard link
-  var dashLink=document.createElement('a');dashLink.href='dashboard.html';
-  dashLink.className='px-3 py-1.5 rounded text-sm font-inter transition-colors '+(cur==='dashboard.html'?'bg-[#A38255]/20 text-[#A38255]':'text-white/80 hover:text-[#A38255]');
+  var dashLink=document.createElement('a');dashLink.href='/dashboard';
+  dashLink.className='px-3 py-1.5 rounded text-sm font-inter transition-colors '+(cur==='/dashboard'?'bg-[#A38255]/20 text-[#A38255]':'text-white/80 hover:text-[#A38255]');
   dashLink.textContent='Dashboard';dl.appendChild(dashLink);
 
   // Campuses dropdown
@@ -299,7 +299,7 @@ function buildNav(){
   dd.append(ddBtn,ddPanel);dl.appendChild(dd);
 
   // Journal + Settings
-  [['journal.html','Journal'],['settings.html','Settings']].forEach(function(l){
+  [['/journal','Journal'],['/settings','Settings']].forEach(function(l){
     var a=document.createElement('a');a.href=l[0];
     a.className='px-3 py-1.5 rounded text-sm font-inter transition-colors '+(cur===l[0]?'bg-[#A38255]/20 text-[#A38255]':'text-white/80 hover:text-[#A38255]');
     a.textContent=l[1];dl.appendChild(a);
@@ -318,11 +318,11 @@ function buildNav(){
   // Mobile menu
   var mm=document.createElement('div');mm.id='mobileMenu';mm.className='lg:hidden hidden bg-[#052B20] border-t border-[#A38255]/20 pb-4';
   var mi=document.createElement('div');mi.className='flex flex-col px-4 gap-1';
-  var mdash=document.createElement('a');mdash.href='dashboard.html';mdash.className='px-3 py-2 rounded text-sm font-inter '+(cur==='dashboard.html'?'bg-[#A38255]/20 text-[#A38255]':'text-white/80 hover:text-[#A38255]');mdash.textContent='Dashboard';mi.appendChild(mdash);
+  var mdash=document.createElement('a');mdash.href='/dashboard';mdash.className='px-3 py-2 rounded text-sm font-inter '+(cur==='/dashboard'?'bg-[#A38255]/20 text-[#A38255]':'text-white/80 hover:text-[#A38255]');mdash.textContent='Dashboard';mi.appendChild(mdash);
   var mlab=document.createElement('div');mlab.className='px-3 py-1 text-xs font-cinzel text-[#A38255]/40 tracking-widest mt-2';mlab.textContent='CAMPUSES';mi.appendChild(mlab);
   CAMPUSES.forEach(function(c){var a=document.createElement('a');a.href=c.href;a.className='px-3 py-2 rounded text-sm font-inter '+(cur===c.href?'bg-[#A38255]/20 text-[#A38255]':'text-white/80 hover:text-[#A38255]');a.textContent=c.label;mi.appendChild(a);});
   var mlab2=document.createElement('div');mlab2.className='px-3 py-1 text-xs font-cinzel text-[#A38255]/40 tracking-widest mt-2';mlab2.textContent='TOOLS';mi.appendChild(mlab2);
-  [['journal.html','Journal'],['settings.html','Settings']].forEach(function(l){var a=document.createElement('a');a.href=l[0];a.className='px-3 py-2 rounded text-sm font-inter '+(cur===l[0]?'bg-[#A38255]/20 text-[#A38255]':'text-white/80 hover:text-[#A38255]');a.textContent=l[1];mi.appendChild(a);});
+  [['/journal','Journal'],['/settings','Settings']].forEach(function(l){var a=document.createElement('a');a.href=l[0];a.className='px-3 py-2 rounded text-sm font-inter '+(cur===l[0]?'bg-[#A38255]/20 text-[#A38255]':'text-white/80 hover:text-[#A38255]');a.textContent=l[1];mi.appendChild(a);});
   mm.appendChild(mi);
 
   w.append(pb,mb,mm);nav.appendChild(w);
@@ -353,7 +353,7 @@ function buildFooter(){
   // Col 3 — Links
   var c3=document.createElement('div');var c3h=document.createElement('h4');c3h.className='font-cinzel text-[#A38255] mb-3 text-sm tracking-wider';c3h.textContent='Quick Links';
   var c3l=document.createElement('div');c3l.className='flex flex-col gap-1 text-sm font-inter';
-  [['dashboard.html','Dashboard'],['journal.html','Journal'],['settings.html','Settings'],['privacy.html','Privacy'],['terms.html','Terms']].forEach(function(x){var a=document.createElement('a');a.href=x[0];a.className='hover:text-[#A38255] transition';a.textContent=x[1];c3l.appendChild(a);});
+  [['/dashboard','Dashboard'],['/journal','Journal'],['/settings','Settings'],['/privacy','Privacy'],['/terms','Terms']].forEach(function(x){var a=document.createElement('a');a.href=x[0];a.className='hover:text-[#A38255] transition';a.textContent=x[1];c3l.appendChild(a);});
   c3.append(c3h,c3l);g.append(c1,c2,c3);
 
   // Bottom bar
@@ -376,7 +376,7 @@ function buildPublicFooter(){
   var brandSvg=document.createRange().createContextualFragment(CROWN_SVG);brand.appendChild(brandSvg);
   var bname=document.createElement('span');bname.className='font-cinzel text-[#A38255] tracking-widest text-sm';bname.textContent="A King\u2019s Lifestyle";brand.appendChild(bname);
   var lk=document.createElement('div');lk.className='flex items-center gap-8 text-sm font-inter';
-  [['privacy.html','Privacy'],['terms.html','Terms']].forEach(function(x){var a=document.createElement('a');a.href=x[0];a.className='hover:text-[#A38255] transition';a.textContent=x[1];lk.appendChild(a);});
+  [['/privacy','Privacy'],['/terms','Terms']].forEach(function(x){var a=document.createElement('a');a.href=x[0];a.className='hover:text-[#A38255] transition';a.textContent=x[1];lk.appendChild(a);});
   var cv=document.createElement('p');cv.className='text-xs font-inter';
   var cvA=document.createElement('a');cvA.href='https://calyvent.com';cvA.target='_blank';cvA.className='text-[#A38255] hover:underline';cvA.textContent='Calyvent';
   cv.append('A ',cvA,' Venture');
@@ -416,8 +416,8 @@ function handleAuth(e){
   e.preventDefault();var email=document.getElementById('authEmail').value;var msg=document.getElementById('authMessage');
   localStorage.setItem('kl_userEmail',email);localStorage.setItem('kl_isGuest','false');localStorage.setItem('kl_userId',email);
   msg.textContent=authMode==='register'?'Account created. Welcome to the Kingdom.':'Welcome back, King.';
-  if(hasGuestData()){setTimeout(function(){if(confirm('Migrate previous progress from guest session?')){msg.textContent='Progress migrated successfully.';}else{Object.keys(localStorage).filter(function(k){return k.startsWith('kl_')&&!['kl_userId','kl_userEmail','kl_isGuest','kl_dark'].includes(k);}).forEach(function(k){localStorage.removeItem(k);});}setTimeout(function(){window.location.href='dashboard.html';},600);},500);}
-  else{setTimeout(function(){window.location.href='dashboard.html';},800);}
+  if(hasGuestData()){setTimeout(function(){if(confirm('Migrate previous progress from guest session?')){msg.textContent='Progress migrated successfully.';}else{Object.keys(localStorage).filter(function(k){return k.startsWith('kl_')&&!['kl_userId','kl_userEmail','kl_isGuest','kl_dark'].includes(k);}).forEach(function(k){localStorage.removeItem(k);});}setTimeout(function(){window.location.href='/dashboard';},600);},500);}
+  else{setTimeout(function(){window.location.href='/dashboard';},800);}
 }
 
 /* ============================================================

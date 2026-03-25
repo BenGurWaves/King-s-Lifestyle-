@@ -2,7 +2,7 @@
   "name": "A King's Lifestyle",
   "short_name": "King's Lifestyle",
   "description": "Master the Ways of a King and Gentleman — Genuine Transformation, No Shortcuts",
-  "start_url": "/index.html",
+  "start_url": "/",
   "display": "standalone",
   "background_color": "#FFF6E6",
   "theme_color": "#052B20",
