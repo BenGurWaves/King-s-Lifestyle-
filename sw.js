@@ -1,14 +1,15 @@
 // Service Worker — A King's Lifestyle
-const CACHE_NAME = 'kings-lifestyle-v2';
+const CACHE_NAME = 'kings-lifestyle-v3';
 const URLS_TO_CACHE = [
   '/',
   '/index.html',
+  '/dashboard.html',
   '/onboarding.html',
   '/nourishment.html',
   '/attire.html',
   '/mentality.html',
   '/treasury.html',
-  '/body.html',
+  '/templecare.html',
   '/presence.html',
   '/speech.html',
   '/legacy.html',

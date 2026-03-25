@@ -1,0 +1,1352 @@
+<!-- templecare.html – v0.0.7 -->
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0">
+  <title>Temple Care — A King's Lifestyle</title>
+  <meta name="description" content="Steward the dwelling place of the Holy Spirit. Biblical grooming, hygiene, and fitness for the modern king. 12 deep lessons grounded in Scripture.">
+  <link rel="manifest" href="manifest.json">
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>tailwind.config={darkMode:'class',theme:{extend:{colors:{royal:{green:'#052B20',cream:'#FFF6E6',gold:'#A38255',plum:'#571641',sapphire:'#08052D'}},fontFamily:{cinzel:['Cinzel','serif'],inter:['Inter','sans-serif'],playfair:['Playfair Display','serif']},animation:{fadeIn:'fadeIn 0.8s ease-out forwards',fadeInUp:'fadeInUp 0.8s ease-out forwards'},keyframes:{fadeIn:{'0%':{opacity:'0'},'100%':{opacity:'1'}},fadeInUp:{'0%':{opacity:'0',transform:'translateY(24px)'},'100%':{opacity:'1',transform:'translateY(0)'}}}}}};</script>
+  <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600;700&family=Inter:wght@300;400;500;600&family=Playfair+Display:ital,wght@0,400;0,600;1,400&display=swap" rel="stylesheet">
+  <style>
+    html,body{overflow-x:hidden;max-width:100vw;}
+    .bg-parchment{background-image:url("data:image/svg+xml,%3Csvg width='100' height='100' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.8' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100' height='100' filter='url(%23n)' opacity='0.03'/%3E%3C/svg%3E");}
+    .gold-glow:hover{box-shadow:0 0 30px rgba(163,130,85,0.25);}
+    .dark .bg-parchment{background-color:#0a0a0a;}
+    .dark body{background-color:#0a0a0a;color:#e0d5c4;}
+    .lesson-section{opacity:0;transform:translateY(30px);transition:opacity 0.7s ease-out,transform 0.7s ease-out;}
+    .lesson-section.visible{opacity:1;transform:translateY(0);}
+    .toc-dot{width:8px;height:8px;border-radius:50%;border:1.5px solid rgba(107,91,78,0.3);transition:all 0.3s;display:block;}
+    .toc-dot.active{background:#6B5B4E;border-color:#6B5B4E;box-shadow:0 0 8px rgba(107,91,78,0.4);}
+    .gold-divider{height:1px;background:linear-gradient(90deg,transparent,#6B5B4E 50%,transparent);margin:0 auto;max-width:200px;}
+    .absorb-btn.absorbed{background:#052B20 !important;cursor:default;}
+    .card-parchment{background:linear-gradient(135deg,#FFF6E6 0%,#f5e6cc 100%);}
+    .dark .card-parchment{background:linear-gradient(135deg,#1a1a1a 0%,#141210 100%);}
+    .quiz-option{cursor:pointer;transition:border-color 0.2s;}
+    .quiz-option:hover{border-color:#6B5B4E !important;}
+    .royal-decree{border-left:3px solid #A38255;background:linear-gradient(135deg,rgba(163,130,85,0.05),rgba(163,130,85,0.02));padding:1.5rem;border-radius:0 0.75rem 0.75rem 0;margin:1.5rem 0;}
+    .quest-panel{background:linear-gradient(135deg,#052B20,#08052D);border-radius:1rem;padding:1.5rem;color:white;}
+  </style>
+</head>
+<body class="bg-royal-cream bg-parchment font-inter text-royal-sapphire min-h-screen overflow-x-hidden">
+  <div id="mainNav"></div>
+
+  <!-- PROGRESS BAR -->
+  <div class="fixed top-0 left-0 right-0 z-[60] pointer-events-none">
+    <div class="h-1 bg-royal-sapphire/5">
+      <div id="progressFill" class="h-full bg-gradient-to-r from-[#6B5B4E] to-royal-gold transition-all duration-700 ease-out" style="width:0%"></div>
+    </div>
+  </div>
+
+  <!-- HERO -->
+  <section class="max-w-4xl mx-auto px-6 pt-24 pb-12 text-center">
+    <div class="font-cinzel text-xs tracking-[0.3em] text-[#6B5B4E]/50 uppercase mb-4">Year 1 &mdash; The Architecture of Wisdom</div>
+    <h1 class="font-cinzel text-4xl md:text-5xl lg:text-6xl text-royal-plum dark:text-royal-gold tracking-wide leading-tight">Temple Care</h1>
+    <p class="font-playfair italic text-[#6B5B4E] text-lg mt-4">Stewarding the Dwelling Place of the Holy Spirit</p>
+    <p class="font-inter text-sm text-royal-sapphire/50 dark:text-white/40 mt-3 max-w-xl mx-auto">Your body is not your own. It was purchased at an incalculable price. Twelve lessons on grooming, hygiene, and physical stewardship grounded in Scripture and practiced in the real world.</p>
+    <div class="mt-6 flex items-center justify-center gap-3">
+      <div class="h-2 w-48 bg-royal-sapphire/5 dark:bg-white/5 rounded-full overflow-hidden">
+        <div id="progressBar" class="h-full bg-gradient-to-r from-[#6B5B4E] to-royal-gold rounded-full transition-all duration-700" style="width:0%"></div>
+      </div>
+      <span id="progressText" class="text-xs font-inter text-[#6B5B4E]">Temple Mastery 0%</span>
+    </div>
+  </section>
+
+  <!-- TABLE OF CONTENTS (fixed right, desktop) -->
+  <nav id="lessonToc" class="fixed right-3 top-1/2 -translate-y-1/2 z-40 hidden xl:flex flex-col items-center gap-2">
+    <a href="#lesson-01" class="toc-dot" title="01"></a><a href="#lesson-02" class="toc-dot" title="02"></a><a href="#lesson-03" class="toc-dot" title="03"></a><a href="#lesson-04" class="toc-dot" title="04"></a><a href="#lesson-05" class="toc-dot" title="05"></a><a href="#lesson-06" class="toc-dot" title="06"></a><a href="#lesson-07" class="toc-dot" title="07"></a><a href="#lesson-08" class="toc-dot" title="08"></a><a href="#lesson-09" class="toc-dot" title="09"></a><a href="#lesson-10" class="toc-dot" title="10"></a><a href="#lesson-11" class="toc-dot" title="11"></a><a href="#lesson-12" class="toc-dot" title="12"></a>
+  </nav>
+
+  <!-- ======== LESSON 01 ======== -->
+  <section id="lesson-01" class="lesson-section max-w-4xl mx-auto px-6 pb-20">
+    <div class="font-cinzel text-xs tracking-[0.3em] text-[#6B5B4E]/40 mb-3">LESSON 01</div>
+    <h2 class="font-cinzel text-2xl md:text-3xl text-royal-plum dark:text-royal-gold mb-2">The Temple Mandate</h2>
+    <p class="font-inter text-xs text-[#6B5B4E]/60 mb-8 tracking-wider">YEAR 1 &bull; THE ARCHITECTURE OF WISDOM</p>
+
+    <!-- THE RAW INGREDIENT -->
+    <div class="mb-8">
+      <h3 class="font-cinzel text-sm text-[#6B5B4E] tracking-wider mb-3">THE RAW INGREDIENT</h3>
+      <div class="bg-royal-sapphire/5 dark:bg-white/5 border border-[#6B5B4E]/10 rounded-xl p-6 text-center cursor-pointer hover:border-[#6B5B4E]/30 transition" onclick="openVerseModal({text:'Do you not know that your bodies are temples of the Holy Spirit, who is in you, whom you have received from God? You are not your own; you were bought at a price. Therefore honor God with your bodies.',ref:'1 Corinthians 6:19-20',context:'Paul wrote this to the Corinthian church &mdash; a congregation situated in one of the most hedonistic cities of the ancient world. Corinth was famous for its temple prostitutes, its excess, and its disregard for bodily sanctity. Into that cultural context, Paul delivered the most radical claim about the human body ever written: it is not yours. It is occupied territory. The Holy Spirit has taken up residence, and the landlord has standards. The Greek naos specifically refers to the inner sanctuary, not the outer courts &mdash; the holiest chamber where God dwells.',crossRefs:['1 Corinthians 3:16-17','2 Corinthians 6:16','Romans 12:1','Philippians 1:20'],application:'In 2026 Aurora, your body encounters more pollutants, processed substances, and neglect-inducing distractions than any generation before you. This verse is not poetry. It is a property deed. God owns the building. Your job is maintenance.'})">
+        <p class="font-playfair italic text-royal-plum dark:text-royal-gold text-lg">&ldquo;Do you not know that your bodies are temples of the Holy Spirit, who is in you, whom you have received from God? You are not your own; you were bought at a price. Therefore honor God with your bodies.&rdquo;</p>
+        <p class="text-xs text-royal-sapphire/40 mt-2">&mdash; 1 Corinthians 6:19&ndash;20</p>
+        <p class="text-xs text-[#6B5B4E]/50 mt-1">Tap for full context &amp; Greek insight</p>
+      </div>
+      <p class="font-inter text-sm text-royal-sapphire/60 dark:text-white/50 mt-4 leading-relaxed"><strong class="text-[#6B5B4E]">Greek Root:</strong> <em>naos</em> (&#x03BD;&#x03B1;&#x03CC;&#x03C2;) &mdash; not <em>hieron</em>, which refers to the entire temple complex including the outer courts, markets, and public areas. Paul chose <em>naos</em> deliberately. It means the innermost sanctum, the Holy of Holies, the chamber where the Ark of the Covenant rested and the Shekinah glory dwelled. Your body is not the outer courtyard. It is the inner room. The implications for how you treat it are absolute.</p>
+    </div>
+
+    <!-- THE PREPARATION -->
+    <div class="mb-8">
+      <h3 class="font-cinzel text-sm text-[#6B5B4E] tracking-wider mb-3">THE PREPARATION</h3>
+      <div class="font-inter text-sm text-royal-sapphire/70 dark:text-white/60 leading-relaxed space-y-4">
+        <p>In the ancient world, temple maintenance was among the most honored vocations a person could hold. The Levitical priests who served in Solomon&rsquo;s Temple did not merely perform rituals &mdash; they cleaned the lampstands, trimmed the wicks, replaced the showbread, polished the gold, and ensured every surface reflected the glory of the God who inhabited the space. Neglect of the temple was not laziness; it was sacrilege. When Josiah rediscovered the Book of the Law and restored the temple in 2 Kings 22-23, the entire nation experienced revival. The condition of the dwelling place and the condition of the people were inseparable.</p>
+        <p>Paul understood this history when he wrote to the Corinthians. He was not inventing metaphor. He was extending architectural theology. If the physical temple in Jerusalem required daily maintenance, oil for the lamps, incense for the altar, and meticulous cleaning of every vessel &mdash; then the living temple, your body, demands no less. Grooming is not vanity. Hygiene is not superficiality. Physical care is liturgy. It is the daily service of the priest who tends the dwelling place of the Most High.</p>
+        <p>The Western church has largely divorced body from spirit, treating grooming as secular concern and the soul as the only domain worth attending. This is Gnostic heresy dressed in modern clothing. The incarnation of Christ &mdash; God choosing to inhabit a physical body &mdash; forever destroyed the idea that flesh is irrelevant. If God Himself took on skin, hair, nails, and teeth, then the maintenance of those elements carries theological weight. A king who neglects his appearance does not demonstrate humility. He demonstrates ignorance of what he carries.</p>
+      </div>
+    </div>
+
+    <!-- ROYAL DECREE -->
+    <div class="royal-decree">
+      <p class="font-playfair italic text-royal-plum dark:text-royal-gold text-sm">&ldquo;Grooming is not vanity. It is the daily liturgy of the priest who tends the dwelling place of the Most High. Neglect is not humility &mdash; it is ignorance of what you carry.&rdquo;</p>
+    </div>
+
+    <!-- THE CONSUMPTION -->
+    <div class="mb-8">
+      <h3 class="font-cinzel text-sm text-[#6B5B4E] tracking-wider mb-3">THE CONSUMPTION</h3>
+      <div class="font-inter text-sm text-royal-sapphire/70 dark:text-white/60 leading-relaxed space-y-4">
+        <p>In 2026 Aurora, Colorado, the temple mandate translates directly into the mirror every morning. When you step out of your apartment on South Havana Street or your house in Southlands, you are carrying the presence of God into grocery stores, offices, schools, and neighborhoods. The way you present yourself is a non-verbal sermon. A man whose hair is unkempt, whose skin is neglected, whose nails are ragged, and whose clothes carry yesterday&rsquo;s stains does not communicate humility. He communicates that what he carries is not worth presenting well. The world reads your exterior before it ever hears your theology.</p>
+        <p>This does not require wealth. Target on South Abilene, King Soopers on East Iliff, and Dollar Tree on East Colfax all carry the essentials. A bar of Dr. Bronner&rsquo;s castile soap, a basic moisturizer, a clean razor, and a well-fitting shirt cost less than a single meal at a drive-through. Stewardship is not about expense. It is about intention. The temple mandate asks one question every morning: does the condition of this dwelling place honor the One who inhabits it? If yes, proceed. If no, correct before you leave.</p>
+      </div>
+    </div>
+
+    <!-- SLIDE CARDS -->
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-5 my-10">
+      <div class="card-parchment border border-[#6B5B4E]/10 rounded-xl p-6">
+        <div class="font-cinzel text-xs text-[#6B5B4E] tracking-widest mb-2">THEOLOGY</div>
+        <h4 class="font-cinzel text-sm text-royal-plum dark:text-royal-gold mb-2">Naos, Not Hieron</h4>
+        <p class="text-xs text-royal-sapphire/60 dark:text-white/50 leading-relaxed">Your body is the Holy of Holies, not the outer courtyard. Paul chose the most sacred architectural term available. Treat accordingly.</p>
+      </div>
+      <div class="card-parchment border border-[#6B5B4E]/10 rounded-xl p-6">
+        <div class="font-cinzel text-xs text-[#6B5B4E] tracking-widest mb-2">HISTORY</div>
+        <h4 class="font-cinzel text-sm text-royal-plum dark:text-royal-gold mb-2">Levitical Precedent</h4>
+        <p class="text-xs text-royal-sapphire/60 dark:text-white/50 leading-relaxed">Temple priests cleaned, polished, and maintained the sanctuary daily. You are the priest of the living temple. Daily maintenance is your service.</p>
+      </div>
+      <div class="card-parchment border border-[#6B5B4E]/10 rounded-xl p-6">
+        <div class="font-cinzel text-xs text-[#6B5B4E] tracking-widest mb-2">INCARNATION</div>
+        <h4 class="font-cinzel text-sm text-royal-plum dark:text-royal-gold mb-2">God Wore Skin</h4>
+        <p class="text-xs text-royal-sapphire/60 dark:text-white/50 leading-relaxed">The incarnation destroyed Gnostic dualism forever. If God Himself took on a physical body, then physical care carries theological weight.</p>
+      </div>
+      <div class="card-parchment border border-[#6B5B4E]/10 rounded-xl p-6">
+        <div class="font-cinzel text-xs text-[#6B5B4E] tracking-widest mb-2">PRACTICE</div>
+        <h4 class="font-cinzel text-sm text-royal-plum dark:text-royal-gold mb-2">Intention Over Expense</h4>
+        <p class="text-xs text-royal-sapphire/60 dark:text-white/50 leading-relaxed">Stewardship costs attention, not wealth. Dr. Bronner&rsquo;s, a clean razor, and a well-fitting shirt. The temple mandate is accessible at every income level.</p>
+      </div>
+    </div>
+
+    <!-- PRACTICAL STEPS -->
+    <div class="mb-8">
+      <h3 class="font-cinzel text-lg text-royal-plum dark:text-royal-gold mb-4">Practical Steps</h3>
+      <ul class="space-y-3 text-sm font-inter text-royal-sapphire/70 dark:text-white/60">
+        <li class="flex gap-3"><span class="text-[#6B5B4E] font-cinzel">I.</span> Stand before your mirror tomorrow morning and conduct a temple inspection. Hair, skin, teeth, nails, scent. Grade yourself honestly. Write the grade in your journal.</li>
+        <li class="flex gap-3"><span class="text-[#6B5B4E] font-cinzel">II.</span> Identify the single most neglected area of your physical presentation. Dedicate fifteen minutes this week to addressing it with intention and the right tools.</li>
+        <li class="flex gap-3"><span class="text-[#6B5B4E] font-cinzel">III.</span> Memorize 1 Corinthians 6:19-20. Let it reframe every grooming decision from vanity to worship. Recite it each morning before you begin your routine.</li>
+      </ul>
+    </div>
+
+    <!-- WISDOM REFLECTION -->
+    <div class="bg-white dark:bg-royal-sapphire/20 border border-[#6B5B4E]/10 rounded-xl p-6 mb-8">
+      <p class="font-playfair italic text-royal-plum dark:text-royal-gold text-sm mb-4">&ldquo;If a guest of immeasurable importance were arriving at your home tonight, what would you clean, repair, or polish? Now consider: the Holy Spirit already lives inside your body. What have you been neglecting?&rdquo;</p>
+      <textarea rows="3" placeholder="Write your reflection..." class="w-full px-4 py-3 rounded-lg border border-[#6B5B4E]/20 bg-royal-cream/50 dark:bg-white/5 font-inter text-sm focus:outline-none focus:border-[#6B5B4E] resize-none"></textarea>
+      <button data-prompt="What area of temple care have you been neglecting?" class="journal-save-btn mt-2 px-4 py-2 bg-[#6B5B4E] text-white text-xs font-cinzel rounded-lg hover:bg-royal-plum transition">Save to Journal</button>
+    </div>
+
+    <!-- QUIZ -->
+    <div class="quiz-block bg-white dark:bg-royal-sapphire/20 border border-[#6B5B4E]/10 rounded-xl p-6 mb-8">
+      <h4 class="font-cinzel text-sm text-[#6B5B4E] mb-4">Counsel from the Throne</h4>
+      <p class="font-playfair italic text-royal-plum dark:text-royal-gold text-sm mb-5">&ldquo;A brother says, &lsquo;Spending time on grooming is vain &mdash; God only looks at the heart.&rsquo; How does the king respond?&rdquo;</p>
+      <div class="space-y-2">
+        <button data-correct="false" class="quiz-option w-full text-left px-4 py-3 rounded-lg border border-[#6B5B4E]/15 text-sm font-inter">Agree completely &mdash; the heart is all that matters, and physical appearance is worldly concern</button>
+        <button data-correct="true" class="quiz-option w-full text-left px-4 py-3 rounded-lg border border-[#6B5B4E]/15 text-sm font-inter">Acknowledge that God does look at the heart &mdash; and a heart that honors God stewards everything He entrusted, including the body He calls His temple</button>
+        <button data-correct="false" class="quiz-option w-full text-left px-4 py-3 rounded-lg border border-[#6B5B4E]/15 text-sm font-inter">Dismiss his opinion entirely and insist that appearance matters more than character</button>
+      </div>
+      <div class="quiz-feedback hidden mt-4 text-sm font-playfair italic"></div>
+    </div>
+
+    <!-- QUEST -->
+    <div class="quest-panel mb-8">
+      <h4 class="font-cinzel text-sm text-royal-gold mb-2">Quest: The First Inspection</h4>
+      <p class="text-xs text-white/70 mb-3">Tomorrow morning, perform a full temple inspection in the mirror. Score yourself 1-10 across five categories: hair, skin, teeth, nails, and scent. Write the scores in your journal. This is your baseline.</p>
+      <label class="flex items-center gap-2 cursor-pointer">
+        <input type="checkbox" class="quest-checkbox accent-royal-gold" data-quest="tc-01">
+        <span class="text-xs text-white/80">I completed the first temple inspection</span>
+      </label>
+    </div>
+
+    <button class="absorb-btn w-full py-3 bg-[#6B5B4E] text-white font-cinzel tracking-wider rounded-lg hover:bg-royal-plum transition" data-lesson="1">Mark as Absorbed</button>
+    <div class="gold-divider mt-16"></div>
+  </section>
+
+  <!-- ======== LESSON 02 ======== -->
+  <section id="lesson-02" class="lesson-section max-w-4xl mx-auto px-6 pb-20">
+    <div class="font-cinzel text-xs tracking-[0.3em] text-[#6B5B4E]/40 mb-3">LESSON 02</div>
+    <h2 class="font-cinzel text-2xl md:text-3xl text-royal-plum dark:text-royal-gold mb-2">Hairstyles for a King</h2>
+    <p class="font-inter text-xs text-[#6B5B4E]/60 mb-8 tracking-wider">YEAR 1 &bull; THE ARCHITECTURE OF WISDOM</p>
+
+    <div class="mb-8">
+      <h3 class="font-cinzel text-sm text-[#6B5B4E] tracking-wider mb-3">THE RAW INGREDIENT</h3>
+      <div class="bg-royal-sapphire/5 dark:bg-white/5 border border-[#6B5B4E]/10 rounded-xl p-6 text-center cursor-pointer hover:border-[#6B5B4E]/30 transition" onclick="openVerseModal({text:'Does not nature itself teach you that if a man wears long hair it is a disgrace to him? &hellip; They shall not shave their heads, nor let their locks grow long; they shall surely trim the hair of their heads.',ref:'1 Corinthians 11:14; Ezekiel 44:20',context:'Paul appeals to natural order and cultural perception in Corinth, where unkempt or excessively long hair on a man signaled either cultic devotion to pagan gods or a refusal to present oneself with discipline. Ezekiel 44:20 prescribes the priestly standard: neither extreme &mdash; not shaved bald, not grown wild &mdash; but intentionally trimmed. The Hebrew kasam means to cut short, to shear with purpose. The principle is moderation governed by intention.',crossRefs:['Numbers 6:5','2 Samuel 14:26','Leviticus 19:27','Judges 13:5'],application:'In 2026 Aurora, your haircut is the first architectural detail people register. A disciplined cut communicates order before you say a single word. Book a barber this week.'})">
+        <p class="font-playfair italic text-royal-plum dark:text-royal-gold text-lg">&ldquo;Does not nature itself teach you that if a man wears long hair it is a disgrace to him? &hellip; They shall surely trim the hair of their heads.&rdquo;</p>
+        <p class="text-xs text-royal-sapphire/40 mt-2">&mdash; 1 Corinthians 11:14; Ezekiel 44:20</p>
+        <p class="text-xs text-[#6B5B4E]/50 mt-1">Tap for full context &amp; Hebrew insight</p>
+      </div>
+      <p class="font-inter text-sm text-royal-sapphire/60 dark:text-white/50 mt-4 leading-relaxed"><strong class="text-[#6B5B4E]">Hebrew Root:</strong> <em>kasam</em> (&#x05DB;&#x05E1;&#x05DD;) &mdash; to cut short, to shear, to trim with intentionality. This is not the wild, unregulated growth of the Nazirite vow (which was temporary and sacred), nor the razor-shaved head of pagan mourning rites. <em>Kasam</em> occupies the disciplined middle ground: hair that has been tended, shaped, and maintained. The priestly standard was always measured care, never extremity in either direction.</p>
+    </div>
+
+    <div class="mb-8">
+      <h3 class="font-cinzel text-sm text-[#6B5B4E] tracking-wider mb-3">THE PREPARATION</h3>
+      <div class="font-inter text-sm text-royal-sapphire/70 dark:text-white/60 leading-relaxed space-y-4">
+        <p>Throughout the ancient Near East, hair carried extraordinary social and spiritual significance. In Babylon, specific hairstyles identified your class, your trade, and your allegiances. In Egypt, priests shaved their entire bodies as a ritual of purification. In Israel, God prescribed a middle path for His priests: neither shaved nor grown wild, but trimmed with purpose. This distinction matters. The Nazirite vow &mdash; Samson, Samuel, possibly John the Baptist &mdash; involved uncut hair as a visible marker of a specific, temporary consecration. It was the exception that proved the rule. For the ordinary man, and certainly for the priest, maintained hair was the standard.</p>
+        <p>Absalom grew his hair long and became a symbol of unchecked vanity &mdash; it literally killed him when it caught in the branches of an oak tree during battle (2 Samuel 18:9). The narrative is not subtle. Hair left to grow without governance becomes a liability. Conversely, a king&rsquo;s crown sat on a head that was properly groomed, anointed with oil, and presented with dignity. David was described as ruddy and handsome (1 Samuel 16:12). Joseph, before standing before Pharaoh, shaved and changed his clothes (Genesis 41:14). The pattern is consistent: men of authority presented themselves with deliberate care.</p>
+        <p>The New Testament does not abolish this principle. Paul&rsquo;s instruction in 1 Corinthians 11 reflects continuity with Ezekiel 44. The cultural form may shift &mdash; what constitutes a disciplined cut varies by era and ethnicity &mdash; but the architectural principle is permanent: a king&rsquo;s hair communicates discipline, order, and intentional self-governance before he opens his mouth. It is the first line of a non-verbal resume that every person in the room reads within three seconds of your entrance.</p>
+      </div>
+    </div>
+
+    <div class="royal-decree">
+      <p class="font-playfair italic text-royal-plum dark:text-royal-gold text-sm">&ldquo;A king&rsquo;s hair communicates discipline before he speaks a single word. It is the opening line of a non-verbal authority that every room reads in three seconds.&rdquo;</p>
+    </div>
+
+    <div class="mb-8">
+      <h3 class="font-cinzel text-sm text-[#6B5B4E] tracking-wider mb-3">THE CONSUMPTION</h3>
+      <div class="font-inter text-sm text-royal-sapphire/70 dark:text-white/60 leading-relaxed space-y-4">
+        <p>In 2026 Aurora, there are barbers within ten minutes of wherever you are reading this. Floyd&rsquo;s 99 Barbershop on South Parker Road offers a consistent, no-appointment-needed cut for around thirty dollars. The Man Cave Barbershop near Iliff and Buckley specializes in fades and detail work &mdash; they understand line work, tapering, and the architecture of a clean cut. Great Clips on South Parker provides reliable maintenance cuts at a lower price point. The excuse of access does not exist. What remains is the question of priority. A king schedules his haircut every two to three weeks, not when it becomes embarrassing. Preventive maintenance, not emergency repair.</p>
+        <p>The cuts that communicate authority in the current era are the short fade (clean sides, textured top), the textured crop (low maintenance, high structure), and the Caesar cut (forward fringe, tight sides). Each of these satisfies the Ezekiel 44 principle: trimmed, shaped, intentional. None of them require expensive product or thirty minutes of morning styling. They require a relationship with a skilled barber and the discipline to return on schedule. If you are reading this and cannot remember when you last sat in a barber&rsquo;s chair, that silence is the lesson speaking to you. Book the appointment before you close this page.</p>
+      </div>
+    </div>
+
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-5 my-10">
+      <div class="card-parchment border border-[#6B5B4E]/10 rounded-xl p-6">
+        <div class="font-cinzel text-xs text-[#6B5B4E] tracking-widest mb-2">STRUCTURE</div>
+        <h4 class="font-cinzel text-sm text-royal-plum dark:text-royal-gold mb-2">The Short Fade</h4>
+        <p class="text-xs text-royal-sapphire/60 dark:text-white/50 leading-relaxed">Clean sides tapered to skin, textured top with two to three inches of length. Requires a skilled barber. Communicates precision. Schedule every two weeks.</p>
+      </div>
+      <div class="card-parchment border border-[#6B5B4E]/10 rounded-xl p-6">
+        <div class="font-cinzel text-xs text-[#6B5B4E] tracking-widest mb-2">DISCIPLINE</div>
+        <h4 class="font-cinzel text-sm text-royal-plum dark:text-royal-gold mb-2">The Textured Crop</h4>
+        <p class="text-xs text-royal-sapphire/60 dark:text-white/50 leading-relaxed">Forward-styled fringe, short back and sides. Low maintenance, high structure. Works with most hair types. A workhorse cut for the man who builds daily.</p>
+      </div>
+      <div class="card-parchment border border-[#6B5B4E]/10 rounded-xl p-6">
+        <div class="font-cinzel text-xs text-[#6B5B4E] tracking-widest mb-2">HERITAGE</div>
+        <h4 class="font-cinzel text-sm text-royal-plum dark:text-royal-gold mb-2">The Caesar Cut</h4>
+        <p class="text-xs text-royal-sapphire/60 dark:text-white/50 leading-relaxed">Named for the emperor. Short, uniform length, forward fringe. Minimal product, maximum authority. Ideal for thinning hair or receding hairlines.</p>
+      </div>
+      <div class="card-parchment border border-[#6B5B4E]/10 rounded-xl p-6">
+        <div class="font-cinzel text-xs text-[#6B5B4E] tracking-widest mb-2">SCHEDULE</div>
+        <h4 class="font-cinzel text-sm text-royal-plum dark:text-royal-gold mb-2">The Two-Week Rule</h4>
+        <p class="text-xs text-royal-sapphire/60 dark:text-white/50 leading-relaxed">A king does not wait until his haircut becomes an emergency. Every two to three weeks, you sit in the chair. Preventive maintenance, not damage control.</p>
+      </div>
+    </div>
+
+    <div class="mb-8">
+      <h3 class="font-cinzel text-lg text-royal-plum dark:text-royal-gold mb-4">Practical Steps</h3>
+      <ul class="space-y-3 text-sm font-inter text-royal-sapphire/70 dark:text-white/60">
+        <li class="flex gap-3"><span class="text-[#6B5B4E] font-cinzel">I.</span> Choose one of the three cuts above that suits your face shape and hair texture. Save a reference photo to your phone. Show it to your barber.</li>
+        <li class="flex gap-3"><span class="text-[#6B5B4E] font-cinzel">II.</span> Book a standing appointment every two to three weeks at Floyd&rsquo;s 99, The Man Cave, or your barber of choice in Aurora. Put it in your calendar as a recurring event.</li>
+        <li class="flex gap-3"><span class="text-[#6B5B4E] font-cinzel">III.</span> Between cuts, maintain the shape with a light pomade or texturizing powder. Spend no more than three minutes on morning styling. Discipline, not obsession.</li>
+      </ul>
+    </div>
+
+    <div class="bg-white dark:bg-royal-sapphire/20 border border-[#6B5B4E]/10 rounded-xl p-6 mb-8">
+      <p class="font-playfair italic text-royal-plum dark:text-royal-gold text-sm mb-4">&ldquo;When was the last time you received a haircut? What does the current state of your hair communicate about your self-governance?&rdquo;</p>
+      <textarea rows="3" placeholder="Write your reflection..." class="w-full px-4 py-3 rounded-lg border border-[#6B5B4E]/20 bg-royal-cream/50 dark:bg-white/5 font-inter text-sm focus:outline-none focus:border-[#6B5B4E] resize-none"></textarea>
+      <button data-prompt="What does your current haircut communicate about your discipline?" class="journal-save-btn mt-2 px-4 py-2 bg-[#6B5B4E] text-white text-xs font-cinzel rounded-lg hover:bg-royal-plum transition">Save to Journal</button>
+    </div>
+
+    <div class="quiz-block bg-white dark:bg-royal-sapphire/20 border border-[#6B5B4E]/10 rounded-xl p-6 mb-8">
+      <h4 class="font-cinzel text-sm text-[#6B5B4E] mb-4">Counsel from the Throne</h4>
+      <p class="font-playfair italic text-royal-plum dark:text-royal-gold text-sm mb-5">&ldquo;You have not had a haircut in eight weeks. You have a job interview tomorrow. A king:&rdquo;</p>
+      <div class="space-y-2">
+        <button data-correct="false" class="quiz-option w-full text-left px-4 py-3 rounded-lg border border-[#6B5B4E]/15 text-sm font-inter">Tells himself it does not matter &mdash; his skills speak for themselves and appearance is superficial</button>
+        <button data-correct="false" class="quiz-option w-full text-left px-4 py-3 rounded-lg border border-[#6B5B4E]/15 text-sm font-inter">Panics and attempts to cut his own hair at home with kitchen scissors</button>
+        <button data-correct="true" class="quiz-option w-full text-left px-4 py-3 rounded-lg border border-[#6B5B4E]/15 text-sm font-inter">Walks into Floyd&rsquo;s 99 or The Man Cave today for a clean cut &mdash; because the temple was meant to be maintained before the occasion, not because of it</button>
+      </div>
+      <div class="quiz-feedback hidden mt-4 text-sm font-playfair italic"></div>
+    </div>
+
+    <div class="quest-panel mb-8">
+      <h4 class="font-cinzel text-sm text-royal-gold mb-2">Quest: The Barber&rsquo;s Chair</h4>
+      <p class="text-xs text-white/70 mb-3">Book a haircut this week at a barber in Aurora or your local area. Choose one of the three recommended styles. Take a before-and-after photo for your journal.</p>
+      <label class="flex items-center gap-2 cursor-pointer">
+        <input type="checkbox" class="quest-checkbox accent-royal-gold" data-quest="tc-02">
+        <span class="text-xs text-white/80">I booked and received a disciplined haircut</span>
+      </label>
+    </div>
+
+    <button class="absorb-btn w-full py-3 bg-[#6B5B4E] text-white font-cinzel tracking-wider rounded-lg hover:bg-royal-plum transition" data-lesson="2">Mark as Absorbed</button>
+    <div class="gold-divider mt-16"></div>
+  </section>
+
+  <!-- ======== LESSON 03 ======== -->
+  <section id="lesson-03" class="lesson-section max-w-4xl mx-auto px-6 pb-20">
+    <div class="font-cinzel text-xs tracking-[0.3em] text-[#6B5B4E]/40 mb-3">LESSON 03</div>
+    <h2 class="font-cinzel text-2xl md:text-3xl text-royal-plum dark:text-royal-gold mb-2">Beard &amp; Facial Mastery</h2>
+    <p class="font-inter text-xs text-[#6B5B4E]/60 mb-8 tracking-wider">YEAR 1 &bull; THE ARCHITECTURE OF WISDOM</p>
+
+    <div class="mb-8">
+      <h3 class="font-cinzel text-sm text-[#6B5B4E] tracking-wider mb-3">THE RAW INGREDIENT</h3>
+      <div class="bg-royal-sapphire/5 dark:bg-white/5 border border-[#6B5B4E]/10 rounded-xl p-6 text-center cursor-pointer hover:border-[#6B5B4E]/30 transition" onclick="openVerseModal({text:'You shall not round off the hair on your temples or mar the edges of your beard.',ref:'Leviticus 19:27',context:'This command was given within the Holiness Code &mdash; Leviticus 17-26. The context is separation from pagan mourning practices. Surrounding nations would shave specific patterns into their beards as acts of worship to foreign gods or as grief rituals for the dead. God forbids marring or destroying the beard as idolatrous mimicry, not as a prohibition against trimming or shaping. The Hebrew pe&rsquo;ah refers to the corners or edges, the distinctive outline that identifies a man&rsquo;s face. Maintaining the pe&rsquo;ah while keeping the beard shaped and clean is the Biblical standard.',crossRefs:['Leviticus 21:5','2 Samuel 19:24','Psalm 133:2','Isaiah 50:6'],application:'In 2026 Colorado, your beard is either an asset or a liability. There is no neutral territory. A shaped, oiled, intentional beard communicates self-mastery. A neglected one communicates the opposite.'})">
+        <p class="font-playfair italic text-royal-plum dark:text-royal-gold text-lg">&ldquo;You shall not round off the hair on your temples or mar the edges of your beard.&rdquo;</p>
+        <p class="text-xs text-royal-sapphire/40 mt-2">&mdash; Leviticus 19:27</p>
+        <p class="text-xs text-[#6B5B4E]/50 mt-1">Tap for full context &amp; Hebrew insight</p>
+      </div>
+      <p class="font-inter text-sm text-royal-sapphire/60 dark:text-white/50 mt-4 leading-relaxed"><strong class="text-[#6B5B4E]">Hebrew Root:</strong> <em>pe&rsquo;ah</em> (&#x05E4;&#x05B5;&#x05D0;&#x05B8;&#x05D4;) &mdash; meaning &ldquo;corner, edge, side.&rdquo; The command targets the destruction (Hebrew: <em>shachath</em>) of the beard&rsquo;s defining edges. This was a pagan practice, not a grooming standard. The prohibition is against obliterating the beard&rsquo;s natural architecture in imitation of foreign gods. It is emphatically not a command to never trim, shape, or maintain. The wise distinction: preserve the structure, maintain the edges, govern the growth.</p>
+    </div>
+
+    <div class="mb-8">
+      <h3 class="font-cinzel text-sm text-[#6B5B4E] tracking-wider mb-3">THE PREPARATION</h3>
+      <div class="font-inter text-sm text-royal-sapphire/70 dark:text-white/60 leading-relaxed space-y-4">
+        <p>The beard in the ancient Near East was far more than a grooming preference. It was a symbol of manhood, authority, honor, and covenant identity. When David&rsquo;s ambassadors were humiliated by Hanun, who shaved half their beards (2 Samuel 10:4), David told them to stay in Jericho until their beards grew back. The violation was so severe that it became a cause of war. To damage a man&rsquo;s beard was to assault his dignity. This cultural weight illuminates Leviticus 19:27 &mdash; God was not issuing a grooming tip. He was protecting the symbol of masculine identity from pagan corruption.</p>
+        <p>However, the text must be read with precision. The command is against <em>destroying</em> (shachath) the edges, not against <em>trimming</em> (kasam) them. Ezekiel 44:20 commands the priests to trim their hair &mdash; and the same standard of intentional maintenance applies to the beard. Psalm 133:2 describes the anointing oil running down Aaron&rsquo;s beard, a picture of care, not neglect. The Biblical beard is oiled, shaped, and maintained. It is not a unkempt thicket grown out of laziness and rebranded as faithfulness.</p>
+        <p>The line between vanity and neglect is where the king walks. Vanity obsesses over the beard as an end in itself &mdash; spending hours each day sculpting, comparing, and seeking validation from mirrors. Neglect abandons the beard entirely, allowing it to become scraggly, uneven, and unkempt. The king&rsquo;s path is stewardship: regular trimming to maintain shape, daily oiling to condition the hair and skin beneath, and a clean neckline that separates intention from accident. The beard should look like someone governs it, not like it governs the man.</p>
+      </div>
+    </div>
+
+    <div class="royal-decree">
+      <p class="font-playfair italic text-royal-plum dark:text-royal-gold text-sm">&ldquo;The beard should look like someone governs it &mdash; not like it governs the man. Stewardship walks the line between vanity and neglect.&rdquo;</p>
+    </div>
+
+    <div class="mb-8">
+      <h3 class="font-cinzel text-sm text-[#6B5B4E] tracking-wider mb-3">THE CONSUMPTION</h3>
+      <div class="font-inter text-sm text-royal-sapphire/70 dark:text-white/60 leading-relaxed space-y-4">
+        <p>In 2026 Colorado&rsquo;s dry, high-altitude climate, beard care is not optional &mdash; it is structural necessity. The air above five thousand feet strips moisture from skin and hair at a rate that sea-level grooming routines cannot address. A beard without oil in Aurora will become brittle, flaky, and develop the dreaded &ldquo;beardruff&rdquo; that undermines an otherwise authoritative appearance. Honest Amish beard balm, available at Target on South Abilene and online, uses beeswax, shea butter, and natural oils to lock in moisture. Beardbrand utility oil is another reliable option &mdash; a few drops worked into the beard after showering transforms dry straw into conditioned, shaped architecture.</p>
+        <p>For the trim itself, invest once in a quality trimmer. The Philips Norelco Multigroom 7000 and the Wahl Stainless Steel Lithium Ion are both available at Target and Walmart in Aurora, both under fifty dollars, and both will last years. Trim the neckline two fingers above the Adam&rsquo;s apple. Trim the cheek line to follow the natural growth &mdash; no razor-sharp lines that look manufactured. Shape the length with a guard that leaves half an inch to an inch of uniform growth. The entire process takes four minutes, twice per week. Four minutes of maintenance that separates the governed man from the abandoned one.</p>
+      </div>
+    </div>
+
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-5 my-10">
+      <div class="card-parchment border border-[#6B5B4E]/10 rounded-xl p-6">
+        <div class="font-cinzel text-xs text-[#6B5B4E] tracking-widest mb-2">TOOLS</div>
+        <h4 class="font-cinzel text-sm text-royal-plum dark:text-royal-gold mb-2">The Trimmer</h4>
+        <p class="text-xs text-royal-sapphire/60 dark:text-white/50 leading-relaxed">Philips Norelco Multigroom 7000 or Wahl Lithium Ion. Under fifty dollars. Available at Target Aurora. One investment, years of precision.</p>
+      </div>
+      <div class="card-parchment border border-[#6B5B4E]/10 rounded-xl p-6">
+        <div class="font-cinzel text-xs text-[#6B5B4E] tracking-widest mb-2">NOURISHMENT</div>
+        <h4 class="font-cinzel text-sm text-royal-plum dark:text-royal-gold mb-2">The Oil</h4>
+        <p class="text-xs text-royal-sapphire/60 dark:text-white/50 leading-relaxed">Honest Amish balm or Beardbrand utility oil. Applied after every shower. Colorado altitude demands daily hydration &mdash; your beard is no exception.</p>
+      </div>
+      <div class="card-parchment border border-[#6B5B4E]/10 rounded-xl p-6">
+        <div class="font-cinzel text-xs text-[#6B5B4E] tracking-widest mb-2">ARCHITECTURE</div>
+        <h4 class="font-cinzel text-sm text-royal-plum dark:text-royal-gold mb-2">The Neckline</h4>
+        <p class="text-xs text-royal-sapphire/60 dark:text-white/50 leading-relaxed">Two fingers above the Adam&rsquo;s apple. A natural curve, not a razor-sharp line. This boundary separates intention from accident.</p>
+      </div>
+      <div class="card-parchment border border-[#6B5B4E]/10 rounded-xl p-6">
+        <div class="font-cinzel text-xs text-[#6B5B4E] tracking-widest mb-2">RHYTHM</div>
+        <h4 class="font-cinzel text-sm text-royal-plum dark:text-royal-gold mb-2">Twice Per Week</h4>
+        <p class="text-xs text-royal-sapphire/60 dark:text-white/50 leading-relaxed">Four minutes, twice per week. Shape the neckline, trim the length, oil daily. The entire discipline fits inside a commercial break.</p>
+      </div>
+    </div>
+
+    <div class="mb-8">
+      <h3 class="font-cinzel text-lg text-royal-plum dark:text-royal-gold mb-4">Practical Steps</h3>
+      <ul class="space-y-3 text-sm font-inter text-royal-sapphire/70 dark:text-white/60">
+        <li class="flex gap-3"><span class="text-[#6B5B4E] font-cinzel">I.</span> Acquire a quality trimmer this week. Philips Norelco or Wahl from Target on South Abilene. This is a one-time investment under fifty dollars.</li>
+        <li class="flex gap-3"><span class="text-[#6B5B4E] font-cinzel">II.</span> Purchase beard oil or balm. Honest Amish or Beardbrand. Apply three to four drops after every shower, working through the beard and into the skin beneath.</li>
+        <li class="flex gap-3"><span class="text-[#6B5B4E] font-cinzel">III.</span> Establish the neckline. Two fingers above the Adam&rsquo;s apple, following your jawline&rsquo;s natural curve. Trim twice per week. Set a recurring reminder.</li>
+      </ul>
+    </div>
+
+    <div class="bg-white dark:bg-royal-sapphire/20 border border-[#6B5B4E]/10 rounded-xl p-6 mb-8">
+      <p class="font-playfair italic text-royal-plum dark:text-royal-gold text-sm mb-4">&ldquo;Examine your beard honestly. Does it look governed or abandoned? Where does it fall on the spectrum between vanity and neglect?&rdquo;</p>
+      <textarea rows="3" placeholder="Write your reflection..." class="w-full px-4 py-3 rounded-lg border border-[#6B5B4E]/20 bg-royal-cream/50 dark:bg-white/5 font-inter text-sm focus:outline-none focus:border-[#6B5B4E] resize-none"></textarea>
+      <button data-prompt="Does your beard look governed or abandoned?" class="journal-save-btn mt-2 px-4 py-2 bg-[#6B5B4E] text-white text-xs font-cinzel rounded-lg hover:bg-royal-plum transition">Save to Journal</button>
+    </div>
+
+    <div class="quiz-block bg-white dark:bg-royal-sapphire/20 border border-[#6B5B4E]/10 rounded-xl p-6 mb-8">
+      <h4 class="font-cinzel text-sm text-[#6B5B4E] mb-4">Counsel from the Throne</h4>
+      <p class="font-playfair italic text-royal-plum dark:text-royal-gold text-sm mb-5">&ldquo;Someone cites Leviticus 19:27 and insists you must never trim your beard at all. A king:&rdquo;</p>
+      <div class="space-y-2">
+        <button data-correct="false" class="quiz-option w-full text-left px-4 py-3 rounded-lg border border-[#6B5B4E]/15 text-sm font-inter">Immediately stops trimming and lets the beard grow wild to obey the verse literally</button>
+        <button data-correct="true" class="quiz-option w-full text-left px-4 py-3 rounded-lg border border-[#6B5B4E]/15 text-sm font-inter">Explains that the Hebrew shachath means &ldquo;destroy&rdquo; in the context of pagan rites &mdash; the command protects the beard&rsquo;s structure, not prohibits its maintenance &mdash; and cites Ezekiel 44:20 on priestly trimming</button>
+        <button data-correct="false" class="quiz-option w-full text-left px-4 py-3 rounded-lg border border-[#6B5B4E]/15 text-sm font-inter">Shaves the entire beard off to avoid the argument entirely</button>
+      </div>
+      <div class="quiz-feedback hidden mt-4 text-sm font-playfair italic"></div>
+    </div>
+
+    <div class="quest-panel mb-8">
+      <h4 class="font-cinzel text-sm text-royal-gold mb-2">Quest: The Governed Beard</h4>
+      <p class="text-xs text-white/70 mb-3">This week, establish your neckline and cheek line with a trimmer. Apply beard oil daily for seven consecutive days. Photograph day one and day seven to see the difference intentional care produces.</p>
+      <label class="flex items-center gap-2 cursor-pointer">
+        <input type="checkbox" class="quest-checkbox accent-royal-gold" data-quest="tc-03">
+        <span class="text-xs text-white/80">I completed seven days of governed beard care</span>
+      </label>
+    </div>
+
+    <button class="absorb-btn w-full py-3 bg-[#6B5B4E] text-white font-cinzel tracking-wider rounded-lg hover:bg-royal-plum transition" data-lesson="3">Mark as Absorbed</button>
+    <div class="gold-divider mt-16"></div>
+  </section>
+
+  <!-- ======== LESSON 04 ======== -->
+  <section id="lesson-04" class="lesson-section max-w-4xl mx-auto px-6 pb-20">
+    <div class="font-cinzel text-xs tracking-[0.3em] text-[#6B5B4E]/40 mb-3">LESSON 04</div>
+    <h2 class="font-cinzel text-2xl md:text-3xl text-royal-plum dark:text-royal-gold mb-2">Daily Shower Protocol</h2>
+    <p class="font-inter text-xs text-[#6B5B4E]/60 mb-8 tracking-wider">YEAR 1 &bull; THE ARCHITECTURE OF WISDOM</p>
+
+    <div class="mb-8">
+      <h3 class="font-cinzel text-sm text-[#6B5B4E] tracking-wider mb-3">THE RAW INGREDIENT</h3>
+      <div class="bg-royal-sapphire/5 dark:bg-white/5 border border-[#6B5B4E]/10 rounded-xl p-6 text-center cursor-pointer hover:border-[#6B5B4E]/30 transition" onclick="openVerseModal({text:'Wash yourselves; make yourselves clean; remove the evil of your deeds from before my eyes; cease to do evil.',ref:'Isaiah 1:16',context:'Isaiah writes during the reign of corrupt kings in Judah. The physical command to wash is intertwined with the spiritual command to purify. In Hebrew thought, there was no firewall between the physical act of washing and the spiritual reality of cleansing. The Levitical system required ritual washing (mikvah) before entering the temple, before handling sacred objects, and after contact with anything unclean. Physical cleanliness was the visible expression of an invisible spiritual posture.',crossRefs:['Leviticus 15:13','Numbers 19:7','2 Kings 5:10','John 13:10'],application:'In 2026 Aurora, the daily shower is your mikvah. It is not merely hygiene &mdash; it is the threshold ritual between rest and readiness. Step in unclean, step out prepared for the day&rsquo;s assignments.'})">
+        <p class="font-playfair italic text-royal-plum dark:text-royal-gold text-lg">&ldquo;Wash yourselves; make yourselves clean; remove the evil of your deeds from before my eyes; cease to do evil.&rdquo;</p>
+        <p class="text-xs text-royal-sapphire/40 mt-2">&mdash; Isaiah 1:16</p>
+        <p class="text-xs text-[#6B5B4E]/50 mt-1">Tap for full context &amp; Hebrew insight</p>
+      </div>
+      <p class="font-inter text-sm text-royal-sapphire/60 dark:text-white/50 mt-4 leading-relaxed"><strong class="text-[#6B5B4E]">Hebrew Root:</strong> <em>rachats</em> (&#x05E8;&#x05B8;&#x05D7;&#x05B7;&#x05E5;) &mdash; to wash, to bathe, to make clean through the application of water to the body. This verb appears over seventy times in the Hebrew Bible, governing everything from priestly preparation to the cleansing of garments. <em>Rachats</em> is always an active verb &mdash; it requires the individual to do the washing, not merely to be washed. The king does not wait for someone to clean him. He cleanses himself, daily, as an act of self-governance.</p>
+    </div>
+
+    <div class="mb-8">
+      <h3 class="font-cinzel text-sm text-[#6B5B4E] tracking-wider mb-3">THE PREPARATION</h3>
+      <div class="font-inter text-sm text-royal-sapphire/70 dark:text-white/60 leading-relaxed space-y-4">
+        <p>The Levitical washing system was not primitive hygiene &mdash; it was theological architecture. Before a priest could enter the tabernacle, he washed at the bronze laver (Exodus 30:18-21). The text states that failure to wash before approaching God could result in death. This is not exaggeration. The Creator who designed the human body also designed the protocol for maintaining it in His presence. The laver stood between the entrance and the altar &mdash; you could not bypass cleansing to reach worship. The physical act was the prerequisite for the spiritual function.</p>
+        <p>Naaman, the Syrian general, was told to wash seven times in the Jordan to be healed of leprosy (2 Kings 5:10). He initially resisted &mdash; the Abana and Pharpar rivers of Damascus were cleaner, more prestigious, more convenient. But the prescription was not about water quality. It was about obedience expressed through the physical act of washing. The shower is the modern equivalent of this daily obedience: a physical act that carries spiritual weight, a threshold crossed between the posture of sleep and the posture of service.</p>
+        <p>Modern dermatology confirms what the Levitical system prescribed. The skin is the body&rsquo;s largest organ, covering approximately twenty square feet and hosting trillions of bacteria. During sleep, the body sheds dead skin cells, secretes oils, and accumulates metabolic waste through sweat. A morning shower removes this biological residue and resets the skin&rsquo;s microbiome for the day ahead. An evening shower removes environmental pollutants, allergens, and the accumulated stress hormones that settle into the skin&rsquo;s surface throughout the day. Both have purpose. The king chooses based on his rhythm.</p>
+      </div>
+    </div>
+
+    <div class="royal-decree">
+      <p class="font-playfair italic text-royal-plum dark:text-royal-gold text-sm">&ldquo;The shower is your daily mikvah &mdash; the threshold ritual between rest and readiness. You cannot bypass cleansing to reach worship. The laver stands between the entrance and the altar.&rdquo;</p>
+    </div>
+
+    <div class="mb-8">
+      <h3 class="font-cinzel text-sm text-[#6B5B4E] tracking-wider mb-3">THE CONSUMPTION</h3>
+      <div class="font-inter text-sm text-royal-sapphire/70 dark:text-white/60 leading-relaxed space-y-4">
+        <p>In 2026 Aurora, where the altitude exceeds five thousand feet and the air carries a persistent dryness that sea-level residents cannot imagine, your shower protocol requires specific calibration. Water temperature matters &mdash; hot showers strip the skin&rsquo;s natural oils, accelerating the dryness that Colorado&rsquo;s climate already imposes. Warm water, not hot, opens pores and cleanses without stripping. End with thirty seconds of cold water to close pores, stimulate circulation, and activate the vagus nerve &mdash; a practice supported by research from the University of Colorado Anschutz Medical Campus showing improved immune response and reduced inflammation.</p>
+        <p>For the cleansing agent itself, Dr. Bronner&rsquo;s Pure-Castile Soap is the king&rsquo;s standard. Available at King Soopers on East Iliff, Whole Foods on South Parker, and Target on South Abilene, a single bottle serves as body wash, face wash, and even shampoo in a pinch. The ingredient list is transparent: organic coconut oil, organic olive oil, organic hemp seed oil, and nothing you cannot pronounce. One product, multiple uses, zero synthetic fragrance that disrupts endocrine function. The peppermint formula provides gentle stimulation that marks the transition from rest to readiness. Lather with your hands &mdash; skip the plastic loofahs that harbor bacteria after three uses.</p>
+      </div>
+    </div>
+
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-5 my-10">
+      <div class="card-parchment border border-[#6B5B4E]/10 rounded-xl p-6">
+        <div class="font-cinzel text-xs text-[#6B5B4E] tracking-widest mb-2">TEMPERATURE</div>
+        <h4 class="font-cinzel text-sm text-royal-plum dark:text-royal-gold mb-2">Warm, Then Cold</h4>
+        <p class="text-xs text-royal-sapphire/60 dark:text-white/50 leading-relaxed">Begin warm to open pores and cleanse. Finish with thirty seconds of cold to close pores and stimulate the vagus nerve. Never scalding hot in Colorado&rsquo;s dry air.</p>
+      </div>
+      <div class="card-parchment border border-[#6B5B4E]/10 rounded-xl p-6">
+        <div class="font-cinzel text-xs text-[#6B5B4E] tracking-widest mb-2">PRODUCT</div>
+        <h4 class="font-cinzel text-sm text-royal-plum dark:text-royal-gold mb-2">Dr. Bronner&rsquo;s Castile</h4>
+        <p class="text-xs text-royal-sapphire/60 dark:text-white/50 leading-relaxed">One bottle, multiple functions. Organic oils, no synthetic fragrance. Available at King Soopers, Whole Foods, and Target in Aurora. The king&rsquo;s standard soap.</p>
+      </div>
+      <div class="card-parchment border border-[#6B5B4E]/10 rounded-xl p-6">
+        <div class="font-cinzel text-xs text-[#6B5B4E] tracking-widest mb-2">TIMING</div>
+        <h4 class="font-cinzel text-sm text-royal-plum dark:text-royal-gold mb-2">Morning vs Evening</h4>
+        <p class="text-xs text-royal-sapphire/60 dark:text-white/50 leading-relaxed">Morning removes metabolic waste from sleep. Evening removes environmental pollutants. Choose based on your rhythm. Both serve the temple.</p>
+      </div>
+      <div class="card-parchment border border-[#6B5B4E]/10 rounded-xl p-6">
+        <div class="font-cinzel text-xs text-[#6B5B4E] tracking-widest mb-2">DISCIPLINE</div>
+        <h4 class="font-cinzel text-sm text-royal-plum dark:text-royal-gold mb-2">Seven Minutes Maximum</h4>
+        <p class="text-xs text-royal-sapphire/60 dark:text-white/50 leading-relaxed">The shower is a cleansing ritual, not a meditation chamber. Seven minutes: lather, rinse, cold burst, out. Water conservation honors the resource and your schedule.</p>
+      </div>
+    </div>
+
+    <div class="mb-8">
+      <h3 class="font-cinzel text-lg text-royal-plum dark:text-royal-gold mb-4">Practical Steps</h3>
+      <ul class="space-y-3 text-sm font-inter text-royal-sapphire/70 dark:text-white/60">
+        <li class="flex gap-3"><span class="text-[#6B5B4E] font-cinzel">I.</span> Purchase a bottle of Dr. Bronner&rsquo;s Peppermint Pure-Castile Soap this week. Replace your current body wash. Notice the difference in your skin within three days.</li>
+        <li class="flex gap-3"><span class="text-[#6B5B4E] font-cinzel">II.</span> End your next shower with thirty seconds of cold water. It will be uncomfortable. Do it anyway. This is how you train the body to serve the will.</li>
+        <li class="flex gap-3"><span class="text-[#6B5B4E] font-cinzel">III.</span> Time your shower tomorrow. If it exceeds seven minutes, cut one minute each day until you reach the target. Efficient cleansing, not lingering.</li>
+      </ul>
+    </div>
+
+    <div class="bg-white dark:bg-royal-sapphire/20 border border-[#6B5B4E]/10 rounded-xl p-6 mb-8">
+      <p class="font-playfair italic text-royal-plum dark:text-royal-gold text-sm mb-4">&ldquo;Do you treat your daily shower as a mere habit, or as the threshold ritual between rest and readiness? What would change if you approached it as the Levitical priests approached the laver?&rdquo;</p>
+      <textarea rows="3" placeholder="Write your reflection..." class="w-full px-4 py-3 rounded-lg border border-[#6B5B4E]/20 bg-royal-cream/50 dark:bg-white/5 font-inter text-sm focus:outline-none focus:border-[#6B5B4E] resize-none"></textarea>
+      <button data-prompt="How do you approach your daily shower — habit or ritual?" class="journal-save-btn mt-2 px-4 py-2 bg-[#6B5B4E] text-white text-xs font-cinzel rounded-lg hover:bg-royal-plum transition">Save to Journal</button>
+    </div>
+
+    <div class="quiz-block bg-white dark:bg-royal-sapphire/20 border border-[#6B5B4E]/10 rounded-xl p-6 mb-8">
+      <h4 class="font-cinzel text-sm text-[#6B5B4E] mb-4">Counsel from the Throne</h4>
+      <p class="font-playfair italic text-royal-plum dark:text-royal-gold text-sm mb-5">&ldquo;You wake up running late. You have fifteen minutes before you must leave. Skipping the shower would save eight minutes. A king:&rdquo;</p>
+      <div class="space-y-2">
+        <button data-correct="false" class="quiz-option w-full text-left px-4 py-3 rounded-lg border border-[#6B5B4E]/15 text-sm font-inter">Skips the shower entirely &mdash; deodorant and cologne will cover it</button>
+        <button data-correct="true" class="quiz-option w-full text-left px-4 py-3 rounded-lg border border-[#6B5B4E]/15 text-sm font-inter">Takes a focused three-minute shower &mdash; warm water, soap the essentials, cold rinse &mdash; because the temple is non-negotiable even under pressure</button>
+        <button data-correct="false" class="quiz-option w-full text-left px-4 py-3 rounded-lg border border-[#6B5B4E]/15 text-sm font-inter">Takes the full shower and arrives late, making everyone wait</button>
+      </div>
+      <div class="quiz-feedback hidden mt-4 text-sm font-playfair italic"></div>
+    </div>
+
+    <div class="quest-panel mb-8">
+      <h4 class="font-cinzel text-sm text-royal-gold mb-2">Quest: The Cold Finish</h4>
+      <p class="text-xs text-white/70 mb-3">For seven consecutive days, end your shower with thirty seconds of cold water. Record how it felt each day in your journal. By day seven, notice what has changed in your body&rsquo;s response and your mental discipline.</p>
+      <label class="flex items-center gap-2 cursor-pointer">
+        <input type="checkbox" class="quest-checkbox accent-royal-gold" data-quest="tc-04">
+        <span class="text-xs text-white/80">I completed seven consecutive cold finishes</span>
+      </label>
+    </div>
+
+    <button class="absorb-btn w-full py-3 bg-[#6B5B4E] text-white font-cinzel tracking-wider rounded-lg hover:bg-royal-plum transition" data-lesson="4">Mark as Absorbed</button>
+    <div class="gold-divider mt-16"></div>
+  </section>
+
+  <!-- ======== LESSON 05 ======== -->
+  <section id="lesson-05" class="lesson-section max-w-4xl mx-auto px-6 pb-20">
+    <div class="font-cinzel text-xs tracking-[0.3em] text-[#6B5B4E]/40 mb-3">LESSON 05</div>
+    <h2 class="font-cinzel text-2xl md:text-3xl text-royal-plum dark:text-royal-gold mb-2">Shampoo &amp; Scalp Stewardship</h2>
+    <p class="font-inter text-xs text-[#6B5B4E]/60 mb-8 tracking-wider">YEAR 1 &bull; THE ARCHITECTURE OF WISDOM</p>
+
+    <div class="mb-8">
+      <h3 class="font-cinzel text-sm text-[#6B5B4E] tracking-wider mb-3">THE RAW INGREDIENT</h3>
+      <div class="bg-royal-sapphire/5 dark:bg-white/5 border border-[#6B5B4E]/10 rounded-xl p-6 text-center cursor-pointer hover:border-[#6B5B4E]/30 transition" onclick="openVerseModal({text:'You prepare a table before me in the presence of my enemies. You anoint my head with oil; my cup overflows.',ref:'Psalm 23:5',context:'David wrote Psalm 23 from the perspective of a shepherd who became a king. Anointing the head with oil was both a hygiene practice for shepherds (oil repelled insects and healed sun-cracked skin on sheep) and a coronation ritual for kings. When Samuel anointed David in 1 Samuel 16:13, the oil on his head was a physical marker of divine selection. The scalp, the crown of the head, was the site of consecration. Caring for it is not incidental grooming &mdash; it is maintaining the place where the anointing rests.',crossRefs:['1 Samuel 16:13','Ecclesiastes 9:8','Luke 7:46','Matthew 6:17'],application:'Your scalp is the literal crown of your body. In Colorado&rsquo;s dry altitude, neglecting it leads to flaking, irritation, and hair loss. Anoint your head with the right products &mdash; clean shampoo, natural oils &mdash; and maintain the place where the anointing was poured.'})">
+        <p class="font-playfair italic text-royal-plum dark:text-royal-gold text-lg">&ldquo;You prepare a table before me in the presence of my enemies. You anoint my head with oil; my cup overflows.&rdquo;</p>
+        <p class="text-xs text-royal-sapphire/40 mt-2">&mdash; Psalm 23:5</p>
+        <p class="text-xs text-[#6B5B4E]/50 mt-1">Tap for full context &amp; Hebrew insight</p>
+      </div>
+      <p class="font-inter text-sm text-royal-sapphire/60 dark:text-white/50 mt-4 leading-relaxed"><strong class="text-[#6B5B4E]">Hebrew Root:</strong> <em>dashen</em> (&#x05D3;&#x05B8;&#x05E9;&#x05C1;&#x05B5;&#x05DF;) &mdash; to make fat, to anoint, to enrich. The word carries connotations of abundance and nourishment, not mere surface application. When David says God anoints his head with oil, the Hebrew implies saturation &mdash; the oil soaks in, nourishes deeply, transforms the surface. This is not a light mist of spray product. It is substantive care that penetrates to the root.</p>
+    </div>
+
+    <div class="mb-8">
+      <h3 class="font-cinzel text-sm text-[#6B5B4E] tracking-wider mb-3">THE PREPARATION</h3>
+      <div class="font-inter text-sm text-royal-sapphire/70 dark:text-white/60 leading-relaxed space-y-4">
+        <p>The scalp is the foundation of the hair, and the hair is the crown of the head. In Biblical symbolism, the head represents authority, and the crown represents the visible marker of that authority. When Absalom&rsquo;s hair was cut annually, it weighed two hundred shekels (2 Samuel 14:26) &mdash; a detail included not for trivia but to demonstrate that his hair, like his ambition, was excessive and ungoverned. The scalp that produces the crown must be healthy, nourished, and maintained. Neglect at the root level produces visible failure at the crown level. This principle is both botanical and theological.</p>
+        <p>Modern haircare science has confirmed what common sense always suggested: most commercial shampoos strip the scalp of its natural sebum (oil), then force you to buy conditioner to replace what was just removed. Sulfates &mdash; specifically sodium lauryl sulfate and sodium laureth sulfate &mdash; are industrial-grade detergents used in shampoo because they produce rich lather. That lather is not cleaning. It is stripping. Parabens preserve the product at the cost of disrupting your endocrine system. Silicones coat the hair shaft with a plastic-like film that mimics smoothness while preventing actual moisture from reaching the strand.</p>
+        <p>The alternative is simple: use shampoo that cleans without stripping. Dr. Bronner&rsquo;s castile soap, diluted with water, cleans the scalp without sulfates. Every Man Jack daily shampoo is sulfate-free and available at every major retailer. Native shampoo uses coconut-derived cleansers that preserve the scalp&rsquo;s natural oil balance. The king does not need a twenty-product routine. He needs one clean shampoo and the discipline to use it correctly &mdash; which means not every day. The scalp produces oil for a reason. Shampooing daily strips that oil and triggers overproduction, creating a cycle of grease and stripping that damages the hair follicle over time.</p>
+      </div>
+    </div>
+
+    <div class="royal-decree">
+      <p class="font-playfair italic text-royal-plum dark:text-royal-gold text-sm">&ldquo;The scalp is the foundation. The hair is the crown. Neglect at the root produces failure at the summit. Nourish the foundation, and the crown takes care of itself.&rdquo;</p>
+    </div>
+
+    <div class="mb-8">
+      <h3 class="font-cinzel text-sm text-[#6B5B4E] tracking-wider mb-3">THE CONSUMPTION</h3>
+      <div class="font-inter text-sm text-royal-sapphire/70 dark:text-white/60 leading-relaxed space-y-4">
+        <p>In 2026 Aurora, clean shampoo is accessible at every price point. King Soopers on East Iliff carries Every Man Jack and Native in the personal care aisle. Target on South Abilene stocks the full Dr. Bronner&rsquo;s line, Native, and Duke Cannon. Whole Foods on South Parker carries premium options like Acure and Desert Essence for those who want to invest further. The price difference between a sulfate-laden commercial shampoo and a clean alternative is typically under two dollars. The cost of the switch is negligible. The cost of not switching &mdash; scalp inflammation, premature thinning, chronic dryness in Colorado&rsquo;s altitude &mdash; compounds over years.</p>
+        <p>The protocol is straightforward: shampoo two to three times per week, not daily. On non-shampoo days, rinse the hair with warm water and massage the scalp with your fingertips for sixty seconds to distribute natural oils. Once per week, apply a light oil treatment &mdash; jojoba oil or argan oil, a few drops worked into the scalp before bed &mdash; to maintain the deep nourishment that <em>dashen</em> implies. In Colorado&rsquo;s dry winter months, when humidity drops below twenty percent, increase the oil treatment to twice per week. Your scalp will tell you what it needs. A king listens to his temple.</p>
+      </div>
+    </div>
+
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-5 my-10">
+      <div class="card-parchment border border-[#6B5B4E]/10 rounded-xl p-6">
+        <div class="font-cinzel text-xs text-[#6B5B4E] tracking-widest mb-2">AVOID</div>
+        <h4 class="font-cinzel text-sm text-royal-plum dark:text-royal-gold mb-2">Sulfates &amp; Parabens</h4>
+        <p class="text-xs text-royal-sapphire/60 dark:text-white/50 leading-relaxed">Sodium lauryl sulfate strips natural oils. Parabens disrupt hormones. Silicones coat without nourishing. Read the label before the marketing.</p>
+      </div>
+      <div class="card-parchment border border-[#6B5B4E]/10 rounded-xl p-6">
+        <div class="font-cinzel text-xs text-[#6B5B4E] tracking-widest mb-2">CHOOSE</div>
+        <h4 class="font-cinzel text-sm text-royal-plum dark:text-royal-gold mb-2">Clean Alternatives</h4>
+        <p class="text-xs text-royal-sapphire/60 dark:text-white/50 leading-relaxed">Dr. Bronner&rsquo;s, Every Man Jack, Native. Available at King Soopers, Target, Whole Foods in Aurora. Under two dollars more than the toxic option.</p>
+      </div>
+      <div class="card-parchment border border-[#6B5B4E]/10 rounded-xl p-6">
+        <div class="font-cinzel text-xs text-[#6B5B4E] tracking-widest mb-2">FREQUENCY</div>
+        <h4 class="font-cinzel text-sm text-royal-plum dark:text-royal-gold mb-2">Two to Three Times</h4>
+        <p class="text-xs text-royal-sapphire/60 dark:text-white/50 leading-relaxed">Shampoo two to three times per week. On off-days, rinse with warm water and massage the scalp. Let natural sebum do its designed work.</p>
+      </div>
+      <div class="card-parchment border border-[#6B5B4E]/10 rounded-xl p-6">
+        <div class="font-cinzel text-xs text-[#6B5B4E] tracking-widest mb-2">NOURISH</div>
+        <h4 class="font-cinzel text-sm text-royal-plum dark:text-royal-gold mb-2">Weekly Oil Treatment</h4>
+        <p class="text-xs text-royal-sapphire/60 dark:text-white/50 leading-relaxed">Jojoba or argan oil, a few drops before bed, once per week. Twice in dry Colorado winters. The anointing that reaches the root.</p>
+      </div>
+    </div>
+
+    <div class="mb-8">
+      <h3 class="font-cinzel text-lg text-royal-plum dark:text-royal-gold mb-4">Practical Steps</h3>
+      <ul class="space-y-3 text-sm font-inter text-royal-sapphire/70 dark:text-white/60">
+        <li class="flex gap-3"><span class="text-[#6B5B4E] font-cinzel">I.</span> Check your current shampoo&rsquo;s ingredient list tonight. If you find sodium lauryl sulfate, sodium laureth sulfate, or parabens, it is time to replace it this week.</li>
+        <li class="flex gap-3"><span class="text-[#6B5B4E] font-cinzel">II.</span> Purchase a clean shampoo &mdash; Every Man Jack, Native, or Dr. Bronner&rsquo;s &mdash; from King Soopers or Target in Aurora. Begin the two-to-three-times-per-week protocol.</li>
+        <li class="flex gap-3"><span class="text-[#6B5B4E] font-cinzel">III.</span> Buy a small bottle of jojoba oil from Whole Foods or Amazon. Apply a few drops to your scalp before bed this Sunday. Feel the difference by Monday morning.</li>
+      </ul>
+    </div>
+
+    <div class="bg-white dark:bg-royal-sapphire/20 border border-[#6B5B4E]/10 rounded-xl p-6 mb-8">
+      <p class="font-playfair italic text-royal-plum dark:text-royal-gold text-sm mb-4">&ldquo;What ingredients are in the shampoo currently sitting in your shower? Have you ever read the label on something you apply to the crown of your body daily?&rdquo;</p>
+      <textarea rows="3" placeholder="Write your reflection..." class="w-full px-4 py-3 rounded-lg border border-[#6B5B4E]/20 bg-royal-cream/50 dark:bg-white/5 font-inter text-sm focus:outline-none focus:border-[#6B5B4E] resize-none"></textarea>
+      <button data-prompt="What is in your current shampoo and will you change it?" class="journal-save-btn mt-2 px-4 py-2 bg-[#6B5B4E] text-white text-xs font-cinzel rounded-lg hover:bg-royal-plum transition">Save to Journal</button>
+    </div>
+
+    <div class="quiz-block bg-white dark:bg-royal-sapphire/20 border border-[#6B5B4E]/10 rounded-xl p-6 mb-8">
+      <h4 class="font-cinzel text-sm text-[#6B5B4E] mb-4">Counsel from the Throne</h4>
+      <p class="font-playfair italic text-royal-plum dark:text-royal-gold text-sm mb-5">&ldquo;Your scalp is dry and flaking, especially in Colorado winter. A king:&rdquo;</p>
+      <div class="space-y-2">
+        <button data-correct="false" class="quiz-option w-full text-left px-4 py-3 rounded-lg border border-[#6B5B4E]/15 text-sm font-inter">Shampoos more aggressively to scrub the flakes away</button>
+        <button data-correct="false" class="quiz-option w-full text-left px-4 py-3 rounded-lg border border-[#6B5B4E]/15 text-sm font-inter">Ignores it and hopes the problem resolves on its own</button>
+        <button data-correct="true" class="quiz-option w-full text-left px-4 py-3 rounded-lg border border-[#6B5B4E]/15 text-sm font-inter">Reduces shampoo frequency, switches to sulfate-free, applies jojoba oil twice weekly, and lets the scalp&rsquo;s natural oil production restore balance</button>
+      </div>
+      <div class="quiz-feedback hidden mt-4 text-sm font-playfair italic"></div>
+    </div>
+
+    <div class="quest-panel mb-8">
+      <h4 class="font-cinzel text-sm text-royal-gold mb-2">Quest: The Scalp Audit</h4>
+      <p class="text-xs text-white/70 mb-3">Read the ingredient label on your current shampoo. Write down the first five ingredients. If any are sulfates or parabens, replace the product this week and begin the clean protocol.</p>
+      <label class="flex items-center gap-2 cursor-pointer">
+        <input type="checkbox" class="quest-checkbox accent-royal-gold" data-quest="tc-05">
+        <span class="text-xs text-white/80">I audited my shampoo and switched to clean</span>
+      </label>
+    </div>
+
+    <button class="absorb-btn w-full py-3 bg-[#6B5B4E] text-white font-cinzel tracking-wider rounded-lg hover:bg-royal-plum transition" data-lesson="5">Mark as Absorbed</button>
+    <div class="gold-divider mt-16"></div>
+  </section>
+
+  <!-- ======== LESSON 06 ======== -->
+  <section id="lesson-06" class="lesson-section max-w-4xl mx-auto px-6 pb-20">
+    <div class="font-cinzel text-xs tracking-[0.3em] text-[#6B5B4E]/40 mb-3">LESSON 06</div>
+    <h2 class="font-cinzel text-2xl md:text-3xl text-royal-plum dark:text-royal-gold mb-2">Teeth &amp; Oral Care</h2>
+    <p class="font-inter text-xs text-[#6B5B4E]/60 mb-8 tracking-wider">YEAR 1 &bull; THE ARCHITECTURE OF WISDOM</p>
+
+    <div class="mb-8">
+      <h3 class="font-cinzel text-sm text-[#6B5B4E] tracking-wider mb-3">THE RAW INGREDIENT</h3>
+      <div class="bg-royal-sapphire/5 dark:bg-white/5 border border-[#6B5B4E]/10 rounded-xl p-6 text-center cursor-pointer hover:border-[#6B5B4E]/30 transition" onclick="openVerseModal({text:'Your teeth are like a flock of sheep just shorn, coming up from the washing. Each has its twin; not one of them is alone.',ref:'Song of Solomon 4:2',context:'Solomon, the wisest and wealthiest king in Israel&rsquo;s history, chose teeth as one of the first features he praised in the woman he loved. The imagery is precise: shorn sheep are white, clean, uniform. &ldquo;Coming up from the washing&rdquo; implies freshly cleansed. &ldquo;Each has its twin&rdquo; means none are missing &mdash; a full set, properly maintained. In the ancient world, healthy teeth were a marker of overall health, wealth, and youth. Solomon noticed teeth before describing any other feature.',crossRefs:['Song of Solomon 6:6','Proverbs 25:19','Amos 4:6','Matthew 8:12'],application:'In 2026 Aurora, dental care is accessible at multiple price points. Your teeth are the first thing people see when you speak, smile, or eat. Solomon set the standard: white, clean, complete. Maintain them accordingly.'})">
+        <p class="font-playfair italic text-royal-plum dark:text-royal-gold text-lg">&ldquo;Your teeth are like a flock of sheep just shorn, coming up from the washing. Each has its twin; not one of them is alone.&rdquo;</p>
+        <p class="text-xs text-royal-sapphire/40 mt-2">&mdash; Song of Solomon 4:2</p>
+        <p class="text-xs text-[#6B5B4E]/50 mt-1">Tap for full context &amp; Hebrew insight</p>
+      </div>
+      <p class="font-inter text-sm text-royal-sapphire/60 dark:text-white/50 mt-4 leading-relaxed"><strong class="text-[#6B5B4E]">Hebrew Root:</strong> <em>shen</em> (&#x05E9;&#x05C1;&#x05B5;&#x05DF;) &mdash; tooth, teeth. Appears over fifty times in the Hebrew Bible, used both literally and metaphorically. &ldquo;An eye for an eye, a <em>shen</em> for a <em>shen</em>&rdquo; (Exodus 21:24) demonstrates that teeth were valued as essential body parts worthy of legal protection. A broken tooth was compensable injury. The tooth was not an afterthought in Biblical anthropology &mdash; it was an essential component of the body&rsquo;s architecture.</p>
+    </div>
+
+    <div class="mb-8">
+      <h3 class="font-cinzel text-sm text-[#6B5B4E] tracking-wider mb-3">THE PREPARATION</h3>
+      <div class="font-inter text-sm text-royal-sapphire/70 dark:text-white/60 leading-relaxed space-y-4">
+        <p>In the ancient world, dental health was inseparable from overall health, social status, and even spiritual condition. The Hebrew Bible uses the loss of teeth as a metaphor for divine judgment (Amos 4:6 &mdash; &ldquo;cleanness of teeth,&rdquo; meaning famine). Proverbs 25:19 compares trusting an unfaithful man to relying on a broken tooth &mdash; painful, unreliable, and structurally compromised. The mouth was understood as the gateway of the body: what entered through it nourished or polluted, and the condition of the gate itself reflected the condition of the keeper.</p>
+        <p>Solomon&rsquo;s praise in Song of Solomon 4:2 is revealing not only for what it says but for its priority. In a love poem cataloging physical beauty, teeth appear second, after the eyes. This is not arbitrary. The mouth is the center of the face, the focal point of speech, the instrument of first impressions. When a man speaks, his audience unconsciously registers the condition of his teeth before processing his words. Yellowed, missing, or neglected teeth undermine authority as surely as a stammering voice. The king maintains his teeth not for cosmetic vanity but because the mouth is the instrument of his speech, and the instrument must match the message.</p>
+        <p>Modern dentistry has established that oral health directly impacts cardiovascular health, cognitive function, and systemic inflammation. Gum disease (periodontitis) releases bacteria into the bloodstream that has been linked to heart disease, stroke, and even Alzheimer&rsquo;s research. The mouth is not an isolated system. It is the gateway to the entire temple. A king who brushes twice daily, flosses nightly, and visits the dentist biannually is not performing cosmetic maintenance. He is protecting the structural integrity of the entire building.</p>
+      </div>
+    </div>
+
+    <div class="royal-decree">
+      <p class="font-playfair italic text-royal-plum dark:text-royal-gold text-sm">&ldquo;The mouth is the gateway of the temple and the instrument of the king&rsquo;s speech. When the instrument is neglected, the message is undermined before it reaches the audience.&rdquo;</p>
+    </div>
+
+    <div class="mb-8">
+      <h3 class="font-cinzel text-sm text-[#6B5B4E] tracking-wider mb-3">THE CONSUMPTION</h3>
+      <div class="font-inter text-sm text-royal-sapphire/70 dark:text-white/60 leading-relaxed space-y-4">
+        <p>In 2026 Aurora, dental care is available at every budget level. The Aurora Community Dental Center on East Colfax offers sliding-scale fees for those without insurance. Bright Now! Dental on South Havana and Gentle Dental on East Iliff accept most insurance plans and offer payment plans for the uninsured. A biannual cleaning and exam costs between seventy-five and two hundred dollars without insurance &mdash; less than four dollars per week when amortized across six months. The king budgets for prevention because emergency dental work costs ten to fifty times more than routine maintenance.</p>
+        <p>The daily protocol is non-negotiable: brush twice daily for two minutes with a fluoride toothpaste (Sensodyne or Colgate Total for sensitivity; Crest Pro-Health for general maintenance), floss every evening before bed (Oral-B Glide or a water flosser like the Waterpik, available at Target Aurora for under forty dollars), and use an alcohol-free mouthwash (CloSYS or Crest Pro-Health) to reach areas the brush cannot. Electric toothbrushes &mdash; the Oral-B Pro 1000 at thirty dollars or the Philips Sonicare 4100 at forty &mdash; remove significantly more plaque than manual brushing. One investment, years of superior cleaning. The king upgrades his tools when the upgrade produces measurable results.</p>
+      </div>
+    </div>
+
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-5 my-10">
+      <div class="card-parchment border border-[#6B5B4E]/10 rounded-xl p-6">
+        <div class="font-cinzel text-xs text-[#6B5B4E] tracking-widest mb-2">INSTRUMENT</div>
+        <h4 class="font-cinzel text-sm text-royal-plum dark:text-royal-gold mb-2">Electric Over Manual</h4>
+        <p class="text-xs text-royal-sapphire/60 dark:text-white/50 leading-relaxed">Oral-B Pro 1000 or Philips Sonicare 4100. Under forty dollars at Target Aurora. Removes measurably more plaque. Upgrade the tool.</p>
+      </div>
+      <div class="card-parchment border border-[#6B5B4E]/10 rounded-xl p-6">
+        <div class="font-cinzel text-xs text-[#6B5B4E] tracking-widest mb-2">DISCIPLINE</div>
+        <h4 class="font-cinzel text-sm text-royal-plum dark:text-royal-gold mb-2">Floss Every Night</h4>
+        <p class="text-xs text-royal-sapphire/60 dark:text-white/50 leading-relaxed">Oral-B Glide or Waterpik water flosser. The brush reaches three of five tooth surfaces. Flossing reaches the other two. Non-negotiable.</p>
+      </div>
+      <div class="card-parchment border border-[#6B5B4E]/10 rounded-xl p-6">
+        <div class="font-cinzel text-xs text-[#6B5B4E] tracking-widest mb-2">PREVENTION</div>
+        <h4 class="font-cinzel text-sm text-royal-plum dark:text-royal-gold mb-2">Biannual Dentist</h4>
+        <p class="text-xs text-royal-sapphire/60 dark:text-white/50 leading-relaxed">Every six months without exception. Aurora Community Dental for sliding scale. Gentle Dental for insurance. Prevention costs a fraction of repair.</p>
+      </div>
+      <div class="card-parchment border border-[#6B5B4E]/10 rounded-xl p-6">
+        <div class="font-cinzel text-xs text-[#6B5B4E] tracking-widest mb-2">GATEWAY</div>
+        <h4 class="font-cinzel text-sm text-royal-plum dark:text-royal-gold mb-2">Systemic Protection</h4>
+        <p class="text-xs text-royal-sapphire/60 dark:text-white/50 leading-relaxed">Gum disease links to heart disease, stroke, and cognitive decline. Brushing and flossing protect the entire temple, not just the teeth.</p>
+      </div>
+    </div>
+
+    <div class="mb-8">
+      <h3 class="font-cinzel text-lg text-royal-plum dark:text-royal-gold mb-4">Practical Steps</h3>
+      <ul class="space-y-3 text-sm font-inter text-royal-sapphire/70 dark:text-white/60">
+        <li class="flex gap-3"><span class="text-[#6B5B4E] font-cinzel">I.</span> If you do not own an electric toothbrush, purchase an Oral-B Pro 1000 or Philips Sonicare 4100 this week from Target on South Abilene. This is a one-time investment.</li>
+        <li class="flex gap-3"><span class="text-[#6B5B4E] font-cinzel">II.</span> Floss tonight before bed. If you have never flossed consistently, start with Oral-B Glide &mdash; it slides between tight teeth without shredding. Build the habit for twenty-one consecutive nights.</li>
+        <li class="flex gap-3"><span class="text-[#6B5B4E] font-cinzel">III.</span> Schedule your next dental cleaning. If you have not been in over a year, call Aurora Community Dental or Gentle Dental tomorrow. Put it on the calendar before you close this page.</li>
+      </ul>
+    </div>
+
+    <div class="bg-white dark:bg-royal-sapphire/20 border border-[#6B5B4E]/10 rounded-xl p-6 mb-8">
+      <p class="font-playfair italic text-royal-plum dark:text-royal-gold text-sm mb-4">&ldquo;When was your last dental visit? What does the gap between that date and today reveal about how you prioritize the gateway of your temple?&rdquo;</p>
+      <textarea rows="3" placeholder="Write your reflection..." class="w-full px-4 py-3 rounded-lg border border-[#6B5B4E]/20 bg-royal-cream/50 dark:bg-white/5 font-inter text-sm focus:outline-none focus:border-[#6B5B4E] resize-none"></textarea>
+      <button data-prompt="When was your last dental visit and what will you do about it?" class="journal-save-btn mt-2 px-4 py-2 bg-[#6B5B4E] text-white text-xs font-cinzel rounded-lg hover:bg-royal-plum transition">Save to Journal</button>
+    </div>
+
+    <div class="quiz-block bg-white dark:bg-royal-sapphire/20 border border-[#6B5B4E]/10 rounded-xl p-6 mb-8">
+      <h4 class="font-cinzel text-sm text-[#6B5B4E] mb-4">Counsel from the Throne</h4>
+      <p class="font-playfair italic text-royal-plum dark:text-royal-gold text-sm mb-5">&ldquo;You brush your teeth every morning and night but have never flossed consistently. A king:&rdquo;</p>
+      <div class="space-y-2">
+        <button data-correct="false" class="quiz-option w-full text-left px-4 py-3 rounded-lg border border-[#6B5B4E]/15 text-sm font-inter">Decides that brushing alone is sufficient since he has never had a cavity</button>
+        <button data-correct="true" class="quiz-option w-full text-left px-4 py-3 rounded-lg border border-[#6B5B4E]/15 text-sm font-inter">Recognizes that the brush reaches only three of five surfaces, buys floss tonight, and commits to twenty-one consecutive nights to build the habit</button>
+        <button data-correct="false" class="quiz-option w-full text-left px-4 py-3 rounded-lg border border-[#6B5B4E]/15 text-sm font-inter">Flosses once, decides it is too tedious, and returns to brushing only</button>
+      </div>
+      <div class="quiz-feedback hidden mt-4 text-sm font-playfair italic"></div>
+    </div>
+
+    <div class="quest-panel mb-8">
+      <h4 class="font-cinzel text-sm text-royal-gold mb-2">Quest: Twenty-One Nights</h4>
+      <p class="text-xs text-white/70 mb-3">Floss every night for twenty-one consecutive nights. Mark each night in your journal or on a calendar. After twenty-one nights, the habit will begin to feel automatic. This is how the king builds discipline at the gateway.</p>
+      <label class="flex items-center gap-2 cursor-pointer">
+        <input type="checkbox" class="quest-checkbox accent-royal-gold" data-quest="tc-06">
+        <span class="text-xs text-white/80">I completed twenty-one consecutive nights of flossing</span>
+      </label>
+    </div>
+
+    <button class="absorb-btn w-full py-3 bg-[#6B5B4E] text-white font-cinzel tracking-wider rounded-lg hover:bg-royal-plum transition" data-lesson="6">Mark as Absorbed</button>
+    <div class="gold-divider mt-16"></div>
+  </section>
+
+  <!-- ======== LESSON 07 ======== -->
+  <section id="lesson-07" class="lesson-section max-w-4xl mx-auto px-6 pb-20">
+    <div class="font-cinzel text-xs tracking-[0.3em] text-[#6B5B4E]/40 mb-3">LESSON 07</div>
+    <h2 class="font-cinzel text-2xl md:text-3xl text-royal-plum dark:text-royal-gold mb-2">Deodorant &amp; Cologne</h2>
+    <p class="font-inter text-xs text-[#6B5B4E]/60 mb-8 tracking-wider">YEAR 1 &bull; THE ARCHITECTURE OF WISDOM</p>
+
+    <div class="mb-8">
+      <h3 class="font-cinzel text-sm text-[#6B5B4E] tracking-wider mb-3">THE RAW INGREDIENT</h3>
+      <div class="bg-royal-sapphire/5 dark:bg-white/5 border border-[#6B5B4E]/10 rounded-xl p-6 text-center cursor-pointer hover:border-[#6B5B4E]/30 transition" onclick="openVerseModal({text:'Then the Lord said to Moses, Take the following fine spices: 500 shekels of liquid myrrh, half as much of fragrant cinnamon, 250 shekels of fragrant calamus, 500 shekels of cassia &mdash; all according to the sanctuary shekel &mdash; and a hin of olive oil. Make these into a sacred anointing oil.',ref:'Exodus 30:22-25',context:'God Himself designed a fragrance formula. This is not metaphor &mdash; it is a literal recipe with precise measurements, specific ingredients, and a declared purpose. The sacred anointing oil was applied to the tabernacle, its furnishings, and the priests. God considered scent important enough to prescribe its exact composition. If the Creator of the universe cared about how His dwelling place smelled, the inhabitant of a living temple should care as well.',crossRefs:['Proverbs 27:9','Ecclesiastes 10:1','2 Corinthians 2:15','Song of Solomon 1:3'],application:'In 2026 Aurora, your scent precedes you into every room and lingers after you leave. God prescribed fragrance for His temple. You steward the fragrance of yours.'})">
+        <p class="font-playfair italic text-royal-plum dark:text-royal-gold text-lg">&ldquo;Take the following fine spices: 500 shekels of liquid myrrh, half as much of fragrant cinnamon &hellip; Make these into a sacred anointing oil.&rdquo;</p>
+        <p class="text-xs text-royal-sapphire/40 mt-2">&mdash; Exodus 30:22&ndash;25</p>
+        <p class="text-xs text-[#6B5B4E]/50 mt-1">Tap for full context &amp; Hebrew insight</p>
+      </div>
+      <p class="font-inter text-sm text-royal-sapphire/60 dark:text-white/50 mt-4 leading-relaxed"><strong class="text-[#6B5B4E]">Hebrew Root:</strong> <em>shemen</em> (&#x05E9;&#x05C1;&#x05B6;&#x05DE;&#x05B6;&#x05DF;) &mdash; oil, ointment, fatness. This word appears nearly two hundred times in the Hebrew Bible and is associated with joy (the &ldquo;oil of gladness&rdquo; in Psalm 45:7), consecration, healing, and hospitality. <em>Shemen</em> was never merely functional. It carried emotional and spiritual dimensions &mdash; to anoint with oil was to honor, to consecrate, to set apart. The king&rsquo;s scent is not decorative. It is declarative.</p>
+    </div>
+
+    <div class="mb-8">
+      <h3 class="font-cinzel text-sm text-[#6B5B4E] tracking-wider mb-3">THE PREPARATION</h3>
+      <div class="font-inter text-sm text-royal-sapphire/70 dark:text-white/60 leading-relaxed space-y-4">
+        <p>God is the first perfumer recorded in Scripture. Exodus 30 does not merely mention fragrance &mdash; it provides a precise formula with measured quantities and named ingredients. Myrrh, cinnamon, calamus, cassia, and olive oil. Five components, specific ratios, a declared sacred purpose. The implication is staggering: the God who spoke galaxies into existence considered the olfactory experience of His dwelling place important enough to design personally. Scent was not an afterthought in the tabernacle. It was prescribed alongside the architecture, the furnishings, and the priestly garments.</p>
+        <p>Proverbs 27:9 states that &ldquo;perfume and incense bring joy to the heart.&rdquo; Ecclesiastes 10:1 warns that &ldquo;dead flies give perfume a bad smell&rdquo; &mdash; meaning contamination of a good fragrance is notable because fragrance itself is valued. The woman in Song of Solomon 1:3 praises the king: &ldquo;Your name is like perfume poured out.&rdquo; Paul writes in 2 Corinthians 2:15 that believers are &ldquo;the aroma of Christ.&rdquo; Throughout Scripture, scent is a medium of presence, identity, and influence. It communicates before words begin and remains after the person has left the room.</p>
+        <p>The modern issue is not whether a man should smell good &mdash; Scripture is unambiguous on this point. The issue is what he applies to his body. Conventional antiperspirants use aluminum compounds to physically block sweat glands, parabens as preservatives, and synthetic fragrances derived from petroleum. These ingredients interact with the endocrine system, the skin&rsquo;s microbiome, and the body&rsquo;s natural detoxification process. The king does not block the body&rsquo;s designed functions. He works with them. Natural deodorants neutralize odor-causing bacteria without blocking the sweat gland&rsquo;s God-designed purpose of temperature regulation and toxin release.</p>
+      </div>
+    </div>
+
+    <div class="royal-decree">
+      <p class="font-playfair italic text-royal-plum dark:text-royal-gold text-sm">&ldquo;A king&rsquo;s scent arrives before him and lingers after he departs. God prescribed fragrance for His temple. You steward the fragrance of yours.&rdquo;</p>
+    </div>
+
+    <div class="mb-8">
+      <h3 class="font-cinzel text-sm text-[#6B5B4E] tracking-wider mb-3">THE CONSUMPTION</h3>
+      <div class="font-inter text-sm text-royal-sapphire/70 dark:text-white/60 leading-relaxed space-y-4">
+        <p>In 2026 Aurora, natural deodorants are available everywhere. Native deodorant (coconut and vanilla, eucalyptus and mint, or the unscented sensitive formula) is stocked at Target on South Abilene, King Soopers, and Walmart. Schmidt&rsquo;s charcoal and magnesium formula is excellent for heavy perspiration. Dr. Squatch (pine tar or alpine sage) carries a more masculine scent profile and is available at Target and online. Each costs between eight and twelve dollars and lasts four to six weeks. The transition from conventional antiperspirant to natural deodorant takes approximately two weeks &mdash; the body needs time to recalibrate its sweat and bacteria balance. Persist through the adjustment period. The result is cleaner, less odor-producing sweat long-term.</p>
+        <p>For cologne, the principle is restraint. One spray to the chest or one spray to the wrist &mdash; never both, never more. The goal is a scent that is discovered, not announced. If someone smells you from across the room, you have applied too much. The king&rsquo;s fragrance rewards proximity, not distance. For budget-conscious options, Whole Foods on South Parker carries essential oil roll-ons (cedarwood, sandalwood, bergamot) for under fifteen dollars. For a proper cologne, Versace Pour Homme, Acqua di Gio, or Dolce &amp; Gabbana Light Blue are classic, restrained, and available at any Ulta or Macy&rsquo;s in the Denver metro. One bottle lasts over a year with disciplined application.</p>
+      </div>
+    </div>
+
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-5 my-10">
+      <div class="card-parchment border border-[#6B5B4E]/10 rounded-xl p-6">
+        <div class="font-cinzel text-xs text-[#6B5B4E] tracking-widest mb-2">FOUNDATION</div>
+        <h4 class="font-cinzel text-sm text-royal-plum dark:text-royal-gold mb-2">Natural Deodorant</h4>
+        <p class="text-xs text-royal-sapphire/60 dark:text-white/50 leading-relaxed">Native, Schmidt&rsquo;s, or Dr. Squatch. Neutralizes odor without blocking sweat glands. Two-week transition period. Persist through it.</p>
+      </div>
+      <div class="card-parchment border border-[#6B5B4E]/10 rounded-xl p-6">
+        <div class="font-cinzel text-xs text-[#6B5B4E] tracking-widest mb-2">RESTRAINT</div>
+        <h4 class="font-cinzel text-sm text-royal-plum dark:text-royal-gold mb-2">One Spray Only</h4>
+        <p class="text-xs text-royal-sapphire/60 dark:text-white/50 leading-relaxed">Cologne rewards proximity, not distance. One spray to the chest. If someone smells you from across the room, you have failed the test of restraint.</p>
+      </div>
+      <div class="card-parchment border border-[#6B5B4E]/10 rounded-xl p-6">
+        <div class="font-cinzel text-xs text-[#6B5B4E] tracking-widest mb-2">SCRIPTURE</div>
+        <h4 class="font-cinzel text-sm text-royal-plum dark:text-royal-gold mb-2">God the Perfumer</h4>
+        <p class="text-xs text-royal-sapphire/60 dark:text-white/50 leading-relaxed">Exodus 30 is a divine fragrance formula. If the Creator prescribed scent for His temple, then scent for the living temple is stewardship, not luxury.</p>
+      </div>
+      <div class="card-parchment border border-[#6B5B4E]/10 rounded-xl p-6">
+        <div class="font-cinzel text-xs text-[#6B5B4E] tracking-widest mb-2">PRESENCE</div>
+        <h4 class="font-cinzel text-sm text-royal-plum dark:text-royal-gold mb-2">The Lingering Testimony</h4>
+        <p class="text-xs text-royal-sapphire/60 dark:text-white/50 leading-relaxed">Paul calls believers &ldquo;the aroma of Christ.&rdquo; Your scent lingers in elevators, handshakes, and rooms you have left. Make it worthy of the name you carry.</p>
+      </div>
+    </div>
+
+    <div class="mb-8">
+      <h3 class="font-cinzel text-lg text-royal-plum dark:text-royal-gold mb-4">Practical Steps</h3>
+      <ul class="space-y-3 text-sm font-inter text-royal-sapphire/70 dark:text-white/60">
+        <li class="flex gap-3"><span class="text-[#6B5B4E] font-cinzel">I.</span> Purchase a natural deodorant this week &mdash; Native from Target or Dr. Squatch online. Commit to the two-week transition period without reverting to conventional antiperspirant.</li>
+        <li class="flex gap-3"><span class="text-[#6B5B4E] font-cinzel">II.</span> If you do not own a cologne, visit Ulta or Whole Foods this week. Test three options. Choose one. Apply one spray daily &mdash; to the chest, after moisturizing, before dressing.</li>
+        <li class="flex gap-3"><span class="text-[#6B5B4E] font-cinzel">III.</span> Ask a trusted friend or family member for an honest assessment of how you smell throughout the day. The information may be uncomfortable. It is also invaluable.</li>
+      </ul>
+    </div>
+
+    <div class="bg-white dark:bg-royal-sapphire/20 border border-[#6B5B4E]/10 rounded-xl p-6 mb-8">
+      <p class="font-playfair italic text-royal-plum dark:text-royal-gold text-sm mb-4">&ldquo;What scent do you leave behind when you exit a room? Is it intentional, or has it been left to chance? What would it mean to steward your fragrance as deliberately as God stewarded His?&rdquo;</p>
+      <textarea rows="3" placeholder="Write your reflection..." class="w-full px-4 py-3 rounded-lg border border-[#6B5B4E]/20 bg-royal-cream/50 dark:bg-white/5 font-inter text-sm focus:outline-none focus:border-[#6B5B4E] resize-none"></textarea>
+      <button data-prompt="What scent do you leave behind when you exit a room?" class="journal-save-btn mt-2 px-4 py-2 bg-[#6B5B4E] text-white text-xs font-cinzel rounded-lg hover:bg-royal-plum transition">Save to Journal</button>
+    </div>
+
+    <div class="quiz-block bg-white dark:bg-royal-sapphire/20 border border-[#6B5B4E]/10 rounded-xl p-6 mb-8">
+      <h4 class="font-cinzel text-sm text-[#6B5B4E] mb-4">Counsel from the Throne</h4>
+      <p class="font-playfair italic text-royal-plum dark:text-royal-gold text-sm mb-5">&ldquo;You are preparing for an important meeting. You reach for your cologne. A king:&rdquo;</p>
+      <div class="space-y-2">
+        <button data-correct="false" class="quiz-option w-full text-left px-4 py-3 rounded-lg border border-[#6B5B4E]/15 text-sm font-inter">Applies four or five sprays to ensure his presence is noticed the moment he enters</button>
+        <button data-correct="false" class="quiz-option w-full text-left px-4 py-3 rounded-lg border border-[#6B5B4E]/15 text-sm font-inter">Skips cologne entirely because it seems unnecessary for a professional setting</button>
+        <button data-correct="true" class="quiz-option w-full text-left px-4 py-3 rounded-lg border border-[#6B5B4E]/15 text-sm font-inter">Applies one spray to the chest &mdash; enough that someone leaning in for a handshake is rewarded, but no one across the table is overwhelmed</button>
+      </div>
+      <div class="quiz-feedback hidden mt-4 text-sm font-playfair italic"></div>
+    </div>
+
+    <div class="quest-panel mb-8">
+      <h4 class="font-cinzel text-sm text-royal-gold mb-2">Quest: The Scent Transition</h4>
+      <p class="text-xs text-white/70 mb-3">Switch to natural deodorant for fourteen consecutive days. Journal any changes in body odor, perspiration, and skin comfort. By day fourteen, assess whether the transition has recalibrated your body&rsquo;s natural balance.</p>
+      <label class="flex items-center gap-2 cursor-pointer">
+        <input type="checkbox" class="quest-checkbox accent-royal-gold" data-quest="tc-07">
+        <span class="text-xs text-white/80">I completed the fourteen-day natural deodorant transition</span>
+      </label>
+    </div>
+
+    <button class="absorb-btn w-full py-3 bg-[#6B5B4E] text-white font-cinzel tracking-wider rounded-lg hover:bg-royal-plum transition" data-lesson="7">Mark as Absorbed</button>
+    <div class="gold-divider mt-16"></div>
+  </section>
+
+  <!-- ======== LESSON 08 ======== -->
+  <section id="lesson-08" class="lesson-section max-w-4xl mx-auto px-6 pb-20">
+    <div class="font-cinzel text-xs tracking-[0.3em] text-[#6B5B4E]/40 mb-3">LESSON 08</div>
+    <h2 class="font-cinzel text-2xl md:text-3xl text-royal-plum dark:text-royal-gold mb-2">Skin Care for Kings</h2>
+    <p class="font-inter text-xs text-[#6B5B4E]/60 mb-8 tracking-wider">YEAR 1 &bull; THE ARCHITECTURE OF WISDOM</p>
+
+    <div class="mb-8">
+      <h3 class="font-cinzel text-sm text-[#6B5B4E] tracking-wider mb-3">THE RAW INGREDIENT</h3>
+      <div class="bg-royal-sapphire/5 dark:bg-white/5 border border-[#6B5B4E]/10 rounded-xl p-6 text-center cursor-pointer hover:border-[#6B5B4E]/30 transition" onclick="openVerseModal({text:'Before a young woman&rsquo;s turn came to go in to King Xerxes, she had to complete twelve months of beauty treatments prescribed for the women, six months with oil of myrrh and six with perfumes and cosmetics.',ref:'Esther 2:12',context:'The Persian court invested an entire year in preparing candidates to stand before the king. This was not vanity &mdash; it was protocol. The oil of myrrh was a deep-penetrating treatment that softened, healed, and protected the skin over months. The six-month timeline indicates that genuine skin transformation requires patience and consistency, not quick fixes. If the court of the most powerful empire on earth invested twelve months in skin preparation, the modern king can invest five minutes morning and evening.',crossRefs:['Song of Solomon 5:5','Psalm 104:15','Proverbs 27:9','Ruth 3:3'],application:'In 2026 Colorado, where altitude and dry air assault the skin year-round, a basic three-step routine &mdash; wash, moisturize, protect &mdash; is not luxury. It is structural maintenance against an environment that actively dehydrates you.'})">
+        <p class="font-playfair italic text-royal-plum dark:text-royal-gold text-lg">&ldquo;She had to complete twelve months of beauty treatments &hellip; six months with oil of myrrh and six with perfumes and cosmetics.&rdquo;</p>
+        <p class="text-xs text-royal-sapphire/40 mt-2">&mdash; Esther 2:12</p>
+        <p class="text-xs text-[#6B5B4E]/50 mt-1">Tap for full context &amp; Hebrew insight</p>
+      </div>
+      <p class="font-inter text-sm text-royal-sapphire/60 dark:text-white/50 mt-4 leading-relaxed"><strong class="text-[#6B5B4E]">Hebrew Root:</strong> <em>mor</em> (&#x05DE;&#x05B9;&#x05E8;) &mdash; myrrh, from the verb <em>marar</em>, meaning &ldquo;bitter.&rdquo; Myrrh was harvested as tree resin, dried, and used medicinally for its antibacterial, anti-inflammatory, and skin-healing properties. It was among the gifts brought to the infant Christ (Matthew 2:11) and was used in the burial spice mixture applied to His body (John 19:39). Myrrh bookends the life of Jesus &mdash; from birth to burial &mdash; underscoring that skin care is woven into the most sacred narratives of Scripture.</p>
+    </div>
+
+    <div class="mb-8">
+      <h3 class="font-cinzel text-sm text-[#6B5B4E] tracking-wider mb-3">THE PREPARATION</h3>
+      <div class="font-inter text-sm text-royal-sapphire/70 dark:text-white/60 leading-relaxed space-y-4">
+        <p>The skin is the temple&rsquo;s exterior wall. It is the largest organ of the body, the first defense against environmental assault, and the surface on which the world reads your age, health, and habits. In Biblical times, skin care was not gendered &mdash; Psalm 104:15 describes oil that &ldquo;makes the face shine,&rdquo; and the audience is universal. Ruth anointed herself before presenting herself to Boaz (Ruth 3:3). David&rsquo;s servants tried to warm him with blankets in old age when his skin could no longer retain heat (1 Kings 1:1). The Bible treats the skin as a vital, honor-worthy organ throughout both testaments.</p>
+        <p>The modern skincare industry has created an empire of complexity designed to confuse consumers into purchasing fifteen-step routines. This is the opposite of wisdom. The king&rsquo;s skincare routine has three steps, no more: cleanse, moisturize, protect. A gentle face wash removes the day&rsquo;s pollutants and overnight oil without stripping the skin. A moisturizer restores and locks in hydration. A sunscreen (SPF 30 minimum) protects against ultraviolet radiation, which is the single greatest cause of premature skin aging &mdash; more damaging than genetics, diet, or any other factor combined.</p>
+        <p>The principle governing skin care is the same one governing every domain of temple care: simplicity with consistency defeats complexity with sporadic effort. A three-step routine performed daily for five years produces better skin than a ten-step routine performed for two weeks and then abandoned. The Esther passage reveals the timeline: months, not moments. Skin transformation is gradual, cumulative, and rewards patience. The king ages with dignity, not with denial. He does not chase youth. He maintains what he has been entrusted with, and the evidence shows in his face.</p>
+      </div>
+    </div>
+
+    <div class="royal-decree">
+      <p class="font-playfair italic text-royal-plum dark:text-royal-gold text-sm">&ldquo;The king ages with dignity, not denial. He does not chase youth. He maintains what he has been entrusted with, and the evidence shows in his face.&rdquo;</p>
+    </div>
+
+    <div class="mb-8">
+      <h3 class="font-cinzel text-sm text-[#6B5B4E] tracking-wider mb-3">THE CONSUMPTION</h3>
+      <div class="font-inter text-sm text-royal-sapphire/70 dark:text-white/60 leading-relaxed space-y-4">
+        <p>In 2026 Colorado, your skin faces a unique adversary. At five thousand feet above sea level, you receive approximately twenty-five percent more ultraviolet radiation than at sea level. The dry air holds less moisture, meaning transepidermal water loss &mdash; the rate at which your skin loses hydration &mdash; is significantly higher than in coastal climates. Colorado men who skip moisturizer and sunscreen age visibly faster than their counterparts in humid states. This is not opinion. It is dermatological consensus from the University of Colorado Anschutz dermatology department.</p>
+        <p>The king&rsquo;s three-step routine costs under twenty-five dollars and is available at any King Soopers, Target, or Walmart in Aurora. CeraVe Hydrating Facial Cleanser (twelve dollars, lasts three months) cleans without stripping. CeraVe Daily Moisturizing Lotion (fourteen dollars, lasts four months) provides ceramide-based hydration that repairs the skin barrier. CeraVe AM Facial Moisturizing Lotion with SPF 30 (sixteen dollars) combines moisturizer and sunscreen in one step for morning application. Three products, five minutes, twice daily. That is the entire protocol. Cetaphil provides comparable alternatives at similar prices if CeraVe is unavailable. The king does not need a dermatologist&rsquo;s income to maintain his skin. He needs the discipline to apply three products consistently.</p>
+      </div>
+    </div>
+
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-5 my-10">
+      <div class="card-parchment border border-[#6B5B4E]/10 rounded-xl p-6">
+        <div class="font-cinzel text-xs text-[#6B5B4E] tracking-widest mb-2">CLEANSE</div>
+        <h4 class="font-cinzel text-sm text-royal-plum dark:text-royal-gold mb-2">CeraVe Hydrating Cleanser</h4>
+        <p class="text-xs text-royal-sapphire/60 dark:text-white/50 leading-relaxed">Gentle, non-stripping, ceramide-fortified. Twelve dollars, lasts three months. Morning and evening. The foundation of the routine.</p>
+      </div>
+      <div class="card-parchment border border-[#6B5B4E]/10 rounded-xl p-6">
+        <div class="font-cinzel text-xs text-[#6B5B4E] tracking-widest mb-2">MOISTURIZE</div>
+        <h4 class="font-cinzel text-sm text-royal-plum dark:text-royal-gold mb-2">CeraVe Daily Lotion</h4>
+        <p class="text-xs text-royal-sapphire/60 dark:text-white/50 leading-relaxed">Ceramides repair the skin barrier. Essential in Colorado&rsquo;s dry altitude. Fourteen dollars, lasts four months. Apply after every wash.</p>
+      </div>
+      <div class="card-parchment border border-[#6B5B4E]/10 rounded-xl p-6">
+        <div class="font-cinzel text-xs text-[#6B5B4E] tracking-widest mb-2">PROTECT</div>
+        <h4 class="font-cinzel text-sm text-royal-plum dark:text-royal-gold mb-2">SPF 30 Daily</h4>
+        <p class="text-xs text-royal-sapphire/60 dark:text-white/50 leading-relaxed">Colorado delivers twenty-five percent more UV than sea level. SPF 30 minimum, every morning, even in winter. Non-negotiable temple defense.</p>
+      </div>
+      <div class="card-parchment border border-[#6B5B4E]/10 rounded-xl p-6">
+        <div class="font-cinzel text-xs text-[#6B5B4E] tracking-widest mb-2">PATIENCE</div>
+        <h4 class="font-cinzel text-sm text-royal-plum dark:text-royal-gold mb-2">Months, Not Moments</h4>
+        <p class="text-xs text-royal-sapphire/60 dark:text-white/50 leading-relaxed">Esther&rsquo;s treatments lasted twelve months. Skin transformation is gradual. Three steps daily for three months will show visible results. Persist.</p>
+      </div>
+    </div>
+
+    <div class="mb-8">
+      <h3 class="font-cinzel text-lg text-royal-plum dark:text-royal-gold mb-4">Practical Steps</h3>
+      <ul class="space-y-3 text-sm font-inter text-royal-sapphire/70 dark:text-white/60">
+        <li class="flex gap-3"><span class="text-[#6B5B4E] font-cinzel">I.</span> Purchase CeraVe Hydrating Cleanser, CeraVe Daily Moisturizing Lotion, and CeraVe AM SPF 30 this week from Target or King Soopers in Aurora. Total investment: under thirty dollars.</li>
+        <li class="flex gap-3"><span class="text-[#6B5B4E] font-cinzel">II.</span> Establish the three-step routine: wash, moisturize, protect in the morning; wash and moisturize in the evening. Set it beside your toothbrush so they become paired habits.</li>
+        <li class="flex gap-3"><span class="text-[#6B5B4E] font-cinzel">III.</span> Take a close-up photograph of your face today under natural light. Store it. In ninety days of consistent routine, take another and compare. The evidence will speak.</li>
+      </ul>
+    </div>
+
+    <div class="bg-white dark:bg-royal-sapphire/20 border border-[#6B5B4E]/10 rounded-xl p-6 mb-8">
+      <p class="font-playfair italic text-royal-plum dark:text-royal-gold text-sm mb-4">&ldquo;Do you have any daily routine for the skin on your face, or has it been entirely unattended? What would Esther&rsquo;s twelve-month commitment to preparation teach you about patience with results?&rdquo;</p>
+      <textarea rows="3" placeholder="Write your reflection..." class="w-full px-4 py-3 rounded-lg border border-[#6B5B4E]/20 bg-royal-cream/50 dark:bg-white/5 font-inter text-sm focus:outline-none focus:border-[#6B5B4E] resize-none"></textarea>
+      <button data-prompt="What is your current face care routine and what will you change?" class="journal-save-btn mt-2 px-4 py-2 bg-[#6B5B4E] text-white text-xs font-cinzel rounded-lg hover:bg-royal-plum transition">Save to Journal</button>
+    </div>
+
+    <div class="quiz-block bg-white dark:bg-royal-sapphire/20 border border-[#6B5B4E]/10 rounded-xl p-6 mb-8">
+      <h4 class="font-cinzel text-sm text-[#6B5B4E] mb-4">Counsel from the Throne</h4>
+      <p class="font-playfair italic text-royal-plum dark:text-royal-gold text-sm mb-5">&ldquo;A friend recommends a twelve-step skincare routine with products totaling two hundred dollars per month. A king:&rdquo;</p>
+      <div class="space-y-2">
+        <button data-correct="false" class="quiz-option w-full text-left px-4 py-3 rounded-lg border border-[#6B5B4E]/15 text-sm font-inter">Purchases the entire lineup immediately because more products must mean better results</button>
+        <button data-correct="true" class="quiz-option w-full text-left px-4 py-3 rounded-lg border border-[#6B5B4E]/15 text-sm font-inter">Thanks his friend, then builds the three-step CeraVe routine for under thirty dollars &mdash; knowing that simplicity with consistency defeats complexity with sporadic effort</button>
+        <button data-correct="false" class="quiz-option w-full text-left px-4 py-3 rounded-lg border border-[#6B5B4E]/15 text-sm font-inter">Dismisses skincare entirely as something only women need to worry about</button>
+      </div>
+      <div class="quiz-feedback hidden mt-4 text-sm font-playfair italic"></div>
+    </div>
+
+    <div class="quest-panel mb-8">
+      <h4 class="font-cinzel text-sm text-royal-gold mb-2">Quest: The Ninety-Day Surface</h4>
+      <p class="text-xs text-white/70 mb-3">Begin the three-step skincare routine today. Take a baseline photograph of your face in natural light. Perform the routine twice daily for ninety consecutive days. Photograph again at day ninety. The comparison is your proof.</p>
+      <label class="flex items-center gap-2 cursor-pointer">
+        <input type="checkbox" class="quest-checkbox accent-royal-gold" data-quest="tc-08">
+        <span class="text-xs text-white/80">I began the three-step routine and took my baseline photo</span>
+      </label>
+    </div>
+
+    <button class="absorb-btn w-full py-3 bg-[#6B5B4E] text-white font-cinzel tracking-wider rounded-lg hover:bg-royal-plum transition" data-lesson="8">Mark as Absorbed</button>
+    <div class="gold-divider mt-16"></div>
+  </section>
+
+  <!-- ======== LESSON 09 ======== -->
+  <section id="lesson-09" class="lesson-section max-w-4xl mx-auto px-6 pb-20">
+    <div class="font-cinzel text-xs tracking-[0.3em] text-[#6B5B4E]/40 mb-3">LESSON 09</div>
+    <h2 class="font-cinzel text-2xl md:text-3xl text-royal-plum dark:text-royal-gold mb-2">Hand &amp; Nail Discipline</h2>
+    <p class="font-inter text-xs text-[#6B5B4E]/60 mb-8 tracking-wider">YEAR 1 &bull; THE ARCHITECTURE OF WISDOM</p>
+
+    <div class="mb-8">
+      <h3 class="font-cinzel text-sm text-[#6B5B4E] tracking-wider mb-3">THE RAW INGREDIENT</h3>
+      <div class="bg-royal-sapphire/5 dark:bg-white/5 border border-[#6B5B4E]/10 rounded-xl p-6 text-center cursor-pointer hover:border-[#6B5B4E]/30 transition" onclick="openVerseModal({text:'She shall shave her head and trim her nails.',ref:'Deuteronomy 21:12',context:'This verse occurs within regulations for a captive woman who would be taken as a wife. The instruction to trim nails was part of a purification and transition ritual &mdash; a physical marker of entering a new season. While the context is specific to this situation, the underlying principle is universal in the Levitical framework: trimmed nails represent order, cleanliness, and readiness. Untrimmed nails were associated with mourning, captivity, and an uncivilized state. Nebuchadnezzar, during his season of insanity, grew his nails like claws (Daniel 4:33) &mdash; the text uses nail condition as a visual marker of his departure from human dignity.',crossRefs:['Daniel 4:33','2 Samuel 19:24','Leviticus 14:8-9','Numbers 6:18'],application:'In 2026 Aurora, your hands are the most visible and most used instruments of your body. They shake hands, prepare food, hold documents, gesture during conversation. Their condition speaks before your resume does.'})">
+        <p class="font-playfair italic text-royal-plum dark:text-royal-gold text-lg">&ldquo;She shall shave her head and trim her nails.&rdquo;</p>
+        <p class="text-xs text-royal-sapphire/40 mt-2">&mdash; Deuteronomy 21:12</p>
+        <p class="text-xs text-[#6B5B4E]/50 mt-1">Tap for full context &amp; Hebrew insight</p>
+      </div>
+      <p class="font-inter text-sm text-royal-sapphire/60 dark:text-white/50 mt-4 leading-relaxed"><strong class="text-[#6B5B4E]">Hebrew Root:</strong> <em>asah</em> (&#x05E2;&#x05B8;&#x05E9;&#x05C2;&#x05B8;&#x05D4;) in the context of nails means &ldquo;to make, to do, to attend to.&rdquo; The broader connotation of Daniel 4:33, where Nebuchadnezzar&rsquo;s nails grew &ldquo;like the claws of a bird,&rdquo; uses <em>tsippor</em> (bird) imagery to signal his descent from human order into bestial chaos. The inverse principle holds: maintained nails signal human dignity, order, and self-governance. The king&rsquo;s hands are his instruments of service. Their condition reflects his inner discipline.</p>
+    </div>
+
+    <div class="mb-8">
+      <h3 class="font-cinzel text-sm text-[#6B5B4E] tracking-wider mb-3">THE PREPARATION</h3>
+      <div class="font-inter text-sm text-royal-sapphire/70 dark:text-white/60 leading-relaxed space-y-4">
+        <p>Nebuchadnezzar&rsquo;s story in Daniel 4 is one of the most visceral narratives in Scripture. A king at the height of his power &mdash; ruler of Babylon, conqueror of nations, builder of the Hanging Gardens &mdash; was driven from human society until &ldquo;his hair grew like the feathers of an eagle and his nails like the claws of a bird.&rdquo; The text identifies two physical markers of his descent from royalty to madness: hair and nails. When his sanity was restored, the first thing implied in his return to &ldquo;the glory of my kingdom&rdquo; (Daniel 4:36) was the restoration of his physical presentation. The nails were trimmed. The hair was cut. The temple was restored. Then, and only then, was the authority returned.</p>
+        <p>Mephibosheth, the grandson of Saul, came to David &ldquo;having not trimmed his nails or groomed his mustache from the day the king left until the day he returned safely&rdquo; (2 Samuel 19:24). His unkempt appearance was deliberate mourning &mdash; but the text uses nail and grooming condition as the visible evidence of his inner state. Scripture consistently treats the condition of the hands and nails as a readable diagnostic of the man&rsquo;s inner life. This is not superficial observation. It is biblical anthropology.</p>
+        <p>In every professional and social setting, hands are the primary instrument of connection. The handshake is the Western world&rsquo;s most universal greeting ritual. It conveys confidence, respect, and physical awareness in the space of two seconds. Dirty, ragged, or excessively long nails transmit the opposite message &mdash; and they do so at a subconscious level that no verbal introduction can override. The hiring manager, the client, the pastor, and the potential friend all register the condition of your hands before they process your words. First-impression currency is spent at the fingertips.</p>
+      </div>
+    </div>
+
+    <div class="royal-decree">
+      <p class="font-playfair italic text-royal-plum dark:text-royal-gold text-sm">&ldquo;First-impression currency is spent at the fingertips. Nebuchadnezzar&rsquo;s claws marked his descent from royalty. Your trimmed nails mark your ascent to it.&rdquo;</p>
+    </div>
+
+    <div class="mb-8">
+      <h3 class="font-cinzel text-sm text-[#6B5B4E] tracking-wider mb-3">THE CONSUMPTION</h3>
+      <div class="font-inter text-sm text-royal-sapphire/70 dark:text-white/60 leading-relaxed space-y-4">
+        <p>In 2026 Aurora, dry Colorado winters punish hands with particular severity. The combination of cold outdoor air and heated indoor environments creates a cycle of dehydration that cracks skin, splits cuticles, and makes hands look decades older than the face they belong to. A basic hand cream &mdash; O&rsquo;Keeffe&rsquo;s Working Hands, available at every King Soopers and Walmart in Aurora for under eight dollars &mdash; applied twice daily (morning and before bed) prevents cracking and maintains the skin&rsquo;s moisture barrier. Keep a small tube in your car, your desk, and your nightstand.</p>
+        <p>For nail care, the protocol is weekly. Every Sunday evening, trim your nails straight across with a quality nail clipper (Tweezerman or Harperton, under ten dollars, available at Target Aurora). File any sharp edges with a fine-grit emery board. Push cuticles back gently with a cuticle stick after showering, when they are soft. Clean under the nails with the same cuticle stick or a dedicated nail brush. The entire process takes five minutes once per week. The handshake standard is simple: if you would be embarrassed for a potential employer, a pastor, or a future spouse to see your hands up close, something needs immediate attention. The standard is not manicured perfection. It is clean, trimmed, maintained discipline visible at arm&rsquo;s length.</p>
+      </div>
+    </div>
+
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-5 my-10">
+      <div class="card-parchment border border-[#6B5B4E]/10 rounded-xl p-6">
+        <div class="font-cinzel text-xs text-[#6B5B4E] tracking-widest mb-2">WEEKLY</div>
+        <h4 class="font-cinzel text-sm text-royal-plum dark:text-royal-gold mb-2">Sunday Nail Trim</h4>
+        <p class="text-xs text-royal-sapphire/60 dark:text-white/50 leading-relaxed">Trim straight across, file edges, push cuticles, clean underneath. Five minutes every Sunday evening. Set a recurring reminder.</p>
+      </div>
+      <div class="card-parchment border border-[#6B5B4E]/10 rounded-xl p-6">
+        <div class="font-cinzel text-xs text-[#6B5B4E] tracking-widest mb-2">DAILY</div>
+        <h4 class="font-cinzel text-sm text-royal-plum dark:text-royal-gold mb-2">Hand Cream Twice</h4>
+        <p class="text-xs text-royal-sapphire/60 dark:text-white/50 leading-relaxed">O&rsquo;Keeffe&rsquo;s Working Hands. Morning and before bed. Under eight dollars. Prevents cracking in Colorado&rsquo;s dry winter assault.</p>
+      </div>
+      <div class="card-parchment border border-[#6B5B4E]/10 rounded-xl p-6">
+        <div class="font-cinzel text-xs text-[#6B5B4E] tracking-widest mb-2">DIAGNOSTIC</div>
+        <h4 class="font-cinzel text-sm text-royal-plum dark:text-royal-gold mb-2">The Handshake Test</h4>
+        <p class="text-xs text-royal-sapphire/60 dark:text-white/50 leading-relaxed">Would you be comfortable shaking hands with your pastor or a hiring manager right now? If not, the hands need immediate attention.</p>
+      </div>
+      <div class="card-parchment border border-[#6B5B4E]/10 rounded-xl p-6">
+        <div class="font-cinzel text-xs text-[#6B5B4E] tracking-widest mb-2">WARNING</div>
+        <h4 class="font-cinzel text-sm text-royal-plum dark:text-royal-gold mb-2">Nebuchadnezzar&rsquo;s Lesson</h4>
+        <p class="text-xs text-royal-sapphire/60 dark:text-white/50 leading-relaxed">When the king of Babylon lost his mind, the evidence appeared in his nails. The condition of your extremities reveals the condition of your governance.</p>
+      </div>
+    </div>
+
+    <div class="mb-8">
+      <h3 class="font-cinzel text-lg text-royal-plum dark:text-royal-gold mb-4">Practical Steps</h3>
+      <ul class="space-y-3 text-sm font-inter text-royal-sapphire/70 dark:text-white/60">
+        <li class="flex gap-3"><span class="text-[#6B5B4E] font-cinzel">I.</span> Look at your hands right now. Grade their condition honestly: nails trimmed, cuticles managed, skin hydrated, no dirt under the nails. Write the grade in your journal.</li>
+        <li class="flex gap-3"><span class="text-[#6B5B4E] font-cinzel">II.</span> Purchase O&rsquo;Keeffe&rsquo;s Working Hands and a quality nail clipper this week. Place the hand cream by your bed and in your car.</li>
+        <li class="flex gap-3"><span class="text-[#6B5B4E] font-cinzel">III.</span> Set a recurring Sunday evening reminder: &ldquo;Temple maintenance &mdash; nails.&rdquo; Five minutes per week. Build it into your weekly rhythm permanently.</li>
+      </ul>
+    </div>
+
+    <div class="bg-white dark:bg-royal-sapphire/20 border border-[#6B5B4E]/10 rounded-xl p-6 mb-8">
+      <p class="font-playfair italic text-royal-plum dark:text-royal-gold text-sm mb-4">&ldquo;If someone photographed your hands right now and posted the image publicly, would you feel confident or exposed? What does the gap between those two feelings tell you?&rdquo;</p>
+      <textarea rows="3" placeholder="Write your reflection..." class="w-full px-4 py-3 rounded-lg border border-[#6B5B4E]/20 bg-royal-cream/50 dark:bg-white/5 font-inter text-sm focus:outline-none focus:border-[#6B5B4E] resize-none"></textarea>
+      <button data-prompt="Would you be confident if your hands were photographed right now?" class="journal-save-btn mt-2 px-4 py-2 bg-[#6B5B4E] text-white text-xs font-cinzel rounded-lg hover:bg-royal-plum transition">Save to Journal</button>
+    </div>
+
+    <div class="quiz-block bg-white dark:bg-royal-sapphire/20 border border-[#6B5B4E]/10 rounded-xl p-6 mb-8">
+      <h4 class="font-cinzel text-sm text-[#6B5B4E] mb-4">Counsel from the Throne</h4>
+      <p class="font-playfair italic text-royal-plum dark:text-royal-gold text-sm mb-5">&ldquo;It is mid-January in Colorado. Your hands are cracked, dry, and bleeding at the knuckles. A king:&rdquo;</p>
+      <div class="space-y-2">
+        <button data-correct="false" class="quiz-option w-full text-left px-4 py-3 rounded-lg border border-[#6B5B4E]/15 text-sm font-inter">Accepts it as inevitable winter damage &mdash; everyone&rsquo;s hands look like this in Colorado</button>
+        <button data-correct="false" class="quiz-option w-full text-left px-4 py-3 rounded-lg border border-[#6B5B4E]/15 text-sm font-inter">Hides his hands in his pockets during meetings and handshakes</button>
+        <button data-correct="true" class="quiz-option w-full text-left px-4 py-3 rounded-lg border border-[#6B5B4E]/15 text-sm font-inter">Applies O&rsquo;Keeffe&rsquo;s Working Hands three times daily, wears cotton gloves to bed after heavy application, and addresses the root cause rather than hiding the symptom</button>
+      </div>
+      <div class="quiz-feedback hidden mt-4 text-sm font-playfair italic"></div>
+    </div>
+
+    <div class="quest-panel mb-8">
+      <h4 class="font-cinzel text-sm text-royal-gold mb-2">Quest: The Sunday Ritual</h4>
+      <p class="text-xs text-white/70 mb-3">This Sunday evening, perform the full nail care protocol: trim, file, push cuticles, clean underneath, apply hand cream. Repeat every Sunday for four consecutive weeks. By the fifth week, the habit will be automatic.</p>
+      <label class="flex items-center gap-2 cursor-pointer">
+        <input type="checkbox" class="quest-checkbox accent-royal-gold" data-quest="tc-09">
+        <span class="text-xs text-white/80">I completed four consecutive Sunday nail care rituals</span>
+      </label>
+    </div>
+
+    <button class="absorb-btn w-full py-3 bg-[#6B5B4E] text-white font-cinzel tracking-wider rounded-lg hover:bg-royal-plum transition" data-lesson="9">Mark as Absorbed</button>
+    <div class="gold-divider mt-16"></div>
+  </section>
+
+  <!-- ======== LESSON 10 ======== -->
+  <section id="lesson-10" class="lesson-section max-w-4xl mx-auto px-6 pb-20">
+    <div class="font-cinzel text-xs tracking-[0.3em] text-[#6B5B4E]/40 mb-3">LESSON 10</div>
+    <h2 class="font-cinzel text-2xl md:text-3xl text-royal-plum dark:text-royal-gold mb-2">Full Temple Routine</h2>
+    <p class="font-inter text-xs text-[#6B5B4E]/60 mb-8 tracking-wider">YEAR 1 &bull; THE ARCHITECTURE OF WISDOM</p>
+
+    <div class="mb-8">
+      <h3 class="font-cinzel text-sm text-[#6B5B4E] tracking-wider mb-3">THE RAW INGREDIENT</h3>
+      <div class="bg-royal-sapphire/5 dark:bg-white/5 border border-[#6B5B4E]/10 rounded-xl p-6 text-center cursor-pointer hover:border-[#6B5B4E]/30 transition" onclick="openVerseModal({text:'As iron sharpens iron, so one person sharpens another.',ref:'Proverbs 27:17',context:'Solomon uses the metalworking metaphor to describe mutual refinement. Iron against iron produces friction, heat, and ultimately a sharper edge. The routine is the daily friction that sharpens the man. Without it, the blade dulls. Each component of the morning and evening routine &mdash; washing, moisturizing, grooming the hair, cleaning the teeth, dressing with intention &mdash; is a stroke of the whetstone against the instrument. The sharper the instrument, the more effective the service.',crossRefs:['Proverbs 20:11','Proverbs 22:29','Daniel 1:15','1 Timothy 4:7'],application:'In 2026 Aurora, the morning routine is the foundational framework on which the entire day rests. A disciplined morning produces a disciplined man. The routine is not about products &mdash; it is about the architecture of consistent self-governance.'})">
+        <p class="font-playfair italic text-royal-plum dark:text-royal-gold text-lg">&ldquo;As iron sharpens iron, so one person sharpens another.&rdquo;</p>
+        <p class="text-xs text-royal-sapphire/40 mt-2">&mdash; Proverbs 27:17</p>
+        <p class="text-xs text-[#6B5B4E]/50 mt-1">Tap for full context &amp; Hebrew insight</p>
+      </div>
+      <p class="font-inter text-sm text-royal-sapphire/60 dark:text-white/50 mt-4 leading-relaxed"><strong class="text-[#6B5B4E]">Hebrew Root:</strong> <em>chadad</em> (&#x05D7;&#x05B8;&#x05D3;&#x05B7;&#x05D3;) &mdash; to be sharp, to sharpen, to hone. The word implies repetitive, friction-based refinement. Iron does not become sharp from a single stroke. It requires consistent, daily application of pressure at the correct angle. This is the precise metaphor for the grooming routine: daily repetition, consistent pressure, correct technique. The compound effect over months and years transforms the man into a refined instrument.</p>
+    </div>
+
+    <div class="mb-8">
+      <h3 class="font-cinzel text-sm text-[#6B5B4E] tracking-wider mb-3">THE PREPARATION</h3>
+      <div class="font-inter text-sm text-royal-sapphire/70 dark:text-white/60 leading-relaxed space-y-4">
+        <p>Daniel and his three companions were subjected to a three-year training program in Babylon that included regulated diet, grooming standards, and physical preparation to &ldquo;stand before the king&rdquo; (Daniel 1:5). At the end of the program, &ldquo;none was found equal to Daniel, Hananiah, Mishael, and Azariah&rdquo; (Daniel 1:19). The text attributes their superiority to their adherence to God&rsquo;s standards, but it manifests through their physical presentation: &ldquo;they looked healthier and better nourished than any of the young men who ate the royal food&rdquo; (Daniel 1:15). The routine produced the result. The discipline produced the distinction.</p>
+        <p>The morning routine is the framework on which the day is built. Every architect understands that the foundation determines the structure. If the first thirty minutes of the day are chaotic, reactive, and undisciplined, the remaining sixteen hours inherit that pattern. Conversely, a structured morning routine &mdash; performed in the same order, at the same time, with the same tools &mdash; creates a predictable foundation of order from which the unpredictable challenges of the day can be met with composure. The routine is not about the products. It is about the architecture of consistent self-governance.</p>
+        <p>The evening routine carries equal weight. Just as the Levitical priests performed evening sacrifices (Exodus 29:39-41) and evening washing, the king closes his day with intentional care. The evening routine removes the day&rsquo;s physical and environmental residue, prepares the skin and body for the restorative work of sleep, and provides a structured transition from activity to rest. A man who collapses into bed unwashed, with teeth unbrushed and the day&rsquo;s grime still on his skin, does not honor the temple that served him all day. He treats it like a machine to be used and discarded, not a dwelling place to be maintained.</p>
+      </div>
+    </div>
+
+    <div class="royal-decree">
+      <p class="font-playfair italic text-royal-plum dark:text-royal-gold text-sm">&ldquo;The morning routine is the foundation. If the first thirty minutes are chaotic, the remaining sixteen hours inherit the chaos. Structure the opening, and the day follows.&rdquo;</p>
+    </div>
+
+    <div class="mb-8">
+      <h3 class="font-cinzel text-sm text-[#6B5B4E] tracking-wider mb-3">THE CONSUMPTION</h3>
+      <div class="font-inter text-sm text-royal-sapphire/70 dark:text-white/60 leading-relaxed space-y-4">
+        <p>In 2026 Aurora, the full temple routine fits into twenty minutes morning and fifteen minutes evening. The morning five-step: (1) Wash your face with CeraVe cleanser, (2) Apply CeraVe AM moisturizer with SPF 30, (3) Style your hair with minimal product &mdash; three minutes maximum, (4) Brush teeth for two minutes with an electric toothbrush, (5) Dress with intention &mdash; clothes laid out the night before. That is the architecture. No step exceeds five minutes. No step requires expensive products. Every step has been covered in the preceding lessons. The routine is simply the integration of individual disciplines into a unified daily practice.</p>
+        <p>The evening four-step: (1) Shower &mdash; warm water, Dr. Bronner&rsquo;s, cold finish, seven minutes maximum, (2) Apply CeraVe cleanser and moisturizer to the face, beard oil if applicable, (3) Brush teeth, floss, alcohol-free mouthwash, (4) Journal &mdash; even two sentences about the day, what you learned, what you will improve tomorrow. The journal step is not optional. Proverbs 27:17 works because reflection is the friction that sharpens. Without reflection, the routine becomes mechanical repetition that produces no growth. With reflection, every day refines the instrument. Write it down. The king who journals governs his days. The king who does not is governed by them.</p>
+      </div>
+    </div>
+
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-5 my-10">
+      <div class="card-parchment border border-[#6B5B4E]/10 rounded-xl p-6">
+        <div class="font-cinzel text-xs text-[#6B5B4E] tracking-widest mb-2">MORNING</div>
+        <h4 class="font-cinzel text-sm text-royal-plum dark:text-royal-gold mb-2">The Five-Step Opening</h4>
+        <p class="text-xs text-royal-sapphire/60 dark:text-white/50 leading-relaxed">Wash face, moisturize with SPF, style hair, brush teeth, dress intentionally. Twenty minutes. Non-negotiable regardless of schedule pressure.</p>
+      </div>
+      <div class="card-parchment border border-[#6B5B4E]/10 rounded-xl p-6">
+        <div class="font-cinzel text-xs text-[#6B5B4E] tracking-widest mb-2">EVENING</div>
+        <h4 class="font-cinzel text-sm text-royal-plum dark:text-royal-gold mb-2">The Four-Step Closing</h4>
+        <p class="text-xs text-royal-sapphire/60 dark:text-white/50 leading-relaxed">Shower, skin care, teeth and floss, journal. Fifteen minutes. The evening sacrifice that closes the day with order and prepares for restorative sleep.</p>
+      </div>
+      <div class="card-parchment border border-[#6B5B4E]/10 rounded-xl p-6">
+        <div class="font-cinzel text-xs text-[#6B5B4E] tracking-widest mb-2">COMPOUND</div>
+        <h4 class="font-cinzel text-sm text-royal-plum dark:text-royal-gold mb-2">The Iron Effect</h4>
+        <p class="text-xs text-royal-sapphire/60 dark:text-white/50 leading-relaxed">One stroke does not sharpen iron. Daily repetition over months produces the edge. Consistency is the sharpening agent. Products are merely the tools.</p>
+      </div>
+      <div class="card-parchment border border-[#6B5B4E]/10 rounded-xl p-6">
+        <div class="font-cinzel text-xs text-[#6B5B4E] tracking-widest mb-2">REFLECTION</div>
+        <h4 class="font-cinzel text-sm text-royal-plum dark:text-royal-gold mb-2">Journal as Whetstone</h4>
+        <p class="text-xs text-royal-sapphire/60 dark:text-white/50 leading-relaxed">Without reflection, routine is mechanical repetition. With reflection, every day refines the instrument. Two sentences minimum. Every evening.</p>
+      </div>
+    </div>
+
+    <div class="mb-8">
+      <h3 class="font-cinzel text-lg text-royal-plum dark:text-royal-gold mb-4">Practical Steps</h3>
+      <ul class="space-y-3 text-sm font-inter text-royal-sapphire/70 dark:text-white/60">
+        <li class="flex gap-3"><span class="text-[#6B5B4E] font-cinzel">I.</span> Write the five morning steps and four evening steps on a card. Place it on your bathroom mirror. Follow it exactly for fourteen consecutive days until the sequence is automatic.</li>
+        <li class="flex gap-3"><span class="text-[#6B5B4E] font-cinzel">II.</span> Lay out tomorrow&rsquo;s clothes tonight before you begin the evening routine. This eliminates the most common morning time-waster and integrates dressing into the architecture.</li>
+        <li class="flex gap-3"><span class="text-[#6B5B4E] font-cinzel">III.</span> Begin the evening journal tonight. Two sentences: what did you learn today, and what will you sharpen tomorrow? The habit compounds faster than any product you apply to your skin.</li>
+      </ul>
+    </div>
+
+    <div class="bg-white dark:bg-royal-sapphire/20 border border-[#6B5B4E]/10 rounded-xl p-6 mb-8">
+      <p class="font-playfair italic text-royal-plum dark:text-royal-gold text-sm mb-4">&ldquo;What does your current morning look like from the moment the alarm sounds until you leave the door? Is it an architecture or an accident?&rdquo;</p>
+      <textarea rows="3" placeholder="Write your reflection..." class="w-full px-4 py-3 rounded-lg border border-[#6B5B4E]/20 bg-royal-cream/50 dark:bg-white/5 font-inter text-sm focus:outline-none focus:border-[#6B5B4E] resize-none"></textarea>
+      <button data-prompt="Is your current morning routine an architecture or an accident?" class="journal-save-btn mt-2 px-4 py-2 bg-[#6B5B4E] text-white text-xs font-cinzel rounded-lg hover:bg-royal-plum transition">Save to Journal</button>
+    </div>
+
+    <div class="quiz-block bg-white dark:bg-royal-sapphire/20 border border-[#6B5B4E]/10 rounded-xl p-6 mb-8">
+      <h4 class="font-cinzel text-sm text-[#6B5B4E] mb-4">Counsel from the Throne</h4>
+      <p class="font-playfair italic text-royal-plum dark:text-royal-gold text-sm mb-5">&ldquo;You have followed the morning routine perfectly for six days. On day seven, you feel exhausted and want to skip it. A king:&rdquo;</p>
+      <div class="space-y-2">
+        <button data-correct="false" class="quiz-option w-full text-left px-4 py-3 rounded-lg border border-[#6B5B4E]/15 text-sm font-inter">Skips the routine because rest is also important and one day off will not matter</button>
+        <button data-correct="true" class="quiz-option w-full text-left px-4 py-3 rounded-lg border border-[#6B5B4E]/15 text-sm font-inter">Performs the routine anyway, even imperfectly, because consistency on hard days is where the iron is actually sharpened &mdash; easy days build nothing</button>
+        <button data-correct="false" class="quiz-option w-full text-left px-4 py-3 rounded-lg border border-[#6B5B4E]/15 text-sm font-inter">Extends the routine to make up for potential future missed days</button>
+      </div>
+      <div class="quiz-feedback hidden mt-4 text-sm font-playfair italic"></div>
+    </div>
+
+    <div class="quest-panel mb-8">
+      <h4 class="font-cinzel text-sm text-royal-gold mb-2">Quest: The Fourteen-Day Architecture</h4>
+      <p class="text-xs text-white/70 mb-3">Follow the full morning and evening routine for fourteen consecutive days. Write the routine card, place it on your mirror, and check off each day. After fourteen days, the architecture will begin to feel like home.</p>
+      <label class="flex items-center gap-2 cursor-pointer">
+        <input type="checkbox" class="quest-checkbox accent-royal-gold" data-quest="tc-10">
+        <span class="text-xs text-white/80">I completed fourteen consecutive days of the full routine</span>
+      </label>
+    </div>
+
+    <button class="absorb-btn w-full py-3 bg-[#6B5B4E] text-white font-cinzel tracking-wider rounded-lg hover:bg-royal-plum transition" data-lesson="10">Mark as Absorbed</button>
+    <div class="gold-divider mt-16"></div>
+  </section>
+
+  <!-- ======== LESSON 11 ======== -->
+  <section id="lesson-11" class="lesson-section max-w-4xl mx-auto px-6 pb-20">
+    <div class="font-cinzel text-xs tracking-[0.3em] text-[#6B5B4E]/40 mb-3">LESSON 11</div>
+    <h2 class="font-cinzel text-2xl md:text-3xl text-royal-plum dark:text-royal-gold mb-2">Travel Grooming Kits</h2>
+    <p class="font-inter text-xs text-[#6B5B4E]/60 mb-8 tracking-wider">YEAR 1 &bull; THE ARCHITECTURE OF WISDOM</p>
+
+    <div class="mb-8">
+      <h3 class="font-cinzel text-sm text-[#6B5B4E] tracking-wider mb-3">THE RAW INGREDIENT</h3>
+      <div class="bg-royal-sapphire/5 dark:bg-white/5 border border-[#6B5B4E]/10 rounded-xl p-6 text-center cursor-pointer hover:border-[#6B5B4E]/30 transition" onclick="openVerseModal({text:'Get your provisions ready. Three days from now you will cross the Jordan here to go in and take possession of the land the Lord your God is giving you for your own.',ref:'Joshua 1:11',context:'Joshua spoke these words to the officers of Israel as they prepared to cross the Jordan and enter the Promised Land. The Hebrew tsedah (provisions) refers to food, supplies, and everything needed for the journey ahead. God had already promised the land &mdash; but the people still had to prepare their provisions. Divine promise does not eliminate human preparation. The same principle applies to travel: the destination may be blessed, but the king arrives prepared. His provisions &mdash; grooming supplies included &mdash; are packed before the journey begins, not improvised upon arrival.',crossRefs:['Genesis 42:25','Judges 7:8','1 Samuel 17:22','Proverbs 6:8'],application:'In 2026 Colorado, you are thirty minutes from Denver International Airport. Whether flying to a business meeting or driving I-70 to the mountains, the travel grooming kit ensures you arrive at your destination with the temple intact.'})">
+        <p class="font-playfair italic text-royal-plum dark:text-royal-gold text-lg">&ldquo;Get your provisions ready. Three days from now you will cross the Jordan here to go in and take possession of the land.&rdquo;</p>
+        <p class="text-xs text-royal-sapphire/40 mt-2">&mdash; Joshua 1:11</p>
+        <p class="text-xs text-[#6B5B4E]/50 mt-1">Tap for full context &amp; Hebrew insight</p>
+      </div>
+      <p class="font-inter text-sm text-royal-sapphire/60 dark:text-white/50 mt-4 leading-relaxed"><strong class="text-[#6B5B4E]">Hebrew Root:</strong> <em>tsedah</em> (&#x05E6;&#x05B5;&#x05D3;&#x05B8;&#x05D4;) &mdash; provisions, food for a journey, travel supplies. Derived from the verb <em>tsud</em>, meaning to hunt or to catch &mdash; implying that provisions require active preparation, not passive assumption. The king does not assume his needs will be met upon arrival. He prepares his supplies before departure. <em>Tsedah</em> transforms travel from reactive improvisation into proactive stewardship.</p>
+    </div>
+
+    <div class="mb-8">
+      <h3 class="font-cinzel text-sm text-[#6B5B4E] tracking-wider mb-3">THE PREPARATION</h3>
+      <div class="font-inter text-sm text-royal-sapphire/70 dark:text-white/60 leading-relaxed space-y-4">
+        <p>Throughout Scripture, preparation for travel is treated as a matter of wisdom and responsibility. Joseph sent his brothers home with provisions (Genesis 42:25). David left his provisions with a keeper before running to the battlefield (1 Samuel 17:22). Gideon&rsquo;s three hundred warriors carried provisions alongside their weapons (Judges 7:8). The ant stores provisions in summer for the winter ahead (Proverbs 6:8). The consistent pattern: the wise man prepares before the need arises. The fool improvises when the need is already upon him.</p>
+        <p>Travel disrupts every routine. The hotel does not carry your shampoo. The airport does not have your beard oil. The mountain cabin does not stock your moisturizer. The man who arrives without provisions is forced to use whatever is available &mdash; which is typically commercial-grade products loaded with the very sulfates, parabens, and synthetic chemicals he has spent months eliminating from his routine. A single weekend trip can undo weeks of consistent temple care if the provisions are not prepared in advance.</p>
+        <p>The solution is a permanent travel kit &mdash; packed, TSA-compliant, and stored in a location where it can be grabbed in under thirty seconds. Not assembled the night before each trip (you will forget something). Not improvised at the airport Hudson News (you will overpay for inferior products). A permanent kit that mirrors your home routine in miniature, always ready, always complete. The king who prepares his provisions crosses the Jordan without anxiety. He arrives at his destination with the temple intact.</p>
+      </div>
+    </div>
+
+    <div class="royal-decree">
+      <p class="font-playfair italic text-royal-plum dark:text-royal-gold text-sm">&ldquo;Never arrive disheveled. The king who prepares his provisions crosses the Jordan without anxiety. His temple remains intact regardless of geography.&rdquo;</p>
+    </div>
+
+    <div class="mb-8">
+      <h3 class="font-cinzel text-sm text-[#6B5B4E] tracking-wider mb-3">THE CONSUMPTION</h3>
+      <div class="font-inter text-sm text-royal-sapphire/70 dark:text-white/60 leading-relaxed space-y-4">
+        <p>In 2026, Aurora sits thirty minutes east of Denver International Airport along Pena Boulevard. Whether you are flying to a business conference, driving I-70 west to Vail or Breckenridge for a weekend, or taking a road trip through the I-25 corridor, the travel kit follows you. Here is the complete TSA-compliant inventory: travel-size Dr. Bronner&rsquo;s castile soap (two ounces, available at Whole Foods), travel-size deodorant (Native sells a mini for five dollars at Target), travel toothbrush and small toothpaste (Colgate travel kits under three dollars at King Soopers), travel-size CeraVe moisturizer, a small comb, nail clippers, and one cologne sample or decant. All liquids must be under 3.4 ounces and fit in a single quart-sized clear bag.</p>
+        <p>The I-70 emergency kit is a separate preparation for those who drive Colorado&rsquo;s mountain corridors regularly. A gallon-sized zip bag containing wet wipes (unscented), hand cream, a spare stick of deodorant, a toothbrush, and a travel-size mouthwash stays permanently in the glove compartment or center console. I-70 delays, Eisenhower Tunnel closures, and unexpected overnight stays in mountain towns happen with regularity. The Denver International pre-flight routine is equally structured: arrive at the airport with the kit in your carry-on, use the restroom before boarding to wash your face and apply moisturizer, apply deodorant, brush teeth if the flight exceeds three hours, and arrive at your destination as if you stepped out of your own bathroom. Never arrive disheveled. The temple travels with the king.</p>
+      </div>
+    </div>
+
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-5 my-10">
+      <div class="card-parchment border border-[#6B5B4E]/10 rounded-xl p-6">
+        <div class="font-cinzel text-xs text-[#6B5B4E] tracking-widest mb-2">AIR TRAVEL</div>
+        <h4 class="font-cinzel text-sm text-royal-plum dark:text-royal-gold mb-2">TSA-Compliant Kit</h4>
+        <p class="text-xs text-royal-sapphire/60 dark:text-white/50 leading-relaxed">All liquids under 3.4 oz. Dr. Bronner&rsquo;s travel, Native mini, CeraVe travel, cologne sample. Pre-packed, always ready, never assembled last-minute.</p>
+      </div>
+      <div class="card-parchment border border-[#6B5B4E]/10 rounded-xl p-6">
+        <div class="font-cinzel text-xs text-[#6B5B4E] tracking-widest mb-2">MOUNTAIN</div>
+        <h4 class="font-cinzel text-sm text-royal-plum dark:text-royal-gold mb-2">The I-70 Emergency Kit</h4>
+        <p class="text-xs text-royal-sapphire/60 dark:text-white/50 leading-relaxed">Wet wipes, hand cream, spare deodorant, travel toothbrush, mouthwash. Lives permanently in the car. Colorado mountain delays demand preparation.</p>
+      </div>
+      <div class="card-parchment border border-[#6B5B4E]/10 rounded-xl p-6">
+        <div class="font-cinzel text-xs text-[#6B5B4E] tracking-widest mb-2">ARRIVAL</div>
+        <h4 class="font-cinzel text-sm text-royal-plum dark:text-royal-gold mb-2">Pre-Flight Refresh</h4>
+        <p class="text-xs text-royal-sapphire/60 dark:text-white/50 leading-relaxed">Use the DEN restroom before boarding. Wash face, moisturize, deodorant. Arrive at your destination as if you stepped out of your own bathroom.</p>
+      </div>
+      <div class="card-parchment border border-[#6B5B4E]/10 rounded-xl p-6">
+        <div class="font-cinzel text-xs text-[#6B5B4E] tracking-widest mb-2">PRINCIPLE</div>
+        <h4 class="font-cinzel text-sm text-royal-plum dark:text-royal-gold mb-2">Permanent, Not Improvised</h4>
+        <p class="text-xs text-royal-sapphire/60 dark:text-white/50 leading-relaxed">The kit stays packed at all times. When a trip arises, you grab it. Thirty seconds. No forgotten items, no airport markups, no compromised standards.</p>
+      </div>
+    </div>
+
+    <div class="mb-8">
+      <h3 class="font-cinzel text-lg text-royal-plum dark:text-royal-gold mb-4">Practical Steps</h3>
+      <ul class="space-y-3 text-sm font-inter text-royal-sapphire/70 dark:text-white/60">
+        <li class="flex gap-3"><span class="text-[#6B5B4E] font-cinzel">I.</span> Assemble your TSA-compliant travel kit this weekend. Purchase travel-size versions of your daily products at Target or King Soopers. Pack them in a clear quart bag. Store the bag in a designated location.</li>
+        <li class="flex gap-3"><span class="text-[#6B5B4E] font-cinzel">II.</span> Assemble the I-70 emergency kit in a gallon zip bag. Place it in your car&rsquo;s glove compartment or center console today. Replace the contents every six months.</li>
+        <li class="flex gap-3"><span class="text-[#6B5B4E] font-cinzel">III.</span> Before your next trip, practice the DEN pre-flight routine at home: wash face in the bathroom, apply moisturizer, deodorant, brush teeth. Time it. It should take under five minutes.</li>
+      </ul>
+    </div>
+
+    <div class="bg-white dark:bg-royal-sapphire/20 border border-[#6B5B4E]/10 rounded-xl p-6 mb-8">
+      <p class="font-playfair italic text-royal-plum dark:text-royal-gold text-sm mb-4">&ldquo;When was the last time you arrived at a destination looking less than your standard? What provisions would have prevented that? What does Joshua 1:11 teach you about preparation?&rdquo;</p>
+      <textarea rows="3" placeholder="Write your reflection..." class="w-full px-4 py-3 rounded-lg border border-[#6B5B4E]/20 bg-royal-cream/50 dark:bg-white/5 font-inter text-sm focus:outline-none focus:border-[#6B5B4E] resize-none"></textarea>
+      <button data-prompt="When did you last arrive somewhere below your grooming standard?" class="journal-save-btn mt-2 px-4 py-2 bg-[#6B5B4E] text-white text-xs font-cinzel rounded-lg hover:bg-royal-plum transition">Save to Journal</button>
+    </div>
+
+    <div class="quiz-block bg-white dark:bg-royal-sapphire/20 border border-[#6B5B4E]/10 rounded-xl p-6 mb-8">
+      <h4 class="font-cinzel text-sm text-[#6B5B4E] mb-4">Counsel from the Throne</h4>
+      <p class="font-playfair italic text-royal-plum dark:text-royal-gold text-sm mb-5">&ldquo;A friend invites you on a last-minute overnight trip leaving in two hours. You need to pack grooming supplies. A king:&rdquo;</p>
+      <div class="space-y-2">
+        <button data-correct="true" class="quiz-option w-full text-left px-4 py-3 rounded-lg border border-[#6B5B4E]/15 text-sm font-inter">Grabs his pre-packed travel kit in thirty seconds and is ready to depart &mdash; because the provisions were prepared before the call came</button>
+        <button data-correct="false" class="quiz-option w-full text-left px-4 py-3 rounded-lg border border-[#6B5B4E]/15 text-sm font-inter">Spends forty-five minutes gathering products, forgets the deodorant, and hopes the hotel has decent shampoo</button>
+        <button data-correct="false" class="quiz-option w-full text-left px-4 py-3 rounded-lg border border-[#6B5B4E]/15 text-sm font-inter">Declines the trip because he needs more time to prepare</button>
+      </div>
+      <div class="quiz-feedback hidden mt-4 text-sm font-playfair italic"></div>
+    </div>
+
+    <div class="quest-panel mb-8">
+      <h4 class="font-cinzel text-sm text-royal-gold mb-2">Quest: The Provisions Kit</h4>
+      <p class="text-xs text-white/70 mb-3">Assemble both kits this weekend &mdash; the TSA travel kit and the I-70 car kit. Photograph them packed and ready. Store them in their designated locations. The provisions are prepared before the journey is announced.</p>
+      <label class="flex items-center gap-2 cursor-pointer">
+        <input type="checkbox" class="quest-checkbox accent-royal-gold" data-quest="tc-11">
+        <span class="text-xs text-white/80">I assembled and stored both travel kits</span>
+      </label>
+    </div>
+
+    <button class="absorb-btn w-full py-3 bg-[#6B5B4E] text-white font-cinzel tracking-wider rounded-lg hover:bg-royal-plum transition" data-lesson="11">Mark as Absorbed</button>
+    <div class="gold-divider mt-16"></div>
+  </section>
+
+  <!-- ======== LESSON 12 ======== -->
+  <section id="lesson-12" class="lesson-section max-w-4xl mx-auto px-6 pb-20">
+    <div class="font-cinzel text-xs tracking-[0.3em] text-[#6B5B4E]/40 mb-3">LESSON 12</div>
+    <h2 class="font-cinzel text-2xl md:text-3xl text-royal-plum dark:text-royal-gold mb-2">Fitness as Worship</h2>
+    <p class="font-inter text-xs text-[#6B5B4E]/60 mb-8 tracking-wider">YEAR 1 &bull; THE ARCHITECTURE OF WISDOM</p>
+
+    <div class="mb-8">
+      <h3 class="font-cinzel text-sm text-[#6B5B4E] tracking-wider mb-3">THE RAW INGREDIENT</h3>
+      <div class="bg-royal-sapphire/5 dark:bg-white/5 border border-[#6B5B4E]/10 rounded-xl p-6 text-center cursor-pointer hover:border-[#6B5B4E]/30 transition" onclick="openVerseModal({text:'For physical training is of some value, but godliness has value for all things, holding promise for both the present life and the life to come.',ref:'1 Timothy 4:8',context:'Paul does not dismiss physical training &mdash; he affirms its value. The Greek gymnasia (from which we derive gymnasium) referred to athletic training, exercise, and bodily discipline. Paul&rsquo;s statement is comparative, not dismissive: godliness holds greater value, but physical training holds real value. The man who uses this verse to justify physical neglect has misread the text. Paul trained his own body rigorously, using athletic metaphors throughout his letters &mdash; running, boxing, disciplining the body &mdash; because he understood that the body is the vehicle through which godliness is expressed in the physical world.',crossRefs:['1 Corinthians 9:27','Hebrews 12:1','Romans 12:1','1 Corinthians 6:20'],application:'In 2026 Colorado, with three hundred days of sunshine, trails in every direction, and fitness facilities throughout Aurora, physical training is an act of worship. The body is God&rsquo;s temple and His instrument. Maintain the instrument.'})">
+        <p class="font-playfair italic text-royal-plum dark:text-royal-gold text-lg">&ldquo;For physical training is of some value, but godliness has value for all things, holding promise for both the present life and the life to come.&rdquo;</p>
+        <p class="text-xs text-royal-sapphire/40 mt-2">&mdash; 1 Timothy 4:8</p>
+        <p class="text-xs text-[#6B5B4E]/50 mt-1">Tap for full context &amp; Greek insight</p>
+      </div>
+      <p class="font-inter text-sm text-royal-sapphire/60 dark:text-white/50 mt-4 leading-relaxed"><strong class="text-[#6B5B4E]">Greek Root:</strong> <em>gymnasia</em> (&#x03B3;&#x03C5;&#x03BC;&#x03BD;&#x03B1;&#x03C3;&#x03AF;&#x03B1;) &mdash; bodily exercise, athletic training. The root <em>gymnos</em> means &ldquo;naked,&rdquo; because Greek athletes trained unclothed. Paul uses this culturally loaded term to acknowledge that physical discipline &mdash; strength, endurance, cardiovascular health &mdash; holds legitimate value. The same Paul who wrote this verse also wrote, &ldquo;I discipline my body and keep it under control&rdquo; (1 Corinthians 9:27). He was not an armchair theologian dismissing the body. He was a man who trained it and subordinated it to purpose.</p>
+    </div>
+
+    <div class="mb-8">
+      <h3 class="font-cinzel text-sm text-[#6B5B4E] tracking-wider mb-3">THE PREPARATION</h3>
+      <div class="font-inter text-sm text-royal-sapphire/70 dark:text-white/60 leading-relaxed space-y-4">
+        <p>The Bible is filled with physically formidable men who served God through their strength. David killed a lion and a bear with his hands before he ever faced Goliath (1 Samuel 17:34-36). Samson&rsquo;s strength, though supernaturally empowered, required a body capable of channeling it. Caleb, at eighty-five years old, declared, &ldquo;I am still as strong today as the day Moses sent me out&rdquo; (Joshua 14:11) and requested the most challenging territory to conquer. Nehemiah&rsquo;s builders rebuilt the walls of Jerusalem with a tool in one hand and a weapon in the other (Nehemiah 4:17), which requires physical stamina that sedentary men cannot produce. The Biblical pattern is clear: the service of God frequently demands physical capacity.</p>
+        <p>Romans 12:1 instructs believers to offer their bodies as &ldquo;living sacrifices, holy and pleasing to God &mdash; this is your true and proper worship.&rdquo; The body is the sacrifice. A sacrifice presented at the altar was required to be without blemish (Leviticus 1:3). While we cannot achieve physical perfection, the principle stands: what you present to God should reflect your best effort at stewardship. A body weakened by neglect, softened by inactivity, and diminished by poor habits is not the best sacrifice you are capable of offering. Fitness, then, is not vanity dressed in gym clothes. It is the preparation of the sacrifice.</p>
+        <p>The misreading of 1 Timothy 4:8 has caused immeasurable damage to the church&rsquo;s relationship with physical health. Men quote &ldquo;physical training is of <em>some</em> value&rdquo; as if Paul is dismissing exercise, when in fact he is affirming it while establishing a hierarchy: godliness is more valuable, but physical training is genuinely valuable. Both are true simultaneously. The man who neglects his body in the name of spiritual devotion has created a false dichotomy that Paul never intended. The body carries the spirit through the world. A broken vehicle limits the mission. The king maintains both engine and fuel.</p>
+      </div>
+    </div>
+
+    <div class="royal-decree">
+      <p class="font-playfair italic text-royal-plum dark:text-royal-gold text-sm">&ldquo;The body is the sacrifice offered on the altar of daily service. A sacrifice must be the best you are capable of presenting. Fitness is not vanity. It is the preparation of the offering.&rdquo;</p>
+    </div>
+
+    <div class="mb-8">
+      <h3 class="font-cinzel text-sm text-[#6B5B4E] tracking-wider mb-3">THE CONSUMPTION</h3>
+      <div class="font-inter text-sm text-royal-sapphire/70 dark:text-white/60 leading-relaxed space-y-4">
+        <p>In 2026 Colorado, the environment is an ally. Three hundred days of annual sunshine, trails threading through Cherry Creek State Park fifteen minutes from Aurora, and the entire Front Range providing elevation-varied terrain for running, hiking, and bodyweight training. You do not need a gym membership to begin &mdash; though 24 Hour Fitness on South Havana in Aurora provides a fully equipped facility for under thirty dollars per month. Planet Fitness on East Mississippi is under ten dollars monthly. The excuse of access is eliminated. What remains is the decision to begin.</p>
+        <p>The king&rsquo;s fitness protocol starts with bodyweight fundamentals that require zero equipment and zero gym membership: push-ups (chest, shoulders, triceps), squats (legs, core), planks (core stability), and walking or running (cardiovascular endurance). Begin with what your body can do today, not what it could do five years ago or what an influencer demonstrates on a screen. Three days per week, thirty minutes per session. Push-ups: three sets to near failure. Squats: three sets of fifteen. Plank: three holds of thirty seconds. Walk or run for fifteen minutes at Cherry Creek Trail, the Highline Canal trail near Hampden and Parker Road, or around your own neighborhood. This is the foundation. Increase volume as the body adapts. The king&rsquo;s body is his instrument of service &mdash; and an instrument must be tuned, tested, and kept in working order to fulfill the purpose for which it was made.</p>
+      </div>
+    </div>
+
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-5 my-10">
+      <div class="card-parchment border border-[#6B5B4E]/10 rounded-xl p-6">
+        <div class="font-cinzel text-xs text-[#6B5B4E] tracking-widest mb-2">FOUNDATION</div>
+        <h4 class="font-cinzel text-sm text-royal-plum dark:text-royal-gold mb-2">Bodyweight Basics</h4>
+        <p class="text-xs text-royal-sapphire/60 dark:text-white/50 leading-relaxed">Push-ups, squats, planks. Three sets each, three days per week. Zero equipment, zero excuses. Begin with what your body can do today.</p>
+      </div>
+      <div class="card-parchment border border-[#6B5B4E]/10 rounded-xl p-6">
+        <div class="font-cinzel text-xs text-[#6B5B4E] tracking-widest mb-2">TERRAIN</div>
+        <h4 class="font-cinzel text-sm text-royal-plum dark:text-royal-gold mb-2">Colorado Trails</h4>
+        <p class="text-xs text-royal-sapphire/60 dark:text-white/50 leading-relaxed">Cherry Creek State Park, Highline Canal, neighborhood routes. Walking or running fifteen minutes, three days per week. The Front Range is your training ground.</p>
+      </div>
+      <div class="card-parchment border border-[#6B5B4E]/10 rounded-xl p-6">
+        <div class="font-cinzel text-xs text-[#6B5B4E] tracking-widest mb-2">FACILITY</div>
+        <h4 class="font-cinzel text-sm text-royal-plum dark:text-royal-gold mb-2">Gym Options</h4>
+        <p class="text-xs text-royal-sapphire/60 dark:text-white/50 leading-relaxed">24 Hour Fitness South Havana, under thirty dollars monthly. Planet Fitness East Mississippi, under ten. When bodyweight basics become easy, the gym awaits.</p>
+      </div>
+      <div class="card-parchment border border-[#6B5B4E]/10 rounded-xl p-6">
+        <div class="font-cinzel text-xs text-[#6B5B4E] tracking-widest mb-2">WORSHIP</div>
+        <h4 class="font-cinzel text-sm text-royal-plum dark:text-royal-gold mb-2">The Living Sacrifice</h4>
+        <p class="text-xs text-royal-sapphire/60 dark:text-white/50 leading-relaxed">Romans 12:1 &mdash; present your body as a living sacrifice. The sacrifice must reflect your best effort at stewardship. Fitness is the preparation of the offering.</p>
+      </div>
+    </div>
+
+    <div class="mb-8">
+      <h3 class="font-cinzel text-lg text-royal-plum dark:text-royal-gold mb-4">Practical Steps</h3>
+      <ul class="space-y-3 text-sm font-inter text-royal-sapphire/70 dark:text-white/60">
+        <li class="flex gap-3"><span class="text-[#6B5B4E] font-cinzel">I.</span> Tomorrow morning, perform this baseline test: maximum push-ups in one set, maximum squats in one set, maximum plank hold in seconds. Write the numbers in your journal. This is your starting point.</li>
+        <li class="flex gap-3"><span class="text-[#6B5B4E] font-cinzel">II.</span> Schedule three thirty-minute sessions this week: Monday, Wednesday, Friday. Push-ups, squats, planks, and a fifteen-minute walk or run. Put it in your calendar as non-negotiable.</li>
+        <li class="flex gap-3"><span class="text-[#6B5B4E] font-cinzel">III.</span> In four weeks, repeat the baseline test. Compare the numbers. The improvement is the evidence that the sacrifice is being prepared with greater care than when you began.</li>
+      </ul>
+    </div>
+
+    <div class="bg-white dark:bg-royal-sapphire/20 border border-[#6B5B4E]/10 rounded-xl p-6 mb-8">
+      <p class="font-playfair italic text-royal-plum dark:text-royal-gold text-sm mb-4">&ldquo;Is the body you currently inhabit the best sacrifice you are capable of presenting to God? If not, what is one physical discipline you will begin this week to close that gap?&rdquo;</p>
+      <textarea rows="3" placeholder="Write your reflection..." class="w-full px-4 py-3 rounded-lg border border-[#6B5B4E]/20 bg-royal-cream/50 dark:bg-white/5 font-inter text-sm focus:outline-none focus:border-[#6B5B4E] resize-none"></textarea>
+      <button data-prompt="Is your body the best sacrifice you can present to God?" class="journal-save-btn mt-2 px-4 py-2 bg-[#6B5B4E] text-white text-xs font-cinzel rounded-lg hover:bg-royal-plum transition">Save to Journal</button>
+    </div>
+
+    <div class="quiz-block bg-white dark:bg-royal-sapphire/20 border border-[#6B5B4E]/10 rounded-xl p-6 mb-8">
+      <h4 class="font-cinzel text-sm text-[#6B5B4E] mb-4">Counsel from the Throne</h4>
+      <p class="font-playfair italic text-royal-plum dark:text-royal-gold text-sm mb-5">&ldquo;You have completed all twelve lessons of Temple Care. A friend asks why you take grooming and fitness so seriously. A king:&rdquo;</p>
+      <div class="space-y-2">
+        <button data-correct="false" class="quiz-option w-full text-left px-4 py-3 rounded-lg border border-[#6B5B4E]/15 text-sm font-inter">Delivers a lengthy sermon about the theology of the body, quoting every verse from the twelve lessons</button>
+        <button data-correct="false" class="quiz-option w-full text-left px-4 py-3 rounded-lg border border-[#6B5B4E]/15 text-sm font-inter">Shrugs and says he just likes looking good &mdash; keeping it casual to avoid deeper conversation</button>
+        <button data-correct="true" class="quiz-option w-full text-left px-4 py-3 rounded-lg border border-[#6B5B4E]/15 text-sm font-inter">Says simply: &ldquo;My body is not my own. It is a temple. I maintain it because the One who lives inside it deserves my best stewardship.&rdquo; &mdash; brief, authoritative, and his appearance speaks louder than any argument</button>
+      </div>
+      <div class="quiz-feedback hidden mt-4 text-sm font-playfair italic"></div>
+    </div>
+
+    <div class="quest-panel mb-8">
+      <h4 class="font-cinzel text-sm text-royal-gold mb-2">Quest: The Baseline and the Benchmark</h4>
+      <p class="text-xs text-white/70 mb-3">Perform the baseline fitness test (max push-ups, max squats, max plank hold) and record the numbers. Train three times per week for four weeks. Repeat the test at the end of week four. The numbers are your testimony.</p>
+      <label class="flex items-center gap-2 cursor-pointer">
+        <input type="checkbox" class="quest-checkbox accent-royal-gold" data-quest="tc-12">
+        <span class="text-xs text-white/80">I completed the baseline test and began the four-week training protocol</span>
+      </label>
+    </div>
+
+    <button class="absorb-btn w-full py-3 bg-[#6B5B4E] text-white font-cinzel tracking-wider rounded-lg hover:bg-royal-plum transition" data-lesson="12">Mark as Absorbed</button>
+    <div class="gold-divider mt-16"></div>
+  </section>
+
+  <!-- FAQ (SEO) -->
+  <section class="max-w-4xl mx-auto px-6 pb-16">
+    <h2 class="font-cinzel text-2xl text-royal-plum dark:text-royal-gold mb-8 text-center">Frequently Asked Questions</h2>
+    <div class="space-y-4">
+      <details class="bg-white dark:bg-royal-sapphire/20 border border-[#6B5B4E]/10 rounded-xl p-6">
+        <summary class="font-cinzel text-sm text-[#6B5B4E] cursor-pointer">Is grooming a form of vanity according to the Bible?</summary>
+        <p class="mt-3 text-sm font-inter text-royal-sapphire/70 dark:text-white/60 leading-relaxed">No. Vanity is the obsessive pursuit of appearance for the sake of self-worship. Grooming as temple stewardship is the maintenance of God&rsquo;s dwelling place (1 Corinthians 6:19-20). The Levitical priests maintained the tabernacle daily as an act of worship, not vanity. When Joseph prepared himself to stand before Pharaoh, he shaved and changed his garments (Genesis 41:14). The distinction is motive: stewardship serves the Architect, vanity serves the self.</p>
+      </details>
+      <details class="bg-white dark:bg-royal-sapphire/20 border border-[#6B5B4E]/10 rounded-xl p-6">
+        <summary class="font-cinzel text-sm text-[#6B5B4E] cursor-pointer">Can I maintain a Biblical grooming routine on a tight budget?</summary>
+        <p class="mt-3 text-sm font-inter text-royal-sapphire/70 dark:text-white/60 leading-relaxed">Absolutely. Dr. Bronner&rsquo;s castile soap serves as body wash, face wash, and shampoo for under ten dollars and lasts months. CeraVe moisturizer is twelve to sixteen dollars and lasts three to four months. Native deodorant is eight to twelve dollars. The complete routine costs less than thirty dollars per month at King Soopers or Target in Aurora. Stewardship is about intention, not expense.</p>
+      </details>
+      <details class="bg-white dark:bg-royal-sapphire/20 border border-[#6B5B4E]/10 rounded-xl p-6">
+        <summary class="font-cinzel text-sm text-[#6B5B4E] cursor-pointer">Does Leviticus 19:27 mean I should never trim my beard?</summary>
+        <p class="mt-3 text-sm font-inter text-royal-sapphire/70 dark:text-white/60 leading-relaxed">No. The Hebrew <em>shachath</em> in that verse means &ldquo;to destroy&rdquo; or &ldquo;to mar&rdquo; the edges, specifically in the context of pagan mourning rituals. Ezekiel 44:20 explicitly commands the priests to trim their hair. The Biblical standard is intentional maintenance &mdash; neither destroyed nor neglected. A shaped, oiled, well-maintained beard honors both the text and the temple.</p>
+      </details>
+      <details class="bg-white dark:bg-royal-sapphire/20 border border-[#6B5B4E]/10 rounded-xl p-6">
+        <summary class="font-cinzel text-sm text-[#6B5B4E] cursor-pointer">How does Colorado&rsquo;s climate affect my grooming routine?</summary>
+        <p class="mt-3 text-sm font-inter text-royal-sapphire/70 dark:text-white/60 leading-relaxed">Colorado&rsquo;s altitude (5,000+ feet) increases UV exposure by approximately twenty-five percent compared to sea level, making daily SPF essential. The dry air accelerates moisture loss from skin, hair, and lips. Winter humidity can drop below twenty percent. This means: moisturize more frequently, use sulfate-free shampoo to preserve natural oils, apply beard oil daily, use hand cream regularly, and never skip sunscreen &mdash; even on overcast days.</p>
+      </details>
+    </div>
+    <p class="text-xs text-royal-sapphire/30 dark:text-white/15 text-center mt-8 font-inter">Last updated: March 2026</p>
+  </section>
+
+  <div id="mainFooter"></div>
+
+  <script src="shared.js"></script>
+  <script src="pillar-template.js"></script>
+  <script>
+    document.addEventListener('DOMContentLoaded', function() {
+      initPillar('templecare');
+
+      var absorbed = JSON.parse(localStorage.getItem('kl_templecare_absorbed') || '[]');
+      var total = 12;
+      var pct = Math.round((absorbed.length / total) * 100);
+      var bar = document.getElementById('progressBar');
+      var fill = document.getElementById('progressFill');
+      var text = document.getElementById('progressText');
+      if (bar) bar.style.width = pct + '%';
+      if (fill) fill.style.width = pct + '%';
+      if (text) text.textContent = 'Temple Mastery ' + pct + '%';
+
+      document.querySelectorAll('.absorb-btn').forEach(function(btn) {
+        var lesson = parseInt(btn.dataset.lesson);
+        if (absorbed.includes(lesson)) {
+          btn.textContent = 'Absorbed';
+          btn.classList.add('absorbed');
+        }
+        btn.addEventListener('click', function() {
+          if (absorbed.includes(lesson)) return;
+          absorbed.push(lesson);
+          localStorage.setItem('kl_templecare_absorbed', JSON.stringify(absorbed));
+          btn.textContent = 'Absorbed';
+          btn.classList.add('absorbed');
+          pct = Math.round((absorbed.length / total) * 100);
+          if (bar) bar.style.width = pct + '%';
+          if (fill) fill.style.width = pct + '%';
+          if (text) text.textContent = 'Temple Mastery ' + pct + '%';
+          updateStreak();
+        });
+      });
+
+      var observer = new IntersectionObserver(function(entries) {
+        entries.forEach(function(e) {
+          if (e.isIntersecting) e.target.classList.add('visible');
+        });
+      }, { threshold: 0.05 });
+      document.querySelectorAll('.lesson-section').forEach(function(s) { observer.observe(s); });
+
+      var tocDots = document.querySelectorAll('#lessonToc .toc-dot');
+      var sections = document.querySelectorAll('.lesson-section');
+      var tocObserver = new IntersectionObserver(function(entries) {
+        entries.forEach(function(e) {
+          if (e.isIntersecting) {
+            var id = e.target.id;
+            tocDots.forEach(function(d) {
+              d.classList.toggle('active', d.getAttribute('href') === '#' + id);
+            });
+          }
+        });
+      }, { threshold: 0.3, rootMargin: '-100px 0px -60% 0px' });
+      sections.forEach(function(s) { tocObserver.observe(s); });
+
+      document.querySelectorAll('.quest-checkbox').forEach(function(cb) {
+        var key = 'kl_quest_' + cb.dataset.quest;
+        cb.checked = localStorage.getItem(key) === 'true';
+        cb.addEventListener('change', function() {
+          localStorage.setItem(key, cb.checked);
+        });
+      });
+    });
+  </script>
+</body>
+</html>

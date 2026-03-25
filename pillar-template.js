@@ -1,7 +1,8 @@
-/* pillar-template.js – v0.0.6 */
+/* pillar-template.js – v0.0.7 */
 /* ============================================================
-   Shared Pillar Page Interactivity
+   Shared Campus Page Interactivity
    Quiz · Checklist · Scenario Solver · Journal Save
+   Quest Tracking · Royal Decrees · Audio Placeholders
    ============================================================ */
 
 function initPillar(pillarId) {
@@ -13,6 +14,9 @@ function initPillar(pillarId) {
   initQuiz();
   initScenarioSolver();
   initChecklistForm(pillarId);
+  initQuestCheckboxes(pillarId);
+  initAudioPlaceholders();
+  initExpandableVerses();
 }
 
 /* ---------- Journal Prompt Saving ---------- */
@@ -161,4 +165,48 @@ function removeChecklistItem(pillarId, index) {
   items.splice(index, 1);
   saveChecklist(pillarId, items);
   loadChecklist(pillarId);
+}
+
+/* ---------- Quest Checkboxes (hybrid learning) ---------- */
+function initQuestCheckboxes(pillarId) {
+  document.querySelectorAll('.quest-checkbox').forEach(function(cb) {
+    var lessonNum = parseInt(cb.dataset.lesson);
+    if (isQuestComplete(pillarId, lessonNum)) {
+      cb.checked = true;
+      var panel = cb.closest('.quest-panel');
+      if (panel) panel.classList.add('opacity-60');
+    }
+    cb.addEventListener('change', function() {
+      saveQuest(pillarId, lessonNum, cb.checked);
+      var panel = cb.closest('.quest-panel');
+      if (panel) panel.classList.toggle('opacity-60', cb.checked);
+    });
+  });
+}
+
+/* ---------- Audio Placeholders ---------- */
+function initAudioPlaceholders() {
+  document.querySelectorAll('.audio-briefing-btn').forEach(function(btn) {
+    btn.addEventListener('click', function() {
+      btn.textContent = 'Coming Soon';
+      btn.disabled = true;
+      btn.classList.add('opacity-40');
+      setTimeout(function() {
+        btn.textContent = 'Play Royal Briefing';
+        btn.disabled = false;
+        btn.classList.remove('opacity-40');
+      }, 2000);
+    });
+  });
+}
+
+/* ---------- Expandable Verses ---------- */
+function initExpandableVerses() {
+  document.querySelectorAll('.expandable-verse').forEach(function(el) {
+    el.addEventListener('toggle', function() {
+      if (el.open) {
+        el.style.animation = 'fadeIn 0.3s ease-out';
+      }
+    });
+  });
 }

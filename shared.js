@@ -1,7 +1,7 @@
-/* shared.js – v0.0.6 */
+/* shared.js – v0.0.7 */
 /* ============================================================
-   A King's Lifestyle — Shared Module
-   Auth · Navigation · Verse Modal · LLM Chat · Utilities
+   A King's Lifestyle — Core Module
+   Auth · Campuses · Navigation · Verse Modal · LLM · Quests
    Bible-only. No secular mode.
    ============================================================ */
 
@@ -11,6 +11,20 @@ const CROWN_SM = CROWN_SVG.replace('width="44"','width="28"').replace('height="3
 
 /* ---------- HTML escape ---------- */
 function esc(s){var d=document.createElement('div');d.textContent=s;return d.innerHTML;}
+
+/* ============================================================
+   CAMPUS DATA — Single source of truth
+   ============================================================ */
+const CAMPUSES = [
+  { id:'nourishment', label:'Nourishment', numeral:'I',   href:'nourishment.html', accent:'#A38255', lessons:25, desc:'Clean eating by the Creator\u2019s blueprint. Leviticus 11 made practical for 2026.' },
+  { id:'attire',      label:'Attire',      numeral:'II',  href:'attire.html',      accent:'#8B7D6B', lessons:0,  desc:'Dress with purpose. From boardroom to church to poolside.' },
+  { id:'mentality',   label:'Mentality',   numeral:'III', href:'mentality.html',   accent:'#3D4F2F', lessons:0,  desc:'Habits, discipline, love, relationships, and inner warfare.' },
+  { id:'treasury',    label:'Treasury',    numeral:'IV',  href:'treasury.html',    accent:'#7A6542', lessons:0,  desc:'Budget wisely, build wealth, and provide like a king should.' },
+  { id:'templecare',  label:'Temple Care', numeral:'V',   href:'templecare.html',  accent:'#6B5B4E', lessons:12, desc:'Steward the dwelling place of the Holy Spirit. Grooming, hygiene, fitness.' },
+  { id:'presence',    label:'Presence',    numeral:'VI',  href:'presence.html',    accent:'#3A3A3A', lessons:0,  desc:'Walk, sit, stand, and command any room with silent authority.' },
+  { id:'speech',      label:'Speech',      numeral:'VII', href:'speech.html',      accent:'#4A5568', lessons:0,  desc:'Vocabulary, filler-word mastery, and powerful conversation.' },
+  { id:'legacy',      label:'Legacy',      numeral:'+',   href:'legacy.html',      accent:'#571641', lessons:0,  desc:'Protect, provide, and lead your family with honor that outlasts you.' }
+];
 
 /* ---------- Daily Royal Principles (Bible only, 10 verses) ---------- */
 const PRINCIPLES = [
@@ -24,16 +38,6 @@ const PRINCIPLES = [
   { text:"Guard your heart above all else, for it determines the course of your life.", ref:"Proverbs 4:23", context:"The Hebrew word for \u2018heart\u2019 encompasses mind, will, and emotion. What enters your body through food affects all three. Guard the gate.", crossRefs:["Matthew 15:18","Philippians 4:7"], application:"What did you consume today \u2014 food, media, conversation \u2014 that either guarded or compromised your heart?" },
   { text:"Plans fail for lack of counsel, but with many advisers they succeed.", ref:"Proverbs 15:22", context:"Your 30-day nourishment plan needs accountability. A plan written in isolation stays in isolation. Share it with someone who will hold you to it.", crossRefs:["Proverbs 11:14","Proverbs 24:6"], application:"Write one nourishment goal and tell one person about it before the day ends." },
   { text:"Commit to the Lord whatever you do, and He will establish your plans.", ref:"Proverbs 16:3", context:"Commitment precedes establishment. You do not wait for perfect conditions to begin eating clean. You commit first, and the path appears.", crossRefs:["Psalm 37:5","Proverbs 3:5-6"], application:"Commit your nourishment journey to the Lord in prayer today. Then act on the commitment with your very next meal." }
-];
-
-/* ---------- Navigation Links ---------- */
-const NAV_LINKS = [
-  {href:"index.html",label:"Home"},{href:"nourishment.html",label:"Nourishment"},
-  {href:"attire.html",label:"Attire"},{href:"mentality.html",label:"Mentality"},
-  {href:"treasury.html",label:"Treasury"},{href:"body.html",label:"Body"},
-  {href:"presence.html",label:"Presence"},{href:"speech.html",label:"Speech"},
-  {href:"legacy.html",label:"Legacy"},{href:"journal.html",label:"Journal"},
-  {href:"settings.html",label:"Settings"}
 ];
 
 /* ============================================================
@@ -58,11 +62,14 @@ function showAuthWall(){
   var w=document.createElement('div');
   w.className='min-h-screen bg-[#FFF6E6] flex items-center justify-center px-6 fixed inset-0 z-[200]';
   var inner=document.createElement('div');inner.className='text-center max-w-md';inner.style.animation='fadeInUp 0.6s ease-out';
-  var c=document.createElement('div');c.className='flex justify-center mb-8';c.innerHTML=CROWN_SVG;
+  var c=document.createElement('div');c.className='flex justify-center mb-8';
+  var crownHolder=document.createRange().createContextualFragment(CROWN_SVG);c.appendChild(crownHolder);
   var h=document.createElement('h1');h.className='font-cinzel text-2xl text-[#571641] mb-4';h.textContent='Royal Access Required';
   var p=document.createElement('p');p.className='font-inter text-sm text-[#08052D]/60 mb-10 leading-relaxed';p.textContent='This area of the kingdom is reserved for those who have begun their transformation.';
   var a=document.createElement('a');a.href='index.html';a.className='inline-block px-8 py-3 bg-[#A38255] text-white font-cinzel tracking-wider rounded-lg hover:bg-[#571641] transition-all duration-500';a.textContent='Return to the Gates';
-  var cv=document.createElement('p');cv.className='mt-6 text-xs text-[#08052D]/30 font-inter';cv.innerHTML='A <a href="https://calyvent.com" target="_blank" class="text-[#A38255] hover:underline">Calyvent</a> Venture';
+  var cv=document.createElement('p');cv.className='mt-6 text-xs text-[#08052D]/30 font-inter';
+  var cvLink=document.createElement('a');cvLink.href='https://calyvent.com';cvLink.target='_blank';cvLink.className='text-[#A38255] hover:underline';cvLink.textContent='Calyvent';
+  cv.append('A ',cvLink,' Venture');
   inner.append(c,h,p,a,cv);w.appendChild(inner);document.body.textContent='';document.body.appendChild(w);
 }
 
@@ -98,10 +105,8 @@ function openVerseModal(v){
   var card=document.createElement('div');
   card.className='bg-[#FFF6E6] dark:bg-[#0a0a0a] rounded-2xl shadow-2xl max-w-lg w-full p-8 relative border border-[#A38255]/20 max-h-[90vh] overflow-y-auto';
   card.style.animation='fadeInUp 0.4s ease-out';
-  // Close
   var cls=document.createElement('button');cls.className='absolute top-4 right-4 text-[#571641] text-2xl hover:text-[#A38255] transition leading-none';cls.textContent='\u00D7';cls.onclick=function(){m.remove();};
-  // Content
-  var ref=document.createElement('div');ref.className='font-cinzel text-xs tracking-[0.3em] text-[#A38255] uppercase mb-4';ref.textContent=v.ref;
+  var refEl=document.createElement('div');refEl.className='font-cinzel text-xs tracking-[0.3em] text-[#A38255] uppercase mb-4';refEl.textContent=v.ref;
   var txt=document.createElement('p');txt.className='font-playfair text-xl text-[#571641] dark:text-[#A38255] italic leading-relaxed mb-6';txt.textContent='\u201C'+v.text+'\u201D';
   var ctxH=document.createElement('h3');ctxH.className='font-cinzel text-sm text-[#A38255] mb-2 tracking-wider';ctxH.textContent='HISTORICAL CONTEXT';
   var ctxP=document.createElement('p');ctxP.className='font-inter text-sm text-[#08052D]/70 dark:text-white/60 leading-relaxed mb-6';ctxP.textContent=v.context||'';
@@ -110,7 +115,7 @@ function openVerseModal(v){
   (v.crossRefs||[]).forEach(function(cr){var tag=document.createElement('span');tag.className='px-3 py-1 bg-[#A38255]/10 text-[#571641] dark:text-[#A38255] text-xs font-inter rounded-full';tag.textContent=cr;crList.appendChild(tag);});
   var appH=document.createElement('h3');appH.className='font-cinzel text-sm text-[#A38255] mb-2 tracking-wider';appH.textContent='2026 APPLICATION';
   var appP=document.createElement('p');appP.className='font-inter text-sm text-[#08052D]/70 dark:text-white/60 leading-relaxed';appP.textContent=v.application||'';
-  card.append(cls,ref,txt,ctxH,ctxP,crH,crList,appH,appP);m.appendChild(card);document.body.appendChild(m);
+  card.append(cls,refEl,txt,ctxH,ctxP,crH,crList,appH,appP);m.appendChild(card);document.body.appendChild(m);
 }
 
 /* ============================================================
@@ -132,29 +137,99 @@ function updateStreak(){
 }
 
 /* ============================================================
-   NAVIGATION (private, sticky dark green)
+   OVERALL MASTERY (aggregated across all campuses)
+   ============================================================ */
+function getOverallMastery(){
+  var total=0,absorbed=0;
+  CAMPUSES.forEach(function(c){
+    if(c.lessons>0){
+      total+=c.lessons;
+      var arr=JSON.parse(localStorage.getItem('kl_'+c.id+'_absorbed')||'[]');
+      absorbed+=arr.length;
+    }
+  });
+  return total>0?Math.round((absorbed/total)*100):0;
+}
+function getCampusMastery(campusId){
+  var c=CAMPUSES.find(function(x){return x.id===campusId;});
+  if(!c||c.lessons===0)return 0;
+  var arr=JSON.parse(localStorage.getItem('kl_'+c.id+'_absorbed')||'[]');
+  return Math.round((arr.length/c.lessons)*100);
+}
+
+/* ============================================================
+   NAVIGATION (v0.0.7 — clean campuses structure)
    ============================================================ */
 function buildNav(){
   var nav=document.getElementById('mainNav');if(!nav||!isLoggedIn())return;
-  var cur=window.location.pathname.split('/').pop()||'index.html';nav.textContent='';
+  var cur=window.location.pathname.split('/').pop()||'dashboard.html';nav.textContent='';
   var w=document.createElement('div');w.className='bg-[#052B20] text-white sticky top-0 z-50 shadow-lg';
-  // Principle bar
+
+  // Daily principle bar
   var pb=document.createElement('div');pb.className='bg-[#08052D] text-[#A38255] text-center text-sm py-2 px-4 font-playfair';pb.id='dailyPrinciple';
+
   // Main bar
   var mb=document.createElement('div');mb.className='max-w-7xl mx-auto px-4 py-3 flex items-center justify-between';
-  var logo=document.createElement('a');logo.href='index.html';logo.className='flex items-center gap-3 group';logo.innerHTML=CROWN_SVG;
+
+  // Logo
+  var logo=document.createElement('a');logo.href='dashboard.html';logo.className='flex items-center gap-3 group';
+  var logoSvg=document.createRange().createContextualFragment(CROWN_SVG);logo.appendChild(logoSvg);
   var lt=document.createElement('span');lt.className='font-cinzel text-lg tracking-widest text-[#A38255] group-hover:text-white transition-colors hidden sm:inline';lt.textContent="A King\u2019s Lifestyle";logo.appendChild(lt);
+
+  // Desktop nav
   var dl=document.createElement('div');dl.className='hidden lg:flex items-center gap-1';
-  NAV_LINKS.forEach(function(l){var a=document.createElement('a');a.href=l.href;a.className='px-3 py-1.5 rounded text-sm font-inter transition-colors '+(cur===l.href?'bg-[#A38255]/20 text-[#A38255]':'text-white/80 hover:text-[#A38255]');a.textContent=l.label;dl.appendChild(a);});
+
+  // Dashboard link
+  var dashLink=document.createElement('a');dashLink.href='dashboard.html';
+  dashLink.className='px-3 py-1.5 rounded text-sm font-inter transition-colors '+(cur==='dashboard.html'?'bg-[#A38255]/20 text-[#A38255]':'text-white/80 hover:text-[#A38255]');
+  dashLink.textContent='Dashboard';dl.appendChild(dashLink);
+
+  // Campuses dropdown
+  var dd=document.createElement('div');dd.className='relative';
+  var ddBtn=document.createElement('button');ddBtn.className='px-3 py-1.5 rounded text-sm font-inter text-white/80 hover:text-[#A38255] transition-colors flex items-center gap-1';
+  ddBtn.textContent='Campuses ';
+  var caret=document.createElement('span');caret.className='text-xs opacity-60';caret.textContent='\u25BE';ddBtn.appendChild(caret);
+
+  var ddPanel=document.createElement('div');ddPanel.className='absolute top-full left-0 mt-1 bg-[#052B20] border border-[#A38255]/20 rounded-xl shadow-xl w-56 hidden z-50';
+  CAMPUSES.forEach(function(c){
+    var a=document.createElement('a');a.href=c.href;
+    a.className='flex items-center gap-3 px-4 py-2.5 text-sm font-inter transition-colors '+(cur===c.href?'text-[#A38255] bg-[#A38255]/10':'text-white/70 hover:text-[#A38255] hover:bg-white/5');
+    var num=document.createElement('span');num.className='font-cinzel text-xs w-6 opacity-40';num.textContent=c.numeral;
+    var name=document.createElement('span');name.textContent=c.label;
+    a.append(num,name);ddPanel.appendChild(a);
+  });
+  ddBtn.onclick=function(e){e.stopPropagation();ddPanel.classList.toggle('hidden');};
+  document.addEventListener('click',function(){ddPanel.classList.add('hidden');});
+  dd.append(ddBtn,ddPanel);dl.appendChild(dd);
+
+  // Journal + Settings
+  [['journal.html','Journal'],['settings.html','Settings']].forEach(function(l){
+    var a=document.createElement('a');a.href=l[0];
+    a.className='px-3 py-1.5 rounded text-sm font-inter transition-colors '+(cur===l[0]?'bg-[#A38255]/20 text-[#A38255]':'text-white/80 hover:text-[#A38255]');
+    a.textContent=l[1];dl.appendChild(a);
+  });
+
+  // Right controls
   var ct=document.createElement('div');ct.className='flex items-center gap-3';
-  var sk=document.createElement('span');sk.className='text-xs text-[#A38255] font-inter hidden sm:inline';sk.title='Day streak';sk.textContent='Streak: ';var skn=document.createElement('span');skn.id='streakCount';skn.className='streak-count';skn.textContent='0';sk.appendChild(skn);
+  var sk=document.createElement('span');sk.className='text-xs text-[#A38255] font-inter hidden sm:inline';sk.title='Day streak';sk.textContent='Streak: ';
+  var skn=document.createElement('span');skn.id='streakCount';skn.className='streak-count';skn.textContent='0';sk.appendChild(skn);
   var so=document.createElement('button');so.className='text-xs font-inter px-3 py-1.5 rounded border border-[#A38255]/30 text-[#A38255] hover:bg-[#A38255]/20 transition';so.textContent='Sign Out';so.onclick=signOut;
-  var hb=document.createElement('button');hb.className='lg:hidden w-8 h-8 flex items-center justify-center text-[#A38255]';hb.innerHTML='<svg width="24" height="24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 6h18M3 12h18M3 18h18"/></svg>';hb.onclick=toggleMobileMenu;
+  var hb=document.createElement('button');hb.className='lg:hidden w-8 h-8 flex items-center justify-center text-[#A38255]';
+  var hbSvg=document.createRange().createContextualFragment('<svg width="24" height="24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 6h18M3 12h18M3 18h18"/></svg>');
+  hb.appendChild(hbSvg);hb.onclick=toggleMobileMenu;
   ct.append(sk,so,hb);mb.append(logo,dl,ct);
+
+  // Mobile menu
   var mm=document.createElement('div');mm.id='mobileMenu';mm.className='lg:hidden hidden bg-[#052B20] border-t border-[#A38255]/20 pb-4';
   var mi=document.createElement('div');mi.className='flex flex-col px-4 gap-1';
-  NAV_LINKS.forEach(function(l){var a=document.createElement('a');a.href=l.href;a.className='px-3 py-2 rounded text-sm font-inter '+(cur===l.href?'bg-[#A38255]/20 text-[#A38255]':'text-white/80 hover:text-[#A38255]');a.textContent=l.label;mi.appendChild(a);});
-  mm.appendChild(mi);w.append(pb,mb,mm);nav.appendChild(w);
+  var mdash=document.createElement('a');mdash.href='dashboard.html';mdash.className='px-3 py-2 rounded text-sm font-inter '+(cur==='dashboard.html'?'bg-[#A38255]/20 text-[#A38255]':'text-white/80 hover:text-[#A38255]');mdash.textContent='Dashboard';mi.appendChild(mdash);
+  var mlab=document.createElement('div');mlab.className='px-3 py-1 text-xs font-cinzel text-[#A38255]/40 tracking-widest mt-2';mlab.textContent='CAMPUSES';mi.appendChild(mlab);
+  CAMPUSES.forEach(function(c){var a=document.createElement('a');a.href=c.href;a.className='px-3 py-2 rounded text-sm font-inter '+(cur===c.href?'bg-[#A38255]/20 text-[#A38255]':'text-white/80 hover:text-[#A38255]');a.textContent=c.label;mi.appendChild(a);});
+  var mlab2=document.createElement('div');mlab2.className='px-3 py-1 text-xs font-cinzel text-[#A38255]/40 tracking-widest mt-2';mlab2.textContent='TOOLS';mi.appendChild(mlab2);
+  [['journal.html','Journal'],['settings.html','Settings']].forEach(function(l){var a=document.createElement('a');a.href=l[0];a.className='px-3 py-2 rounded text-sm font-inter '+(cur===l[0]?'bg-[#A38255]/20 text-[#A38255]':'text-white/80 hover:text-[#A38255]');a.textContent=l[1];mi.appendChild(a);});
+  mm.appendChild(mi);
+
+  w.append(pb,mb,mm);nav.appendChild(w);
 }
 function toggleMobileMenu(){document.getElementById('mobileMenu')?.classList.toggle('hidden');}
 
@@ -165,19 +240,32 @@ function buildFooter(){
   var f=document.getElementById('mainFooter');if(!f)return;f.textContent='';
   var ft=document.createElement('footer');ft.className='bg-[#052B20] text-white/60 mt-20';
   var g=document.createElement('div');g.className='max-w-7xl mx-auto px-6 py-12 grid md:grid-cols-3 gap-8';
-  var c1=document.createElement('div');var br=document.createElement('div');br.className='flex items-center gap-3 mb-4';br.innerHTML=CROWN_SVG;
+
+  // Col 1 — Brand
+  var c1=document.createElement('div');
+  var br=document.createElement('div');br.className='flex items-center gap-3 mb-4';
+  var brSvg=document.createRange().createContextualFragment(CROWN_SVG);br.appendChild(brSvg);
   var bn=document.createElement('span');bn.className='font-cinzel text-[#A38255] tracking-widest';bn.textContent="A King\u2019s Lifestyle";br.appendChild(bn);
   var tg=document.createElement('p');tg.className='text-sm font-inter leading-relaxed';tg.textContent='Genuine Transformation, No Shortcuts.';c1.append(br,tg);
-  var c2=document.createElement('div');var c2h=document.createElement('h4');c2h.className='font-cinzel text-[#A38255] mb-3 text-sm tracking-wider';c2h.textContent='The Seven Pillars';
+
+  // Col 2 — Campuses
+  var c2=document.createElement('div');var c2h=document.createElement('h4');c2h.className='font-cinzel text-[#A38255] mb-3 text-sm tracking-wider';c2h.textContent='Royal Campuses';
   var c2g=document.createElement('div');c2g.className='grid grid-cols-2 gap-1 text-sm font-inter';
-  ['nourishment','attire','mentality','treasury','body','presence','speech','legacy'].forEach(function(p){var a=document.createElement('a');a.href=p+'.html';a.className='hover:text-[#A38255] transition capitalize';a.textContent=p.charAt(0).toUpperCase()+p.slice(1);c2g.appendChild(a);});
+  CAMPUSES.forEach(function(c){var a=document.createElement('a');a.href=c.href;a.className='hover:text-[#A38255] transition';a.textContent=c.label;c2g.appendChild(a);});
   c2.append(c2h,c2g);
+
+  // Col 3 — Links
   var c3=document.createElement('div');var c3h=document.createElement('h4');c3h.className='font-cinzel text-[#A38255] mb-3 text-sm tracking-wider';c3h.textContent='Quick Links';
   var c3l=document.createElement('div');c3l.className='flex flex-col gap-1 text-sm font-inter';
-  [['journal.html','Journal'],['onboarding.html','Onboarding'],['settings.html','Settings'],['privacy.html','Privacy'],['terms.html','Terms']].forEach(function(x){var a=document.createElement('a');a.href=x[0];a.className='hover:text-[#A38255] transition';a.textContent=x[1];c3l.appendChild(a);});
+  [['dashboard.html','Dashboard'],['journal.html','Journal'],['settings.html','Settings'],['privacy.html','Privacy'],['terms.html','Terms']].forEach(function(x){var a=document.createElement('a');a.href=x[0];a.className='hover:text-[#A38255] transition';a.textContent=x[1];c3l.appendChild(a);});
   c3.append(c3h,c3l);g.append(c1,c2,c3);
+
+  // Bottom bar
   var bt=document.createElement('div');bt.className='border-t border-[#A38255]/10 text-center py-4 text-xs font-inter';
-  bt.innerHTML='&copy; '+new Date().getFullYear()+' A King\u2019s Lifestyle. A <a href="https://calyvent.com" target="_blank" class="text-[#A38255] hover:underline">Calyvent</a> Venture &bull; <a href="https://calyvent.com" target="_blank" class="text-[#A38255] hover:underline">calyvent.com</a>';
+  var yr=document.createElement('span');yr.textContent='\u00A9 '+new Date().getFullYear()+' A King\u2019s Lifestyle. A ';
+  var cvLink=document.createElement('a');cvLink.href='https://calyvent.com';cvLink.target='_blank';cvLink.className='text-[#A38255] hover:underline';cvLink.textContent='Calyvent';
+  var dot=document.createTextNode(' Venture');
+  bt.append(yr,cvLink,dot);
   ft.append(g,bt);f.appendChild(ft);
 }
 
@@ -188,11 +276,14 @@ function buildPublicFooter(){
   var f=document.getElementById('publicFooter');if(!f)return;f.textContent='';
   var ft=document.createElement('footer');ft.className='bg-[#052B20] text-white/60 mt-24';
   var inner=document.createElement('div');inner.className='max-w-5xl mx-auto px-6 py-10 flex flex-col md:flex-row items-center justify-between gap-6';
-  var brand=document.createElement('div');brand.className='flex items-center gap-3';brand.innerHTML=CROWN_SVG;
-  var bn=document.createElement('span');bn.className='font-cinzel text-[#A38255] tracking-widest text-sm';bn.textContent="A King\u2019s Lifestyle";brand.appendChild(bn);
+  var brand=document.createElement('div');brand.className='flex items-center gap-3';
+  var brandSvg=document.createRange().createContextualFragment(CROWN_SVG);brand.appendChild(brandSvg);
+  var bname=document.createElement('span');bname.className='font-cinzel text-[#A38255] tracking-widest text-sm';bname.textContent="A King\u2019s Lifestyle";brand.appendChild(bname);
   var lk=document.createElement('div');lk.className='flex items-center gap-8 text-sm font-inter';
   [['privacy.html','Privacy'],['terms.html','Terms']].forEach(function(x){var a=document.createElement('a');a.href=x[0];a.className='hover:text-[#A38255] transition';a.textContent=x[1];lk.appendChild(a);});
-  var cv=document.createElement('p');cv.className='text-xs font-inter';cv.innerHTML='A <a href="https://calyvent.com" target="_blank" class="text-[#A38255] hover:underline">Calyvent</a> Venture &bull; <a href="https://calyvent.com" target="_blank" class="text-[#A38255] hover:underline">calyvent.com</a>';
+  var cv=document.createElement('p');cv.className='text-xs font-inter';
+  var cvA=document.createElement('a');cvA.href='https://calyvent.com';cvA.target='_blank';cvA.className='text-[#A38255] hover:underline';cvA.textContent='Calyvent';
+  cv.append('A ',cvA,' Venture');
   inner.append(brand,lk,cv);ft.appendChild(inner);f.appendChild(ft);
 }
 
@@ -205,7 +296,9 @@ function openSignIn(dt){
   var m=document.createElement('div');m.id='signInModal';m.className='fixed inset-0 z-[100] flex items-center justify-center bg-black/60 backdrop-blur-sm px-4';m.style.animation='fadeIn 0.3s ease-out';m.onclick=function(e){if(e.target===m)m.remove();};
   var card=document.createElement('div');card.className='bg-[#FFF6E6] rounded-2xl shadow-2xl max-w-md w-full p-8 relative border border-[#A38255]/20';card.style.animation='fadeInUp 0.4s ease-out';
   var cls=document.createElement('button');cls.className='absolute top-4 right-4 text-[#571641] text-2xl hover:text-[#A38255] transition leading-none';cls.textContent='\u00D7';cls.onclick=function(){m.remove();};
-  var hdr=document.createElement('div');hdr.className='text-center mb-8';var cw=document.createElement('div');cw.className='flex justify-center';cw.innerHTML=CROWN_SVG;
+  var hdr=document.createElement('div');hdr.className='text-center mb-8';
+  var cw=document.createElement('div');cw.className='flex justify-center';
+  var cwSvg=document.createRange().createContextualFragment(CROWN_SVG);cw.appendChild(cwSvg);
   var t=document.createElement('h2');t.className='font-cinzel text-[#571641] text-xl mt-4';t.textContent='Enter the Kingdom';
   var st=document.createElement('p');st.className='font-inter text-xs text-[#08052D]/40 mt-1';st.textContent='Your transformation awaits.';hdr.append(cw,t,st);
   var tabs=document.createElement('div');tabs.className='flex mb-6 border-b border-[#A38255]/20';
@@ -227,8 +320,8 @@ function handleAuth(e){
   e.preventDefault();var email=document.getElementById('authEmail').value;var msg=document.getElementById('authMessage');
   localStorage.setItem('kl_userEmail',email);localStorage.setItem('kl_isGuest','false');localStorage.setItem('kl_userId',email);
   msg.textContent=authMode==='register'?'Account created. Welcome to the Kingdom.':'Welcome back, King.';
-  if(hasGuestData()){setTimeout(function(){if(confirm('Migrate previous progress from guest session?')){msg.textContent='Progress migrated successfully.';}else{Object.keys(localStorage).filter(function(k){return k.startsWith('kl_')&&!['kl_userId','kl_userEmail','kl_isGuest','kl_dark'].includes(k);}).forEach(function(k){localStorage.removeItem(k);});}setTimeout(function(){location.reload();},600);},500);}
-  else{setTimeout(function(){location.reload();},800);}
+  if(hasGuestData()){setTimeout(function(){if(confirm('Migrate previous progress from guest session?')){msg.textContent='Progress migrated successfully.';}else{Object.keys(localStorage).filter(function(k){return k.startsWith('kl_')&&!['kl_userId','kl_userEmail','kl_isGuest','kl_dark'].includes(k);}).forEach(function(k){localStorage.removeItem(k);});}setTimeout(function(){window.location.href='dashboard.html';},600);},500);}
+  else{setTimeout(function(){window.location.href='dashboard.html';},800);}
 }
 
 /* ============================================================
@@ -276,7 +369,9 @@ async function askLLM(question){
 
 function buildAskTheKing(){
   if(document.getElementById('askKingFloat'))return;
-  var btn=document.createElement('button');btn.id='askKingFloat';btn.className='fixed bottom-6 right-6 z-50 w-14 h-14 rounded-full bg-[#A38255] text-white shadow-xl hover:scale-110 transition-transform flex items-center justify-center';btn.innerHTML=CROWN_SM;btn.title='Ask the King';btn.onclick=toggleKingChat;document.body.appendChild(btn);
+  var btn=document.createElement('button');btn.id='askKingFloat';btn.className='fixed bottom-6 right-6 z-50 w-14 h-14 rounded-full bg-[#A38255] text-white shadow-xl hover:scale-110 transition-transform flex items-center justify-center';
+  var btnSvg=document.createRange().createContextualFragment(CROWN_SM);btn.appendChild(btnSvg);
+  btn.title='Ask the King';btn.onclick=toggleKingChat;document.body.appendChild(btn);
 }
 function toggleKingChat(){
   var ex=document.getElementById('kingChatModal');if(ex){ex.remove();return;}
@@ -295,14 +390,13 @@ function toggleKingChat(){
 async function sendKingMessage(e){
   e.preventDefault();var inp=document.getElementById('kingChatInput');var msgs=document.getElementById('kingChatMessages');var q=inp.value.trim();if(!q)return;
   var um=document.createElement('div');um.className='text-sm font-inter text-right text-[#052B20] dark:text-white/80';var ub=document.createElement('span');ub.className='bg-[#A38255]/10 px-3 py-2 rounded-lg inline-block max-w-[80%]';ub.textContent=q;um.appendChild(ub);msgs.appendChild(um);inp.value='';msgs.scrollTop=msgs.scrollHeight;
-  // Loading
   var ld=document.createElement('div');ld.className='text-sm font-playfair text-[#571641] dark:text-[#A38255] italic opacity-60';ld.textContent='The King considers...';msgs.appendChild(ld);msgs.scrollTop=msgs.scrollHeight;
   var answer=await askLLM(q);ld.remove();
   var km=document.createElement('div');km.className='text-sm font-playfair text-[#571641] dark:text-[#A38255]';var kb=document.createElement('span');kb.className='bg-[#052B20]/5 dark:bg-white/5 px-3 py-2 rounded-lg inline-block max-w-[80%] italic';kb.textContent=answer;km.appendChild(kb);msgs.appendChild(km);msgs.scrollTop=msgs.scrollHeight;
 }
 
 /* ============================================================
-   JOURNAL / CHECKLIST / PROGRESS / ONBOARDING
+   JOURNAL / CHECKLIST / PROGRESS / ONBOARDING / QUESTS
    ============================================================ */
 function saveJournalEntry(p,pr,a){var e=JSON.parse(localStorage.getItem('kl_journal')||'[]');e.push({pillar:p,prompt:pr,answer:a,date:new Date().toISOString()});localStorage.setItem('kl_journal',JSON.stringify(e));}
 function getJournalEntries(){return JSON.parse(localStorage.getItem('kl_journal')||'[]');}
@@ -313,12 +407,28 @@ function getPillarProgress(){return JSON.parse(localStorage.getItem('kl_progress
 function saveOnboarding(d){localStorage.setItem('kl_onboarding',JSON.stringify(d));}
 function getOnboarding(){return JSON.parse(localStorage.getItem('kl_onboarding')||'null');}
 
+// Quest tracking
+function getQuests(campusId){return JSON.parse(localStorage.getItem('kl_quests_'+campusId)||'{}');}
+function saveQuest(campusId,lessonNum,completed){
+  var q=getQuests(campusId);q['lesson_'+lessonNum]=completed;
+  localStorage.setItem('kl_quests_'+campusId,JSON.stringify(q));
+}
+function isQuestComplete(campusId,lessonNum){var q=getQuests(campusId);return q['lesson_'+lessonNum]===true;}
+
 /* ============================================================
    TODAY'S RITUAL RECOMMENDATION
    ============================================================ */
 function getTodayRitual(pillar,totalLessons){
   var absorbed=JSON.parse(localStorage.getItem('kl_'+pillar+'_absorbed')||'[]');
   for(var i=1;i<=totalLessons;i++){if(!absorbed.includes(i))return i;}
+  return null;
+}
+function getNextRitualAcrossCampuses(){
+  for(var i=0;i<CAMPUSES.length;i++){
+    var c=CAMPUSES[i];if(c.lessons===0)continue;
+    var next=getTodayRitual(c.id,c.lessons);
+    if(next)return {campus:c,lesson:next};
+  }
   return null;
 }
 
@@ -332,6 +442,3 @@ function initPublic(){ensureGuest();buildPublicFooter();}
    SERVICE WORKER + SUPABASE PLACEHOLDER
    ============================================================ */
 if('serviceWorker' in navigator){window.addEventListener('load',function(){navigator.serviceWorker.register('sw.js').catch(function(){});});}
-// const SUPABASE_URL = 'https://your-project.supabase.co';
-// const SUPABASE_KEY = 'your-anon-key';
-// const supabase = supabase.createClient(SUPABASE_URL, SUPABASE_KEY);
