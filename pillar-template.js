@@ -1,4 +1,4 @@
-/* pillar-template.js – v0.0.5 */
+/* pillar-template.js – v0.0.6 */
 /* ============================================================
    Shared Pillar Page Interactivity
    Quiz · Checklist · Scenario Solver · Journal Save

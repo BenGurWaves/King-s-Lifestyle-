@@ -1,5 +1,5 @@
 // Service Worker — A King's Lifestyle
-const CACHE_NAME = 'kings-lifestyle-v1';
+const CACHE_NAME = 'kings-lifestyle-v2';
 const URLS_TO_CACHE = [
   '/',
   '/index.html',

@@ -1,4 +1,4 @@
-/* shared.js – v0.0.5 */
+/* shared.js – v0.0.6 */
 /* ============================================================
    A King's Lifestyle — Shared Module
    Auth · Navigation · Verse Modal · LLM Chat · Utilities
