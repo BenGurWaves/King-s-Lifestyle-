@@ -1,36 +1,29 @@
-// Service Worker — A King's Lifestyle
-const CACHE_NAME = 'kings-lifestyle-v4';
+// Service Worker — A King's Lifestyle v0.0.8
+// Network-first strategy: always try fresh content, fall back to cache offline
+const CACHE_NAME = 'kings-lifestyle-v5';
 const URLS_TO_CACHE = [
   '/',
-  '/index.html',
-  '/dashboard.html',
-  '/onboarding.html',
-  '/nourishment.html',
-  '/attire.html',
-  '/mentality.html',
-  '/treasury.html',
-  '/templecare.html',
-  '/presence.html',
-  '/speech.html',
-  '/legacy.html',
-  '/journal.html',
-  '/settings.html',
+  '/dashboard',
+  '/onboarding',
+  '/nourishment',
+  '/attire',
+  '/mentality',
+  '/treasury',
+  '/templecare',
+  '/presence',
+  '/speech',
+  '/legacy',
+  '/journal',
+  '/settings',
   '/shared.js',
   '/pillar-template.js',
   '/manifest.json'
 ];
 
 self.addEventListener('install', (event) => {
+  self.skipWaiting();
   event.waitUntil(
     caches.open(CACHE_NAME).then((cache) => cache.addAll(URLS_TO_CACHE))
-  );
-});
-
-self.addEventListener('fetch', (event) => {
-  event.respondWith(
-    caches.match(event.request).then((response) => {
-      return response || fetch(event.request);
-    })
   );
 });
 
@@ -40,6 +33,20 @@ self.addEventListener('activate', (event) => {
       return Promise.all(
         names.filter((name) => name !== CACHE_NAME).map((name) => caches.delete(name))
       );
-    })
+    }).then(() => self.clients.claim())
+  );
+});
+
+self.addEventListener('fetch', (event) => {
+  event.respondWith(
+    fetch(event.request)
+      .then((response) => {
+        if (response.ok) {
+          var clone = response.clone();
+          caches.open(CACHE_NAME).then((cache) => cache.put(event.request, clone));
+        }
+        return response;
+      })
+      .catch(() => caches.match(event.request))
   );
 });
