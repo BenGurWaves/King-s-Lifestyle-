@@ -1,4 +1,4 @@
-/* shared.js – v0.0.11 */
+/* shared.js – v0.0.12 */
 /* ============================================================
    A King's Lifestyle — Core Module
    Auth · Campuses · Daily Codex · Transformation Engine
@@ -155,11 +155,11 @@ function getDailyLessonCampus(){
    LLM PERSONA COMPRESSION — Campus-specific system prompts
    ============================================================ */
 var LLM_PERSONAS = {
-  nourishment: 'You are the Lead Professor of Biblical Nutrition. Expert in Leviticus 11, clean/unclean foods, Hebrew food terminology, and 2026 Aurora Colorado grocery sourcing. Tie every answer to Scripture and practical modern application.',
-  attire: 'You are the Lead Professor of Biblical Attire. Expert in modest adornment, Leviticus 19:19 fabric laws, 1 Timothy 2:9-10, jewelry symbolism, gentleman grooming. Tie every answer to Scripture and practical 2026 Colorado style.',
+  nourishment: 'You are the Lead Professor of Biblical Nutrition. Expert in Leviticus 11, clean/unclean foods, Hebrew food terminology, and modern grocery sourcing. Tie every answer to Scripture and practical modern application. Use the user\u2019s location (if provided) to personalize sourcing advice.',
+  attire: 'You are the Lead Professor of Biblical Attire. Expert in modest adornment, Leviticus 19:19 fabric laws, 1 Timothy 2:9-10, jewelry symbolism, gentleman grooming. Tie every answer to Scripture and practical modern style.',
   mentality: 'You are the Lead Professor of Biblical Mentality. Expert in servant leadership (Matt 20:26), wisdom literature, psychological influence grounded in Proverbs, and advising the wise. Tie every answer to Scripture.',
-  treasury: 'You are the Lead Professor of Biblical Treasury. Expert in Proverbs on wealth, tithing, stewardship, and practical 2026 financial strategies grounded in Scripture.',
-  templecare: 'You are the Lead Professor of Biblical Temple Care. Expert in 1 Corinthians 6:19-20 body stewardship, grooming, sleep (Psalm 127:2), hygiene, and fitness as worship. Tie every answer to Scripture and 2026 Aurora practical life.',
+  treasury: 'You are the Lead Professor of Biblical Treasury. Expert in Proverbs on wealth, tithing, stewardship, and practical financial strategies grounded in Scripture.',
+  templecare: 'You are the Lead Professor of Biblical Temple Care. Expert in 1 Corinthians 6:19-20 body stewardship, grooming, sleep (Psalm 127:2), hygiene, and fitness as worship. Tie every answer to Scripture and practical modern life.',
   presence: 'You are the Lead Professor of Biblical Presence. Expert in body language, Proverbs on silence and discernment, psychological influence, and commanding rooms with quiet authority. Tie every answer to Scripture.',
   speech: 'You are the Lead Professor of Biblical Speech. Expert in Proverbs 15:1 gentle answers, persuasion without manipulation, 1 Timothy 4:12 speech as credential. Tie every answer to Scripture.',
   legacy: 'You are the Lead Professor of Biblical Legacy. Expert in multi-generational vision (Psalm 78), advisory councils (Proverbs 11:14), and building what outlasts your lifetime. Tie every answer to Scripture.',
@@ -682,6 +682,279 @@ function getNextRitualAcrossCampuses(){
     if(next)return {campus:c,lesson:next};
   }
   return null;
+}
+
+/* ============================================================
+   IMAGE GENERATION — Grok Imagine via Replicate / fal.ai
+   ============================================================ */
+function getImageGenConfig(){
+  return {
+    provider:localStorage.getItem('kl_imggen_provider')||'replicate',
+    apiKey:localStorage.getItem('kl_imggen_apiKey')||'',
+    model:localStorage.getItem('kl_imggen_model')||'grok-imagine-image'
+  };
+}
+function saveImageGenConfig(provider,apiKey,model){
+  localStorage.setItem('kl_imggen_provider',provider||'replicate');
+  localStorage.setItem('kl_imggen_apiKey',apiKey||'');
+  localStorage.setItem('kl_imggen_model',model||'grok-imagine-image');
+}
+function hasImageGenConfigured(){return !!getImageGenConfig().apiKey;}
+
+async function generateRoyalVisualization(prompt){
+  var cfg=getImageGenConfig();
+  if(!cfg.apiKey)return null;
+  var fullPrompt=prompt+' in royal gentleman style, elegant, cinematic, golden hour lighting, oil painting quality';
+  try{
+    if(cfg.provider==='fal'){
+      var res=await fetch('https://fal.run/fal-ai/grok-2-aurora/image-to-image',{
+        method:'POST',headers:{'Authorization':'Key '+cfg.apiKey,'Content-Type':'application/json'},
+        body:JSON.stringify({prompt:fullPrompt,image_size:'landscape_16_9'})
+      });
+      var data=await res.json();
+      if(data.images&&data.images[0])return data.images[0].url;
+      return null;
+    }else{
+      var res2=await fetch('https://api.replicate.com/v1/predictions',{
+        method:'POST',headers:{'Authorization':'Token '+cfg.apiKey,'Content-Type':'application/json'},
+        body:JSON.stringify({version:cfg.model,input:{prompt:fullPrompt}})
+      });
+      var pred=await res2.json();
+      if(pred.error)return null;
+      var getUrl=pred.urls&&pred.urls.get?pred.urls.get:'https://api.replicate.com/v1/predictions/'+pred.id;
+      for(var i=0;i<30;i++){
+        await new Promise(function(r){setTimeout(r,2000);});
+        var check=await fetch(getUrl,{headers:{'Authorization':'Token '+cfg.apiKey}});
+        var status=await check.json();
+        if(status.status==='succeeded'&&status.output){
+          return Array.isArray(status.output)?status.output[0]:status.output;
+        }
+        if(status.status==='failed')return null;
+      }
+      return null;
+    }
+  }catch(err){return null;}
+}
+
+var IMGGEN_ICON_SVG='<svg width="20" height="20" fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24"><path d="M2.25 15.75l5.159-5.159a2.25 2.25 0 013.182 0l5.159 5.159m-1.5-1.5l1.409-1.409a2.25 2.25 0 013.182 0l2.909 2.909M3.75 21h16.5A2.25 2.25 0 0022.5 18.75V5.25A2.25 2.25 0 0020.25 3H3.75A2.25 2.25 0 001.5 5.25v13.5A2.25 2.25 0 003.75 21z"/></svg>';
+
+function _resetVizBtn(btn){
+  btn.textContent='';
+  var frag=document.createRange().createContextualFragment(IMGGEN_ICON_SVG);
+  btn.appendChild(frag);btn.appendChild(document.createTextNode(' Generate Royal Visualization'));
+}
+
+function buildRoyalVisualizationBtn(lessonTitle,campusName,container){
+  var btn=document.createElement('button');
+  btn.className='royal-viz-btn w-full py-3 mt-4 border-2 border-royal-gold text-royal-gold font-cinzel tracking-wider rounded-xl hover:bg-royal-gold hover:text-white transition-all duration-500 flex items-center justify-center gap-3';
+  var cfg=getImageGenConfig();
+  if(!cfg.apiKey){
+    btn.textContent='Connect Grok Imagine in Settings for custom visuals';
+    btn.onclick=function(){window.location.href='/settings';};
+  }else{
+    _resetVizBtn(btn);
+    btn.onclick=async function(){
+      btn.disabled=true;btn.textContent='Generating your royal vision...';btn.classList.add('opacity-60');
+      var onboarding=getOnboarding();
+      var goals=onboarding&&onboarding.goals?onboarding.goals:'becoming a king, gentleman, and man of God';
+      var prompt='A young king learning about '+lessonTitle+' from '+campusName+'. Goals: '+goals+'.';
+      var url=await generateRoyalVisualization(prompt);
+      btn.disabled=false;btn.classList.remove('opacity-60');
+      if(url){
+        btn.textContent='Generate Another Vision';
+        var imgWrap=document.createElement('div');imgWrap.className='mt-4 rounded-xl overflow-hidden border border-royal-gold/20';imgWrap.style.animation='fadeIn 0.8s ease-out';
+        var img=document.createElement('img');img.src=url;img.alt='Your Personalized Royal Vision';img.className='w-full';img.loading='lazy';
+        var cap=document.createElement('p');cap.className='text-center font-playfair italic text-sm text-royal-gold/70 py-3 bg-royal-sapphire/5 dark:bg-white/5';cap.textContent='Your Personalized Royal Vision';
+        imgWrap.append(img,cap);container.parentNode.insertBefore(imgWrap,container.nextSibling);
+      }else{
+        _resetVizBtn(btn);
+      }
+    };
+  }
+  container.appendChild(btn);
+}
+
+/* ============================================================
+   SPACED REPETITION — Review from 7 days ago
+   ============================================================ */
+function getSpacedRepetitionCards(){
+  var history=JSON.parse(localStorage.getItem('kl_lesson_history')||'[]');
+  var sevenDaysAgo=Date.now()-7*86400000;
+  var eightDaysAgo=Date.now()-8*86400000;
+  var cards=history.filter(function(h){
+    var t=new Date(h.date).getTime();
+    return t>=eightDaysAgo&&t<=sevenDaysAgo;
+  });
+  var seen={};
+  return cards.filter(function(c){
+    var key=c.campusId+'_'+c.lesson;
+    if(seen[key])return false;
+    seen[key]=true;return true;
+  }).slice(0,3);
+}
+
+function buildSpacedRepSection(containerId){
+  var container=document.getElementById(containerId);if(!container)return;
+  var cards=getSpacedRepetitionCards();
+  if(cards.length===0)return;
+  container.textContent='';
+  var wrap=document.createElement('div');wrap.className='mb-10 animate-fadeIn';
+  var hdr=document.createElement('div');hdr.className='flex items-center gap-3 mb-4';
+  var badge=document.createElement('span');badge.className='px-3 py-1 bg-royal-gold/10 text-royal-gold font-cinzel text-xs tracking-wider rounded-full';badge.textContent='SPACED REPETITION';
+  var title=document.createElement('h3');title.className='font-cinzel text-lg text-royal-plum dark:text-royal-gold';title.textContent='Review from 7 Days Ago';
+  hdr.append(badge,title);wrap.appendChild(hdr);
+  var grid=document.createElement('div');grid.className='grid grid-cols-1 md:grid-cols-'+Math.min(cards.length,3)+' gap-4';
+  cards.forEach(function(card){
+    var campus=CAMPUSES.find(function(c){return c.id===card.campusId;});
+    var el=document.createElement('a');
+    el.href=(campus?campus.href:'/')+'#lesson-'+String(card.lesson).padStart(2,'0');
+    el.className='block p-5 bg-white dark:bg-royal-sapphire/20 border border-royal-gold/15 rounded-xl hover:border-royal-gold/40 transition group';
+    var campLabel=document.createElement('span');campLabel.className='text-xs font-cinzel tracking-wider text-royal-gold/60';campLabel.textContent=campus?campus.label:'Lesson';
+    var tit=document.createElement('p');tit.className='font-cinzel text-sm text-royal-plum dark:text-royal-gold mt-1 group-hover:text-royal-gold transition';tit.textContent=card.title||('Lesson '+card.lesson);
+    var hint=document.createElement('p');hint.className='text-xs font-inter text-royal-sapphire/40 dark:text-white/30 mt-2';hint.textContent='Revisit to strengthen retention';
+    el.append(campLabel,tit,hint);grid.appendChild(el);
+  });
+  wrap.appendChild(grid);container.appendChild(wrap);
+}
+
+/* ============================================================
+   ACTIVE LEARNING — Build Your Royal Habit checkpoints
+   ============================================================ */
+function getHabitCheckpoints(campusId){return JSON.parse(localStorage.getItem('kl_habits_'+campusId)||'{}');}
+function saveHabitCheckpoint(campusId,lessonNum,value){
+  var h=getHabitCheckpoints(campusId);h['lesson_'+lessonNum]=value;
+  localStorage.setItem('kl_habits_'+campusId,JSON.stringify(h));
+}
+
+function buildActiveCheckpoint(campusId,lessonNum,container){
+  var wrap=document.createElement('div');wrap.className='bg-royal-gold/5 dark:bg-royal-gold/10 border border-royal-gold/15 rounded-xl p-5 mt-6';wrap.style.animation='fadeIn 0.5s ease-out';
+  var hdr=document.createElement('div');hdr.className='flex items-center gap-2 mb-3';
+  var iconFrag=document.createRange().createContextualFragment('<svg width="18" height="18" fill="none" stroke="#A38255" stroke-width="1.5" viewBox="0 0 24 24"><path d="M9.663 17h4.673M12 3v1m6.364 1.636l-.707.707M21 12h-1M4 12H3m3.343-5.657l-.707-.707m2.828 9.9a5 5 0 117.072 0l-.548.547A3.374 3.374 0 0014 18.469V19a2 2 0 11-4 0v-.531c0-.895-.356-1.754-.988-2.386l-.548-.547z"/></svg>');
+  hdr.appendChild(iconFrag);
+  var label=document.createElement('span');label.className='font-cinzel text-xs tracking-wider text-royal-gold';label.textContent='BUILD YOUR ROYAL HABIT';
+  hdr.appendChild(label);wrap.appendChild(hdr);
+  var existing=getHabitCheckpoints(campusId)['lesson_'+lessonNum]||'';
+  var inp=document.createElement('input');inp.type='text';inp.value=existing;
+  inp.placeholder='One specific action I will take from this lesson today...';
+  inp.className='w-full px-4 py-3 rounded-lg border border-royal-gold/20 bg-white/70 dark:bg-white/5 font-inter text-sm focus:outline-none focus:border-royal-gold transition dark:text-white/80';
+  inp.oninput=function(){saveHabitCheckpoint(campusId,lessonNum,inp.value);logHabit(campusId,'habit_checkpoint');};
+  wrap.appendChild(inp);container.appendChild(wrap);
+}
+
+/* ============================================================
+   STORYTELLING — Narrative intros per lesson
+   ============================================================ */
+function buildStorytellingIntro(campusLabel,lessonTitle,container){
+  var wrap=document.createElement('div');wrap.className='mb-8 px-6 py-5 bg-gradient-to-r from-royal-gold/5 to-transparent dark:from-royal-gold/10 dark:to-transparent border-l-2 border-royal-gold rounded-r-xl';
+  wrap.style.animation='fadeIn 0.8s ease-out';
+  var p=document.createElement('p');p.className='font-playfair italic text-royal-plum dark:text-royal-gold/80 text-sm leading-relaxed';
+  p.textContent='Imagine yourself as the young king stepping into the throne room of '+campusLabel+'. Today\u2019s lesson, \u201C'+lessonTitle+',\u201D is not merely information \u2014 it is an instrument of transformation. As you absorb these words, you are not the same man who opened this page. The knowledge itself changes the architecture of your mind, and what you do with it in the next twenty-four hours determines whether you remain a student or become a king.';
+  wrap.appendChild(p);
+  if(container.firstChild){container.insertBefore(wrap,container.firstChild);}else{container.appendChild(wrap);}
+}
+
+/* ============================================================
+   SOCIAL SHARING — Share your Royal Insight
+   ============================================================ */
+var SHARE_ICON_SVG='<svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24"><path d="M7.217 10.907a2.25 2.25 0 100 2.186m0-2.186c.18.324.283.696.283 1.093s-.103.77-.283 1.093m0-2.186l9.566-5.314m-9.566 7.5l9.566 5.314m0 0a2.25 2.25 0 103.935 2.186 2.25 2.25 0 00-3.935-2.186zm0-12.814a2.25 2.25 0 103.933-2.185 2.25 2.25 0 00-3.933 2.185z"/></svg>';
+
+function _resetShareBtn(btn){
+  btn.textContent='';
+  var frag=document.createRange().createContextualFragment(SHARE_ICON_SVG);
+  btn.appendChild(frag);btn.appendChild(document.createTextNode('Share Your Royal Insight'));
+}
+
+function buildShareInsightBtn(lessonTitle,campusLabel,container){
+  var btn=document.createElement('button');
+  btn.className='w-full py-3 mt-3 border border-royal-gold/20 text-royal-gold/70 font-cinzel text-xs tracking-wider rounded-xl hover:bg-royal-gold/5 transition flex items-center justify-center gap-2';
+  _resetShareBtn(btn);
+  btn.onclick=function(){
+    var text='\u201C'+lessonTitle+'\u201D from '+campusLabel+' \u2014 A King\u2019s Lifestyle\nhttps://akingslifestyle.com';
+    if(navigator.share){
+      navigator.share({title:lessonTitle+' \u2014 A King\u2019s Lifestyle',text:text}).catch(function(){});
+    }else if(navigator.clipboard){
+      navigator.clipboard.writeText(text).then(function(){
+        btn.textContent='Insight copied to clipboard';
+        setTimeout(function(){_resetShareBtn(btn);},2000);
+      });
+    }
+  };
+  container.appendChild(btn);
+}
+
+/* ============================================================
+   ENHANCED LLM PERSONALIZATION — Custom interactive elements
+   ============================================================ */
+async function enhanceLessonWithLLM(lessonTitle,campusName,container){
+  var cfg=getLLMConfig();
+  if(!cfg.endpoint&&!cfg.apiKey)return;
+  var onboarding=getOnboarding();
+  var context='';
+  if(onboarding){
+    if(onboarding.location)context+='Location: '+onboarding.location+'. ';
+    if(onboarding.goals)context+='Goals: '+onboarding.goals+'. ';
+    if(onboarding.experience)context+='Experience: '+onboarding.experience+'. ';
+  }
+  var recentJournal=getJournalEntries().slice(-3).map(function(e){return e.answer;}).join(' ');
+  if(recentJournal)context+='Recent journal: '+recentJournal.substring(0,300)+'. ';
+  var prompt='The user just read "'+lessonTitle+'" from '+campusName+'. '+context+'Generate a personalized Royal Insight (60-80 words) connecting this lesson to their journey with one Bible verse. Then suggest a personalized visualization prompt.';
+  var campusId=CAMPUSES.find(function(c){return c.label===campusName;})?.id||'default';
+  var result=await askLLMWithPersona(prompt,campusId);
+  if(!result)return;
+  var wrap=document.createElement('div');wrap.className='mt-6 space-y-4';wrap.style.animation='fadeInUp 0.6s ease-out';
+  var hdr=document.createElement('div');hdr.className='flex items-center gap-2';
+  var badge=document.createElement('span');badge.className='px-3 py-1 bg-royal-plum/10 dark:bg-royal-gold/10 text-royal-plum dark:text-royal-gold font-cinzel text-xs tracking-wider rounded-full';badge.textContent='PERSONALIZED COUNSEL';
+  hdr.appendChild(badge);wrap.appendChild(hdr);
+  var content=document.createElement('div');content.className='bg-white dark:bg-royal-sapphire/20 border border-royal-gold/15 rounded-xl p-5';
+  var text=document.createElement('p');text.className='font-playfair italic text-royal-plum dark:text-royal-gold/80 text-sm leading-relaxed';text.textContent=result;
+  content.appendChild(text);wrap.appendChild(content);container.appendChild(wrap);
+}
+
+var ENHANCE_ICON_SVG='<svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24"><path d="M9.813 15.904L9 18.75l-.813-2.846a4.5 4.5 0 00-3.09-3.09L2.25 12l2.846-.813a4.5 4.5 0 003.09-3.09L9 5.25l.813 2.846a4.5 4.5 0 003.09 3.09L15.75 12l-2.846.813a4.5 4.5 0 00-3.09 3.09zM18.259 8.715L18 9.75l-.259-1.035a3.375 3.375 0 00-2.455-2.456L14.25 6l1.036-.259a3.375 3.375 0 002.455-2.456L18 2.25l.259 1.035a3.375 3.375 0 002.455 2.456L21.75 6l-1.036.259a3.375 3.375 0 00-2.455 2.456zM16.894 20.567L16.5 21.75l-.394-1.183a2.25 2.25 0 00-1.423-1.423L13.5 18.75l1.183-.394a2.25 2.25 0 001.423-1.423l.394-1.183.394 1.183a2.25 2.25 0 001.423 1.423l1.183.394-1.183.394a2.25 2.25 0 00-1.423 1.423z"/></svg>';
+
+function _resetEnhanceBtn(btn,label){
+  btn.textContent='';
+  var frag=document.createRange().createContextualFragment(ENHANCE_ICON_SVG);
+  btn.appendChild(frag);btn.appendChild(document.createTextNode(' '+(label||'Enhance Lesson')));
+}
+
+function buildEnhanceLessonBtn(lessonTitle,campusName,container){
+  var cfg=getLLMConfig();
+  var btn=document.createElement('button');
+  btn.className='w-full py-3 mt-3 bg-royal-plum/10 dark:bg-royal-gold/10 text-royal-plum dark:text-royal-gold font-cinzel text-xs tracking-wider rounded-xl hover:bg-royal-plum/20 dark:hover:bg-royal-gold/20 transition flex items-center justify-center gap-2';
+  if(!cfg.endpoint&&!cfg.apiKey){
+    btn.textContent='Connect LLM in Settings to personalize lessons';
+    btn.onclick=function(){window.location.href='/settings';};
+  }else{
+    _resetEnhanceBtn(btn);
+    btn.onclick=async function(){
+      btn.disabled=true;btn.textContent='The King\u2019s counsel considers...';btn.classList.add('opacity-60');
+      await enhanceLessonWithLLM(lessonTitle,campusName,container);
+      btn.disabled=false;btn.classList.remove('opacity-60');
+      _resetEnhanceBtn(btn,'Enhance Again');
+    };
+  }
+  container.appendChild(btn);
+}
+
+/* ============================================================
+   TEMPLE CHANGE SCORE — Enhanced with time investment
+   ============================================================ */
+function getTempleChangeScoreEnhanced(){
+  var log=getHabitLog();
+  var thirtyDaysAgo=Date.now()-30*86400000;
+  var recent=log.filter(function(e){return new Date(e.date).getTime()>thirtyDaysAgo;});
+  var daysActive=new Set(recent.map(function(e){return new Date(e.date).toDateString();})).size;
+  var questsComplete=0;
+  CAMPUSES.forEach(function(c){var q=getQuests(c.id);questsComplete+=Object.values(q).filter(function(v){return v===true;}).length;});
+  var absorbed=0;
+  CAMPUSES.forEach(function(c){absorbed+=JSON.parse(localStorage.getItem('kl_'+c.id+'_absorbed')||'[]').length;});
+  var historyEntries=JSON.parse(localStorage.getItem('kl_lesson_history')||'[]');
+  var recentHistory=historyEntries.filter(function(h){return new Date(h.date).getTime()>thirtyDaysAgo;});
+  var timeBonus=Math.min(20,recentHistory.length*2);
+  var habitBonus=0;
+  CAMPUSES.forEach(function(c){var h=getHabitCheckpoints(c.id);habitBonus+=Object.values(h).filter(function(v){return v&&v.length>5;}).length;});
+  return Math.min(100,Math.round((daysActive*2)+(questsComplete*3)+(absorbed*1.5)+timeBonus+(habitBonus*2)));
 }
 
 /* ============================================================

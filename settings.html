@@ -1,4 +1,4 @@
-<!-- settings.html – v0.0.11 -->
+<!-- settings.html – v0.0.12 -->
 <!DOCTYPE html>
 <html lang="en" class="scroll-smooth">
 <head>
@@ -114,7 +114,48 @@
         </div>
       </div>
 
-      <!-- 4. Data Management -->
+      <!-- 4. Image Generation API (Grok Imagine) -->
+      <div class="bg-white dark:bg-royal-sapphire/20 border border-royal-gold/10 rounded-2xl p-6 md:p-8">
+        <h2 class="font-cinzel text-lg text-royal-plum dark:text-royal-gold mb-2">Image Generation API (Grok Imagine)</h2>
+        <p class="text-xs text-royal-sapphire/40 dark:text-white/30 mb-6">Generate personalized royal visualizations within your lessons using text-to-image AI.</p>
+
+        <!-- Status indicator -->
+        <div id="imggenStatus" class="flex items-center gap-2 mb-6 px-4 py-3 rounded-xl bg-royal-sapphire/5 dark:bg-white/5">
+          <span id="imggenStatusDot" class="w-2.5 h-2.5 rounded-full bg-royal-sapphire/20 dark:bg-white/20"></span>
+          <span id="imggenStatusText" class="text-xs font-inter text-royal-sapphire/50 dark:text-white/40">Not connected</span>
+        </div>
+
+        <div class="space-y-4">
+          <!-- Provider -->
+          <div>
+            <label for="imggenProvider" class="block text-xs font-cinzel text-royal-gold/60 dark:text-royal-gold/40 tracking-wider mb-2">Provider</label>
+            <select id="imggenProvider" class="w-full px-4 py-3 rounded-xl border border-royal-gold/20 bg-royal-cream/50 dark:bg-white/5 font-inter text-sm focus:outline-none focus:border-royal-gold transition dark:text-white/80">
+              <option value="replicate">Replicate</option>
+              <option value="fal">fal.ai</option>
+            </select>
+          </div>
+
+          <!-- API Key -->
+          <div>
+            <label for="imggenApiKey" class="block text-xs font-cinzel text-royal-gold/60 dark:text-royal-gold/40 tracking-wider mb-2">API Key</label>
+            <div class="relative">
+              <input type="password" id="imggenApiKey" placeholder="Paste your Replicate or fal.ai API key" class="w-full px-4 py-3 pr-16 rounded-xl border border-royal-gold/20 bg-royal-cream/50 dark:bg-white/5 font-inter text-sm focus:outline-none focus:border-royal-gold transition dark:text-white/80">
+              <button type="button" id="toggleImggenKey" class="absolute right-3 top-1/2 -translate-y-1/2 text-xs text-royal-gold hover:text-royal-plum transition">Show</button>
+            </div>
+          </div>
+
+          <!-- Model version (Replicate only) -->
+          <div>
+            <label for="imggenModel" class="block text-xs font-cinzel text-royal-gold/60 dark:text-royal-gold/40 tracking-wider mb-2">Model Version (Replicate)</label>
+            <input type="text" id="imggenModel" placeholder="e.g. grok-imagine-image" class="w-full px-4 py-3 rounded-xl border border-royal-gold/20 bg-royal-cream/50 dark:bg-white/5 font-inter text-sm focus:outline-none focus:border-royal-gold transition dark:text-white/80">
+          </div>
+
+          <!-- Save Button -->
+          <button id="saveImggenBtn" class="w-full px-6 py-3 bg-royal-gold text-white font-cinzel text-sm rounded-xl hover:bg-royal-plum transition-all duration-300 gold-glow">Save Image Generation Settings</button>
+        </div>
+      </div>
+
+      <!-- 5. Data Management -->
       <div class="bg-white dark:bg-royal-sapphire/20 border border-royal-gold/10 rounded-2xl p-6 md:p-8">
         <h2 class="font-cinzel text-lg text-royal-plum dark:text-royal-gold mb-6">Data Management</h2>
         <div class="space-y-4">
@@ -138,13 +179,13 @@
 
     </div>
 
-    <!-- 6. Version -->
-    <p class="text-center text-xs text-royal-sapphire/20 dark:text-white/15 mt-12 font-inter">v0.0.11</p>
+    <!-- 7. Version -->
+    <p class="text-center text-xs text-royal-sapphire/20 dark:text-white/15 mt-12 font-inter">v0.0.12</p>
   </section>
 
   <div id="mainFooter"></div>
 
-  <script src="shared.js?v=11"></script>
+  <script src="shared.js?v=12"></script>
   <script>
     document.addEventListener('DOMContentLoaded', function() {
       if (!requireAuth()) return;
@@ -249,6 +290,43 @@
         if (cfg.endpoint || cfg.apiKey) {
           dot.className = 'w-2.5 h-2.5 rounded-full bg-green-500';
           text.textContent = 'Connected — ' + (cfg.provider || 'Custom') + (cfg.model ? ' / ' + cfg.model : '');
+        } else {
+          dot.className = 'w-2.5 h-2.5 rounded-full bg-royal-sapphire/20 dark:bg-white/20';
+          text.textContent = 'Not connected';
+        }
+      }
+
+      // --- Image Generation Settings ---
+      var imgCfg = getImageGenConfig();
+      if (imgCfg.provider) document.getElementById('imggenProvider').value = imgCfg.provider;
+      if (imgCfg.apiKey) document.getElementById('imggenApiKey').value = imgCfg.apiKey;
+      if (imgCfg.model) document.getElementById('imggenModel').value = imgCfg.model;
+      updateImggenStatus();
+
+      document.getElementById('toggleImggenKey').addEventListener('click', function() {
+        var input = document.getElementById('imggenApiKey');
+        if (input.type === 'password') { input.type = 'text'; this.textContent = 'Hide'; }
+        else { input.type = 'password'; this.textContent = 'Show'; }
+      });
+
+      document.getElementById('saveImggenBtn').addEventListener('click', function() {
+        var provider = document.getElementById('imggenProvider').value;
+        var apiKey = document.getElementById('imggenApiKey').value.trim();
+        var model = document.getElementById('imggenModel').value.trim();
+        saveImageGenConfig(provider, apiKey, model);
+        updateImggenStatus();
+        this.textContent = 'Saved';
+        var self = this;
+        setTimeout(function() { self.textContent = 'Save Image Generation Settings'; }, 2000);
+      });
+
+      function updateImggenStatus() {
+        var cfg = getImageGenConfig();
+        var dot = document.getElementById('imggenStatusDot');
+        var text = document.getElementById('imggenStatusText');
+        if (cfg.apiKey) {
+          dot.className = 'w-2.5 h-2.5 rounded-full bg-green-500';
+          text.textContent = 'Connected \u2014 ' + cfg.provider + (cfg.model ? ' / ' + cfg.model : '');
         } else {
           dot.className = 'w-2.5 h-2.5 rounded-full bg-royal-sapphire/20 dark:bg-white/20';
           text.textContent = 'Not connected';

@@ -1,4 +1,4 @@
-<!-- dashboard.html – v0.0.11 -->
+<!-- dashboard.html – v0.0.12 -->
 <!DOCTYPE html>
 <html lang="en" class="scroll-smooth">
 <head>
@@ -66,6 +66,10 @@
               <span class="text-xs text-white/40 font-inter">Day Streak</span>
             </div>
             <div class="bg-white/10 border border-royal-gold/20 rounded-xl px-5 py-3 text-center">
+              <span id="heroTempleScore" class="block font-cinzel text-2xl text-royal-gold">0</span>
+              <span class="text-xs text-white/40 font-inter">Temple Change Score</span>
+            </div>
+            <div class="bg-white/10 border border-royal-gold/20 rounded-xl px-5 py-3 text-center">
               <span id="heroMastery" class="block font-cinzel text-2xl text-royal-gold">0%</span>
               <span class="text-xs text-white/40 font-inter">Temple Mastery</span>
             </div>
@@ -86,6 +90,9 @@
       </div>
     </section>
 
+    <!-- 2b. Spaced Repetition — Review from 7 Days Ago -->
+    <div id="spacedRepContainer" class="mb-2"></div>
+
     <!-- 3. Today's Mixed Lesson -->
     <section class="mb-14 animate-fadeIn">
       <div class="mb-4">
@@ -103,6 +110,7 @@
           <button id="dlEnhanceBtn" class="px-6 py-2.5 border border-royal-gold/30 text-royal-gold font-cinzel text-sm tracking-wider rounded-lg hover:bg-royal-gold/10 transition-all duration-500" style="display:none;">Enhance with My Wisdom</button>
         </div>
         <div id="dlInsightArea" class="mt-6" style="display:none;"></div>
+        <div id="dlImageGenArea" class="mt-4"></div>
       </div>
     </section>
 
@@ -149,7 +157,22 @@
       </div>
     </section>
 
-    <!-- 7. Royal Campuses Grid -->
+    <!-- 7. Royal Library Teaser -->
+    <section class="mb-14 animate-fadeIn">
+      <a href="/library" class="block bg-gradient-to-r from-[#5C4033] to-[#3D2B1F] rounded-2xl p-6 md:p-8 text-white relative overflow-hidden group hover:shadow-xl transition-shadow duration-500">
+        <div class="absolute inset-0 opacity-[0.06]" style="background-image:url('data:image/svg+xml,%3Csvg width=\'40\' height=\'40\' xmlns=\'http://www.w3.org/2000/svg\'%3E%3Crect width=\'40\' height=\'40\' fill=\'none\'/%3E%3Cpath d=\'M0 20h40M20 0v40\' stroke=\'%23A38255\' stroke-width=\'0.5\' opacity=\'0.3\'/%3E%3C/svg%3E');"></div>
+        <div class="relative z-10 flex items-center justify-between">
+          <div>
+            <p class="font-cinzel text-xs tracking-[0.3em] text-royal-gold/60 uppercase mb-2">Campus IX</p>
+            <h3 class="font-cinzel text-xl md:text-2xl text-white mb-2">The Royal Library</h3>
+            <p class="font-playfair italic text-white/50 text-sm">25 book studies anchored in Scripture. Visualization, productivity, spiritual growth.</p>
+          </div>
+          <span class="font-cinzel text-royal-gold/40 text-2xl group-hover:text-royal-gold transition-colors">&rarr;</span>
+        </div>
+      </a>
+    </section>
+
+    <!-- 8. Royal Campuses Grid -->
     <section class="mb-14">
       <div class="mb-6 animate-fadeIn">
         <h2 class="font-cinzel text-lg text-royal-plum dark:text-royal-gold tracking-wide">Royal Campuses</h2>
@@ -159,13 +182,13 @@
     </section>
 
     <!-- Version -->
-    <p class="text-center text-xs text-royal-sapphire/20 dark:text-white/15 mt-12 font-inter">v0.0.11</p>
+    <p class="text-center text-xs text-royal-sapphire/20 dark:text-white/15 mt-12 font-inter">v0.0.12</p>
   </main>
 
   <!-- 8. Footer -->
   <div id="mainFooter"></div>
 
-  <script src="shared.js?v=11"></script>
+  <script src="shared.js?v=12"></script>
   <script>
     document.addEventListener('DOMContentLoaded', function() {
       if (!requireAuth()) return;
@@ -180,10 +203,15 @@
         heroMasteryBar.style.width = mastery + '%';
       }, 200);
 
-      /* ========== Temple Change Score ========== */
-      var score = getTempleChangeScore();
+      /* ========== Temple Change Score (Enhanced) ========== */
+      var score = getTempleChangeScoreEnhanced();
       var templeScoreEl = document.getElementById('templeChangeScore');
       templeScoreEl.textContent = score;
+      var heroTempleScoreEl = document.getElementById('heroTempleScore');
+      if (heroTempleScoreEl) heroTempleScoreEl.textContent = score;
+
+      /* ========== Spaced Repetition ========== */
+      buildSpacedRepSection('spacedRepContainer');
 
       /* ========== Time Invested This Week ========== */
       var timeCount = getTimeInvestedThisWeek();
@@ -249,6 +277,12 @@
         dlEnhanceBtn.disabled = true;
         dlEnhanceBtn.textContent = 'Connect in Settings';
         dlEnhanceBtn.classList.add('opacity-50', 'cursor-not-allowed');
+      }
+
+      /* ========== Image Generation on Daily Lesson ========== */
+      var dlImageGenArea = document.getElementById('dlImageGenArea');
+      if (dlImageGenArea) {
+        buildRoyalVisualizationBtn(dl.title, dlCampus.label, dlImageGenArea);
       }
 
       /* ========== Royal Evolution Map ========== */

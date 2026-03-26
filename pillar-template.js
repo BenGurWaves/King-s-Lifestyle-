@@ -1,8 +1,9 @@
-/* pillar-template.js – v0.0.7 */
+/* pillar-template.js – v0.0.12 */
 /* ============================================================
    Shared Campus Page Interactivity
    Quiz · Checklist · Scenario Solver · Journal Save
    Quest Tracking · Royal Decrees · Audio Placeholders
+   8 Luxury Learning Methods · Image Generation · Spaced Rep
    ============================================================ */
 
 function initPillar(pillarId) {
@@ -17,6 +18,49 @@ function initPillar(pillarId) {
   initQuestCheckboxes(pillarId);
   initAudioPlaceholders();
   initExpandableVerses();
+  initLearningMethods(pillarId);
+}
+
+/* ---------- 8 Luxury Learning Methods — Auto-injection ---------- */
+function initLearningMethods(pillarId) {
+  var campus = CAMPUSES.find(function(c) { return c.id === pillarId; });
+  if (!campus) return;
+  var campusLabel = campus.label;
+
+  // Build Spaced Repetition section at top
+  buildSpacedRepSection('spacedRepContainer');
+
+  // Find all lesson sections and enhance them
+  document.querySelectorAll('.lesson-section').forEach(function(section) {
+    var lessonId = section.id || '';
+    var lessonMatch = lessonId.match(/lesson-(\d+)/);
+    if (!lessonMatch) return;
+    var lessonNum = parseInt(lessonMatch[1]);
+
+    // Get lesson title from the h2
+    var h2 = section.querySelector('h2');
+    var lessonTitle = h2 ? h2.textContent : 'Lesson ' + lessonNum;
+
+    // 1. STORYTELLING — Narrative intro at top of each lesson
+    buildStorytellingIntro(campusLabel, lessonTitle, section);
+
+    // Find the absorb button to insert after it
+    var absorbBtn = section.querySelector('.absorb-btn');
+    if (!absorbBtn) return;
+    var btnContainer = absorbBtn.parentNode;
+
+    // 2. ACTIVE LEARNING — Habit checkpoint
+    buildActiveCheckpoint(pillarId, lessonNum, btnContainer);
+
+    // 3. EXPERIENTIAL / VISUALIZATION — Image generation
+    buildRoyalVisualizationBtn(lessonTitle, campusLabel, btnContainer);
+
+    // 4. PERSONALIZATION — Enhanced LLM button
+    buildEnhanceLessonBtn(lessonTitle, campusLabel, btnContainer);
+
+    // 5. SOCIAL LEARNING — Share insight
+    buildShareInsightBtn(lessonTitle, campusLabel, btnContainer);
+  });
 }
 
 /* ---------- Journal Prompt Saving ---------- */

@@ -1,4 +1,4 @@
-<!-- onboarding.html – v0.0.11 -->
+<!-- onboarding.html – v0.0.12 -->
 <!DOCTYPE html>
 <html lang="en" class="scroll-smooth">
 <head>
@@ -53,9 +53,9 @@
           <p class="text-sm text-royal-sapphire/40 dark:text-white/30 mb-8 font-playfair italic">The name by which your kingdom shall know you.</p>
           <input type="text" id="inputName" placeholder="Your name" class="w-full px-5 py-4 rounded-xl border border-royal-gold/20 bg-white/50 dark:bg-white/5 font-inter focus:outline-none focus:border-royal-gold transition text-sm dark:text-white">
           <div class="mt-6">
-            <label class="block text-xs font-cinzel text-royal-gold/60 tracking-wider mb-2">Where do you live or travel most often?</label>
+            <label class="block text-xs font-cinzel text-royal-gold/60 tracking-wider mb-2">Where do you currently live or travel most often?</label>
             <input type="text" id="inputLocation" placeholder="City, state, or region" class="w-full px-5 py-4 rounded-xl border border-royal-gold/20 bg-white/50 dark:bg-white/5 font-inter focus:outline-none focus:border-royal-gold transition text-sm dark:text-white">
-            <p class="text-xs text-royal-sapphire/30 dark:text-white/20 mt-1 font-inter">Used only for LLM personalization when connected.</p>
+            <p class="text-xs text-royal-sapphire/30 dark:text-white/20 mt-1 font-inter">Stored only for LLM personalization. Never hard-coded into lessons.</p>
           </div>
           <div class="flex justify-end mt-8">
             <button id="btn1" disabled class="px-8 py-3 rounded-lg bg-royal-gold/30 text-white/60 text-sm font-cinzel cursor-not-allowed transition-all duration-300">Continue</button>
@@ -76,12 +76,18 @@
         </div>
       </div>
 
-      <!-- Step 3: Challenge -->
+      <!-- Step 3: Goals + Challenge -->
       <div id="step3" class="step-hidden">
         <div class="bg-white dark:bg-royal-sapphire/20 border border-royal-gold/10 rounded-2xl p-8 md:p-12">
-          <h2 class="font-cinzel text-xl text-royal-plum dark:text-royal-gold mb-2">What is your greatest challenge right now?</h2>
-          <p class="text-sm text-royal-sapphire/40 dark:text-white/30 mb-8 font-playfair italic">A king who names his battles is already halfway to victory.</p>
-          <textarea id="inputChallenge" rows="5" placeholder="Describe your current challenge..." class="w-full px-5 py-4 rounded-xl border border-royal-gold/20 bg-white/50 dark:bg-white/5 font-inter focus:outline-none focus:border-royal-gold transition text-sm resize-none dark:text-white"></textarea>
+          <h2 class="font-cinzel text-xl text-royal-plum dark:text-royal-gold mb-2">Your goals and challenges</h2>
+          <p class="text-sm text-royal-sapphire/40 dark:text-white/30 mb-8 font-playfair italic">A king who names his vision and his battles is already halfway to victory.</p>
+          <div class="mb-6">
+            <label class="block text-xs font-cinzel text-royal-gold/60 tracking-wider mb-2">What are your goals as a young king?</label>
+            <input type="text" id="inputGoals" placeholder="e.g. Become more disciplined, build my faith, lead with integrity" class="w-full px-5 py-4 rounded-xl border border-royal-gold/20 bg-white/50 dark:bg-white/5 font-inter focus:outline-none focus:border-royal-gold transition text-sm dark:text-white">
+            <p class="text-xs text-royal-sapphire/30 dark:text-white/20 mt-1 font-inter">Used to personalize your lessons, image generation, and AI counsel.</p>
+          </div>
+          <label class="block text-xs font-cinzel text-royal-gold/60 tracking-wider mb-2">What is your greatest challenge right now?</label>
+          <textarea id="inputChallenge" rows="4" placeholder="Describe your current challenge..." class="w-full px-5 py-4 rounded-xl border border-royal-gold/20 bg-white/50 dark:bg-white/5 font-inter focus:outline-none focus:border-royal-gold transition text-sm resize-none dark:text-white"></textarea>
           <div class="flex justify-between mt-8">
             <button class="prev-btn px-6 py-2 rounded-lg border border-royal-gold/20 text-royal-gold text-sm hover:bg-royal-gold/10 transition" data-target="2">Previous</button>
             <button id="btn3" disabled class="px-8 py-3 rounded-lg bg-royal-gold/30 text-white/60 text-sm font-cinzel cursor-not-allowed transition-all duration-300">Continue</button>
@@ -127,7 +133,7 @@
 
   <div id="mainFooter"></div>
 
-  <script src="shared.js?v=11"></script>
+  <script src="shared.js?v=12"></script>
   <script>
     document.addEventListener('DOMContentLoaded', function() {
       if (!requireAuth()) return;
@@ -137,7 +143,7 @@
       var DISCIPLINE_LABELS = {1:'Barely holding on',2:'Struggling',3:'Inconsistent',4:'Building habits',5:'Moderate',6:'Developing',7:'Solid',8:'Strong',9:'Very disciplined',10:'Iron Will'};
       var currentStep = 1;
       var totalSteps = 5;
-      var data = {name:'',location:'',pillars:[],challenge:'',discipline:5};
+      var data = {name:'',location:'',goals:'',pillars:[],challenge:'',discipline:5};
 
       // Check for existing onboarding data
       var existing = getOnboarding();
@@ -181,6 +187,7 @@
       function bindInputs() {
         document.getElementById('inputName').addEventListener('input', function() { validateStep(1); });
         document.getElementById('inputChallenge').addEventListener('input', function() { validateStep(3); });
+        document.getElementById('inputGoals').addEventListener('input', function() { validateStep(3); });
         var slider = document.getElementById('inputDiscipline');
         slider.addEventListener('input', function() {
           var val = parseInt(slider.value);
@@ -228,7 +235,7 @@
           data.pillars = [];
           document.querySelectorAll('input[name="pillars"]:checked').forEach(function(cb) { data.pillars.push(cb.value); });
         }
-        else if (step === 3) data.challenge = document.getElementById('inputChallenge').value.trim();
+        else if (step === 3) { data.goals = document.getElementById('inputGoals').value.trim(); data.challenge = document.getElementById('inputChallenge').value.trim(); }
         else if (step === 4) data.discipline = parseInt(document.getElementById('inputDiscipline').value);
       }
 
@@ -260,6 +267,8 @@
         target.textContent = '';
         var items = [
           {label:'Name', value: summaryData.name || ''},
+          {label:'Location', value: summaryData.location || 'Not provided'},
+          {label:'Goals', value: summaryData.goals || 'Not set'},
           {label:'Chosen Pillars', value: (summaryData.pillars || []).map(function(p){ return p.charAt(0).toUpperCase() + p.slice(1); }).join(', ') || 'None selected'},
           {label:'Greatest Challenge', value: summaryData.challenge || ''},
           {label:'Discipline Rating', value: (summaryData.discipline || 5) + '/10 — ' + (DISCIPLINE_LABELS[summaryData.discipline] || '')}
@@ -324,7 +333,7 @@
 
         document.getElementById('retakeBtn').addEventListener('click', function() {
           localStorage.removeItem('kl_onboarding');
-          data = {name:'',pillars:[],challenge:'',discipline:5};
+          data = {name:'',location:'',goals:'',pillars:[],challenge:'',discipline:5};
           completed.classList.add('hidden');
           initWizard();
         });
