@@ -1,4 +1,4 @@
-/* shared.js – v0.0.9 */
+/* shared.js – v0.0.10 */
 /* ============================================================
    A King's Lifestyle — Core Module
    Auth · Campuses · Daily Codex · Transformation Engine
@@ -17,9 +17,9 @@ function esc(s){var d=document.createElement('div');d.textContent=s;return d.inn
    CAMPUS DATA — Single source of truth
    ============================================================ */
 const CAMPUSES = [
-  { id:'nourishment', label:'Nourishment', numeral:'I',   href:'/nourishment', accent:'#A38255', lessons:25, desc:'Clean eating by the Creator\u2019s blueprint. Leviticus 11 made practical for 2026.' },
-  { id:'attire',      label:'Attire',      numeral:'II',  href:'/attire',      accent:'#8B7D6B', lessons:22, desc:'Clothed in dignity. Fabrics, grooming, jewelry, and the king\u2019s wardrobe.' },
-  { id:'mentality',   label:'Mentality',   numeral:'III', href:'/mentality',   accent:'#3D4F2F', lessons:3,  desc:'Servant leadership, advising the wise, and the psychology of influence.' },
+  { id:'nourishment', label:'Nourishment', numeral:'I',   href:'/nourishment', accent:'#A38255', lessons:29, desc:'Clean eating, hydration, and the Creator\u2019s blueprint for temple fuel.' },
+  { id:'attire',      label:'Attire',      numeral:'II',  href:'/attire',      accent:'#8B7D6B', lessons:32, desc:'Fabrics, grooming, jewelry, shoes, hats, and the king\u2019s full wardrobe.' },
+  { id:'mentality',   label:'Mentality',   numeral:'III', href:'/mentality',   accent:'#3D4F2F', lessons:11, desc:'Time mastery, servant leadership, advising the wise, and inner discipline.' },
   { id:'treasury',    label:'Treasury',    numeral:'IV',  href:'/treasury',    accent:'#7A6542', lessons:0,  desc:'Budget wisely, build wealth, and provide like a king should.' },
   { id:'templecare',  label:'Temple Care', numeral:'V',   href:'/templecare',  accent:'#6B5B4E', lessons:20, desc:'Grooming, hygiene, fitness, and royal rest. The full temple stewardship.' },
   { id:'presence',    label:'Presence',    numeral:'VI',  href:'/presence',    accent:'#3A3A3A', lessons:3,  desc:'Advanced body language, psychological influence, and commanding any room.' },
@@ -96,8 +96,41 @@ const DAILY_LESSONS = [
 ];
 
 function getDailyLesson(){
-  var dayIndex=Math.floor((Date.now()-new Date('2024-01-01').getTime())/86400000)%DAILY_LESSONS.length;
-  return DAILY_LESSONS[dayIndex];
+  // Smart rotation: skip already-absorbed lessons, avoid same campus twice in a row
+  var dayIndex=Math.floor((Date.now()-new Date('2024-01-01').getTime())/86400000);
+  var lastCampus=localStorage.getItem('kl_last_daily_campus')||'';
+  // Try from day index forward to find next unabsorbed lesson
+  for(var i=0;i<DAILY_LESSONS.length;i++){
+    var idx=(dayIndex+i)%DAILY_LESSONS.length;
+    var dl=DAILY_LESSONS[idx];
+    var absorbed=JSON.parse(localStorage.getItem('kl_'+dl.campusId+'_absorbed')||'[]');
+    if(!absorbed.includes(dl.lesson)){
+      // Prefer different campus than yesterday (but don't hard-block)
+      if(i===0&&dl.campusId===lastCampus&&DAILY_LESSONS.length>1){
+        var next=DAILY_LESSONS[(dayIndex+1)%DAILY_LESSONS.length];
+        var nextAbsorbed=JSON.parse(localStorage.getItem('kl_'+next.campusId+'_absorbed')||'[]');
+        if(!nextAbsorbed.includes(next.lesson)&&next.campusId!==lastCampus)return next;
+      }
+      return dl;
+    }
+  }
+  // All absorbed — cycle from beginning
+  return DAILY_LESSONS[dayIndex%DAILY_LESSONS.length];
+}
+function markDailyLessonCampus(campusId){localStorage.setItem('kl_last_daily_campus',campusId);}
+function getTimeInvestedThisWeek(){
+  var log=getHabitLog();var weekAgo=Date.now()-7*86400000;
+  return log.filter(function(e){return new Date(e.date).getTime()>weekAgo;}).length;
+}
+function getLessonHistory(){
+  var history=JSON.parse(localStorage.getItem('kl_lesson_history')||'[]');
+  return history.slice(-20);
+}
+function addToLessonHistory(campusId,lessonNum,title){
+  var history=JSON.parse(localStorage.getItem('kl_lesson_history')||'[]');
+  history.push({campusId:campusId,lesson:lessonNum,title:title,date:new Date().toISOString()});
+  if(history.length>100)history=history.slice(-100);
+  localStorage.setItem('kl_lesson_history',JSON.stringify(history));
 }
 function getDailyLessonCampus(){
   var dl=getDailyLesson();
@@ -541,18 +574,24 @@ async function askLLMWithPersona(question,campusId){
   var messages=[{role:'system',content:systemPrompt},{role:'user',content:question}];
   try{
     if(cfg.provider==='ollama'){
-      var res=await fetch(cfg.endpoint+'/api/chat',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({model:cfg.model||'llama3.2',messages:messages,stream:false})});
-      if(!res.ok)return 'Ollama returned '+res.status+'. Is Ollama running? Try: ollama serve';
-      var data=await res.json();return data.message?.content||'The counsel is unavailable at this hour.';
+      var ollamaUrl=cfg.endpoint.replace(/\/+$/,'')+'/api/chat';
+      var res=await fetch(ollamaUrl,{method:'POST',mode:'cors',headers:{'Content-Type':'application/json'},body:JSON.stringify({model:cfg.model||'llama3.2',messages:messages,stream:false})});
+      if(!res.ok){var et=await res.text().catch(function(){return '';});return 'Ollama HTTP '+res.status+': '+(et.substring(0,80)||'Error')+'. Run: ollama serve';}
+      var data=await res.json();return data.message?.content||data.response||'Empty response. Check model: '+cfg.model;
     }else{
       var url=cfg.endpoint||'https://api.openai.com/v1/chat/completions';
-      var headers={'Content-Type':'application/json','Authorization':'Bearer '+cfg.apiKey};
-      if(cfg.provider==='openrouter'){headers['HTTP-Referer']='https://akingslifestyle.calyvent.com';headers['X-Title']='A King\'s Lifestyle';}
-      var res2=await fetch(url,{method:'POST',headers:headers,body:JSON.stringify({model:cfg.model||'gpt-4o-mini',messages:messages,max_tokens:150})});
-      if(!res2.ok){var errBody=await res2.text().catch(function(){return '';});return 'API returned '+res2.status+'. '+errBody.substring(0,100);}
-      var data2=await res2.json();return data2.choices?.[0]?.message?.content||'The counsel is unavailable at this hour.';
+      var hdrs={'Content-Type':'application/json','Authorization':'Bearer '+cfg.apiKey};
+      if(cfg.provider==='openrouter'){hdrs['HTTP-Referer']='https://akingslifestyle.calyvent.com';hdrs['X-Title']='A Kings Lifestyle';}
+      var res2=await fetch(url,{method:'POST',mode:'cors',headers:hdrs,body:JSON.stringify({model:cfg.model||'gpt-4o-mini',messages:messages,max_tokens:150})});
+      var raw=await res2.text();
+      if(!res2.ok)return 'API HTTP '+res2.status+': '+raw.substring(0,120);
+      var data2=JSON.parse(raw);
+      return data2.choices?.[0]?.message?.content||data2.choices?.[0]?.text||data2.message?.content||data2.response||'Unexpected response format. Open console (F12). Model: '+cfg.model;
     }
-  }catch(err){return 'Connection failed: '+(err.message||'Network error')+'. Check endpoint and API key in Settings.';}
+  }catch(err){
+    if(err.message&&err.message.indexOf('Failed to fetch')!==-1&&cfg.provider==='ollama'){
+      return 'Cannot reach Ollama at '+cfg.endpoint+'. Fix: open terminal, run OLLAMA_ORIGINS=* ollama serve';}
+    return 'Connection failed: '+(err.message||'Network error')+'. Check endpoint/key in Settings.';}
 }
 
 function buildAskTheKing(){
