@@ -1,4 +1,4 @@
-<!-- onboarding.html – v0.0.10 -->
+<!-- onboarding.html – v0.0.11 -->
 <!DOCTYPE html>
 <html lang="en" class="scroll-smooth">
 <head>
@@ -52,6 +52,11 @@
           <h2 class="font-cinzel text-xl text-royal-plum dark:text-royal-gold mb-2">What is your name, King?</h2>
           <p class="text-sm text-royal-sapphire/40 dark:text-white/30 mb-8 font-playfair italic">The name by which your kingdom shall know you.</p>
           <input type="text" id="inputName" placeholder="Your name" class="w-full px-5 py-4 rounded-xl border border-royal-gold/20 bg-white/50 dark:bg-white/5 font-inter focus:outline-none focus:border-royal-gold transition text-sm dark:text-white">
+          <div class="mt-6">
+            <label class="block text-xs font-cinzel text-royal-gold/60 tracking-wider mb-2">Where do you live or travel most often?</label>
+            <input type="text" id="inputLocation" placeholder="City, state, or region" class="w-full px-5 py-4 rounded-xl border border-royal-gold/20 bg-white/50 dark:bg-white/5 font-inter focus:outline-none focus:border-royal-gold transition text-sm dark:text-white">
+            <p class="text-xs text-royal-sapphire/30 dark:text-white/20 mt-1 font-inter">Used only for LLM personalization when connected.</p>
+          </div>
           <div class="flex justify-end mt-8">
             <button id="btn1" disabled class="px-8 py-3 rounded-lg bg-royal-gold/30 text-white/60 text-sm font-cinzel cursor-not-allowed transition-all duration-300">Continue</button>
           </div>
@@ -122,7 +127,7 @@
 
   <div id="mainFooter"></div>
 
-  <script src="shared.js"></script>
+  <script src="shared.js?v=11"></script>
   <script>
     document.addEventListener('DOMContentLoaded', function() {
       if (!requireAuth()) return;
@@ -132,7 +137,7 @@
       var DISCIPLINE_LABELS = {1:'Barely holding on',2:'Struggling',3:'Inconsistent',4:'Building habits',5:'Moderate',6:'Developing',7:'Solid',8:'Strong',9:'Very disciplined',10:'Iron Will'};
       var currentStep = 1;
       var totalSteps = 5;
-      var data = {name:'',pillars:[],challenge:'',discipline:5};
+      var data = {name:'',location:'',pillars:[],challenge:'',discipline:5};
 
       // Check for existing onboarding data
       var existing = getOnboarding();
@@ -218,7 +223,7 @@
       }
 
       function collectStepData(step) {
-        if (step === 1) data.name = document.getElementById('inputName').value.trim();
+        if (step === 1) { data.name = document.getElementById('inputName').value.trim(); data.location = document.getElementById('inputLocation').value.trim(); }
         else if (step === 2) {
           data.pillars = [];
           document.querySelectorAll('input[name="pillars"]:checked').forEach(function(cb) { data.pillars.push(cb.value); });

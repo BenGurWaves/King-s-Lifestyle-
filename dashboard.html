@@ -1,4 +1,4 @@
-<!-- dashboard.html – v0.0.10 -->
+<!-- dashboard.html – v0.0.11 -->
 <!DOCTYPE html>
 <html lang="en" class="scroll-smooth">
 <head>
@@ -27,7 +27,7 @@
     "@context": "https://schema.org",
     "@type": "WebApplication",
     "name": "A King's Lifestyle Dashboard",
-    "description": "Private members dashboard for A King's Lifestyle — a faith-based men's refinement platform covering nourishment, attire, mentality, treasury, temple care, presence, speech, and legacy.",
+    "description": "Private members dashboard for A King's Lifestyle — a faith-based men's refinement platform covering nourishment, attire, mentality, treasury, temple care, presence, speech, legacy, and the royal library.",
     "url": "https://akingslifestyle.com/dashboard",
     "applicationCategory": "LifestyleApplication",
     "operatingSystem": "Web",
@@ -58,7 +58,7 @@
         <div class="relative z-10">
           <p class="font-cinzel text-xs tracking-[0.3em] text-royal-gold/80 uppercase mb-2">Daily Royal Codex</p>
           <h1 class="font-cinzel text-2xl md:text-3xl text-white mb-1">Your Daily Royal Codex</h1>
-          <p class="font-playfair italic text-sm text-white/40 mb-6">One Scroll, Total Kingship</p>
+          <p class="font-playfair italic text-sm text-white/40 mb-6">One Scroll to Become a King and Gentleman</p>
 
           <div class="flex flex-wrap items-center gap-4 mb-6">
             <div class="bg-white/10 border border-royal-gold/20 rounded-xl px-5 py-3 text-center">
@@ -111,7 +111,7 @@
       <div class="flex items-center justify-between mb-5">
         <div>
           <h2 class="font-cinzel text-lg text-royal-plum dark:text-royal-gold tracking-wide">Royal Evolution Map</h2>
-          <p class="font-inter text-xs text-royal-sapphire/40 dark:text-white/30 mt-1">Progress across all eight campuses.</p>
+          <p class="font-inter text-xs text-royal-sapphire/40 dark:text-white/30 mt-1">Progress across all nine campuses.</p>
         </div>
         <div class="text-right">
           <span id="templeChangeScore" class="font-cinzel text-3xl text-royal-gold">0</span>
@@ -153,19 +153,19 @@
     <section class="mb-14">
       <div class="mb-6 animate-fadeIn">
         <h2 class="font-cinzel text-lg text-royal-plum dark:text-royal-gold tracking-wide">Royal Campuses</h2>
-        <p class="font-inter text-xs text-royal-sapphire/40 dark:text-white/30 mt-1">Eight pillars of a king's refinement. Enter each campus to study, reflect, and absorb.</p>
+        <p class="font-inter text-xs text-royal-sapphire/40 dark:text-white/30 mt-1">Nine pillars of a king's refinement. Enter each campus to study, reflect, and absorb.</p>
       </div>
-      <div id="campusGrid" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-5"></div>
+      <div id="campusGrid" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5"></div>
     </section>
 
     <!-- Version -->
-    <p class="text-center text-xs text-royal-sapphire/20 dark:text-white/15 mt-12 font-inter">v0.0.10</p>
+    <p class="text-center text-xs text-royal-sapphire/20 dark:text-white/15 mt-12 font-inter">v0.0.11</p>
   </main>
 
   <!-- 8. Footer -->
   <div id="mainFooter"></div>
 
-  <script src="shared.js"></script>
+  <script src="shared.js?v=11"></script>
   <script>
     document.addEventListener('DOMContentLoaded', function() {
       if (!requireAuth()) return;

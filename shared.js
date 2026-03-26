@@ -1,9 +1,9 @@
-/* shared.js – v0.0.10 */
+/* shared.js – v0.0.11 */
 /* ============================================================
    A King's Lifestyle — Core Module
    Auth · Campuses · Daily Codex · Transformation Engine
-   LLM Persona Compression · Navigation · Verse Modal
-   Bible-only. No secular mode.
+   LLM Persona Compression · Royal Library · Navigation
+   Bible-only. No secular mode. Location-agnostic.
    ============================================================ */
 
 /* ---------- Crown SVG ---------- */
@@ -24,7 +24,8 @@ const CAMPUSES = [
   { id:'templecare',  label:'Temple Care', numeral:'V',   href:'/templecare',  accent:'#6B5B4E', lessons:20, desc:'Grooming, hygiene, fitness, and royal rest. The full temple stewardship.' },
   { id:'presence',    label:'Presence',    numeral:'VI',  href:'/presence',    accent:'#3A3A3A', lessons:3,  desc:'Advanced body language, psychological influence, and commanding any room.' },
   { id:'speech',      label:'Speech',      numeral:'VII', href:'/speech',      accent:'#4A5568', lessons:2,  desc:'Speech in confrontation, persuasion without manipulation, and kingly conversation.' },
-  { id:'legacy',      label:'Legacy',      numeral:'+',   href:'/legacy',      accent:'#571641', lessons:2,  desc:'Multi-generational leadership and building advisory councils that outlast you.' }
+  { id:'legacy',      label:'Legacy',      numeral:'+',   href:'/legacy',      accent:'#571641', lessons:2,  desc:'Multi-generational leadership and building advisory councils that outlast you.' },
+  { id:'library',     label:'Royal Library',numeral:'IX',  href:'/library',     accent:'#5C4033', lessons:25, desc:'Wisdom for the mind and spirit. Bible-anchored book studies for young kings.' }
 ];
 
 /* ============================================================
@@ -92,7 +93,20 @@ const DAILY_LESSONS = [
   {campusId:'nourishment',lesson:22,title:'Travel Pantry Blueprint',brief:'Road-trip kits that never compromise.'},
   {campusId:'nourishment',lesson:23,title:'Energy That Lasts',brief:'Avoiding blood and fat traps in modern food.'},
   {campusId:'nourishment',lesson:24,title:'The 30-Day Covenant',brief:'Your personal nourishment plan.'},
-  {campusId:'nourishment',lesson:25,title:'Capstone',brief:'Living Leviticus 11 as a 2026 king in Colorado.'}
+  {campusId:'nourishment',lesson:25,title:'Capstone',brief:'Living Leviticus 11 as a king of faith.'},
+  {campusId:'library',lesson:1,title:'The Renewed Mind',brief:'Romans 12:2 + Psycho-Cybernetics.'},
+  {campusId:'library',lesson:5,title:'The Growth Decree',brief:'Philippians 4:13 + Mindset by Dweck.'},
+  {campusId:'library',lesson:11,title:'Atomic Obedience',brief:'Luke 16:10 + Atomic Habits by Clear.'},
+  {campusId:'library',lesson:12,title:'The Deep Chamber',brief:'Psalm 46:10 + Deep Work by Newport.'},
+  {campusId:'library',lesson:18,title:'Purpose as Blueprint',brief:'Jeremiah 29:11 + Purpose Driven Life.'},
+  {campusId:'library',lesson:22,title:'The Reason for Faith',brief:'1 Peter 3:15 + Mere Christianity.'},
+  {campusId:'library',lesson:25,title:'The Unhurried King',brief:'Psalm 23:2 + Ruthless Elimination of Hurry.'},
+  {campusId:'nourishment',lesson:26,title:'The Living Water Principle',brief:'John 4 + hydration science for the temple.'},
+  {campusId:'nourishment',lesson:27,title:'Daily Hydration Discipline',brief:'Exact daily amounts for temple performance.'},
+  {campusId:'mentality',lesson:4,title:'The King\u2019s Hours',brief:'Psalm 90:12 \u2014 time as divine stewardship.'},
+  {campusId:'mentality',lesson:7,title:'The Sabbath Principle',brief:'Exodus 20:8 \u2014 holy rest as command.'},
+  {campusId:'attire',lesson:23,title:'Beard Stewardship Expanded',brief:'Types, frequency, and styles for kings.'},
+  {campusId:'attire',lesson:27,title:'Shoes That Walk in Wisdom',brief:'Proverbs 4:26 applied to footwear.'}
 ];
 
 function getDailyLesson(){
@@ -149,7 +163,8 @@ var LLM_PERSONAS = {
   presence: 'You are the Lead Professor of Biblical Presence. Expert in body language, Proverbs on silence and discernment, psychological influence, and commanding rooms with quiet authority. Tie every answer to Scripture.',
   speech: 'You are the Lead Professor of Biblical Speech. Expert in Proverbs 15:1 gentle answers, persuasion without manipulation, 1 Timothy 4:12 speech as credential. Tie every answer to Scripture.',
   legacy: 'You are the Lead Professor of Biblical Legacy. Expert in multi-generational vision (Psalm 78), advisory councils (Proverbs 11:14), and building what outlasts your lifetime. Tie every answer to Scripture.',
-  default: 'You are the King\u2019s Counsel, a wise advisor grounded in Scripture across all domains of kingship \u2014 nourishment, attire, mentality, treasury, temple care, presence, speech, and legacy. Respond with high vocabulary, brevity, and kingly authority.'
+  library: 'You are the Lead Professor of the King\u2019s Library. Expert in Biblical wisdom literature, visualization/mindset (Psycho-Cybernetics, Think and Grow Rich), productivity (Atomic Habits, Deep Work, Getting Things Done), and spiritual growth (Purpose Driven Life, Mere Christianity, Cost of Discipleship). Always anchor in Scripture first, then reference the relevant book as a practical tool.',
+  default: 'You are the King\u2019s Counsel, a wise advisor grounded in Scripture across all domains of kingship \u2014 nourishment, attire, mentality, treasury, temple care, presence, speech, legacy, and the royal library. Respond with high vocabulary, brevity, and kingly authority.'
 };
 
 function getCurrentCampusId(){
@@ -167,7 +182,7 @@ async function enhanceWithLLM(lessonTitle,campusName){
   var onboarding=getOnboarding();
   var context='';
   if(onboarding){
-    context='The user is based in Aurora, Colorado. ';
+    if(onboarding.location)context+='The user is based in '+onboarding.location+'. ';
     if(onboarding.name)context+='Their name is '+onboarding.name+'. ';
     if(onboarding.goals)context+='Their goals: '+onboarding.goals+'. ';
     if(onboarding.experience)context+='Experience level: '+onboarding.experience+'. ';
@@ -295,7 +310,16 @@ function setDark(d){localStorage.setItem('kl_dark',d?'true':'false');document.do
 /* ============================================================
    DAILY PRINCIPLE (Bible only)
    ============================================================ */
-function getDayIndex(){return Math.floor((Date.now()-new Date('2024-01-01').getTime())/86400000)%10;}
+function getDayIndex(){
+  // Rotate every 24h using localStorage timestamp
+  var stored=localStorage.getItem('kl_verse_index');
+  var lastChange=localStorage.getItem('kl_verse_changed');
+  var now=Date.now();
+  if(stored!==null&&lastChange&&(now-parseInt(lastChange))<86400000)return parseInt(stored);
+  var idx=stored!==null?(parseInt(stored)+1)%PRINCIPLES.length:Math.floor((now-new Date('2024-01-01').getTime())/86400000)%PRINCIPLES.length;
+  localStorage.setItem('kl_verse_index',idx);localStorage.setItem('kl_verse_changed',now);
+  return idx;
+}
 function getTodayPrinciple(){return PRINCIPLES[getDayIndex()];}
 function renderDailyPrinciple(){
   var el=document.getElementById('dailyPrinciple');if(!el)return;
@@ -575,9 +599,10 @@ async function askLLMWithPersona(question,campusId){
   try{
     if(cfg.provider==='ollama'){
       var ollamaUrl=cfg.endpoint.replace(/\/+$/,'')+'/api/chat';
-      var res=await fetch(ollamaUrl,{method:'POST',mode:'cors',headers:{'Content-Type':'application/json'},body:JSON.stringify({model:cfg.model||'llama3.2',messages:messages,stream:false})});
-      if(!res.ok){var et=await res.text().catch(function(){return '';});return 'Ollama HTTP '+res.status+': '+(et.substring(0,80)||'Error')+'. Run: ollama serve';}
-      var data=await res.json();return data.message?.content||data.response||'Empty response. Check model: '+cfg.model;
+      // Use text/plain to avoid CORS preflight (simple request — no OPTIONS sent)
+      var res=await fetch(ollamaUrl,{method:'POST',headers:{'Content-Type':'text/plain'},body:JSON.stringify({model:cfg.model||'llama3.2',messages:messages,stream:false})});
+      if(!res.ok){var et=await res.text().catch(function(){return '';});return 'Ollama HTTP '+res.status+': '+(et.substring(0,80)||'Error')+'. Ensure ollama is running.';}
+      var data=await res.json();return data.message?.content||data.response||'Empty Ollama response. Check model name: '+cfg.model;
     }else{
       var url=cfg.endpoint||'https://api.openai.com/v1/chat/completions';
       var hdrs={'Content-Type':'application/json','Authorization':'Bearer '+cfg.apiKey};
