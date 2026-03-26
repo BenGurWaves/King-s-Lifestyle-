@@ -1,6 +1,6 @@
-// Service Worker — A King's Lifestyle v0.0.8
+// Service Worker — A King's Lifestyle v0.0.9
 // Network-first strategy: always try fresh content, fall back to cache offline
-const CACHE_NAME = 'kings-lifestyle-v5';
+const CACHE_NAME = 'kings-lifestyle-v6';
 const URLS_TO_CACHE = [
   '/',
   '/dashboard',

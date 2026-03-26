@@ -1,10 +1,11 @@
-<!-- settings.html – v0.0.8 -->
+<!-- settings.html – v0.0.9 -->
 <!DOCTYPE html>
 <html lang="en" class="scroll-smooth">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0">
   <title>Settings — A King's Lifestyle</title>
+  <link rel="icon" type="image/svg+xml" href="/favicon.svg">
   <link rel="manifest" href="manifest.json">
   <script src="https://cdn.tailwindcss.com"></script>
   <script>tailwind.config={darkMode:'class',theme:{extend:{colors:{royal:{green:'#052B20',cream:'#FFF6E6',gold:'#A38255',plum:'#571641',sapphire:'#08052D'}},fontFamily:{cinzel:['Cinzel','serif'],inter:['Inter','sans-serif'],playfair:['Playfair Display','serif']},animation:{fadeIn:'fadeIn 0.8s ease-out forwards',fadeInUp:'fadeInUp 0.8s ease-out forwards'},keyframes:{fadeIn:{'0%':{opacity:'0'},'100%':{opacity:'1'}},fadeInUp:{'0%':{opacity:'0',transform:'translateY(24px)'},'100%':{opacity:'1',transform:'translateY(0)'}}}}}};</script>
@@ -70,10 +71,11 @@
             <label for="llmProvider" class="block text-xs font-cinzel text-royal-gold/60 dark:text-royal-gold/40 tracking-wider mb-2">Provider</label>
             <select id="llmProvider" class="w-full px-4 py-3 rounded-xl border border-royal-gold/20 bg-royal-cream/50 dark:bg-white/5 font-inter text-sm focus:outline-none focus:border-royal-gold transition dark:text-white/80">
               <option value="">Select provider...</option>
-              <option value="ollama">Ollama</option>
+              <option value="ollama">Ollama (local)</option>
               <option value="openai">OpenAI</option>
+              <option value="openrouter">OpenRouter</option>
               <option value="xai">Grok / xAI</option>
-              <option value="custom">Custom</option>
+              <option value="custom">Custom (OpenAI-compatible)</option>
             </select>
           </div>
 
@@ -137,7 +139,7 @@
     </div>
 
     <!-- 6. Version -->
-    <p class="text-center text-xs text-royal-sapphire/20 dark:text-white/15 mt-12 font-inter">v0.0.8</p>
+    <p class="text-center text-xs text-royal-sapphire/20 dark:text-white/15 mt-12 font-inter">v0.0.9</p>
   </section>
 
   <div id="mainFooter"></div>
@@ -197,11 +199,12 @@
       // Auto-fill endpoint on provider change
       document.getElementById('llmProvider').addEventListener('change', function() {
         var endpoint = document.getElementById('llmEndpoint');
-        if (!endpoint.value) {
-          if (this.value === 'ollama') endpoint.value = 'http://localhost:11434';
-          else if (this.value === 'openai') endpoint.value = 'https://api.openai.com/v1/chat/completions';
-          else if (this.value === 'xai') endpoint.value = 'https://api.x.ai/v1/chat/completions';
-        }
+        var model = document.getElementById('llmModel');
+        endpoint.value = '';
+        if (this.value === 'ollama') { endpoint.value = 'http://localhost:11434'; if(!model.value) model.value='llama3.2'; }
+        else if (this.value === 'openai') { endpoint.value = 'https://api.openai.com/v1/chat/completions'; if(!model.value) model.value='gpt-4o-mini'; }
+        else if (this.value === 'openrouter') { endpoint.value = 'https://openrouter.ai/api/v1/chat/completions'; if(!model.value) model.value='anthropic/claude-3-haiku'; }
+        else if (this.value === 'xai') { endpoint.value = 'https://api.x.ai/v1/chat/completions'; if(!model.value) model.value='grok-2'; }
       });
 
       // Save LLM config

@@ -1,8 +1,9 @@
-/* shared.js – v0.0.8 */
+/* shared.js – v0.0.9 */
 /* ============================================================
    A King's Lifestyle — Core Module
-   Auth · Campuses · Daily Codex · Navigation · Verse Modal
-   LLM Enhancement · Quests · Bible-only. No secular mode.
+   Auth · Campuses · Daily Codex · Transformation Engine
+   LLM Persona Compression · Navigation · Verse Modal
+   Bible-only. No secular mode.
    ============================================================ */
 
 /* ---------- Crown SVG ---------- */
@@ -17,7 +18,7 @@ function esc(s){var d=document.createElement('div');d.textContent=s;return d.inn
    ============================================================ */
 const CAMPUSES = [
   { id:'nourishment', label:'Nourishment', numeral:'I',   href:'/nourishment', accent:'#A38255', lessons:25, desc:'Clean eating by the Creator\u2019s blueprint. Leviticus 11 made practical for 2026.' },
-  { id:'attire',      label:'Attire',      numeral:'II',  href:'/attire',      accent:'#8B7D6B', lessons:6,  desc:'Dress with purpose. Modest adornment, jewelry, and the king\u2019s wardrobe.' },
+  { id:'attire',      label:'Attire',      numeral:'II',  href:'/attire',      accent:'#8B7D6B', lessons:22, desc:'Clothed in dignity. Fabrics, grooming, jewelry, and the king\u2019s wardrobe.' },
   { id:'mentality',   label:'Mentality',   numeral:'III', href:'/mentality',   accent:'#3D4F2F', lessons:3,  desc:'Servant leadership, advising the wise, and the psychology of influence.' },
   { id:'treasury',    label:'Treasury',    numeral:'IV',  href:'/treasury',    accent:'#7A6542', lessons:0,  desc:'Budget wisely, build wealth, and provide like a king should.' },
   { id:'templecare',  label:'Temple Care', numeral:'V',   href:'/templecare',  accent:'#6B5B4E', lessons:20, desc:'Grooming, hygiene, fitness, and royal rest. The full temple stewardship.' },
@@ -104,8 +105,29 @@ function getDailyLessonCampus(){
 }
 
 /* ============================================================
-   LLM ENHANCEMENT — "Enhance with My Wisdom" per lesson
+   LLM PERSONA COMPRESSION — Campus-specific system prompts
    ============================================================ */
+var LLM_PERSONAS = {
+  nourishment: 'You are the Lead Professor of Biblical Nutrition. Expert in Leviticus 11, clean/unclean foods, Hebrew food terminology, and 2026 Aurora Colorado grocery sourcing. Tie every answer to Scripture and practical modern application.',
+  attire: 'You are the Lead Professor of Biblical Attire. Expert in modest adornment, Leviticus 19:19 fabric laws, 1 Timothy 2:9-10, jewelry symbolism, gentleman grooming. Tie every answer to Scripture and practical 2026 Colorado style.',
+  mentality: 'You are the Lead Professor of Biblical Mentality. Expert in servant leadership (Matt 20:26), wisdom literature, psychological influence grounded in Proverbs, and advising the wise. Tie every answer to Scripture.',
+  treasury: 'You are the Lead Professor of Biblical Treasury. Expert in Proverbs on wealth, tithing, stewardship, and practical 2026 financial strategies grounded in Scripture.',
+  templecare: 'You are the Lead Professor of Biblical Temple Care. Expert in 1 Corinthians 6:19-20 body stewardship, grooming, sleep (Psalm 127:2), hygiene, and fitness as worship. Tie every answer to Scripture and 2026 Aurora practical life.',
+  presence: 'You are the Lead Professor of Biblical Presence. Expert in body language, Proverbs on silence and discernment, psychological influence, and commanding rooms with quiet authority. Tie every answer to Scripture.',
+  speech: 'You are the Lead Professor of Biblical Speech. Expert in Proverbs 15:1 gentle answers, persuasion without manipulation, 1 Timothy 4:12 speech as credential. Tie every answer to Scripture.',
+  legacy: 'You are the Lead Professor of Biblical Legacy. Expert in multi-generational vision (Psalm 78), advisory councils (Proverbs 11:14), and building what outlasts your lifetime. Tie every answer to Scripture.',
+  default: 'You are the King\u2019s Counsel, a wise advisor grounded in Scripture across all domains of kingship \u2014 nourishment, attire, mentality, treasury, temple care, presence, speech, and legacy. Respond with high vocabulary, brevity, and kingly authority.'
+};
+
+function getCurrentCampusId(){
+  var path=window.location.pathname;
+  for(var i=0;i<CAMPUSES.length;i++){if(path.indexOf(CAMPUSES[i].id)!==-1)return CAMPUSES[i].id;}
+  return 'default';
+}
+function getCampusSystemPrompt(campusId){
+  return (LLM_PERSONAS[campusId]||LLM_PERSONAS['default'])+' Reference relevant Bible verses. Keep responses under 100 words. Speak as a mentor, not a servant.';
+}
+
 async function enhanceWithLLM(lessonTitle,campusName){
   var cfg=getLLMConfig();
   if(!cfg.endpoint&&!cfg.apiKey)return null;
@@ -117,10 +139,72 @@ async function enhanceWithLLM(lessonTitle,campusName){
     if(onboarding.goals)context+='Their goals: '+onboarding.goals+'. ';
     if(onboarding.experience)context+='Experience level: '+onboarding.experience+'. ';
   }
-  var prompt='You are the King\u2019s Counsel. The user just read the lesson "'+lessonTitle+'" from the '+campusName+' campus. '+context+'Give them a personalized Royal Insight \u2014 one paragraph (60-80 words) that connects this lesson to their specific situation in 2026 Aurora, Colorado. Be specific, wise, and encouraging. Reference one relevant Bible verse.';
-  return askLLM(prompt);
+  var recentJournal=getJournalEntries().slice(-3).map(function(e){return e.answer;}).join(' ');
+  if(recentJournal)context+='Recent reflections: '+recentJournal.substring(0,200)+'. ';
+  var prompt='The user just read "'+lessonTitle+'" from '+campusName+'. '+context+'Give a personalized Royal Insight (60-80 words) connecting this lesson to their journey. Reference one Bible verse.';
+  var campusId=CAMPUSES.find(function(c){return c.label===campusName;})?.id||'default';
+  return askLLMWithPersona(prompt,campusId);
 }
 function hasLLMConfigured(){var cfg=getLLMConfig();return !!(cfg.endpoint||cfg.apiKey);}
+
+/* ============================================================
+   TRANSFORMATION ENGINE — Habit tracking, Temple Change Score,
+   Micro-Quest Chains, Reflection Loop, Evolution Map
+   ============================================================ */
+function getHabitLog(){return JSON.parse(localStorage.getItem('kl_habit_log')||'[]');}
+function logHabit(campusId,action){
+  var log=getHabitLog();
+  log.push({campus:campusId,action:action,date:new Date().toISOString()});
+  if(log.length>500)log=log.slice(-500);
+  localStorage.setItem('kl_habit_log',JSON.stringify(log));
+}
+
+function getTempleChangeScore(){
+  var log=getHabitLog();
+  var thirtyDaysAgo=Date.now()-30*86400000;
+  var recent=log.filter(function(e){return new Date(e.date).getTime()>thirtyDaysAgo;});
+  var daysActive=new Set(recent.map(function(e){return new Date(e.date).toDateString();})).size;
+  var questsComplete=0;
+  CAMPUSES.forEach(function(c){
+    var q=getQuests(c.id);
+    questsComplete+=Object.values(q).filter(function(v){return v===true;}).length;
+  });
+  var absorbed=0;
+  CAMPUSES.forEach(function(c){
+    absorbed+=JSON.parse(localStorage.getItem('kl_'+c.id+'_absorbed')||'[]').length;
+  });
+  return Math.min(100,Math.round((daysActive*2)+(questsComplete*3)+(absorbed*1.5)));
+}
+
+function getMicroQuestDay(){
+  var start=localStorage.getItem('kl_quest_chain_start');
+  if(!start){localStorage.setItem('kl_quest_chain_start',new Date().toISOString());return 1;}
+  return Math.floor((Date.now()-new Date(start).getTime())/86400000)+1;
+}
+
+function getAdaptiveQuest(campusId,lessonNum){
+  var day=getMicroQuestDay();
+  var streak=parseInt(localStorage.getItem('kl_streak')||'0');
+  if(day<=7)return {level:'Foundation',text:'Log one action from this lesson today. Write what you did and how it felt.',type:'log'};
+  if(day<=14)return {level:'Integration',text:'Apply this lesson\u2019s principle for 3 consecutive days. Track each day in your journal.',type:'streak'};
+  if(day<=21)return {level:'Mastery',text:'Teach this lesson\u2019s core principle to one person this week. Record their response.',type:'teach'};
+  return {level:'Legacy',text:'Review your journal entries from the past 21 days. Write a one-paragraph summary of how this campus has changed your daily life.',type:'reflect'};
+}
+
+function getReflectionPrompt(campusId){
+  var entries=getJournalEntries().filter(function(e){return e.pillar===campusId;}).slice(-2);
+  if(entries.length===0)return null;
+  return 'In a previous reflection, you wrote: \u201C'+entries[entries.length-1].answer.substring(0,120)+'\u2026\u201D How has your perspective evolved since then?';
+}
+
+function getEvolutionMapData(){
+  return CAMPUSES.map(function(c){
+    var absorbed=JSON.parse(localStorage.getItem('kl_'+c.id+'_absorbed')||'[]').length;
+    var quests=Object.values(getQuests(c.id)).filter(function(v){return v===true;}).length;
+    var habits=getHabitLog().filter(function(e){return e.campus===c.id;}).length;
+    return {id:c.id,label:c.label,accent:c.accent,numeral:c.numeral,lessons:c.lessons,absorbed:absorbed,quests:quests,habits:habits,score:c.lessons>0?Math.round((absorbed/c.lessons)*100):0};
+  });
+}
 
 /* ---------- Daily Royal Principles (Bible only, 10 verses) ---------- */
 const PRINCIPLES = [
@@ -448,19 +532,27 @@ var FALLBACK_RESPONSES=[
 ];
 
 async function askLLM(question){
+  return askLLMWithPersona(question,getCurrentCampusId());
+}
+async function askLLMWithPersona(question,campusId){
   var cfg=getLLMConfig();
   if(!cfg.endpoint&&!cfg.apiKey)return FALLBACK_RESPONSES[Math.floor(Math.random()*FALLBACK_RESPONSES.length)];
-  var systemPrompt='You are the King\'s Counsel, a wise advisor grounded in Scripture (especially Proverbs, Leviticus 11, and the wisdom literature). Respond with high vocabulary, brevity, and kingly authority. Reference relevant Bible verses. Keep responses under 100 words. Speak as a mentor, not a servant.';
+  var systemPrompt=getCampusSystemPrompt(campusId||'default');
+  var messages=[{role:'system',content:systemPrompt},{role:'user',content:question}];
   try{
     if(cfg.provider==='ollama'){
-      var res=await fetch(cfg.endpoint+'/api/chat',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({model:cfg.model||'llama3.2',messages:[{role:'system',content:systemPrompt},{role:'user',content:question}],stream:false})});
+      var res=await fetch(cfg.endpoint+'/api/chat',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({model:cfg.model||'llama3.2',messages:messages,stream:false})});
+      if(!res.ok)return 'Ollama returned '+res.status+'. Is Ollama running? Try: ollama serve';
       var data=await res.json();return data.message?.content||'The counsel is unavailable at this hour.';
     }else{
       var url=cfg.endpoint||'https://api.openai.com/v1/chat/completions';
-      var res2=await fetch(url,{method:'POST',headers:{'Content-Type':'application/json','Authorization':'Bearer '+cfg.apiKey},body:JSON.stringify({model:cfg.model||'gpt-4o-mini',messages:[{role:'system',content:systemPrompt},{role:'user',content:question}],max_tokens:150})});
+      var headers={'Content-Type':'application/json','Authorization':'Bearer '+cfg.apiKey};
+      if(cfg.provider==='openrouter'){headers['HTTP-Referer']='https://akingslifestyle.calyvent.com';headers['X-Title']='A King\'s Lifestyle';}
+      var res2=await fetch(url,{method:'POST',headers:headers,body:JSON.stringify({model:cfg.model||'gpt-4o-mini',messages:messages,max_tokens:150})});
+      if(!res2.ok){var errBody=await res2.text().catch(function(){return '';});return 'API returned '+res2.status+'. '+errBody.substring(0,100);}
       var data2=await res2.json();return data2.choices?.[0]?.message?.content||'The counsel is unavailable at this hour.';
     }
-  }catch(err){return 'The counsel chamber is unreachable. Check your LLM connection in Settings.';}
+  }catch(err){return 'Connection failed: '+(err.message||'Network error')+'. Check endpoint and API key in Settings.';}
 }
 
 function buildAskTheKing(){
